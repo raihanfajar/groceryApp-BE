@@ -2,7 +2,7 @@
   "name": "pwd-template-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "lint-staged": {
     "src/**/*.ts": [
       "eslint --fix",
@@ -17,25 +17,44 @@
     "prepare": "husky install",
     "migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.13.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^22.17.1",
+    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer-express-handlebars": "^4.0.5",
+    "@types/pg": "^8.15.5",
+    "@types/uuid": "^10.0.0",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "country-state-city": "^3.2.1",
+    "cron": "^4.3.3",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
+    "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
-    "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "multer": "^2.0.2",
+    "nanoid": "^3.3.6",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.5",
+    "nodemailer-express-handlebars": "^7.0.0",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.15.3",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
     "commitizen": "^4.3.1",
@@ -46,13 +65,17 @@
     "lint-staged": "^15.5.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
-    "prisma": "^6.7.0",
+    "prisma": "^6.13.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
