@@ -3497,14 +3497,12 @@ export namespace Prisma {
 
   export type UserAddressAvgAggregateOutputType = {
     id: number | null
-    phoneNumber: number | null
     lat: Decimal | null
     lng: Decimal | null
   }
 
   export type UserAddressSumAggregateOutputType = {
     id: number | null
-    phoneNumber: number | null
     lat: Decimal | null
     lng: Decimal | null
   }
@@ -3512,7 +3510,7 @@ export namespace Prisma {
   export type UserAddressMinAggregateOutputType = {
     id: number | null
     userId: string | null
-    phoneNumber: number | null
+    phoneNumber: string | null
     province: string | null
     city: string | null
     address: string | null
@@ -3527,7 +3525,7 @@ export namespace Prisma {
   export type UserAddressMaxAggregateOutputType = {
     id: number | null
     userId: string | null
-    phoneNumber: number | null
+    phoneNumber: string | null
     province: string | null
     city: string | null
     address: string | null
@@ -3558,14 +3556,12 @@ export namespace Prisma {
 
   export type UserAddressAvgAggregateInputType = {
     id?: true
-    phoneNumber?: true
     lat?: true
     lng?: true
   }
 
   export type UserAddressSumAggregateInputType = {
     id?: true
-    phoneNumber?: true
     lat?: true
     lng?: true
   }
@@ -3705,7 +3701,7 @@ export namespace Prisma {
   export type UserAddressGroupByOutputType = {
     id: number
     userId: string
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -3818,7 +3814,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: string
-      phoneNumber: number
+      phoneNumber: string
       province: string
       city: string
       address: string
@@ -4254,7 +4250,7 @@ export namespace Prisma {
   interface UserAddressFieldRefs {
     readonly id: FieldRef<"UserAddress", 'Int'>
     readonly userId: FieldRef<"UserAddress", 'String'>
-    readonly phoneNumber: FieldRef<"UserAddress", 'Int'>
+    readonly phoneNumber: FieldRef<"UserAddress", 'String'>
     readonly province: FieldRef<"UserAddress", 'String'>
     readonly city: FieldRef<"UserAddress", 'String'>
     readonly address: FieldRef<"UserAddress", 'String'>
@@ -15302,13 +15298,11 @@ export namespace Prisma {
   export type TransactionAvgAggregateOutputType = {
     shippingPrice: number | null
     totalPrice: number | null
-    phoneNumber: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     shippingPrice: number | null
     totalPrice: number | null
-    phoneNumber: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
@@ -15318,7 +15312,7 @@ export namespace Prisma {
     shippingPrice: number | null
     totalPrice: number | null
     userAddress: string | null
-    phoneNumber: number | null
+    phoneNumber: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -15334,7 +15328,7 @@ export namespace Prisma {
     shippingPrice: number | null
     totalPrice: number | null
     userAddress: string | null
-    phoneNumber: number | null
+    phoneNumber: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -15364,13 +15358,11 @@ export namespace Prisma {
   export type TransactionAvgAggregateInputType = {
     shippingPrice?: true
     totalPrice?: true
-    phoneNumber?: true
   }
 
   export type TransactionSumAggregateInputType = {
     shippingPrice?: true
     totalPrice?: true
-    phoneNumber?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -15515,7 +15507,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -15652,7 +15644,7 @@ export namespace Prisma {
       shippingPrice: number
       totalPrice: number
       userAddress: string
-      phoneNumber: number
+      phoneNumber: string
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
@@ -16092,7 +16084,7 @@ export namespace Prisma {
     readonly shippingPrice: FieldRef<"Transaction", 'Int'>
     readonly totalPrice: FieldRef<"Transaction", 'Int'>
     readonly userAddress: FieldRef<"Transaction", 'String'>
-    readonly phoneNumber: FieldRef<"Transaction", 'Int'>
+    readonly phoneNumber: FieldRef<"Transaction", 'String'>
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
@@ -18160,7 +18152,7 @@ export namespace Prisma {
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
     id?: IntFilter<"UserAddress"> | number
     userId?: StringFilter<"UserAddress"> | string
-    phoneNumber?: IntFilter<"UserAddress"> | number
+    phoneNumber?: StringFilter<"UserAddress"> | string
     province?: StringFilter<"UserAddress"> | string
     city?: StringFilter<"UserAddress"> | string
     address?: StringFilter<"UserAddress"> | string
@@ -18195,7 +18187,7 @@ export namespace Prisma {
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
     userId?: StringFilter<"UserAddress"> | string
-    phoneNumber?: IntFilter<"UserAddress"> | number
+    phoneNumber?: StringFilter<"UserAddress"> | string
     province?: StringFilter<"UserAddress"> | string
     city?: StringFilter<"UserAddress"> | string
     address?: StringFilter<"UserAddress"> | string
@@ -18234,7 +18226,7 @@ export namespace Prisma {
     NOT?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"UserAddress"> | number
     userId?: StringWithAggregatesFilter<"UserAddress"> | string
-    phoneNumber?: IntWithAggregatesFilter<"UserAddress"> | number
+    phoneNumber?: StringWithAggregatesFilter<"UserAddress"> | string
     province?: StringWithAggregatesFilter<"UserAddress"> | string
     city?: StringWithAggregatesFilter<"UserAddress"> | string
     address?: StringWithAggregatesFilter<"UserAddress"> | string
@@ -18980,7 +18972,7 @@ export namespace Prisma {
     shippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     userAddress?: StringFilter<"Transaction"> | string
-    phoneNumber?: IntFilter<"Transaction"> | number
+    phoneNumber?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -19023,7 +19015,7 @@ export namespace Prisma {
     shippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     userAddress?: StringFilter<"Transaction"> | string
-    phoneNumber?: IntFilter<"Transaction"> | number
+    phoneNumber?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -19067,7 +19059,7 @@ export namespace Prisma {
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
     userAddress?: StringWithAggregatesFilter<"Transaction"> | string
-    phoneNumber?: IntWithAggregatesFilter<"Transaction"> | number
+    phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
@@ -19269,7 +19261,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateInput = {
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -19285,7 +19277,7 @@ export namespace Prisma {
   export type UserAddressUncheckedCreateInput = {
     id?: number
     userId: string
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -19298,7 +19290,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateInput = {
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -19314,7 +19306,7 @@ export namespace Prisma {
   export type UserAddressUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -19329,7 +19321,7 @@ export namespace Prisma {
   export type UserAddressCreateManyInput = {
     id?: number
     userId: string
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -19342,7 +19334,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateManyMutationInput = {
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -19357,7 +19349,7 @@ export namespace Prisma {
   export type UserAddressUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -20162,7 +20154,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20180,7 +20172,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -20196,7 +20188,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20214,7 +20206,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20231,7 +20223,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -20246,7 +20238,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20260,7 +20252,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20597,7 +20589,6 @@ export namespace Prisma {
 
   export type UserAddressAvgOrderByAggregateInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
   }
@@ -20634,7 +20625,6 @@ export namespace Prisma {
 
   export type UserAddressSumOrderByAggregateInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
   }
@@ -21239,7 +21229,6 @@ export namespace Prisma {
   export type TransactionAvgOrderByAggregateInput = {
     shippingPrice?: SortOrder
     totalPrice?: SortOrder
-    phoneNumber?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -21277,7 +21266,6 @@ export namespace Prisma {
   export type TransactionSumOrderByAggregateInput = {
     shippingPrice?: SortOrder
     totalPrice?: SortOrder
-    phoneNumber?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -21490,14 +21478,6 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableDecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string | null
     increment?: Decimal | DecimalJsLike | number | string
@@ -21512,6 +21492,14 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutAddressesInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutAddressesInput, UsersUpdateWithoutAddressesInput>, UsersUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type AdminCreateNestedManyWithoutStoreInput = {
@@ -22571,7 +22559,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateWithoutUserInput = {
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -22585,7 +22573,7 @@ export namespace Prisma {
 
   export type UserAddressUncheckedCreateWithoutUserInput = {
     id?: number
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -22639,7 +22627,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22655,7 +22643,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -22697,7 +22685,7 @@ export namespace Prisma {
     NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
     id?: IntFilter<"UserAddress"> | number
     userId?: StringFilter<"UserAddress"> | string
-    phoneNumber?: IntFilter<"UserAddress"> | number
+    phoneNumber?: StringFilter<"UserAddress"> | string
     province?: StringFilter<"UserAddress"> | string
     city?: StringFilter<"UserAddress"> | string
     address?: StringFilter<"UserAddress"> | string
@@ -22762,7 +22750,7 @@ export namespace Prisma {
     shippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     userAddress?: StringFilter<"Transaction"> | string
-    phoneNumber?: IntFilter<"Transaction"> | number
+    phoneNumber?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -23943,7 +23931,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23960,7 +23948,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -24001,7 +23989,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24018,7 +24006,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -24675,7 +24663,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24692,7 +24680,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -24770,7 +24758,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24787,7 +24775,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24851,7 +24839,7 @@ export namespace Prisma {
 
   export type UserAddressCreateManyUserInput = {
     id?: number
-    phoneNumber: number
+    phoneNumber: string
     province: string
     city: string
     address: string
@@ -24876,7 +24864,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -24886,7 +24874,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateWithoutUserInput = {
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -24900,7 +24888,7 @@ export namespace Prisma {
 
   export type UserAddressUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -24914,7 +24902,7 @@ export namespace Prisma {
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     province?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -24955,7 +24943,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24971,7 +24959,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24987,7 +24975,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25403,7 +25391,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -25417,7 +25405,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25434,7 +25422,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25450,7 +25438,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25465,7 +25453,7 @@ export namespace Prisma {
     shippingPrice: number
     totalPrice: number
     userAddress: string
-    phoneNumber: number
+    phoneNumber: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -25479,7 +25467,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25496,7 +25484,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25512,7 +25500,7 @@ export namespace Prisma {
     shippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     userAddress?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -50,7 +50,7 @@ model Users {
 model UserAddress {
   id          Int      @id @default(autoincrement())
   userId      String
-  phoneNumber Int
+  phoneNumber String
   province    String
   city        String
   address     String
@@ -221,7 +221,7 @@ model Transaction {
   shippingPrice       Int
   totalPrice          Int
   userAddress         String
-  phoneNumber         Int
+  phoneNumber         String
   codeVoucherProduct  String?
   codeVoucherDelivery String?
   paymentProof        String?
