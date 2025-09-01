@@ -4,299 +4,306 @@ import { generateToken } from '../lib/jwt';
 import { ApiError } from '../utils/ApiError';
 
 export class AdminService {
-  // Admin login
-  async loginAdmin(email: string, password: string) {
-    const admin = await prisma.admin.findUnique({
-      where: { email },
-      include: {
-        store: {
-          select: {
-            id: true,
-            name: true,
-            city: true,
-            province: true,
-          }
-        }
-      }
-    });
+	// Admin login
+	async loginAdmin(email: string, password: string) {
+		const admin = await prisma.admin.findUnique({
+			where: { email },
+			include: {
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
+						province: true,
+					},
+				},
+			},
+		});
 
-    if (!admin) {
-      throw new ApiError(401, 'Invalid email or password');
-    }
+		if (!admin) {
+			throw new ApiError(401, 'Invalid email or password');
+		}
 
-    const isPasswordValid = await comparePassword(password, admin.password);
-    if (!isPasswordValid) {
-      throw new ApiError(401, 'Invalid email or password');
-    }
+		const isPasswordValid = await comparePassword(password, admin.password);
+		if (!isPasswordValid) {
+			throw new ApiError(401, 'Invalid email or password');
+		}
 
-    const token = generateToken(
-      { 
-        id: admin.id, 
-        email: admin.email, 
-        isSuper: admin.isSuper,
-        storeId: admin.storeId,
-        role: 'admin'
-      },
-      process.env.JWT_SECRET!,
-      { expiresIn: '24h' }
-    );
+		const token = generateToken(
+			{
+				id: admin.id,
+				email: admin.email,
+				isSuper: admin.isSuper,
+				storeId: admin.storeId,
+				role: 'admin',
+			},
+			process.env.JWT_SECRET!,
+			{ expiresIn: '24h' }
+		);
 
-    return {
-      admin: {
-        id: admin.id,
-        name: admin.name,
-        email: admin.email,
-        isSuper: admin.isSuper,
-        store: admin.store
-      },
-      token
-    };
-  }
+		return {
+			admin: {
+				id: admin.id,
+				name: admin.name,
+				email: admin.email,
+				isSuper: admin.isSuper,
+				store: admin.store,
+			},
+			token,
+		};
+	}
 
-  // Get all users (Super Admin only)
-  async getAllUsers(adminId: string) {
-    const admin = await this.validateSuperAdmin(adminId);
-    
-    const users = await prisma.users.findMany({
-      where: { deletedAt: null },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phoneNumber: true,
-        isVerified: true,
-        createdAt: true,
-        addresses: {
-          where: { deletedAt: null },
-          select: {
-            id: true,
-            city: true,
-            province: true,
-            isDefault: true
-          }
-        }
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+	// Get all users (Super Admin only)
+	async getAllUsers(adminId: string) {
+		const admin = await this.validateSuperAdmin(adminId);
 
-    return users;
-  }
+		const users = await prisma.users.findMany({
+			where: { deletedAt: null },
+			select: {
+				id: true,
+				name: true,
+				email: true,
+				phoneNumber: true,
+				isVerified: true,
+				createdAt: true,
+				addresses: {
+					where: { deletedAt: null },
+					select: {
+						id: true,
+						city: true,
+						province: true,
+						isDefault: true,
+					},
+				},
+			},
+			orderBy: { createdAt: 'desc' },
+		});
 
-  // Get all store admins (Super Admin only)
-  async getAllStoreAdmins(adminId: string) {
-    const admin = await this.validateSuperAdmin(adminId);
-    
-    const storeAdmins = await prisma.admin.findMany({
-      where: { 
-        deletedAt: null,
-        isSuper: false
-      },
-      include: {
-        store: {
-          select: {
-            id: true,
-            name: true,
-            city: true,
-            province: true
-          }
-        }
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+		return users;
+	}
 
-    return storeAdmins;
-  }
+	// Get all store admins (Super Admin only)
+	async getAllStoreAdmins(adminId: string) {
+		const admin = await this.validateSuperAdmin(adminId);
 
-  // Create store admin (Super Admin only)
-  async createStoreAdmin(adminId: string, data: {
-    name: string;
-    email: string;
-    password: string;
-    storeId?: string;
-  }) {
-    await this.validateSuperAdmin(adminId);
+		const storeAdmins = await prisma.admin.findMany({
+			where: {
+				deletedAt: null,
+				isSuper: false,
+			},
+			include: {
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
+						province: true,
+					},
+				},
+			},
+			orderBy: { createdAt: 'desc' },
+		});
 
-    // Check if email already exists
-    const existingAdmin = await prisma.admin.findUnique({
-      where: { email: data.email }
-    });
+		return storeAdmins;
+	}
 
-    if (existingAdmin) {
-      throw new ApiError(409, 'Email already exists');
-    }
+	// Create store admin (Super Admin only)
+	async createStoreAdmin(
+		adminId: string,
+		data: {
+			name: string;
+			email: string;
+			password: string;
+			storeId?: string;
+		}
+	) {
+		await this.validateSuperAdmin(adminId);
 
-    // Validate store if storeId provided
-    if (data.storeId) {
-      const store = await prisma.store.findUnique({
-        where: { id: data.storeId }
-      });
-      if (!store) {
-        throw new ApiError(404, 'Store not found');
-      }
-    }
+		// Check if email already exists
+		const existingAdmin = await prisma.admin.findUnique({
+			where: { email: data.email },
+		});
 
-    const hashedPassword = await hashPassword(data.password);
+		if (existingAdmin) {
+			throw new ApiError(409, 'Email already exists');
+		}
 
-    const newAdmin = await prisma.admin.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        password: hashedPassword,
-        storeId: data.storeId,
-        isSuper: false
-      },
-      include: {
-        store: {
-          select: {
-            id: true,
-            name: true,
-            city: true,
-            province: true
-          }
-        }
-      }
-    });
+		// Validate store if storeId provided
+		if (data.storeId) {
+			const store = await prisma.store.findUnique({
+				where: { id: data.storeId },
+			});
+			if (!store) {
+				throw new ApiError(404, 'Store not found');
+			}
+		}
 
-    // Remove password from response
-    const { password, ...adminResponse } = newAdmin;
-    return adminResponse;
-  }
+		const hashedPassword = await hashPassword(data.password);
 
-  // Update store admin (Super Admin only)
-  async updateStoreAdmin(adminId: string, targetAdminId: string, data: {
-    name?: string;
-    email?: string;
-    password?: string;
-    storeId?: string;
-  }) {
-    await this.validateSuperAdmin(adminId);
+		const newAdmin = await prisma.admin.create({
+			data: {
+				name: data.name,
+				email: data.email,
+				password: hashedPassword,
+				storeId: data.storeId,
+				isSuper: false,
+			},
+			include: {
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
+						province: true,
+					},
+				},
+			},
+		});
 
-    // Check if target admin exists and is not super admin
-    const targetAdmin = await prisma.admin.findUnique({
-      where: { id: targetAdminId }
-    });
+		// Remove password from response
+		const { password, ...adminResponse } = newAdmin;
+		return adminResponse;
+	}
 
-    if (!targetAdmin) {
-      throw new ApiError(404, 'Admin not found');
-    }
+	// Update store admin (Super Admin only)
+	async updateStoreAdmin(
+		adminId: string,
+		targetAdminId: string,
+		data: {
+			name?: string;
+			email?: string;
+			password?: string;
+			storeId?: string;
+		}
+	) {
+		await this.validateSuperAdmin(adminId);
 
-    if (targetAdmin.isSuper) {
-      throw new ApiError(403, 'Cannot modify super admin');
-    }
+		// Check if target admin exists and is not super admin
+		const targetAdmin = await prisma.admin.findUnique({
+			where: { id: targetAdminId },
+		});
 
-    // Check email uniqueness if email is being updated
-    if (data.email && data.email !== targetAdmin.email) {
-      const existingAdmin = await prisma.admin.findUnique({
-        where: { email: data.email }
-      });
-      if (existingAdmin) {
-        throw new ApiError(409, 'Email already exists');
-      }
-    }
+		if (!targetAdmin) {
+			throw new ApiError(404, 'Admin not found');
+		}
 
-    // Validate store if storeId provided
-    if (data.storeId) {
-      const store = await prisma.store.findUnique({
-        where: { id: data.storeId }
-      });
-      if (!store) {
-        throw new ApiError(404, 'Store not found');
-      }
-    }
+		if (targetAdmin.isSuper) {
+			throw new ApiError(403, 'Cannot modify super admin');
+		}
 
-    const updateData: any = {};
-    if (data.name) updateData.name = data.name;
-    if (data.email) updateData.email = data.email;
-    if (data.storeId !== undefined) updateData.storeId = data.storeId;
-    if (data.password) {
-      updateData.password = await hashPassword(data.password);
-    }
+		// Check email uniqueness if email is being updated
+		if (data.email && data.email !== targetAdmin.email) {
+			const existingAdmin = await prisma.admin.findUnique({
+				where: { email: data.email },
+			});
+			if (existingAdmin) {
+				throw new ApiError(409, 'Email already exists');
+			}
+		}
 
-    const updatedAdmin = await prisma.admin.update({
-      where: { id: targetAdminId },
-      data: updateData,
-      include: {
-        store: {
-          select: {
-            id: true,
-            name: true,
-            city: true,
-            province: true
-          }
-        }
-      }
-    });
+		// Validate store if storeId provided
+		if (data.storeId) {
+			const store = await prisma.store.findUnique({
+				where: { id: data.storeId },
+			});
+			if (!store) {
+				throw new ApiError(404, 'Store not found');
+			}
+		}
 
-    // Remove password from response
-    const { password, ...adminResponse } = updatedAdmin;
-    return adminResponse;
-  }
+		const updateData: any = {};
+		if (data.name) updateData.name = data.name;
+		if (data.email) updateData.email = data.email;
+		if (data.storeId !== undefined) updateData.storeId = data.storeId;
+		if (data.password) {
+			updateData.password = await hashPassword(data.password);
+		}
 
-  // Delete store admin (Super Admin only)
-  async deleteStoreAdmin(adminId: string, targetAdminId: string) {
-    await this.validateSuperAdmin(adminId);
+		const updatedAdmin = await prisma.admin.update({
+			where: { id: targetAdminId },
+			data: updateData,
+			include: {
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
+						province: true,
+					},
+				},
+			},
+		});
 
-    // Check if target admin exists and is not super admin
-    const targetAdmin = await prisma.admin.findUnique({
-      where: { id: targetAdminId }
-    });
+		// Remove password from response
+		const { password, ...adminResponse } = updatedAdmin;
+		return adminResponse;
+	}
 
-    if (!targetAdmin) {
-      throw new ApiError(404, 'Admin not found');
-    }
+	// Delete store admin (Super Admin only)
+	async deleteStoreAdmin(adminId: string, targetAdminId: string) {
+		await this.validateSuperAdmin(adminId);
 
-    if (targetAdmin.isSuper) {
-      throw new ApiError(403, 'Cannot delete super admin');
-    }
+		// Check if target admin exists and is not super admin
+		const targetAdmin = await prisma.admin.findUnique({
+			where: { id: targetAdminId },
+		});
 
-    // Soft delete
-    await prisma.admin.update({
-      where: { id: targetAdminId },
-      data: { deletedAt: new Date() }
-    });
+		if (!targetAdmin) {
+			throw new ApiError(404, 'Admin not found');
+		}
 
-    return { message: 'Admin deleted successfully' };
-  }
+		if (targetAdmin.isSuper) {
+			throw new ApiError(403, 'Cannot delete super admin');
+		}
 
-  // Get admin profile
-  async getAdminProfile(adminId: string) {
-    const admin = await prisma.admin.findUnique({
-      where: { id: adminId },
-      include: {
-        store: {
-          select: {
-            id: true,
-            name: true,
-            city: true,
-            province: true
-          }
-        }
-      }
-    });
+		// Soft delete
+		await prisma.admin.update({
+			where: { id: targetAdminId },
+			data: { deletedAt: new Date() },
+		});
 
-    if (!admin) {
-      throw new ApiError(404, 'Admin not found');
-    }
+		return { message: 'Admin deleted successfully' };
+	}
 
-    // Remove password from response
-    const { password, ...adminResponse } = admin;
-    return adminResponse;
-  }
+	// Get admin profile
+	async getAdminProfile(adminId: string) {
+		const admin = await prisma.admin.findUnique({
+			where: { id: adminId },
+			include: {
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
+						province: true,
+					},
+				},
+			},
+		});
 
-  // Helper method to validate super admin
-  private async validateSuperAdmin(adminId: string) {
-    const admin = await prisma.admin.findUnique({
-      where: { id: adminId }
-    });
+		if (!admin) {
+			throw new ApiError(404, 'Admin not found');
+		}
 
-    if (!admin) {
-      throw new ApiError(404, 'Admin not found');
-    }
+		// Remove password from response
+		const { password, ...adminResponse } = admin;
+		return adminResponse;
+	}
 
-    if (!admin.isSuper) {
-      throw new ApiError(403, 'Super admin access required');
-    }
+	// Helper method to validate super admin
+	private async validateSuperAdmin(adminId: string) {
+		const admin = await prisma.admin.findUnique({
+			where: { id: adminId },
+		});
 
-    return admin;
-  }
+		if (!admin) {
+			throw new ApiError(404, 'Admin not found');
+		}
+
+		if (!admin.isSuper) {
+			throw new ApiError(403, 'Super admin access required');
+		}
+
+		return admin;
+	}
 }

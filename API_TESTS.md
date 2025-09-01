@@ -3,6 +3,7 @@
 ## Authentication Endpoints
 
 ### 1. Super Admin Login
+
 ```bash
 POST http://localhost:8000/admin/login
 Content-Type: application/json
@@ -14,6 +15,7 @@ Content-Type: application/json
 ```
 
 ### 2. Store Admin Login (Jakarta)
+
 ```bash
 POST http://localhost:8000/admin/login
 Content-Type: application/json
@@ -25,6 +27,7 @@ Content-Type: application/json
 ```
 
 ### 3. Store Admin Login (Bandung)
+
 ```bash
 POST http://localhost:8000/admin/login
 Content-Type: application/json
@@ -40,6 +43,7 @@ Content-Type: application/json
 **Note**: Add the token from login response to Authorization header as "Bearer {token}"
 
 ### 4. Get Admin Profile
+
 ```bash
 GET http://localhost:8000/admin/profile
 Authorization: Bearer {your_admin_token}
@@ -48,18 +52,21 @@ Authorization: Bearer {your_admin_token}
 ## Super Admin Only Endpoints
 
 ### 5. Get All Users
+
 ```bash
 GET http://localhost:8000/admin/users
 Authorization: Bearer {super_admin_token}
 ```
 
 ### 6. Get All Store Admins
+
 ```bash
 GET http://localhost:8000/admin/store-admins
 Authorization: Bearer {super_admin_token}
 ```
 
 ### 7. Create New Store Admin
+
 ```bash
 POST http://localhost:8000/admin/store-admins
 Authorization: Bearer {super_admin_token}
@@ -74,6 +81,7 @@ Content-Type: application/json
 ```
 
 ### 8. Update Store Admin
+
 ```bash
 PUT http://localhost:8000/admin/store-admins/{admin_id}
 Authorization: Bearer {super_admin_token}
@@ -87,6 +95,7 @@ Content-Type: application/json
 ```
 
 ### 9. Delete Store Admin
+
 ```bash
 DELETE http://localhost:8000/admin/store-admins/{admin_id}
 Authorization: Bearer {super_admin_token}
@@ -95,8 +104,9 @@ Authorization: Bearer {super_admin_token}
 ## Test Cases
 
 ### Success Cases:
+
 1. ✅ Super admin can login successfully
-2. ✅ Store admin can login successfully  
+2. ✅ Store admin can login successfully
 3. ✅ Admin can access their profile
 4. ✅ Super admin can view all users
 5. ✅ Super admin can view all store admins
@@ -105,6 +115,7 @@ Authorization: Bearer {super_admin_token}
 8. ✅ Super admin can delete store admin
 
 ### Error Cases:
+
 1. ❌ Invalid credentials return 401
 2. ❌ Missing token returns 401
 3. ❌ Invalid token returns 401
@@ -115,6 +126,7 @@ Authorization: Bearer {super_admin_token}
 8. ❌ Trying to modify super admin returns 403
 
 ## Health Check
+
 ```bash
 GET http://localhost:8000/
 ```
