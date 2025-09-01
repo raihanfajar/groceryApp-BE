@@ -1,0 +1,252 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ======================= ENUM ==========================
+enum OrderStatus {
+  waiting_payment
+  waiting_confirmation
+  on_process
+  shipped
+  confirmed
+  cancelled
+}
+
+// ======================= MODELS ========================
+
+model Users {
+  id             String  @id @default(uuid())
+  name           String
+  email          String  @unique
+  phoneNumber    String? @unique
+  oauthProvider  String?
+  profilePicture String
+  password       String?
+  isVerified     Boolean @default(false)
+  refferalCode   String
+
+  addresses    UserAddress[]
+  carts        Cart[]
+  transactions Transaction[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model UserAddress {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  phoneNumber Int
+  province    String
+  city        String
+  address     String
+  lat         Decimal? @db.Decimal(9, 6)
+  lng         Decimal? @db.Decimal(9, 6)
+  isDefault   Boolean  @default(false)
+
+  user Users @relation(fields: [userId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Store {
+  id       String   @id @default(uuid())
+  province String
+  city     String
+  address  String
+  name     String
+  lat      Decimal? @db.Decimal(9, 6)
+  lng      Decimal? @db.Decimal(9, 6)
+  radiusKm Decimal  @db.Decimal(6, 2)
+
+  admins    Admin[]
+  products  Product[]
+  cartItems CartProduct[]
+  promos    PromoProduct[]
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  StoreProduct StoreProduct[]
+}
+
+model Admin {
+  id       String  @id @default(uuid())
+  storeId  String?
+  name     String
+  email    String  @unique
+  password String
+  isSuper  Boolean @default(false)
+
+  store Store? @relation(fields: [storeId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Product {
+  id          String  @id @default(uuid())
+  storeId     String?
+  name        String
+  description String
+  slug        String  @unique
+  category    String
+  price       Int
+  zIndex      Int?
+  picture1    String
+  picture2    String?
+  picture3    String?
+  picture4    String?
+
+  store       Store?               @relation(fields: [storeId], references: [id])
+  storeStock  StoreProduct[]
+  promos      PromoProduct[]
+  cartItems   CartProduct[]
+  trxProducts TransactionProduct[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model StoreProduct {
+  storeId   String
+  productId String @id
+  stock     Int
+
+  store   Store   @relation(fields: [storeId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model PromoProduct {
+  id                 String   @id @default(uuid())
+  storeId            String
+  productId          String
+  discountPercentage Int
+  discountNominal    Int
+  picture            String?
+  expiryDate         DateTime
+
+  store   Store   @relation(fields: [storeId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([productId, storeId])
+}
+
+model VoucherProduct {
+  code        String   @id
+  discount    Int?
+  quota       Int
+  maxDiscount Int
+  expiredDate DateTime
+
+  trx Transaction[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model VoucherDelivery {
+  code        String   @id
+  discount    Int?
+  quota       Int
+  maxDiscount Int
+  expiredDate DateTime
+
+  trx Transaction[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Cart {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  user  Users         @relation(fields: [userId], references: [id])
+  items CartProduct[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model CartProduct {
+  id        String @id @default(uuid())
+  cartId    String
+  productId String
+  storeId   String
+  quantity  Int
+
+  cart    Cart    @relation(fields: [cartId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+  store   Store   @relation(fields: [storeId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Transaction {
+  id                  String      @id @default(uuid())
+  userId              String
+  status              OrderStatus @default(waiting_payment)
+  shippingPrice       Int
+  totalPrice          Int
+  userAddress         String
+  phoneNumber         Int
+  codeVoucherProduct  String?
+  codeVoucherDelivery String?
+  paymentProof        String?
+
+  user            Users                @relation(fields: [userId], references: [id])
+  voucherProduct  VoucherProduct?      @relation(fields: [codeVoucherProduct], references: [code])
+  voucherDelivery VoucherDelivery?     @relation(fields: [codeVoucherDelivery], references: [code])
+  products        TransactionProduct[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TransactionProduct {
+  id            String @id @default(uuid())
+  transactionId String
+  productId     String
+  quantity      Int
+  price         Int
+
+  transaction Transaction @relation(fields: [transactionId], references: [id])
+  product     Product     @relation(fields: [productId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
