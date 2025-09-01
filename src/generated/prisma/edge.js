@@ -305,7 +305,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\user mosdef\\Desktop\\Purwadhika\\finalProject\\groceryApp-BE\\src\\generated\\prisma",
+      "value": "/Users/adit/Documents/PURWADHIKA/groceryApp/groceryApp-BE/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -314,17 +314,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\user mosdef\\Desktop\\Purwadhika\\finalProject\\groceryApp-BE\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/adit/Documents/PURWADHIKA/groceryApp/groceryApp-BE/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.14.0",
