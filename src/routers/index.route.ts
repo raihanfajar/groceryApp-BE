@@ -7,7 +7,7 @@ const mainRouter = express.Router();
 // Health check endpoint
 mainRouter.get('/', (req, res) => {
 	res.json({
-		message: '🛒 Grocery App API is running!',
+		message: '🛒 FreshNear API is running!',
 		status: 'healthy',
 		timestamp: new Date().toISOString(),
 	});
