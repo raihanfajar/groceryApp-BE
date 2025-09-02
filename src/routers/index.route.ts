@@ -1,6 +1,8 @@
 import express from 'express';
 import authRouter from './auth.route';
 import adminRouter from './admin.route';
+import categoryRouter from './category.router';
+import productRouter from './product.router';
 
 const mainRouter = express.Router();
 
@@ -15,5 +17,7 @@ mainRouter.get('/', (req, res) => {
 
 mainRouter.use('/auth', authRouter);
 mainRouter.use('/admin', adminRouter);
+mainRouter.use('/categories', categoryRouter);
+mainRouter.use('/products', productRouter);
 
 export default mainRouter;
