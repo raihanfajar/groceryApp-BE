@@ -4,7 +4,7 @@ import {
 	verifyToken,
 	verifyAdminRole,
 	verifySuperAdmin,
-} from '../middlewares/jwt.middleware';
+} from '../middlewares/auth.middleware';
 import {
 	validateAdminLogin,
 	validateCreateStoreAdmin,
