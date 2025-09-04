@@ -212,6 +212,8 @@ model CartProduct {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  @@unique([cartId, productId, storeId])
 }
 
 model Transaction {

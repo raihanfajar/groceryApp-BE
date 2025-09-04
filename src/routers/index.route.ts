@@ -1,6 +1,9 @@
-import express from "express";
-import authRouter from "./auth.route";
-import adminRouter from "./admin.route";
+import express from 'express';
+import authRouter from './auth.route';
+import adminRouter from './admin.route';
+import categoryRouter from './category.route';
+import productRouter from './product.route';
+import cartRouter from './cart.route';
 
 const mainRouter = express.Router();
 
@@ -13,7 +16,10 @@ mainRouter.get("/", (req, res) => {
 	});
 });
 
-mainRouter.use("/auth", authRouter);
-mainRouter.use("/admin", adminRouter);
+mainRouter.use('/auth', authRouter);
+mainRouter.use('/admin', adminRouter);
+mainRouter.use('/categories', categoryRouter);
+mainRouter.use('/products', productRouter);
+mainRouter.use('/cart', cartRouter);
 
 export default mainRouter;
