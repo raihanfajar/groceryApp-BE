@@ -317,7 +317,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Purwadhika\\FinalProject\\groceryApp-BE\\src\\generated\\prisma",
+      "value": "C:\\Users\\user mosdef\\Desktop\\Purwadhika\\finalProject\\groceryApp-BE\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -331,7 +331,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Purwadhika\\FinalProject\\groceryApp-BE\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\user mosdef\\Desktop\\Purwadhika\\finalProject\\groceryApp-BE\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
