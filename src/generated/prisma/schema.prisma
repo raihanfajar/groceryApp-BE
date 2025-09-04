@@ -10,28 +10,28 @@ datasource db {
 }
 
 model Users {
-  id             String        @id @default(uuid())
-  name           String
-  email          String        @unique
-  phoneNumber    String?       @unique
-  oauthProvider  String?
-  profilePicture String
-  password       String?
-  isVerified     Boolean       @default(false)
-  refferalCode   String
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  deletedAt      DateTime?
-  carts          Cart?
-  transactions   Transaction[]
-  addresses      UserAddress[]
+  id            String        @id @default(uuid())
+  name          String
+  email         String        @unique
+  phoneNumber   String?       @unique
+  oauthProvider String?
+  password      String?
+  isVerified    Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+  carts         Cart?
+  transactions  Transaction[]
+  addresses     UserAddress[]
 }
 
 model UserAddress {
   id          Int       @id @default(autoincrement())
   userId      String
   phoneNumber String
+  provinceId  Int
   province    String
+  cityId      Int
   city        String
   address     String
   lat         Decimal?  @db.Decimal(9, 6)
@@ -45,7 +45,9 @@ model UserAddress {
 
 model Store {
   id         String         @id @default(uuid())
+  provinceId Int
   province   String
+  cityId     Int
   city       String
   address    String
   name       String
