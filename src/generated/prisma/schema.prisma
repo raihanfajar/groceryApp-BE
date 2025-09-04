@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -15,209 +9,190 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// ======================= ENUM ==========================
-enum OrderStatus {
-  waiting_payment
-  waiting_confirmation
-  on_process
-  shipped
-  confirmed
-  cancelled
-}
-
-// ======================= MODELS ========================
-
 model Users {
-  id             String  @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
-  email          String  @unique
-  phoneNumber    String? @unique
+  email          String        @unique
+  phoneNumber    String?       @unique
   oauthProvider  String?
   profilePicture String
   password       String?
-  isVerified     Boolean @default(false)
+  isVerified     Boolean       @default(false)
   refferalCode   String
-
-  addresses    UserAddress[]
-  carts        Cart[]
-  transactions Transaction[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+  carts          Cart?
+  transactions   Transaction[]
+  addresses      UserAddress[]
 }
 
 model UserAddress {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   userId      String
   phoneNumber String
   province    String
   city        String
   address     String
-  lat         Decimal? @db.Decimal(9, 6)
-  lng         Decimal? @db.Decimal(9, 6)
-  isDefault   Boolean  @default(false)
-
-  user Users @relation(fields: [userId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  lat         Decimal?  @db.Decimal(9, 6)
+  lng         Decimal?  @db.Decimal(9, 6)
+  isDefault   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  user        Users     @relation(fields: [userId], references: [id])
 }
 
 model Store {
-  id       String   @id @default(uuid())
-  province String
-  city     String
-  address  String
-  name     String
-  lat      Decimal? @db.Decimal(9, 6)
-  lng      Decimal? @db.Decimal(9, 6)
-  radiusKm Decimal  @db.Decimal(6, 2)
-
-  admins    Admin[]
-  products  Product[]
-  cartItems CartProduct[]
-  promos    PromoProduct[]
-
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  deletedAt    DateTime?
-  StoreProduct StoreProduct[]
+  id         String         @id @default(uuid())
+  province   String
+  city       String
+  address    String
+  name       String
+  lat        Decimal?       @db.Decimal(9, 6)
+  lng        Decimal?       @db.Decimal(9, 6)
+  radiusKm   Decimal        @db.Decimal(6, 2)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  deletedAt  DateTime?
+  admins     Admin[]
+  cartItems  CartProduct[]
+  promos     PromoProduct[]
+  storeStock StoreProduct[]
 }
 
 model Admin {
-  id       String  @id @default(uuid())
-  storeId  String?
-  name     String
-  email    String  @unique
-  password String
-  isSuper  Boolean @default(false)
-
-  store Store? @relation(fields: [storeId], references: [id])
-
+  id        String    @id @default(uuid())
+  storeId   String?
+  name      String
+  email     String    @unique
+  password  String
+  isSuper   Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  store     Store?    @relation(fields: [storeId], references: [id])
+}
+
+model ProductCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  products    Product[]
 }
 
 model Product {
-  id          String  @id @default(uuid())
-  storeId     String?
+  id          String               @id @default(uuid())
   name        String
   description String
-  slug        String  @unique
-  category    String
+  slug        String               @unique
   price       Int
   zIndex      Int?
   picture1    String
   picture2    String?
   picture3    String?
   picture4    String?
-
-  store       Store?               @relation(fields: [storeId], references: [id])
-  storeStock  StoreProduct[]
-  promos      PromoProduct[]
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  deletedAt   DateTime?
+  categoryId  String
+  isActive    Boolean              @default(true)
+  weight      Float?
   cartItems   CartProduct[]
+  category    ProductCategory      @relation(fields: [categoryId], references: [id])
+  promos      PromoProduct[]
+  storeStock  StoreProduct[]
   trxProducts TransactionProduct[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
 }
 
 model StoreProduct {
   storeId   String
-  productId String @id
+  productId String
   stock     Int
-
-  store   Store   @relation(fields: [storeId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
-
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  product   Product   @relation(fields: [productId], references: [id])
+  store     Store     @relation(fields: [storeId], references: [id])
+
+  @@id([storeId, productId])
 }
 
 model PromoProduct {
-  id                 String   @id @default(uuid())
+  id                 String    @id @default(uuid())
   storeId            String
   productId          String
   discountPercentage Int
   discountNominal    Int
   picture            String?
   expiryDate         DateTime
-
-  store   Store   @relation(fields: [storeId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+  product            Product   @relation(fields: [productId], references: [id])
+  store              Store     @relation(fields: [storeId], references: [id])
 
   @@unique([productId, storeId])
 }
 
 model VoucherProduct {
-  code        String   @id
+  code        String        @id
   discount    Int?
   quota       Int
   maxDiscount Int
   expiredDate DateTime
-
-  trx Transaction[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  trx         Transaction[]
 }
 
 model VoucherDelivery {
-  code        String   @id
+  code        String        @id
   discount    Int?
   quota       Int
   maxDiscount Int
   expiredDate DateTime
-
-  trx Transaction[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  trx         Transaction[]
 }
 
 model Cart {
-  id     String @id @default(uuid())
-  userId String @unique
-
-  user  Users         @relation(fields: [userId], references: [id])
-  items CartProduct[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String        @id @default(uuid())
+  userId    String        @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
   deletedAt DateTime?
+  user      Users         @relation(fields: [userId], references: [id])
+  items     CartProduct[]
 }
 
 model CartProduct {
-  id        String @id @default(uuid())
+  id        String    @id @default(uuid())
   cartId    String
   productId String
   storeId   String
   quantity  Int
-
-  cart    Cart    @relation(fields: [cartId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
-  store   Store   @relation(fields: [storeId], references: [id])
-
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  cart      Cart      @relation(fields: [cartId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+  store     Store     @relation(fields: [storeId], references: [id])
+
+  @@unique([cartId, productId, storeId])
 }
 
 model Transaction {
-  id                  String      @id @default(uuid())
+  id                  String               @id @default(uuid())
   userId              String
-  status              OrderStatus @default(waiting_payment)
+  status              OrderStatus          @default(waiting_payment)
   shippingPrice       Int
   totalPrice          Int
   userAddress         String
@@ -225,28 +200,33 @@ model Transaction {
   codeVoucherProduct  String?
   codeVoucherDelivery String?
   paymentProof        String?
-
-  user            Users                @relation(fields: [userId], references: [id])
-  voucherProduct  VoucherProduct?      @relation(fields: [codeVoucherProduct], references: [code])
-  voucherDelivery VoucherDelivery?     @relation(fields: [codeVoucherDelivery], references: [code])
-  products        TransactionProduct[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  deletedAt           DateTime?
+  voucherDelivery     VoucherDelivery?     @relation(fields: [codeVoucherDelivery], references: [code])
+  voucherProduct      VoucherProduct?      @relation(fields: [codeVoucherProduct], references: [code])
+  user                Users                @relation(fields: [userId], references: [id])
+  products            TransactionProduct[]
 }
 
 model TransactionProduct {
-  id            String @id @default(uuid())
+  id            String      @id @default(uuid())
   transactionId String
   productId     String
   quantity      Int
   price         Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+  product       Product     @relation(fields: [productId], references: [id])
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+}
 
-  transaction Transaction @relation(fields: [transactionId], references: [id])
-  product     Product     @relation(fields: [productId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+enum OrderStatus {
+  waiting_payment
+  waiting_confirmation
+  on_process
+  shipped
+  confirmed
+  cancelled
 }

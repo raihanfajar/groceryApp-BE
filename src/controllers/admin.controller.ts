@@ -3,6 +3,14 @@ import { AdminService } from '../services/admin.service';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../utils/ApiError';
 
+interface AuthenticatedRequest extends Request {
+	user?: {
+		id: string;
+		isSuper: boolean;
+		storeId?: string;
+	};
+}
+
 export class AdminController {
 	private adminService = new AdminService();
 
@@ -24,8 +32,8 @@ export class AdminController {
 	});
 
 	// Get all users (Super Admin only)
-	getAllUsers = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
+	getAllUsers = catchAsync(async (req: AuthenticatedRequest, res: Response) => {
+		const adminId = req.user!.id;
 
 		const users = await this.adminService.getAllUsers(adminId);
 
@@ -40,82 +48,90 @@ export class AdminController {
 	});
 
 	// Get all store admins (Super Admin only)
-	getAllStoreAdmins = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
+	getAllStoreAdmins = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const adminId = req.user!.id;
 
-		const admins = await this.adminService.getAllStoreAdmins(adminId);
+			const admins = await this.adminService.getAllStoreAdmins(adminId);
 
-		res.status(200).json({
-			status: 'success',
-			message: 'Store admins retrieved successfully',
-			data: {
-				admins,
-				count: admins.length,
-			},
-		});
-	});
+			res.status(200).json({
+				status: 'success',
+				message: 'Store admins retrieved successfully',
+				data: {
+					admins,
+					count: admins.length,
+				},
+			});
+		}
+	);
 
 	// Create store admin (Super Admin only)
-	createStoreAdmin = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
-		const { name, email, password, storeId } = req.body;
+	createStoreAdmin = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const adminId = req.user!.id;
+			const { name, email, password, storeId } = req.body;
 
-		if (!name || !email || !password) {
-			throw new ApiError(400, 'Name, email, and password are required');
+			if (!name || !email || !password) {
+				throw new ApiError(400, 'Name, email, and password are required');
+			}
+
+			const newAdmin = await this.adminService.createStoreAdmin(adminId, {
+				name,
+				email,
+				password,
+				storeId,
+			});
+
+			res.status(201).json({
+				status: 'success',
+				message: 'Store admin created successfully',
+				data: newAdmin,
+			});
 		}
-
-		const newAdmin = await this.adminService.createStoreAdmin(adminId, {
-			name,
-			email,
-			password,
-			storeId,
-		});
-
-		res.status(201).json({
-			status: 'success',
-			message: 'Store admin created successfully',
-			data: newAdmin,
-		});
-	});
+	);
 
 	// Update store admin (Super Admin only)
-	updateStoreAdmin = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
-		const { targetAdminId } = req.params;
-		const { name, email, password, storeId } = req.body;
+	updateStoreAdmin = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const adminId = req.user!.id;
+			const { targetAdminId } = req.params;
+			const { name, email, password, storeId } = req.body;
 
-		const updatedAdmin = await this.adminService.updateStoreAdmin(
-			adminId,
-			targetAdminId,
-			{ name, email, password, storeId }
-		);
+			const updatedAdmin = await this.adminService.updateStoreAdmin(
+				adminId,
+				targetAdminId,
+				{ name, email, password, storeId }
+			);
 
-		res.status(200).json({
-			status: 'success',
-			message: 'Store admin updated successfully',
-			data: updatedAdmin,
-		});
-	});
+			res.status(200).json({
+				status: 'success',
+				message: 'Store admin updated successfully',
+				data: updatedAdmin,
+			});
+		}
+	);
 
 	// Delete store admin (Super Admin only)
-	deleteStoreAdmin = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
-		const { targetAdminId } = req.params;
+	deleteStoreAdmin = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const adminId = req.user!.id;
+			const { targetAdminId } = req.params;
 
-		const result = await this.adminService.deleteStoreAdmin(
-			adminId,
-			targetAdminId
-		);
+			const result = await this.adminService.deleteStoreAdmin(
+				adminId,
+				targetAdminId
+			);
 
-		res.status(200).json({
-			status: 'success',
-			message: result.message,
-		});
-	});
+			res.status(200).json({
+				status: 'success',
+				message: result.message,
+			});
+		}
+	);
 
-	// Get current admin profile
-	getProfile = catchAsync(async (req: Request, res: Response) => {
-		const adminId = res.locals.payload.id;
+	// Get admin profile
+	getProfile = catchAsync(async (req: AuthenticatedRequest, res: Response) => {
+		const adminId = req.user!.id;
 
 		const admin = await this.adminService.getAdminProfile(adminId);
 
