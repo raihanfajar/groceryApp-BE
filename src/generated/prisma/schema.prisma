@@ -29,7 +29,9 @@ model UserAddress {
   id          Int       @id @default(autoincrement())
   userId      String
   phoneNumber String
+  provinceId  Int
   province    String
+  cityId      Int
   city        String
   address     String
   lat         Decimal?  @db.Decimal(9, 6)
@@ -43,7 +45,9 @@ model UserAddress {
 
 model Store {
   id         String         @id @default(uuid())
+  provinceId Int
   province   String
+  cityId     Int
   city       String
   address    String
   name       String

@@ -137,7 +137,9 @@ exports.Prisma.UserAddressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   phoneNumber: 'phoneNumber',
+  provinceId: 'provinceId',
   province: 'province',
+  cityId: 'cityId',
   city: 'city',
   address: 'address',
   lat: 'lat',
@@ -150,7 +152,9 @@ exports.Prisma.UserAddressScalarFieldEnum = {
 
 exports.Prisma.StoreScalarFieldEnum = {
   id: 'id',
+  provinceId: 'provinceId',
   province: 'province',
+  cityId: 'cityId',
   city: 'city',
   address: 'address',
   name: 'name',
