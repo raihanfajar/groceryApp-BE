@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>FreshNear — Transaction Status Update</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+
+<body style="margin:0;padding:0;background-color:#173226;font-family:'Lato', Arial, sans-serif;">
+    <div
+        style="max-width:600px;margin:20px auto;background-color:#224066;border-radius:12px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,0.15);">
+        <!-- Header -->
+        <div style="background-color:#2D4C51;padding:32px;text-align:center;">
+            {{#if isApproved}}
+            <h1 style="font-size:26px;font-weight:bold;margin:0 0 8px 0;color:#F5DFAD;">
+                Transaction Approved
+            </h1>
+            <p style="margin:0;color:#DDDEDF;">
+                Your payment has been verified.
+            </p>
+            {{else}}
+            <h1 style="font-size:26px;font-weight:bold;margin:0 0 8px 0;color:#F5DFAD;">
+                Transaction Rejected
+            </h1>
+            <p style="margin:0;color:#DDDEDF;">
+                Sorry, your transaction has been rejected.
+            </p>
+            {{/if}}
+        </div>
+
+        <!-- Body -->
+        <div style="padding:32px;color:#DDDEDF;font-size:16px;line-height:1.6;">
+            <p style="margin:0 0 16px 0;font-size:18px;">Hello {{name}},</p>
+
+            <p style="margin:0 0 24px 0;">
+                We would like to inform you that the there is an update to your
+                transaction.
+            </p>
+
+            <!-- Status Badge -->
+            <div style="text-align:center;margin:16px 0 24px 0;">
+                {{#if isApproved}}
+                <span
+                    style="display:inline-block;background-color:#2E5A61;color:#F5DFAD;border:1px solid #2D4C51;padding:8px 14px;border-radius:999px;font-weight:bold;letter-spacing:.4px;">
+                    APPROVED
+                </span>
+                {{else}}
+                <span
+                    style="display:inline-block;background-color:#5a2e2e;color:#F5DFAD;border:1px solid #2D4C51;padding:8px 14px;border-radius:999px;font-weight:bold;letter-spacing:.4px;">
+                    REJECTED
+                </span>
+                {{/if}}
+            </div>
+
+            <!-- Transaction Summary -->
+            <div
+                style="background:#173226;border:1px solid #2D4C51;border-radius:10px;padding:16px 18px;margin:0 0 24px 0;">
+                <p style="margin:0 0 8px 0;font-weight:bold;color:#F5DFAD;">
+                    Transaction Summary
+                </p>
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                    style="width:100%;font-size:15px;line-height:1.6;color:#DDDEDF;">
+                    <tr>
+                        <td style="padding:6px 0;width:42%;opacity:.9;">
+                            Transaction ID
+                        </td>
+                        <td style="padding:6px 0;">
+                            : <strong>{{transactionId}}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:6px 0;opacity:.9;">Event</td>
+                        <td style="padding:6px 0;">: {{eventName}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:6px 0;opacity:.9;">Total</td>
+                        <td style="padding:6px 0;">: <strong>{{amount}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:6px 0;opacity:.9;">Date Created</td>
+                        <td style="padding:6px 0;">: {{createdAt}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p style="margin:0 0 8px 0;">Best regards,</p>
+            <p style="margin:0;font-weight:bold;color:#F5DFAD;">
+                FreshNear Team
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div style="background-color:#2D4C51;color:#DDDEDF;padding:20px;text-align:center;font-size:12px;">
+            <p style="margin:0 0 6px 0;">
+                &copy; 2025 FreshNear. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

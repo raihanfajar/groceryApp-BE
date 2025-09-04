@@ -2386,10 +2386,8 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     oauthProvider: string | null
-    profilePicture: string | null
     password: string | null
     isVerified: boolean | null
-    refferalCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -2401,10 +2399,8 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     oauthProvider: string | null
-    profilePicture: string | null
     password: string | null
     isVerified: boolean | null
-    refferalCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -2416,10 +2412,8 @@ export namespace Prisma {
     email: number
     phoneNumber: number
     oauthProvider: number
-    profilePicture: number
     password: number
     isVerified: number
-    refferalCode: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -2433,10 +2427,8 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     oauthProvider?: true
-    profilePicture?: true
     password?: true
     isVerified?: true
-    refferalCode?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2448,10 +2440,8 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     oauthProvider?: true
-    profilePicture?: true
     password?: true
     isVerified?: true
-    refferalCode?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2463,10 +2453,8 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     oauthProvider?: true
-    profilePicture?: true
     password?: true
     isVerified?: true
-    refferalCode?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2551,10 +2539,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string | null
     oauthProvider: string | null
-    profilePicture: string
     password: string | null
     isVerified: boolean
-    refferalCode: string
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2583,10 +2569,8 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     oauthProvider?: boolean
-    profilePicture?: boolean
     password?: boolean
     isVerified?: boolean
-    refferalCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -2602,10 +2586,8 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     oauthProvider?: boolean
-    profilePicture?: boolean
     password?: boolean
     isVerified?: boolean
-    refferalCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -2617,10 +2599,8 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     oauthProvider?: boolean
-    profilePicture?: boolean
     password?: boolean
     isVerified?: boolean
-    refferalCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -2632,16 +2612,14 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     oauthProvider?: boolean
-    profilePicture?: boolean
     password?: boolean
     isVerified?: boolean
-    refferalCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "oauthProvider" | "profilePicture" | "password" | "isVerified" | "refferalCode" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "oauthProvider" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     carts?: boolean | Users$cartsArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
@@ -2664,10 +2642,8 @@ export namespace Prisma {
       email: string
       phoneNumber: string | null
       oauthProvider: string | null
-      profilePicture: string
       password: string | null
       isVerified: boolean
-      refferalCode: string
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -3102,10 +3078,8 @@ export namespace Prisma {
     readonly email: FieldRef<"Users", 'String'>
     readonly phoneNumber: FieldRef<"Users", 'String'>
     readonly oauthProvider: FieldRef<"Users", 'String'>
-    readonly profilePicture: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly isVerified: FieldRef<"Users", 'Boolean'>
-    readonly refferalCode: FieldRef<"Users", 'String'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
     readonly updatedAt: FieldRef<"Users", 'DateTime'>
     readonly deletedAt: FieldRef<"Users", 'DateTime'>
@@ -18895,10 +18869,8 @@ export namespace Prisma {
     email: 'email',
     phoneNumber: 'phoneNumber',
     oauthProvider: 'oauthProvider',
-    profilePicture: 'profilePicture',
     password: 'password',
     isVerified: 'isVerified',
-    refferalCode: 'refferalCode',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -19238,10 +19210,8 @@ export namespace Prisma {
     email?: StringFilter<"Users"> | string
     phoneNumber?: StringNullableFilter<"Users"> | string | null
     oauthProvider?: StringNullableFilter<"Users"> | string | null
-    profilePicture?: StringFilter<"Users"> | string
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
-    refferalCode?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
@@ -19256,10 +19226,8 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     oauthProvider?: SortOrderInput | SortOrder
-    profilePicture?: SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
-    refferalCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -19277,10 +19245,8 @@ export namespace Prisma {
     NOT?: UsersWhereInput | UsersWhereInput[]
     name?: StringFilter<"Users"> | string
     oauthProvider?: StringNullableFilter<"Users"> | string | null
-    profilePicture?: StringFilter<"Users"> | string
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
-    refferalCode?: StringFilter<"Users"> | string
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
@@ -19295,10 +19261,8 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     oauthProvider?: SortOrderInput | SortOrder
-    profilePicture?: SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
-    refferalCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -19316,10 +19280,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Users"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"Users"> | string | null
     oauthProvider?: StringNullableWithAggregatesFilter<"Users"> | string | null
-    profilePicture?: StringWithAggregatesFilter<"Users"> | string
     password?: StringNullableWithAggregatesFilter<"Users"> | string | null
     isVerified?: BoolWithAggregatesFilter<"Users"> | boolean
-    refferalCode?: StringWithAggregatesFilter<"Users"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Users"> | Date | string | null
@@ -20397,10 +20359,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -20415,10 +20375,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -20433,10 +20391,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20451,10 +20407,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20469,10 +20423,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -20484,10 +20436,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20499,10 +20449,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21754,10 +21702,8 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     oauthProvider?: SortOrder
-    profilePicture?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
-    refferalCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -21769,10 +21715,8 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     oauthProvider?: SortOrder
-    profilePicture?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
-    refferalCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -21784,10 +21728,8 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     oauthProvider?: SortOrder
-    profilePicture?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
-    refferalCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -24170,10 +24112,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -24187,10 +24127,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -24220,10 +24158,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24237,10 +24173,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25419,10 +25353,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -25436,10 +25368,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -25499,10 +25429,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25516,10 +25444,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25839,10 +25765,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -25856,10 +25780,8 @@ export namespace Prisma {
     email: string
     phoneNumber?: string | null
     oauthProvider?: string | null
-    profilePicture: string
     password?: string | null
     isVerified?: boolean
-    refferalCode: string
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -25985,10 +25907,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26002,10 +25922,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    refferalCode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
