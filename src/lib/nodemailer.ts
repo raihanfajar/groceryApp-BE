@@ -13,6 +13,17 @@ export const transporter = nodemailer.createTransport({
     },
 });
 
+export const getVerifyUserEmailTemplate = (name: string, verifyUserEmailToken:string) => {
+    const templateHtml = fs.readFileSync('src/templates/verifyUserEmail.html', 'utf-8');
+    const compiledTemplateHtml = Handlebars.compile(templateHtml);
+    const resultTemplateHtml = compiledTemplateHtml({
+        name,
+        linkUrl: `${process.env.FRONTEND_VERIFY_EMAIL_USER_URL}/${verifyUserEmailToken}`,
+    });
+
+    return resultTemplateHtml;
+}
+
 export const getTemplateUser = (resetToken: string, templateFileName: string, userName: string) => {
     const templateHtml = fs.readFileSync(`src/templates/${templateFileName}.html`, 'utf-8');
     const compiledTemplateHtml = Handlebars.compile(templateHtml);
