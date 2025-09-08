@@ -5,23 +5,25 @@ import productRouter from './product.route';
 import cartRouter from './cart.route';
 import voucherRouter from './voucher.route';
 import userRouter from './user.route';
+import inventoryRouter from './inventory.route';
 
 const mainRouter = express.Router();
 
 // Health check endpoint
-mainRouter.get("/", (_, res) => {
+mainRouter.get('/', (_, res) => {
 	res.json({
-		message: "🛒 FreshNear API is running!",
-		status: "healthy",
+		message: '🛒 FreshNear API is running!',
+		status: 'healthy',
 		timestamp: new Date().toISOString(),
 	});
 });
 
 mainRouter.use('/user', userRouter);
 mainRouter.use('/admin', adminRouter);
+mainRouter.use('/inventory', inventoryRouter);
 mainRouter.use('/categories', categoryRouter);
 mainRouter.use('/products', productRouter);
 mainRouter.use('/cart', cartRouter);
-mainRouter.use('/voucher', voucherRouter)
+mainRouter.use('/voucher', voucherRouter);
 
 export default mainRouter;
