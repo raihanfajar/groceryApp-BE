@@ -1,0 +1,62 @@
+import nodemailer from 'nodemailer';
+import fs from 'fs';
+import Handlebars from 'handlebars';
+
+export const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GOOGLE_APP_USER,
+        pass: process.env.GOOGLE_APP_PASSWORD,
+    },
+    tls: {
+        rejectUnauthorized: false,
+    },
+});
+
+export const getVerifyUserEmailTemplate = (name: string, verifyUserEmailToken: string) => {
+    const templateHtml = fs.readFileSync('src/templates/verifyUserEmail.html', 'utf-8');
+    const compiledTemplateHtml = Handlebars.compile(templateHtml);
+    const resultTemplateHtml = compiledTemplateHtml({
+        name,
+        linkUrl: `${process.env.FRONTEND_VERIFY_EMAIL_USER_URL}/${verifyUserEmailToken}`,
+    });
+
+    return resultTemplateHtml;
+}
+
+export const getTemplateUser = (name: string, resetUserPasswordToken: string) => {
+    const templateHtml = fs.readFileSync(`src/templates/resetPassword.html`, 'utf-8');
+    const compiledTemplateHtml = Handlebars.compile(templateHtml);
+    const resultTemplateHtml = compiledTemplateHtml({
+        name,
+        linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_USER_URL}/${resetUserPasswordToken}`,
+    });
+
+    return resultTemplateHtml;
+}
+
+export const getTemplateOrganizer = (resetToken: string, templateFileName: string, userName: string) => {
+    const templateHtml = fs.readFileSync(`src/templates/${templateFileName}.html`, 'utf-8');
+    const compiledTemplateHtml = Handlebars.compile(templateHtml);
+    const resultTemplateHtml = compiledTemplateHtml({
+        name: userName,
+        linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_ORGANIZER_URL}/${resetToken}`,
+    });
+
+    return resultTemplateHtml;
+}
+
+export const getTemplateTxNotification = (isApproved: boolean, name: string, transactionId: string, eventName: string, amount: number, createdAt: string) => {
+    const templateHtml = fs.readFileSync(`src/templates/txNotificationTemplate.html`, 'utf-8');
+    const compiledTemplateHtml = Handlebars.compile(templateHtml);
+    const resultTemplateHtml = compiledTemplateHtml({
+        isApproved,
+        name,
+        transactionId,
+        eventName,
+        amount,
+        createdAt
+    });
+
+    return resultTemplateHtml;
+}
