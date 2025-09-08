@@ -49,6 +49,11 @@ export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
  */
 export type StoreProduct = $Result.DefaultSelection<Prisma.$StoreProductPayload>
 /**
+ * Model StockJournal
+ * 
+ */
+export type StockJournal = $Result.DefaultSelection<Prisma.$StockJournalPayload>
+/**
  * Model PromoProduct
  * 
  */
@@ -99,11 +104,26 @@ export namespace $Enums {
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
+
+export const StockMovement: {
+  IN: 'IN',
+  OUT: 'OUT',
+  ADJUSTMENT: 'ADJUSTMENT',
+  TRANSFER: 'TRANSFER',
+  INITIAL: 'INITIAL'
+};
+
+export type StockMovement = (typeof StockMovement)[keyof typeof StockMovement]
+
 }
 
 export type OrderStatus = $Enums.OrderStatus
 
 export const OrderStatus: typeof $Enums.OrderStatus
+
+export type StockMovement = $Enums.StockMovement
+
+export const StockMovement: typeof $Enums.StockMovement
 
 /**
  * ##  Prisma Client ʲˢ
@@ -292,6 +312,16 @@ export class PrismaClient<
     * ```
     */
   get storeProduct(): Prisma.StoreProductDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stockJournal`: Exposes CRUD operations for the **StockJournal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StockJournals
+    * const stockJournals = await prisma.stockJournal.findMany()
+    * ```
+    */
+  get stockJournal(): Prisma.StockJournalDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.promoProduct`: Exposes CRUD operations for the **PromoProduct** model.
@@ -809,6 +839,7 @@ export namespace Prisma {
     ProductCategory: 'ProductCategory',
     Product: 'Product',
     StoreProduct: 'StoreProduct',
+    StockJournal: 'StockJournal',
     PromoProduct: 'PromoProduct',
     VoucherProduct: 'VoucherProduct',
     VoucherDelivery: 'VoucherDelivery',
@@ -834,7 +865,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "userAddress" | "store" | "admin" | "productCategory" | "product" | "storeProduct" | "promoProduct" | "voucherProduct" | "voucherDelivery" | "cart" | "cartProduct" | "transaction" | "transactionProduct"
+      modelProps: "users" | "userAddress" | "store" | "admin" | "productCategory" | "product" | "storeProduct" | "stockJournal" | "promoProduct" | "voucherProduct" | "voucherDelivery" | "cart" | "cartProduct" | "transaction" | "transactionProduct"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1353,6 +1384,80 @@ export namespace Prisma {
           count: {
             args: Prisma.StoreProductCountArgs<ExtArgs>
             result: $Utils.Optional<StoreProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      StockJournal: {
+        payload: Prisma.$StockJournalPayload<ExtArgs>
+        fields: Prisma.StockJournalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StockJournalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StockJournalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          findFirst: {
+            args: Prisma.StockJournalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StockJournalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          findMany: {
+            args: Prisma.StockJournalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>[]
+          }
+          create: {
+            args: Prisma.StockJournalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          createMany: {
+            args: Prisma.StockJournalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StockJournalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>[]
+          }
+          delete: {
+            args: Prisma.StockJournalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          update: {
+            args: Prisma.StockJournalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          deleteMany: {
+            args: Prisma.StockJournalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StockJournalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StockJournalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>[]
+          }
+          upsert: {
+            args: Prisma.StockJournalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockJournalPayload>
+          }
+          aggregate: {
+            args: Prisma.StockJournalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStockJournal>
+          }
+          groupBy: {
+            args: Prisma.StockJournalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StockJournalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StockJournalCountArgs<ExtArgs>
+            result: $Utils.Optional<StockJournalCountAggregateOutputType> | number
           }
         }
       }
@@ -1973,6 +2078,7 @@ export namespace Prisma {
     productCategory?: ProductCategoryOmit
     product?: ProductOmit
     storeProduct?: StoreProductOmit
+    stockJournal?: StockJournalOmit
     promoProduct?: PromoProductOmit
     voucherProduct?: VoucherProductOmit
     voucherDelivery?: VoucherDeliveryOmit
@@ -2154,6 +2260,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    stockJournal: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stockJournal?: boolean | AdminCountOutputTypeCountStockJournalArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountStockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockJournalWhereInput
+  }
+
+
+  /**
    * Count Type ProductCategoryCountOutputType
    */
 
@@ -2239,6 +2376,37 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountTrxProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionProductWhereInput
+  }
+
+
+  /**
+   * Count Type StoreProductCountOutputType
+   */
+
+  export type StoreProductCountOutputType = {
+    stockJournal: number
+  }
+
+  export type StoreProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stockJournal?: boolean | StoreProductCountOutputTypeCountStockJournalArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StoreProductCountOutputType without action
+   */
+  export type StoreProductCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoreProductCountOutputType
+     */
+    select?: StoreProductCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StoreProductCountOutputType without action
+   */
+  export type StoreProductCountOutputTypeCountStockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockJournalWhereInput
   }
 
 
@@ -2341,10 +2509,12 @@ export namespace Prisma {
 
   export type TransactionCountOutputType = {
     products: number
+    stockJournal: number
   }
 
   export type TransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | TransactionCountOutputTypeCountProductsArgs
+    stockJournal?: boolean | TransactionCountOutputTypeCountStockJournalArgs
   }
 
   // Custom InputTypes
@@ -2363,6 +2533,13 @@ export namespace Prisma {
    */
   export type TransactionCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionProductWhereInput
+  }
+
+  /**
+   * TransactionCountOutputType without action
+   */
+  export type TransactionCountOutputTypeCountStockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockJournalWhereInput
   }
 
 
@@ -6286,6 +6463,8 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     store?: boolean | Admin$storeArgs<ExtArgs>
+    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6329,6 +6508,8 @@ export namespace Prisma {
   export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "email" | "password" | "isSuper" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["admin"]>
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | Admin$storeArgs<ExtArgs>
+    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | Admin$storeArgs<ExtArgs>
@@ -6341,6 +6522,7 @@ export namespace Prisma {
     name: "Admin"
     objects: {
       store: Prisma.$StorePayload<ExtArgs> | null
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6747,6 +6929,7 @@ export namespace Prisma {
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     store<T extends Admin$storeArgs<ExtArgs> = {}>(args?: Subset<T, Admin$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    stockJournal<T extends Admin$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Admin$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7197,6 +7380,30 @@ export namespace Prisma {
      */
     include?: StoreInclude<ExtArgs> | null
     where?: StoreWhereInput
+  }
+
+  /**
+   * Admin.stockJournal
+   */
+  export type Admin$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    cursor?: StockJournalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
   }
 
   /**
@@ -9685,16 +9892,19 @@ export namespace Prisma {
 
   export type StoreProductAvgAggregateOutputType = {
     stock: number | null
+    minStock: number | null
   }
 
   export type StoreProductSumAggregateOutputType = {
     stock: number | null
+    minStock: number | null
   }
 
   export type StoreProductMinAggregateOutputType = {
     storeId: string | null
     productId: string | null
     stock: number | null
+    minStock: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -9704,6 +9914,7 @@ export namespace Prisma {
     storeId: string | null
     productId: string | null
     stock: number | null
+    minStock: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -9713,6 +9924,7 @@ export namespace Prisma {
     storeId: number
     productId: number
     stock: number
+    minStock: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -9722,16 +9934,19 @@ export namespace Prisma {
 
   export type StoreProductAvgAggregateInputType = {
     stock?: true
+    minStock?: true
   }
 
   export type StoreProductSumAggregateInputType = {
     stock?: true
+    minStock?: true
   }
 
   export type StoreProductMinAggregateInputType = {
     storeId?: true
     productId?: true
     stock?: true
+    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -9741,6 +9956,7 @@ export namespace Prisma {
     storeId?: true
     productId?: true
     stock?: true
+    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -9750,6 +9966,7 @@ export namespace Prisma {
     storeId?: true
     productId?: true
     stock?: true
+    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -9846,6 +10063,7 @@ export namespace Prisma {
     storeId: string
     productId: string
     stock: number
+    minStock: number | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -9874,17 +10092,21 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
+    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
+    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
+    _count?: boolean | StoreProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storeProduct"]>
 
   export type StoreProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     storeId?: boolean
     productId?: boolean
     stock?: boolean
+    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -9896,6 +10118,7 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
+    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -9907,15 +10130,18 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
+    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type StoreProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"storeId" | "productId" | "stock" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storeProduct"]>
+  export type StoreProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"storeId" | "productId" | "stock" | "minStock" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storeProduct"]>
   export type StoreProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
+    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
+    _count?: boolean | StoreProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StoreProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -9931,11 +10157,13 @@ export namespace Prisma {
     objects: {
       product: Prisma.$ProductPayload<ExtArgs>
       store: Prisma.$StorePayload<ExtArgs>
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       storeId: string
       productId: string
       stock: number
+      minStock: number | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -10335,6 +10563,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    stockJournal<T extends StoreProduct$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, StoreProduct$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10367,6 +10596,7 @@ export namespace Prisma {
     readonly storeId: FieldRef<"StoreProduct", 'String'>
     readonly productId: FieldRef<"StoreProduct", 'String'>
     readonly stock: FieldRef<"StoreProduct", 'Int'>
+    readonly minStock: FieldRef<"StoreProduct", 'Int'>
     readonly createdAt: FieldRef<"StoreProduct", 'DateTime'>
     readonly updatedAt: FieldRef<"StoreProduct", 'DateTime'>
     readonly deletedAt: FieldRef<"StoreProduct", 'DateTime'>
@@ -10766,6 +10996,30 @@ export namespace Prisma {
   }
 
   /**
+   * StoreProduct.stockJournal
+   */
+  export type StoreProduct$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    cursor?: StockJournalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
    * StoreProduct without action
    */
   export type StoreProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10781,6 +11035,1219 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: StoreProductInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StockJournal
+   */
+
+  export type AggregateStockJournal = {
+    _count: StockJournalCountAggregateOutputType | null
+    _avg: StockJournalAvgAggregateOutputType | null
+    _sum: StockJournalSumAggregateOutputType | null
+    _min: StockJournalMinAggregateOutputType | null
+    _max: StockJournalMaxAggregateOutputType | null
+  }
+
+  export type StockJournalAvgAggregateOutputType = {
+    quantity: number | null
+    beforeStock: number | null
+    afterStock: number | null
+  }
+
+  export type StockJournalSumAggregateOutputType = {
+    quantity: number | null
+    beforeStock: number | null
+    afterStock: number | null
+  }
+
+  export type StockJournalMinAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    productId: string | null
+    adminId: string | null
+    transactionId: string | null
+    type: $Enums.StockMovement | null
+    quantity: number | null
+    beforeStock: number | null
+    afterStock: number | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type StockJournalMaxAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    productId: string | null
+    adminId: string | null
+    transactionId: string | null
+    type: $Enums.StockMovement | null
+    quantity: number | null
+    beforeStock: number | null
+    afterStock: number | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type StockJournalCountAggregateOutputType = {
+    id: number
+    storeId: number
+    productId: number
+    adminId: number
+    transactionId: number
+    type: number
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StockJournalAvgAggregateInputType = {
+    quantity?: true
+    beforeStock?: true
+    afterStock?: true
+  }
+
+  export type StockJournalSumAggregateInputType = {
+    quantity?: true
+    beforeStock?: true
+    afterStock?: true
+  }
+
+  export type StockJournalMinAggregateInputType = {
+    id?: true
+    storeId?: true
+    productId?: true
+    adminId?: true
+    transactionId?: true
+    type?: true
+    quantity?: true
+    beforeStock?: true
+    afterStock?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type StockJournalMaxAggregateInputType = {
+    id?: true
+    storeId?: true
+    productId?: true
+    adminId?: true
+    transactionId?: true
+    type?: true
+    quantity?: true
+    beforeStock?: true
+    afterStock?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type StockJournalCountAggregateInputType = {
+    id?: true
+    storeId?: true
+    productId?: true
+    adminId?: true
+    transactionId?: true
+    type?: true
+    quantity?: true
+    beforeStock?: true
+    afterStock?: true
+    notes?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StockJournalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StockJournal to aggregate.
+     */
+    where?: StockJournalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockJournals to fetch.
+     */
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StockJournalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockJournals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockJournals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StockJournals
+    **/
+    _count?: true | StockJournalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StockJournalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StockJournalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StockJournalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StockJournalMaxAggregateInputType
+  }
+
+  export type GetStockJournalAggregateType<T extends StockJournalAggregateArgs> = {
+        [P in keyof T & keyof AggregateStockJournal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStockJournal[P]>
+      : GetScalarType<T[P], AggregateStockJournal[P]>
+  }
+
+
+
+
+  export type StockJournalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithAggregationInput | StockJournalOrderByWithAggregationInput[]
+    by: StockJournalScalarFieldEnum[] | StockJournalScalarFieldEnum
+    having?: StockJournalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StockJournalCountAggregateInputType | true
+    _avg?: StockJournalAvgAggregateInputType
+    _sum?: StockJournalSumAggregateInputType
+    _min?: StockJournalMinAggregateInputType
+    _max?: StockJournalMaxAggregateInputType
+  }
+
+  export type StockJournalGroupByOutputType = {
+    id: string
+    storeId: string
+    productId: string
+    adminId: string
+    transactionId: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes: string | null
+    createdAt: Date
+    _count: StockJournalCountAggregateOutputType | null
+    _avg: StockJournalAvgAggregateOutputType | null
+    _sum: StockJournalSumAggregateOutputType | null
+    _min: StockJournalMinAggregateOutputType | null
+    _max: StockJournalMaxAggregateOutputType | null
+  }
+
+  type GetStockJournalGroupByPayload<T extends StockJournalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StockJournalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StockJournalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StockJournalGroupByOutputType[P]>
+            : GetScalarType<T[P], StockJournalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StockJournalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    productId?: boolean
+    adminId?: boolean
+    transactionId?: boolean
+    type?: boolean
+    quantity?: boolean
+    beforeStock?: boolean
+    afterStock?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }, ExtArgs["result"]["stockJournal"]>
+
+  export type StockJournalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    productId?: boolean
+    adminId?: boolean
+    transactionId?: boolean
+    type?: boolean
+    quantity?: boolean
+    beforeStock?: boolean
+    afterStock?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }, ExtArgs["result"]["stockJournal"]>
+
+  export type StockJournalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    productId?: boolean
+    adminId?: boolean
+    transactionId?: boolean
+    type?: boolean
+    quantity?: boolean
+    beforeStock?: boolean
+    afterStock?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }, ExtArgs["result"]["stockJournal"]>
+
+  export type StockJournalSelectScalar = {
+    id?: boolean
+    storeId?: boolean
+    productId?: boolean
+    adminId?: boolean
+    transactionId?: boolean
+    type?: boolean
+    quantity?: boolean
+    beforeStock?: boolean
+    afterStock?: boolean
+    notes?: boolean
+    createdAt?: boolean
+  }
+
+  export type StockJournalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "productId" | "adminId" | "transactionId" | "type" | "quantity" | "beforeStock" | "afterStock" | "notes" | "createdAt", ExtArgs["result"]["stockJournal"]>
+  export type StockJournalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }
+  export type StockJournalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }
+  export type StockJournalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    storeProduct?: boolean | StoreProductDefaultArgs<ExtArgs>
+    transaction?: boolean | StockJournal$transactionArgs<ExtArgs>
+  }
+
+  export type $StockJournalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StockJournal"
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs>
+      storeProduct: Prisma.$StoreProductPayload<ExtArgs>
+      transaction: Prisma.$TransactionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storeId: string
+      productId: string
+      adminId: string
+      transactionId: string | null
+      type: $Enums.StockMovement
+      quantity: number
+      beforeStock: number
+      afterStock: number
+      notes: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["stockJournal"]>
+    composites: {}
+  }
+
+  type StockJournalGetPayload<S extends boolean | null | undefined | StockJournalDefaultArgs> = $Result.GetResult<Prisma.$StockJournalPayload, S>
+
+  type StockJournalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StockJournalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StockJournalCountAggregateInputType | true
+    }
+
+  export interface StockJournalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StockJournal'], meta: { name: 'StockJournal' } }
+    /**
+     * Find zero or one StockJournal that matches the filter.
+     * @param {StockJournalFindUniqueArgs} args - Arguments to find a StockJournal
+     * @example
+     * // Get one StockJournal
+     * const stockJournal = await prisma.stockJournal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StockJournalFindUniqueArgs>(args: SelectSubset<T, StockJournalFindUniqueArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StockJournal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StockJournalFindUniqueOrThrowArgs} args - Arguments to find a StockJournal
+     * @example
+     * // Get one StockJournal
+     * const stockJournal = await prisma.stockJournal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StockJournalFindUniqueOrThrowArgs>(args: SelectSubset<T, StockJournalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StockJournal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalFindFirstArgs} args - Arguments to find a StockJournal
+     * @example
+     * // Get one StockJournal
+     * const stockJournal = await prisma.stockJournal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StockJournalFindFirstArgs>(args?: SelectSubset<T, StockJournalFindFirstArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StockJournal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalFindFirstOrThrowArgs} args - Arguments to find a StockJournal
+     * @example
+     * // Get one StockJournal
+     * const stockJournal = await prisma.stockJournal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StockJournalFindFirstOrThrowArgs>(args?: SelectSubset<T, StockJournalFindFirstOrThrowArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StockJournals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StockJournals
+     * const stockJournals = await prisma.stockJournal.findMany()
+     * 
+     * // Get first 10 StockJournals
+     * const stockJournals = await prisma.stockJournal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stockJournalWithIdOnly = await prisma.stockJournal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StockJournalFindManyArgs>(args?: SelectSubset<T, StockJournalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StockJournal.
+     * @param {StockJournalCreateArgs} args - Arguments to create a StockJournal.
+     * @example
+     * // Create one StockJournal
+     * const StockJournal = await prisma.stockJournal.create({
+     *   data: {
+     *     // ... data to create a StockJournal
+     *   }
+     * })
+     * 
+     */
+    create<T extends StockJournalCreateArgs>(args: SelectSubset<T, StockJournalCreateArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StockJournals.
+     * @param {StockJournalCreateManyArgs} args - Arguments to create many StockJournals.
+     * @example
+     * // Create many StockJournals
+     * const stockJournal = await prisma.stockJournal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StockJournalCreateManyArgs>(args?: SelectSubset<T, StockJournalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StockJournals and returns the data saved in the database.
+     * @param {StockJournalCreateManyAndReturnArgs} args - Arguments to create many StockJournals.
+     * @example
+     * // Create many StockJournals
+     * const stockJournal = await prisma.stockJournal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StockJournals and only return the `id`
+     * const stockJournalWithIdOnly = await prisma.stockJournal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StockJournalCreateManyAndReturnArgs>(args?: SelectSubset<T, StockJournalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StockJournal.
+     * @param {StockJournalDeleteArgs} args - Arguments to delete one StockJournal.
+     * @example
+     * // Delete one StockJournal
+     * const StockJournal = await prisma.stockJournal.delete({
+     *   where: {
+     *     // ... filter to delete one StockJournal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StockJournalDeleteArgs>(args: SelectSubset<T, StockJournalDeleteArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StockJournal.
+     * @param {StockJournalUpdateArgs} args - Arguments to update one StockJournal.
+     * @example
+     * // Update one StockJournal
+     * const stockJournal = await prisma.stockJournal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StockJournalUpdateArgs>(args: SelectSubset<T, StockJournalUpdateArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StockJournals.
+     * @param {StockJournalDeleteManyArgs} args - Arguments to filter StockJournals to delete.
+     * @example
+     * // Delete a few StockJournals
+     * const { count } = await prisma.stockJournal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StockJournalDeleteManyArgs>(args?: SelectSubset<T, StockJournalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StockJournals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StockJournals
+     * const stockJournal = await prisma.stockJournal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StockJournalUpdateManyArgs>(args: SelectSubset<T, StockJournalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StockJournals and returns the data updated in the database.
+     * @param {StockJournalUpdateManyAndReturnArgs} args - Arguments to update many StockJournals.
+     * @example
+     * // Update many StockJournals
+     * const stockJournal = await prisma.stockJournal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StockJournals and only return the `id`
+     * const stockJournalWithIdOnly = await prisma.stockJournal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StockJournalUpdateManyAndReturnArgs>(args: SelectSubset<T, StockJournalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StockJournal.
+     * @param {StockJournalUpsertArgs} args - Arguments to update or create a StockJournal.
+     * @example
+     * // Update or create a StockJournal
+     * const stockJournal = await prisma.stockJournal.upsert({
+     *   create: {
+     *     // ... data to create a StockJournal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StockJournal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StockJournalUpsertArgs>(args: SelectSubset<T, StockJournalUpsertArgs<ExtArgs>>): Prisma__StockJournalClient<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StockJournals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalCountArgs} args - Arguments to filter StockJournals to count.
+     * @example
+     * // Count the number of StockJournals
+     * const count = await prisma.stockJournal.count({
+     *   where: {
+     *     // ... the filter for the StockJournals we want to count
+     *   }
+     * })
+    **/
+    count<T extends StockJournalCountArgs>(
+      args?: Subset<T, StockJournalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StockJournalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StockJournal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StockJournalAggregateArgs>(args: Subset<T, StockJournalAggregateArgs>): Prisma.PrismaPromise<GetStockJournalAggregateType<T>>
+
+    /**
+     * Group by StockJournal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockJournalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StockJournalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StockJournalGroupByArgs['orderBy'] }
+        : { orderBy?: StockJournalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StockJournalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStockJournalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StockJournal model
+   */
+  readonly fields: StockJournalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StockJournal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StockJournalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    storeProduct<T extends StoreProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreProductDefaultArgs<ExtArgs>>): Prisma__StoreProductClient<$Result.GetResult<Prisma.$StoreProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    transaction<T extends StockJournal$transactionArgs<ExtArgs> = {}>(args?: Subset<T, StockJournal$transactionArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StockJournal model
+   */
+  interface StockJournalFieldRefs {
+    readonly id: FieldRef<"StockJournal", 'String'>
+    readonly storeId: FieldRef<"StockJournal", 'String'>
+    readonly productId: FieldRef<"StockJournal", 'String'>
+    readonly adminId: FieldRef<"StockJournal", 'String'>
+    readonly transactionId: FieldRef<"StockJournal", 'String'>
+    readonly type: FieldRef<"StockJournal", 'StockMovement'>
+    readonly quantity: FieldRef<"StockJournal", 'Int'>
+    readonly beforeStock: FieldRef<"StockJournal", 'Int'>
+    readonly afterStock: FieldRef<"StockJournal", 'Int'>
+    readonly notes: FieldRef<"StockJournal", 'String'>
+    readonly createdAt: FieldRef<"StockJournal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StockJournal findUnique
+   */
+  export type StockJournalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter, which StockJournal to fetch.
+     */
+    where: StockJournalWhereUniqueInput
+  }
+
+  /**
+   * StockJournal findUniqueOrThrow
+   */
+  export type StockJournalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter, which StockJournal to fetch.
+     */
+    where: StockJournalWhereUniqueInput
+  }
+
+  /**
+   * StockJournal findFirst
+   */
+  export type StockJournalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter, which StockJournal to fetch.
+     */
+    where?: StockJournalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockJournals to fetch.
+     */
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StockJournals.
+     */
+    cursor?: StockJournalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockJournals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockJournals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StockJournals.
+     */
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
+   * StockJournal findFirstOrThrow
+   */
+  export type StockJournalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter, which StockJournal to fetch.
+     */
+    where?: StockJournalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockJournals to fetch.
+     */
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StockJournals.
+     */
+    cursor?: StockJournalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockJournals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockJournals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StockJournals.
+     */
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
+   * StockJournal findMany
+   */
+  export type StockJournalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter, which StockJournals to fetch.
+     */
+    where?: StockJournalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockJournals to fetch.
+     */
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StockJournals.
+     */
+    cursor?: StockJournalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockJournals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockJournals.
+     */
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
+   * StockJournal create
+   */
+  export type StockJournalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StockJournal.
+     */
+    data: XOR<StockJournalCreateInput, StockJournalUncheckedCreateInput>
+  }
+
+  /**
+   * StockJournal createMany
+   */
+  export type StockJournalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StockJournals.
+     */
+    data: StockJournalCreateManyInput | StockJournalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StockJournal createManyAndReturn
+   */
+  export type StockJournalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * The data used to create many StockJournals.
+     */
+    data: StockJournalCreateManyInput | StockJournalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StockJournal update
+   */
+  export type StockJournalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StockJournal.
+     */
+    data: XOR<StockJournalUpdateInput, StockJournalUncheckedUpdateInput>
+    /**
+     * Choose, which StockJournal to update.
+     */
+    where: StockJournalWhereUniqueInput
+  }
+
+  /**
+   * StockJournal updateMany
+   */
+  export type StockJournalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StockJournals.
+     */
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyInput>
+    /**
+     * Filter which StockJournals to update
+     */
+    where?: StockJournalWhereInput
+    /**
+     * Limit how many StockJournals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StockJournal updateManyAndReturn
+   */
+  export type StockJournalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * The data used to update StockJournals.
+     */
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyInput>
+    /**
+     * Filter which StockJournals to update
+     */
+    where?: StockJournalWhereInput
+    /**
+     * Limit how many StockJournals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StockJournal upsert
+   */
+  export type StockJournalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StockJournal to update in case it exists.
+     */
+    where: StockJournalWhereUniqueInput
+    /**
+     * In case the StockJournal found by the `where` argument doesn't exist, create a new StockJournal with this data.
+     */
+    create: XOR<StockJournalCreateInput, StockJournalUncheckedCreateInput>
+    /**
+     * In case the StockJournal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StockJournalUpdateInput, StockJournalUncheckedUpdateInput>
+  }
+
+  /**
+   * StockJournal delete
+   */
+  export type StockJournalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    /**
+     * Filter which StockJournal to delete.
+     */
+    where: StockJournalWhereUniqueInput
+  }
+
+  /**
+   * StockJournal deleteMany
+   */
+  export type StockJournalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StockJournals to delete
+     */
+    where?: StockJournalWhereInput
+    /**
+     * Limit how many StockJournals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StockJournal.transaction
+   */
+  export type StockJournal$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+  }
+
+  /**
+   * StockJournal without action
+   */
+  export type StockJournalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
   }
 
 
@@ -16760,6 +18227,7 @@ export namespace Prisma {
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     products?: boolean | Transaction$productsArgs<ExtArgs>
+    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
     _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
@@ -16823,6 +18291,7 @@ export namespace Prisma {
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     products?: boolean | Transaction$productsArgs<ExtArgs>
+    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
     _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16843,6 +18312,7 @@ export namespace Prisma {
       voucherProduct: Prisma.$VoucherProductPayload<ExtArgs> | null
       user: Prisma.$UsersPayload<ExtArgs>
       products: Prisma.$TransactionProductPayload<ExtArgs>[]
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17256,6 +18726,7 @@ export namespace Prisma {
     voucherProduct<T extends Transaction$voucherProductArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$voucherProductArgs<ExtArgs>>): Prisma__VoucherProductClient<$Result.GetResult<Prisma.$VoucherProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Transaction$productsArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stockJournal<T extends Transaction$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17753,6 +19224,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TransactionProductScalarFieldEnum | TransactionProductScalarFieldEnum[]
+  }
+
+  /**
+   * Transaction.stockJournal
+   */
+  export type Transaction$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    cursor?: StockJournalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
   }
 
   /**
@@ -19040,12 +20535,30 @@ export namespace Prisma {
     storeId: 'storeId',
     productId: 'productId',
     stock: 'stock',
+    minStock: 'minStock',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
   };
 
   export type StoreProductScalarFieldEnum = (typeof StoreProductScalarFieldEnum)[keyof typeof StoreProductScalarFieldEnum]
+
+
+  export const StockJournalScalarFieldEnum: {
+    id: 'id',
+    storeId: 'storeId',
+    productId: 'productId',
+    adminId: 'adminId',
+    transactionId: 'transactionId',
+    type: 'type',
+    quantity: 'quantity',
+    beforeStock: 'beforeStock',
+    afterStock: 'afterStock',
+    notes: 'notes',
+    createdAt: 'createdAt'
+  };
+
+  export type StockJournalScalarFieldEnum = (typeof StockJournalScalarFieldEnum)[keyof typeof StockJournalScalarFieldEnum]
 
 
   export const PromoProductScalarFieldEnum: {
@@ -19253,6 +20766,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StockMovement'
+   */
+  export type EnumStockMovementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockMovement'>
+    
+
+
+  /**
+   * Reference to a field of type 'StockMovement[]'
+   */
+  export type ListEnumStockMovementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockMovement[]'>
     
 
 
@@ -19581,6 +21108,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Admin"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
+    stockJournal?: StockJournalListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -19594,6 +21122,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     store?: StoreOrderByWithRelationInput
+    stockJournal?: StockJournalOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -19610,6 +21139,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Admin"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
+    stockJournal?: StockJournalListRelationFilter
   }, "id" | "email">
 
   export type AdminOrderByWithAggregationInput = {
@@ -19838,22 +21368,26 @@ export namespace Prisma {
     storeId?: StringFilter<"StoreProduct"> | string
     productId?: StringFilter<"StoreProduct"> | string
     stock?: IntFilter<"StoreProduct"> | number
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    stockJournal?: StockJournalListRelationFilter
   }
 
   export type StoreProductOrderByWithRelationInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
+    minStock?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     product?: ProductOrderByWithRelationInput
     store?: StoreOrderByWithRelationInput
+    stockJournal?: StockJournalOrderByRelationAggregateInput
   }
 
   export type StoreProductWhereUniqueInput = Prisma.AtLeast<{
@@ -19864,17 +21398,20 @@ export namespace Prisma {
     storeId?: StringFilter<"StoreProduct"> | string
     productId?: StringFilter<"StoreProduct"> | string
     stock?: IntFilter<"StoreProduct"> | number
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    stockJournal?: StockJournalListRelationFilter
   }, "storeId_productId">
 
   export type StoreProductOrderByWithAggregationInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
+    minStock?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -19892,9 +21429,103 @@ export namespace Prisma {
     storeId?: StringWithAggregatesFilter<"StoreProduct"> | string
     productId?: StringWithAggregatesFilter<"StoreProduct"> | string
     stock?: IntWithAggregatesFilter<"StoreProduct"> | number
+    minStock?: IntNullableWithAggregatesFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"StoreProduct"> | Date | string | null
+  }
+
+  export type StockJournalWhereInput = {
+    AND?: StockJournalWhereInput | StockJournalWhereInput[]
+    OR?: StockJournalWhereInput[]
+    NOT?: StockJournalWhereInput | StockJournalWhereInput[]
+    id?: StringFilter<"StockJournal"> | string
+    storeId?: StringFilter<"StockJournal"> | string
+    productId?: StringFilter<"StockJournal"> | string
+    adminId?: StringFilter<"StockJournal"> | string
+    transactionId?: StringNullableFilter<"StockJournal"> | string | null
+    type?: EnumStockMovementFilter<"StockJournal"> | $Enums.StockMovement
+    quantity?: IntFilter<"StockJournal"> | number
+    beforeStock?: IntFilter<"StockJournal"> | number
+    afterStock?: IntFilter<"StockJournal"> | number
+    notes?: StringNullableFilter<"StockJournal"> | string | null
+    createdAt?: DateTimeFilter<"StockJournal"> | Date | string
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    storeProduct?: XOR<StoreProductScalarRelationFilter, StoreProductWhereInput>
+    transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+  }
+
+  export type StockJournalOrderByWithRelationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    productId?: SortOrder
+    adminId?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    admin?: AdminOrderByWithRelationInput
+    storeProduct?: StoreProductOrderByWithRelationInput
+    transaction?: TransactionOrderByWithRelationInput
+  }
+
+  export type StockJournalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StockJournalWhereInput | StockJournalWhereInput[]
+    OR?: StockJournalWhereInput[]
+    NOT?: StockJournalWhereInput | StockJournalWhereInput[]
+    storeId?: StringFilter<"StockJournal"> | string
+    productId?: StringFilter<"StockJournal"> | string
+    adminId?: StringFilter<"StockJournal"> | string
+    transactionId?: StringNullableFilter<"StockJournal"> | string | null
+    type?: EnumStockMovementFilter<"StockJournal"> | $Enums.StockMovement
+    quantity?: IntFilter<"StockJournal"> | number
+    beforeStock?: IntFilter<"StockJournal"> | number
+    afterStock?: IntFilter<"StockJournal"> | number
+    notes?: StringNullableFilter<"StockJournal"> | string | null
+    createdAt?: DateTimeFilter<"StockJournal"> | Date | string
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    storeProduct?: XOR<StoreProductScalarRelationFilter, StoreProductWhereInput>
+    transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+  }, "id">
+
+  export type StockJournalOrderByWithAggregationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    productId?: SortOrder
+    adminId?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: StockJournalCountOrderByAggregateInput
+    _avg?: StockJournalAvgOrderByAggregateInput
+    _max?: StockJournalMaxOrderByAggregateInput
+    _min?: StockJournalMinOrderByAggregateInput
+    _sum?: StockJournalSumOrderByAggregateInput
+  }
+
+  export type StockJournalScalarWhereWithAggregatesInput = {
+    AND?: StockJournalScalarWhereWithAggregatesInput | StockJournalScalarWhereWithAggregatesInput[]
+    OR?: StockJournalScalarWhereWithAggregatesInput[]
+    NOT?: StockJournalScalarWhereWithAggregatesInput | StockJournalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StockJournal"> | string
+    storeId?: StringWithAggregatesFilter<"StockJournal"> | string
+    productId?: StringWithAggregatesFilter<"StockJournal"> | string
+    adminId?: StringWithAggregatesFilter<"StockJournal"> | string
+    transactionId?: StringNullableWithAggregatesFilter<"StockJournal"> | string | null
+    type?: EnumStockMovementWithAggregatesFilter<"StockJournal"> | $Enums.StockMovement
+    quantity?: IntWithAggregatesFilter<"StockJournal"> | number
+    beforeStock?: IntWithAggregatesFilter<"StockJournal"> | number
+    afterStock?: IntWithAggregatesFilter<"StockJournal"> | number
+    notes?: StringNullableWithAggregatesFilter<"StockJournal"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"StockJournal"> | Date | string
   }
 
   export type PromoProductWhereInput = {
@@ -20285,6 +21916,7 @@ export namespace Prisma {
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     products?: TransactionProductListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -20305,6 +21937,7 @@ export namespace Prisma {
     voucherProduct?: VoucherProductOrderByWithRelationInput
     user?: UsersOrderByWithRelationInput
     products?: TransactionProductOrderByRelationAggregateInput
+    stockJournal?: StockJournalOrderByRelationAggregateInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -20328,6 +21961,7 @@ export namespace Prisma {
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     products?: TransactionProductListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -20801,6 +22435,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     store?: StoreCreateNestedOneWithoutAdminsInput
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -20813,6 +22448,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -20825,6 +22461,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     store?: StoreUpdateOneWithoutAdminsNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -20837,6 +22474,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -21098,44 +22736,53 @@ export namespace Prisma {
 
   export type StoreProductCreateInput = {
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     product: ProductCreateNestedOneWithoutStoreStockInput
     store: StoreCreateNestedOneWithoutStoreStockInput
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUncheckedCreateInput = {
     storeId: string
     productId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUpdateInput = {
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
     store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateInput = {
     storeId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductCreateManyInput = {
     storeId: string
     productId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -21143,6 +22790,7 @@ export namespace Prisma {
 
   export type StoreProductUpdateManyMutationInput = {
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21152,9 +22800,102 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StockJournalCreateInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    admin: AdminCreateNestedOneWithoutStockJournalInput
+    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
+    transaction?: TransactionCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateInput = {
+    id?: string
+    storeId: string
+    productId: string
+    adminId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneRequiredWithoutStockJournalNestedInput
+    storeProduct?: StoreProductUpdateOneRequiredWithoutStockJournalNestedInput
+    transaction?: TransactionUpdateOneWithoutStockJournalNestedInput
+  }
+
+  export type StockJournalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalCreateManyInput = {
+    id?: string
+    storeId: string
+    productId: string
+    adminId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PromoProductCreateInput = {
@@ -21556,6 +23297,7 @@ export namespace Prisma {
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateInput = {
@@ -21573,6 +23315,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUpdateInput = {
@@ -21590,6 +23333,7 @@ export namespace Prisma {
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
@@ -21607,6 +23351,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionCreateManyInput = {
@@ -22189,6 +23934,16 @@ export namespace Prisma {
     isNot?: StoreWhereInput | null
   }
 
+  export type StockJournalListRelationFilter = {
+    every?: StockJournalWhereInput
+    some?: StockJournalWhereInput
+    none?: StockJournalWhereInput
+  }
+
+  export type StockJournalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     storeId?: SortOrder
@@ -22422,6 +24177,7 @@ export namespace Prisma {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
+    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -22429,12 +24185,14 @@ export namespace Prisma {
 
   export type StoreProductAvgOrderByAggregateInput = {
     stock?: SortOrder
+    minStock?: SortOrder
   }
 
   export type StoreProductMaxOrderByAggregateInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
+    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -22444,6 +24202,7 @@ export namespace Prisma {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
+    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -22451,6 +24210,93 @@ export namespace Prisma {
 
   export type StoreProductSumOrderByAggregateInput = {
     stock?: SortOrder
+    minStock?: SortOrder
+  }
+
+  export type EnumStockMovementFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockMovement | EnumStockMovementFieldRefInput<$PrismaModel>
+    in?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockMovementFilter<$PrismaModel> | $Enums.StockMovement
+  }
+
+  export type AdminScalarRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
+  export type StoreProductScalarRelationFilter = {
+    is?: StoreProductWhereInput
+    isNot?: StoreProductWhereInput
+  }
+
+  export type TransactionNullableScalarRelationFilter = {
+    is?: TransactionWhereInput | null
+    isNot?: TransactionWhereInput | null
+  }
+
+  export type StockJournalCountOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    productId?: SortOrder
+    adminId?: SortOrder
+    transactionId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StockJournalAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+  }
+
+  export type StockJournalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    productId?: SortOrder
+    adminId?: SortOrder
+    transactionId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StockJournalMinOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    productId?: SortOrder
+    adminId?: SortOrder
+    transactionId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StockJournalSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    beforeStock?: SortOrder
+    afterStock?: SortOrder
+  }
+
+  export type EnumStockMovementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockMovement | EnumStockMovementFieldRefInput<$PrismaModel>
+    in?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockMovementWithAggregatesFilter<$PrismaModel> | $Enums.StockMovement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStockMovementFilter<$PrismaModel>
+    _max?: NestedEnumStockMovementFilter<$PrismaModel>
   }
 
   export type PromoProductProductIdStoreIdCompoundUniqueInput = {
@@ -23154,6 +25000,20 @@ export namespace Prisma {
     connect?: StoreWhereUniqueInput
   }
 
+  export type StockJournalCreateNestedManyWithoutAdminInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
+  export type StockJournalUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
   export type StoreUpdateOneWithoutAdminsNestedInput = {
     create?: XOR<StoreCreateWithoutAdminsInput, StoreUncheckedCreateWithoutAdminsInput>
     connectOrCreate?: StoreCreateOrConnectWithoutAdminsInput
@@ -23162,6 +25022,34 @@ export namespace Prisma {
     delete?: StoreWhereInput | boolean
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutAdminsInput, StoreUpdateWithoutAdminsInput>, StoreUncheckedUpdateWithoutAdminsInput>
+  }
+
+  export type StockJournalUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutAdminInput | StockJournalUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutAdminInput | StockJournalUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutAdminInput | StockJournalUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutAdminInput | StockJournalUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutAdminInput | StockJournalUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutAdminInput | StockJournalUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -23416,6 +25304,20 @@ export namespace Prisma {
     connect?: StoreWhereUniqueInput
   }
 
+  export type StockJournalCreateNestedManyWithoutStoreProductInput = {
+    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
+  export type StockJournalUncheckedCreateNestedManyWithoutStoreProductInput = {
+    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
   export type ProductUpdateOneRequiredWithoutStoreStockNestedInput = {
     create?: XOR<ProductCreateWithoutStoreStockInput, ProductUncheckedCreateWithoutStoreStockInput>
     connectOrCreate?: ProductCreateOrConnectWithoutStoreStockInput
@@ -23430,6 +25332,82 @@ export namespace Prisma {
     upsert?: StoreUpsertWithoutStoreStockInput
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutStoreStockInput, StoreUpdateWithoutStoreStockInput>, StoreUncheckedUpdateWithoutStoreStockInput>
+  }
+
+  export type StockJournalUpdateManyWithoutStoreProductNestedInput = {
+    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutStoreProductInput | StockJournalUpsertWithWhereUniqueWithoutStoreProductInput[]
+    createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutStoreProductInput | StockJournalUpdateWithWhereUniqueWithoutStoreProductInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutStoreProductInput | StockJournalUpdateManyWithWhereWithoutStoreProductInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput = {
+    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutStoreProductInput | StockJournalUpsertWithWhereUniqueWithoutStoreProductInput[]
+    createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutStoreProductInput | StockJournalUpdateWithWhereUniqueWithoutStoreProductInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutStoreProductInput | StockJournalUpdateManyWithWhereWithoutStoreProductInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+  }
+
+  export type AdminCreateNestedOneWithoutStockJournalInput = {
+    create?: XOR<AdminCreateWithoutStockJournalInput, AdminUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutStockJournalInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type StoreProductCreateNestedOneWithoutStockJournalInput = {
+    create?: XOR<StoreProductCreateWithoutStockJournalInput, StoreProductUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStockJournalInput
+    connect?: StoreProductWhereUniqueInput
+  }
+
+  export type TransactionCreateNestedOneWithoutStockJournalInput = {
+    create?: XOR<TransactionCreateWithoutStockJournalInput, TransactionUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutStockJournalInput
+    connect?: TransactionWhereUniqueInput
+  }
+
+  export type EnumStockMovementFieldUpdateOperationsInput = {
+    set?: $Enums.StockMovement
+  }
+
+  export type AdminUpdateOneRequiredWithoutStockJournalNestedInput = {
+    create?: XOR<AdminCreateWithoutStockJournalInput, AdminUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutStockJournalInput
+    upsert?: AdminUpsertWithoutStockJournalInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutStockJournalInput, AdminUpdateWithoutStockJournalInput>, AdminUncheckedUpdateWithoutStockJournalInput>
+  }
+
+  export type StoreProductUpdateOneRequiredWithoutStockJournalNestedInput = {
+    create?: XOR<StoreProductCreateWithoutStockJournalInput, StoreProductUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStockJournalInput
+    upsert?: StoreProductUpsertWithoutStockJournalInput
+    connect?: StoreProductWhereUniqueInput
+    update?: XOR<XOR<StoreProductUpdateToOneWithWhereWithoutStockJournalInput, StoreProductUpdateWithoutStockJournalInput>, StoreProductUncheckedUpdateWithoutStockJournalInput>
+  }
+
+  export type TransactionUpdateOneWithoutStockJournalNestedInput = {
+    create?: XOR<TransactionCreateWithoutStockJournalInput, TransactionUncheckedCreateWithoutStockJournalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutStockJournalInput
+    upsert?: TransactionUpsertWithoutStockJournalInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutStockJournalInput, TransactionUpdateWithoutStockJournalInput>, TransactionUncheckedUpdateWithoutStockJournalInput>
   }
 
   export type ProductCreateNestedOneWithoutPromosInput = {
@@ -23667,11 +25645,25 @@ export namespace Prisma {
     connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
   }
 
+  export type StockJournalCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
   export type TransactionProductUncheckedCreateNestedManyWithoutTransactionInput = {
     create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
     connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
     createMany?: TransactionProductCreateManyTransactionInputEnvelope
     connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
+  }
+
+  export type StockJournalUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
   }
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
@@ -23720,6 +25712,20 @@ export namespace Prisma {
     deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
+  export type StockJournalUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutTransactionInput | StockJournalUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutTransactionInput | StockJournalUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutTransactionInput | StockJournalUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+  }
+
   export type TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput = {
     create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
     connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
@@ -23732,6 +25738,20 @@ export namespace Prisma {
     update?: TransactionProductUpdateWithWhereUniqueWithoutTransactionInput | TransactionProductUpdateWithWhereUniqueWithoutTransactionInput[]
     updateMany?: TransactionProductUpdateManyWithWhereWithoutTransactionInput | TransactionProductUpdateManyWithWhereWithoutTransactionInput[]
     deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutTransactionInput | StockJournalUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutTransactionInput | StockJournalUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutTransactionInput | StockJournalUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type ProductCreateNestedOneWithoutTrxProductsInput = {
@@ -24033,6 +26053,23 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumStockMovementFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockMovement | EnumStockMovementFieldRefInput<$PrismaModel>
+    in?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockMovementFilter<$PrismaModel> | $Enums.StockMovement
+  }
+
+  export type NestedEnumStockMovementWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StockMovement | EnumStockMovementFieldRefInput<$PrismaModel>
+    in?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StockMovement[] | ListEnumStockMovementFieldRefInput<$PrismaModel>
+    not?: NestedEnumStockMovementWithAggregatesFilter<$PrismaModel> | $Enums.StockMovement
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStockMovementFilter<$PrismaModel>
+    _max?: NestedEnumStockMovementFilter<$PrismaModel>
+  }
+
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -24085,6 +26122,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutUserInput = {
@@ -24101,6 +26139,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutUserInput = {
@@ -24337,6 +26376,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutStoreInput = {
@@ -24348,6 +26388,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutStoreInput = {
@@ -24426,18 +26467,22 @@ export namespace Prisma {
 
   export type StoreProductCreateWithoutStoreInput = {
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     product: ProductCreateNestedOneWithoutStoreStockInput
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUncheckedCreateWithoutStoreInput = {
     productId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductCreateOrConnectWithoutStoreInput = {
@@ -24566,6 +26611,7 @@ export namespace Prisma {
     storeId?: StringFilter<"StoreProduct"> | string
     productId?: StringFilter<"StoreProduct"> | string
     stock?: IntFilter<"StoreProduct"> | number
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
@@ -24612,6 +26658,41 @@ export namespace Prisma {
   export type StoreCreateOrConnectWithoutAdminsInput = {
     where: StoreWhereUniqueInput
     create: XOR<StoreCreateWithoutAdminsInput, StoreUncheckedCreateWithoutAdminsInput>
+  }
+
+  export type StockJournalCreateWithoutAdminInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
+    transaction?: TransactionCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateWithoutAdminInput = {
+    id?: string
+    storeId: string
+    productId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalCreateOrConnectWithoutAdminInput = {
+    where: StockJournalWhereUniqueInput
+    create: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput>
+  }
+
+  export type StockJournalCreateManyAdminInputEnvelope = {
+    data: StockJournalCreateManyAdminInput | StockJournalCreateManyAdminInput[]
+    skipDuplicates?: boolean
   }
 
   export type StoreUpsertWithoutAdminsInput = {
@@ -24661,6 +26742,39 @@ export namespace Prisma {
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     promos?: PromoProductUncheckedUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StockJournalUpsertWithWhereUniqueWithoutAdminInput = {
+    where: StockJournalWhereUniqueInput
+    update: XOR<StockJournalUpdateWithoutAdminInput, StockJournalUncheckedUpdateWithoutAdminInput>
+    create: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput>
+  }
+
+  export type StockJournalUpdateWithWhereUniqueWithoutAdminInput = {
+    where: StockJournalWhereUniqueInput
+    data: XOR<StockJournalUpdateWithoutAdminInput, StockJournalUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type StockJournalUpdateManyWithWhereWithoutAdminInput = {
+    where: StockJournalScalarWhereInput
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type StockJournalScalarWhereInput = {
+    AND?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+    OR?: StockJournalScalarWhereInput[]
+    NOT?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
+    id?: StringFilter<"StockJournal"> | string
+    storeId?: StringFilter<"StockJournal"> | string
+    productId?: StringFilter<"StockJournal"> | string
+    adminId?: StringFilter<"StockJournal"> | string
+    transactionId?: StringNullableFilter<"StockJournal"> | string | null
+    type?: EnumStockMovementFilter<"StockJournal"> | $Enums.StockMovement
+    quantity?: IntFilter<"StockJournal"> | number
+    beforeStock?: IntFilter<"StockJournal"> | number
+    afterStock?: IntFilter<"StockJournal"> | number
+    notes?: StringNullableFilter<"StockJournal"> | string | null
+    createdAt?: DateTimeFilter<"StockJournal"> | Date | string
   }
 
   export type ProductCreateWithoutCategoryInput = {
@@ -24846,18 +26960,22 @@ export namespace Prisma {
 
   export type StoreProductCreateWithoutProductInput = {
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     store: StoreCreateNestedOneWithoutStoreStockInput
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUncheckedCreateWithoutProductInput = {
     storeId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductCreateOrConnectWithoutProductInput = {
@@ -25101,6 +27219,40 @@ export namespace Prisma {
     create: XOR<StoreCreateWithoutStoreStockInput, StoreUncheckedCreateWithoutStoreStockInput>
   }
 
+  export type StockJournalCreateWithoutStoreProductInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    admin: AdminCreateNestedOneWithoutStockJournalInput
+    transaction?: TransactionCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateWithoutStoreProductInput = {
+    id?: string
+    adminId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalCreateOrConnectWithoutStoreProductInput = {
+    where: StockJournalWhereUniqueInput
+    create: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput>
+  }
+
+  export type StockJournalCreateManyStoreProductInputEnvelope = {
+    data: StockJournalCreateManyStoreProductInput | StockJournalCreateManyStoreProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProductUpsertWithoutStoreStockInput = {
     update: XOR<ProductUpdateWithoutStoreStockInput, ProductUncheckedUpdateWithoutStoreStockInput>
     create: XOR<ProductCreateWithoutStoreStockInput, ProductUncheckedCreateWithoutStoreStockInput>
@@ -25203,6 +27355,226 @@ export namespace Prisma {
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     promos?: PromoProductUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StockJournalUpsertWithWhereUniqueWithoutStoreProductInput = {
+    where: StockJournalWhereUniqueInput
+    update: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
+    create: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput>
+  }
+
+  export type StockJournalUpdateWithWhereUniqueWithoutStoreProductInput = {
+    where: StockJournalWhereUniqueInput
+    data: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
+  }
+
+  export type StockJournalUpdateManyWithWhereWithoutStoreProductInput = {
+    where: StockJournalScalarWhereInput
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutStoreProductInput>
+  }
+
+  export type AdminCreateWithoutStockJournalInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    isSuper?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    store?: StoreCreateNestedOneWithoutAdminsInput
+  }
+
+  export type AdminUncheckedCreateWithoutStockJournalInput = {
+    id?: string
+    storeId?: string | null
+    name: string
+    email: string
+    password: string
+    isSuper?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type AdminCreateOrConnectWithoutStockJournalInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutStockJournalInput, AdminUncheckedCreateWithoutStockJournalInput>
+  }
+
+  export type StoreProductCreateWithoutStockJournalInput = {
+    stock: number
+    minStock?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    product: ProductCreateNestedOneWithoutStoreStockInput
+    store: StoreCreateNestedOneWithoutStoreStockInput
+  }
+
+  export type StoreProductUncheckedCreateWithoutStockJournalInput = {
+    storeId: string
+    productId: string
+    stock: number
+    minStock?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type StoreProductCreateOrConnectWithoutStockJournalInput = {
+    where: StoreProductWhereUniqueInput
+    create: XOR<StoreProductCreateWithoutStockJournalInput, StoreProductUncheckedCreateWithoutStockJournalInput>
+  }
+
+  export type TransactionCreateWithoutStockJournalInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    userAddress: string
+    phoneNumber: string
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
+    voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    user: UsersCreateNestedOneWithoutTransactionsInput
+    products?: TransactionProductCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutStockJournalInput = {
+    id?: string
+    userId: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    userAddress: string
+    phoneNumber: string
+    codeVoucherProduct?: string | null
+    codeVoucherDelivery?: string | null
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutStockJournalInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutStockJournalInput, TransactionUncheckedCreateWithoutStockJournalInput>
+  }
+
+  export type AdminUpsertWithoutStockJournalInput = {
+    update: XOR<AdminUpdateWithoutStockJournalInput, AdminUncheckedUpdateWithoutStockJournalInput>
+    create: XOR<AdminCreateWithoutStockJournalInput, AdminUncheckedCreateWithoutStockJournalInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutStockJournalInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutStockJournalInput, AdminUncheckedUpdateWithoutStockJournalInput>
+  }
+
+  export type AdminUpdateWithoutStockJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    isSuper?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneWithoutAdminsNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutStockJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    isSuper?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StoreProductUpsertWithoutStockJournalInput = {
+    update: XOR<StoreProductUpdateWithoutStockJournalInput, StoreProductUncheckedUpdateWithoutStockJournalInput>
+    create: XOR<StoreProductCreateWithoutStockJournalInput, StoreProductUncheckedCreateWithoutStockJournalInput>
+    where?: StoreProductWhereInput
+  }
+
+  export type StoreProductUpdateToOneWithWhereWithoutStockJournalInput = {
+    where?: StoreProductWhereInput
+    data: XOR<StoreProductUpdateWithoutStockJournalInput, StoreProductUncheckedUpdateWithoutStockJournalInput>
+  }
+
+  export type StoreProductUpdateWithoutStockJournalInput = {
+    stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
+    store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
+  }
+
+  export type StoreProductUncheckedUpdateWithoutStockJournalInput = {
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type TransactionUpsertWithoutStockJournalInput = {
+    update: XOR<TransactionUpdateWithoutStockJournalInput, TransactionUncheckedUpdateWithoutStockJournalInput>
+    create: XOR<TransactionCreateWithoutStockJournalInput, TransactionUncheckedCreateWithoutStockJournalInput>
+    where?: TransactionWhereInput
+  }
+
+  export type TransactionUpdateToOneWithWhereWithoutStockJournalInput = {
+    where?: TransactionWhereInput
+    data: XOR<TransactionUpdateWithoutStockJournalInput, TransactionUncheckedUpdateWithoutStockJournalInput>
+  }
+
+  export type TransactionUpdateWithoutStockJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    userAddress?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
+    voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
+    products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutStockJournalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    userAddress?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type ProductCreateWithoutPromosInput = {
@@ -25415,6 +27787,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutVoucherProductInput = {
@@ -25431,6 +27804,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutVoucherProductInput = {
@@ -25473,6 +27847,7 @@ export namespace Prisma {
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutVoucherDeliveryInput = {
@@ -25489,6 +27864,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutVoucherDeliveryInput = {
@@ -26002,6 +28378,41 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StockJournalCreateWithoutTransactionInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    admin: AdminCreateNestedOneWithoutStockJournalInput
+    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    storeId: string
+    productId: string
+    adminId: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalCreateOrConnectWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type StockJournalCreateManyTransactionInputEnvelope = {
+    data: StockJournalCreateManyTransactionInput | StockJournalCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type VoucherDeliveryUpsertWithoutTrxInput = {
     update: XOR<VoucherDeliveryUpdateWithoutTrxInput, VoucherDeliveryUncheckedUpdateWithoutTrxInput>
     create: XOR<VoucherDeliveryCreateWithoutTrxInput, VoucherDeliveryUncheckedCreateWithoutTrxInput>
@@ -26125,6 +28536,22 @@ export namespace Prisma {
     data: XOR<TransactionProductUpdateManyMutationInput, TransactionProductUncheckedUpdateManyWithoutTransactionInput>
   }
 
+  export type StockJournalUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    update: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
+    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type StockJournalUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    data: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type StockJournalUpdateManyWithWhereWithoutTransactionInput = {
+    where: StockJournalScalarWhereInput
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutTransactionInput>
+  }
+
   export type ProductCreateWithoutTrxProductsInput = {
     id?: string
     name: string
@@ -26188,6 +28615,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutProductsInput = {
@@ -26204,6 +28632,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutProductsInput = {
@@ -26291,6 +28720,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutProductsInput = {
@@ -26307,6 +28737,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionCreateManyUserInput = {
@@ -26354,6 +28785,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutUserInput = {
@@ -26370,6 +28802,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
@@ -26470,6 +28903,7 @@ export namespace Prisma {
   export type StoreProductCreateManyStoreInput = {
     productId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26484,6 +28918,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutStoreInput = {
@@ -26495,6 +28930,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateManyWithoutStoreInput = {
@@ -26576,26 +29012,82 @@ export namespace Prisma {
 
   export type StoreProductUpdateWithoutStoreInput = {
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateWithoutStoreInput = {
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateManyWithoutStoreInput = {
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StockJournalCreateManyAdminInput = {
+    id?: string
+    storeId: string
+    productId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    storeProduct?: StoreProductUpdateOneRequiredWithoutStockJournalNestedInput
+    transaction?: TransactionUpdateOneWithoutStockJournalNestedInput
+  }
+
+  export type StockJournalUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -26703,6 +29195,7 @@ export namespace Prisma {
   export type StoreProductCreateManyProductInput = {
     storeId: string
     stock: number
+    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -26786,23 +29279,28 @@ export namespace Prisma {
 
   export type StoreProductUpdateWithoutProductInput = {
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateWithoutProductInput = {
     storeId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateManyWithoutProductInput = {
     storeId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26838,6 +29336,54 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type StockJournalCreateManyStoreProductInput = {
+    id?: string
+    adminId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalUpdateWithoutStoreProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneRequiredWithoutStockJournalNestedInput
+    transaction?: TransactionUpdateOneWithoutStockJournalNestedInput
+  }
+
+  export type StockJournalUncheckedUpdateWithoutStoreProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutStoreProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionCreateManyVoucherProductInput = {
     id?: string
     userId: string
@@ -26867,6 +29413,7 @@ export namespace Prisma {
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutVoucherProductInput = {
@@ -26883,6 +29430,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutVoucherProductInput = {
@@ -26929,6 +29477,7 @@ export namespace Prisma {
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutVoucherDeliveryInput = {
@@ -26945,6 +29494,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutVoucherDeliveryInput = {
@@ -27012,6 +29562,19 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
+  export type StockJournalCreateManyTransactionInput = {
+    id?: string
+    storeId: string
+    productId: string
+    adminId: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
   export type TransactionProductUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -27040,6 +29603,44 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type StockJournalUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneRequiredWithoutStockJournalNestedInput
+    storeProduct?: StoreProductUpdateOneRequiredWithoutStockJournalNestedInput
+  }
+
+  export type StockJournalUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -1,6 +1,7 @@
 import { Product, StoreProduct, Prisma } from '../generated/prisma';
 import { prisma } from '../lib/prisma';
 import { ApiError } from '../utils/ApiError';
+import { InventoryService } from './inventory.service';
 
 export interface CreateProductInput {
 	name: string;
@@ -500,8 +501,22 @@ export class ProductService {
 	static async updateProductStock(
 		productId: string,
 		storeId: string,
-		stock: number
+		stock: number,
+		adminId?: string
 	): Promise<StoreProduct> {
+		// If adminId is provided, use the new inventory system with journal
+		if (adminId) {
+			return await InventoryService.updateStock({
+				productId,
+				storeId,
+				quantity: stock,
+				type: 'ADJUSTMENT',
+				notes: 'Stock adjustment via product management',
+				adminId,
+			});
+		}
+
+		// Legacy method for backward compatibility
 		// Check if product exists and is active
 		const product = await this.getProductById(productId);
 		if (!product || !product.isActive) {

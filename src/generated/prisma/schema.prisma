@@ -64,16 +64,17 @@ model Store {
 }
 
 model Admin {
-  id        String    @id @default(uuid())
-  storeId   String?
-  name      String
-  email     String    @unique
-  password  String
-  isSuper   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  store     Store?    @relation(fields: [storeId], references: [id])
+  id           String         @id @default(uuid())
+  storeId      String?
+  name         String
+  email        String         @unique
+  password     String
+  isSuper      Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  store        Store?         @relation(fields: [storeId], references: [id])
+  stockJournal StockJournal[]
 }
 
 model ProductCategory {
@@ -112,16 +113,39 @@ model Product {
 }
 
 model StoreProduct {
-  storeId   String
-  productId String
-  stock     Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  product   Product   @relation(fields: [productId], references: [id])
-  store     Store     @relation(fields: [storeId], references: [id])
+  storeId      String
+  productId    String
+  stock        Int
+  minStock     Int?           @default(5)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  product      Product        @relation(fields: [productId], references: [id])
+  store        Store          @relation(fields: [storeId], references: [id])
+  stockJournal StockJournal[]
 
   @@id([storeId, productId])
+}
+
+model StockJournal {
+  id            String        @id @default(uuid())
+  storeId       String
+  productId     String
+  adminId       String
+  transactionId String?
+  type          StockMovement
+  quantity      Int
+  beforeStock   Int
+  afterStock    Int
+  notes         String?
+  createdAt     DateTime      @default(now())
+  admin         Admin         @relation(fields: [adminId], references: [id])
+  storeProduct  StoreProduct  @relation(fields: [storeId, productId], references: [storeId, productId])
+  transaction   Transaction?  @relation(fields: [transactionId], references: [id])
+
+  @@index([storeId, productId])
+  @@index([adminId])
+  @@index([createdAt])
 }
 
 model PromoProduct {
@@ -209,6 +233,7 @@ model Transaction {
   voucherProduct      VoucherProduct?      @relation(fields: [codeVoucherProduct], references: [code])
   user                Users                @relation(fields: [userId], references: [id])
   products            TransactionProduct[]
+  stockJournal        StockJournal[]
 }
 
 model TransactionProduct {
@@ -231,4 +256,12 @@ enum OrderStatus {
   shipped
   confirmed
   cancelled
+}
+
+enum StockMovement {
+  IN
+  OUT
+  ADJUSTMENT
+  TRANSFER
+  INITIAL
 }

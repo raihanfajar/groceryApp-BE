@@ -10,7 +10,7 @@ interface JWTPayload {
 	role: string;
 }
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
 	user?: JWTPayload;
 }
 

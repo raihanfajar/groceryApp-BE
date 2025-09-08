@@ -372,9 +372,9 @@ export class ProductController {
 			const storeProduct = await ProductService.updateProductStock(
 				productId,
 				targetStoreId,
-				parseInt(stock)
+				parseInt(stock),
+				req.user!.id // Pass adminId to use new inventory system
 			);
-
 			res.status(200).json({
 				status: 'success',
 				message: 'Product stock updated successfully',

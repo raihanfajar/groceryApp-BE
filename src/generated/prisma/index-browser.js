@@ -211,9 +211,24 @@ exports.Prisma.StoreProductScalarFieldEnum = {
   storeId: 'storeId',
   productId: 'productId',
   stock: 'stock',
+  minStock: 'minStock',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
+};
+
+exports.Prisma.StockJournalScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  productId: 'productId',
+  adminId: 'adminId',
+  transactionId: 'transactionId',
+  type: 'type',
+  quantity: 'quantity',
+  beforeStock: 'beforeStock',
+  afterStock: 'afterStock',
+  notes: 'notes',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PromoProductScalarFieldEnum = {
@@ -311,6 +326,14 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.StockMovement = exports.$Enums.StockMovement = {
+  IN: 'IN',
+  OUT: 'OUT',
+  ADJUSTMENT: 'ADJUSTMENT',
+  TRANSFER: 'TRANSFER',
+  INITIAL: 'INITIAL'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   waiting_payment: 'waiting_payment',
   waiting_confirmation: 'waiting_confirmation',
@@ -328,6 +351,7 @@ exports.Prisma.ModelName = {
   ProductCategory: 'ProductCategory',
   Product: 'Product',
   StoreProduct: 'StoreProduct',
+  StockJournal: 'StockJournal',
   PromoProduct: 'PromoProduct',
   VoucherProduct: 'VoucherProduct',
   VoucherDelivery: 'VoucherDelivery',
