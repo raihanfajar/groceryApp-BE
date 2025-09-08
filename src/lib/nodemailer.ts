@@ -13,7 +13,7 @@ export const transporter = nodemailer.createTransport({
     },
 });
 
-export const getVerifyUserEmailTemplate = (name: string, verifyUserEmailToken:string) => {
+export const getVerifyUserEmailTemplate = (name: string, verifyUserEmailToken: string) => {
     const templateHtml = fs.readFileSync('src/templates/verifyUserEmail.html', 'utf-8');
     const compiledTemplateHtml = Handlebars.compile(templateHtml);
     const resultTemplateHtml = compiledTemplateHtml({
@@ -24,12 +24,12 @@ export const getVerifyUserEmailTemplate = (name: string, verifyUserEmailToken:st
     return resultTemplateHtml;
 }
 
-export const getTemplateUser = (resetToken: string, templateFileName: string, userName: string) => {
-    const templateHtml = fs.readFileSync(`src/templates/${templateFileName}.html`, 'utf-8');
+export const getTemplateUser = (name: string, resetUserPasswordToken: string) => {
+    const templateHtml = fs.readFileSync(`src/templates/resetPassword.html`, 'utf-8');
     const compiledTemplateHtml = Handlebars.compile(templateHtml);
     const resultTemplateHtml = compiledTemplateHtml({
-        name: userName,
-        linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_USER_URL}/${resetToken}`,
+        name,
+        linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_USER_URL}/${resetUserPasswordToken}`,
     });
 
     return resultTemplateHtml;
