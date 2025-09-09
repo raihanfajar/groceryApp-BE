@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError";
 
 export interface MainAuthenticatedRequest extends Request {
-    payload?: JwtPayload; // !extend request with `user`
+    payload?: JwtPayload;
 }
 
 export const mainVerifyToken = (req: MainAuthenticatedRequest, res: Response, next: NextFunction) => {

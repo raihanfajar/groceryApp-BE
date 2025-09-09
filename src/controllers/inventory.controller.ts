@@ -6,8 +6,8 @@ import {
 } from '../services/inventory.service';
 import { ApiError } from '../utils/ApiError';
 import { catchAsync } from '../utils/catchAsync';
-import { AuthenticatedRequest } from '../middlewares/auth.middleware';
 import { StockMovement } from '../generated/prisma';
+import { AuthenticatedRequest } from '../types/express';
 
 export class InventoryController {
 	/**
