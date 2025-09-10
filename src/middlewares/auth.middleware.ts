@@ -1,21 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { ApiError } from '../utils/ApiError';
+import { JWTPayload } from '../types/express';
 
-interface JWTPayload {
-	id: string;
-	email: string;
-	isSuper: boolean;
-	storeId?: string;
-	role: string;
-}
+// interface JWTPayload {
+// 	id: string;
+// 	email: string;
+// 	isSuper: boolean;
+// 	storeId?: string;
+// 	role: string;
+// }
 
-export interface AuthenticatedRequest extends Request {
-	user?: JWTPayload;
-}
+// export interface AuthenticatedRequest extends Request {
+// 	user?: JWTPayload;
+// }
 
 export const verifyToken = async (
-	req: AuthenticatedRequest,
+	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -43,7 +44,7 @@ export const verifyToken = async (
 };
 
 export const verifyAdminRole = (
-	req: AuthenticatedRequest,
+	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -55,7 +56,7 @@ export const verifyAdminRole = (
 };
 
 export const verifySuperAdmin = (
-	req: AuthenticatedRequest,
+	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CartService } from "../services/cart.service";
 import { catchAsync } from "../utils/catchAsync";
 import { ApiError } from "../utils/ApiError";
+import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
 
 export class CartController {
 	private cartService = new CartService();
@@ -18,8 +19,8 @@ export class CartController {
 		});
 	});
 
-	userCart = catchAsync(async (_: Request, res: Response) => {
-		const userId = res.locals.payload;
+	userCart = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+		const { userId } = req.payload!;
 		if (!userId) {
 			throw new ApiError(400, "User ID is required");
 		}
@@ -30,8 +31,8 @@ export class CartController {
 		});
 	});
 
-	addCartProduct = catchAsync(async (req: Request, res: Response) => {
-		const userId = res.locals.payload;
+	addCartProduct = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+		const { userId } = req.payload!;
 		if (!userId) {
 			throw new ApiError(400, "User ID is required");
 		}
