@@ -155,7 +155,8 @@ model PromoProduct {
   discountPercentage Int
   discountNominal    Int
   picture            String?
-  expiryDate         DateTime
+  startDate          DateTime  @default(now())  // promo mulai berlaku
+  expiryDate         DateTime                  // promo berakhir
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   deletedAt          DateTime?
@@ -164,7 +165,6 @@ model PromoProduct {
 
   @@unique([productId, storeId])
 }
-
 model VoucherProduct {
   code        String        @id
   discount    Int?

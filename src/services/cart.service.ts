@@ -2,8 +2,8 @@ import { prisma } from "../lib/prisma";
 import { ApiError } from "../utils/ApiError";
 
 export class CartService {
-	async getCartCount(userId: string) {
-		await prisma.$transaction(async (tx) => {
+	async getCartCount(userId: string, activeStoreId: string) {
+		const count = await prisma.$transaction(async (tx) => {
 			const cart = await tx.cart.findFirst({
 				where: { userId },
 				select: { id: true },
@@ -13,27 +13,121 @@ export class CartService {
 				throw new ApiError(400, "User is not Found");
 			}
 
-			const count = await tx.cartProduct.count({
+			// Ambil semua item (id, product, store, qty)
+			const items = await tx.cartProduct.findMany({
+				where: { cartId: cart.id },
+				select: { id: true, productId: true, storeId: true, quantity: true },
+			});
+
+			if (items.length > 0) {
+				const hasMismatch = items.some((it) => it.storeId !== activeStoreId);
+
+				if (hasMismatch) {
+					for (const it of items) {
+						if (it.storeId === activeStoreId) continue;
+
+						// Pastikan produk tersedia di store baru
+						const sp = await tx.storeProduct.findUnique({
+							where: {
+								storeId_productId: {
+									storeId: activeStoreId,
+									productId: it.productId,
+								},
+							},
+							select: { stock: true },
+						});
+
+						if (!sp || sp.stock <= 0) {
+							// Kebijakan: hapus item yang tidak tersedia di store baru
+							await tx.cartProduct.delete({ where: { id: it.id } });
+							continue;
+						}
+
+						// Upsert ke kombinasi (cartId, productId, activeStoreId)
+						await tx.cartProduct.upsert({
+							where: {
+								cartId_productId_storeId: {
+									cartId: cart.id,
+									productId: it.productId,
+									storeId: activeStoreId,
+								},
+							},
+							update: {
+								quantity: { increment: it.quantity },
+								updatedAt: new Date(),
+							},
+							create: {
+								cartId: cart.id,
+								productId: it.productId,
+								storeId: activeStoreId,
+								quantity: it.quantity,
+							},
+						});
+
+						// Hapus baris lama (store lama)
+						await tx.cartProduct.delete({ where: { id: it.id } });
+					}
+				}
+			}
+
+			// Hitung ulang total item setelah remap (atau jika tidak perlu remap)
+			const total = await tx.cartProduct.count({
 				where: { cartId: cart.id },
 			});
-			return count;
+
+			return total;
 		});
+
+		return count;
 	}
 
 	async getUserCart(userId: string) {
+		const now = new Date();
+
 		const cart = await prisma.cart.findFirst({
 			where: { userId },
 			include: {
 				items: {
 					include: {
-						product: true,
+						product: {
+							include: { promos: true },
+						},
 					},
 				},
 			},
 		});
-		return cart;
-	}
 
+		if (!cart) return null;
+
+		const cartWithActivePromos = {
+			...cart,
+			items: cart.items.map((item) => {
+				const product = item.product;
+				const promos = product.promos ?? [];
+
+				const activePromos = promos.filter((promo) => {
+					const starts = promo.startDate; // Date | null
+					const ends = promo.expiryDate; // Date | null
+
+					const started = !starts || starts.getTime() <= now.getTime();
+					const notEnded = !ends || ends.getTime() >= now.getTime();
+
+					return started && notEnded;
+				});
+
+				return {
+					...item,
+					product: {
+						...product,
+						promos: activePromos,
+					},
+				};
+			}),
+		};
+
+		return cartWithActivePromos;
+	}
+	
 	async addProductToCart(userId: string, storeId: string, productId: string) {
 		const cart = await prisma.cart.findFirst({
 			where: { userId },

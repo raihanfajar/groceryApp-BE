@@ -8,10 +8,11 @@ export class CartController {
 
 	cartCount = catchAsync(async (_: Request, res: Response) => {
 		const userId = res.locals.payload;
+		const storeId = res.locals.storeId;
 		if (!userId) {
 			throw new ApiError(400, "User ID is required");
 		}
-		const count = await this.cartService.getCartCount(userId);
+		const count = await this.cartService.getCartCount(userId, storeId);
 		res.status(200).json({
 			message: "Cart count retrieved successfully",
 			data: { count },
