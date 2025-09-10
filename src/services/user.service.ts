@@ -148,28 +148,28 @@ export const googleAuthUserService = () => {
     // !still consulting with the genius ChatGPT
 }
 
-// export const googleAuthCallbackUserService = async (googleProfile: any) => {
-//     const email = googleProfile.emails?.[0]?.value;
-//     const name = googleProfile.displayName;
-//     const providerId = googleProfile.id;
+export const googleAuthCallbackUserService = async (googleProfile: any) => {
+    const email = googleProfile.emails?.[0]?.value;
+    const name = googleProfile.displayName;
+    const providerId = googleProfile.id;
 
-//     let user = await prisma.users.findUnique({ where: { email } });
+    let user = await prisma.users.findUnique({ where: { email } });
 
-//     if (!user) {
-//         user = await prisma.users.create({
-//             data: {
-//                 name,
-//                 email,
-//                 provider: "google",
-//                 providerId,
-//                 isVerified: true, // !WE BELIVE IN GOOGLE
-//             },
-//         });
-//     }
+    if (!user) {
+        user = await prisma.users.create({
+            data: {
+                name,
+                email,
+                provider: "google",
+                providerId,
+                isVerified: true, // !WE BELIVE IN GOOGLE
+            },
+        });
+    }
 
-//     const payload = { userId: user.id };
-//     const accessToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "2h" });
+    const payload = { userId: user.id };
+    const accessToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "2h" });
 
-//     const { password: _, ...safe } = user;
-//     return { ...safe, accessToken };
-// };
+    const { password: _, ...safe } = user;
+    return { ...safe, accessToken };
+};
