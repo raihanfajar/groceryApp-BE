@@ -2,14 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AdminService } from '../services/admin.service';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../utils/ApiError';
-
-interface AuthenticatedRequest extends Request {
-	user?: {
-		id: string;
-		isSuper: boolean;
-		storeId?: string;
-	};
-}
+import { AuthenticatedRequest } from '../types/express';
 
 export class AdminController {
 	private adminService = new AdminService();

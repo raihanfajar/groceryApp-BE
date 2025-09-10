@@ -10,19 +10,23 @@ datasource db {
 }
 
 model Users {
-  id            String        @id @default(uuid())
+  id            String                 @id @default(uuid())
   name          String
-  email         String        @unique
-  phoneNumber   String?       @unique
-  oauthProvider String?
+  email         String                 @unique
+  phoneNumber   String?                @unique
   password      String?
-  isVerified    Boolean       @default(false)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  isVerified    Boolean                @default(false)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
   deletedAt     DateTime?
+  provider      String?
+  providerId    String?
   carts         Cart?
   transactions  Transaction[]
   addresses     UserAddress[]
+  discountUsage DiscountUsageHistory[]
+
+  @@unique([provider, providerId])
 }
 
 model UserAddress {
@@ -59,22 +63,24 @@ model Store {
   deletedAt  DateTime?
   admins     Admin[]
   cartItems  CartProduct[]
-  promos     PromoProduct[]
   storeStock StoreProduct[]
+  discounts  Discount[]
 }
 
 model Admin {
-  id           String         @id @default(uuid())
-  storeId      String?
-  name         String
-  email        String         @unique
-  password     String
-  isSuper      Boolean        @default(false)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  deletedAt    DateTime?
-  store        Store?         @relation(fields: [storeId], references: [id])
-  stockJournal StockJournal[]
+  id               String                 @id @default(uuid())
+  storeId          String?
+  name             String
+  email            String                 @unique
+  password         String
+  isSuper          Boolean                @default(false)
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  deletedAt        DateTime?
+  store            Store?                 @relation(fields: [storeId], references: [id])
+  stockJournal     StockJournal[]
+  createdDiscounts Discount[]             @relation("DiscountCreator")
+  appliedDiscounts DiscountUsageHistory[] @relation("DiscountApplier")
 }
 
 model ProductCategory {
@@ -89,27 +95,27 @@ model ProductCategory {
 }
 
 model Product {
-  id          String               @id @default(uuid())
-  name        String
-  description String
-  slug        String               @unique
-  price       Int
-  zIndex      Int?
-  picture1    String
-  picture2    String?
-  picture3    String?
-  picture4    String?
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
-  deletedAt   DateTime?
-  categoryId  String
-  isActive    Boolean              @default(true)
-  weight      Float?
-  cartItems   CartProduct[]
-  category    ProductCategory      @relation(fields: [categoryId], references: [id])
-  promos      PromoProduct[]
-  storeStock  StoreProduct[]
-  trxProducts TransactionProduct[]
+  id               String               @id @default(uuid())
+  name             String
+  description      String
+  slug             String               @unique
+  price            Int
+  zIndex           Int?
+  picture1         String
+  picture2         String?
+  picture3         String?
+  picture4         String?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  deletedAt        DateTime?
+  categoryId       String
+  isActive         Boolean              @default(true)
+  weight           Float?
+  cartItems        CartProduct[]
+  category         ProductCategory      @relation(fields: [categoryId], references: [id])
+  storeStock       StoreProduct[]
+  trxProducts      TransactionProduct[]
+  discountProducts DiscountProduct[]
 }
 
 model StoreProduct {
@@ -146,23 +152,6 @@ model StockJournal {
   @@index([storeId, productId])
   @@index([adminId])
   @@index([createdAt])
-}
-
-model PromoProduct {
-  id                 String    @id @default(uuid())
-  storeId            String
-  productId          String
-  discountPercentage Int
-  discountNominal    Int
-  picture            String?
-  expiryDate         DateTime
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  deletedAt          DateTime?
-  product            Product   @relation(fields: [productId], references: [id])
-  store              Store     @relation(fields: [storeId], references: [id])
-
-  @@unique([productId, storeId])
 }
 
 model VoucherProduct {
@@ -216,24 +205,25 @@ model CartProduct {
 }
 
 model Transaction {
-  id                  String               @id @default(uuid())
-  userId              String
-  status              OrderStatus          @default(waiting_payment)
-  shippingPrice       Int
-  totalPrice          Int
-  userAddress         String
-  phoneNumber         String
-  codeVoucherProduct  String?
-  codeVoucherDelivery String?
-  paymentProof        String?
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  deletedAt           DateTime?
-  voucherDelivery     VoucherDelivery?     @relation(fields: [codeVoucherDelivery], references: [code])
-  voucherProduct      VoucherProduct?      @relation(fields: [codeVoucherProduct], references: [code])
-  user                Users                @relation(fields: [userId], references: [id])
-  products            TransactionProduct[]
-  stockJournal        StockJournal[]
+  id                   String                 @id @default(uuid())
+  userId               String
+  status               OrderStatus            @default(waiting_payment)
+  shippingPrice        Int
+  totalPrice           Int
+  userAddress          String
+  phoneNumber          String
+  codeVoucherProduct   String?
+  codeVoucherDelivery  String?
+  paymentProof         String?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  deletedAt            DateTime?
+  voucherDelivery      VoucherDelivery?       @relation(fields: [codeVoucherDelivery], references: [code])
+  voucherProduct       VoucherProduct?        @relation(fields: [codeVoucherProduct], references: [code])
+  user                 Users                  @relation(fields: [userId], references: [id])
+  products             TransactionProduct[]
+  stockJournal         StockJournal[]
+  discountUsageHistory DiscountUsageHistory[]
 }
 
 model TransactionProduct {
@@ -264,4 +254,91 @@ enum StockMovement {
   ADJUSTMENT
   TRANSFER
   INITIAL
+}
+
+model Discount {
+  id                  String                 @id @default(uuid())
+  storeId             String
+  name                String
+  description         String?
+  type                DiscountType
+  valueType           DiscountValueType
+  value               Int // percentage (1-100) or nominal amount
+  maxDiscountAmount   Int? // max discount for percentage type
+  minTransactionValue Int? // minimum transaction for discount to apply
+  maxUsagePerCustomer Int? // max times a customer can use this discount
+  totalUsageLimit     Int? // total usage limit across all customers
+  currentUsageCount   Int                    @default(0)
+  isActive            Boolean                @default(true)
+  startDate           DateTime
+  endDate             DateTime
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+  deletedAt           DateTime?
+  adminId             String // who created the discount
+  store               Store                  @relation(fields: [storeId], references: [id])
+  admin               Admin                  @relation("DiscountCreator", fields: [adminId], references: [id])
+  products            DiscountProduct[]
+  usageHistory        DiscountUsageHistory[]
+  bogoConfig          BogoDiscount?
+
+  @@index([storeId])
+  @@index([isActive])
+  @@index([startDate, endDate])
+}
+
+model DiscountProduct {
+  id         String   @id @default(uuid())
+  discountId String
+  productId  String
+  createdAt  DateTime @default(now())
+  discount   Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@unique([discountId, productId])
+}
+
+model BogoDiscount {
+  id                 String   @id @default(uuid())
+  discountId         String   @unique
+  buyQuantity        Int // quantity to buy
+  getQuantity        Int // quantity to get free
+  applyToSameProduct Boolean  @default(true) // if false, can get different product
+  maxBogoSets        Int? // max number of BOGO sets per transaction
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  discount           Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+}
+
+model DiscountUsageHistory {
+  id            String       @id @default(uuid())
+  discountId    String
+  transactionId String?
+  userId        String?
+  adminId       String? // if manually applied by admin
+  usedAt        DateTime     @default(now())
+  discountValue Int // actual discount amount applied
+  orderTotal    Int // total order amount when discount was applied
+  createdAt     DateTime     @default(now())
+  discount      Discount     @relation(fields: [discountId], references: [id])
+  transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  user          Users?       @relation(fields: [userId], references: [id])
+  appliedBy     Admin?       @relation("DiscountApplier", fields: [adminId], references: [id])
+
+  @@index([discountId])
+  @@index([transactionId])
+  @@index([userId])
+  @@index([usedAt])
+}
+
+enum DiscountType {
+  MANUAL // Can be applied manually by admin
+  MINIMUM_PURCHASE // Requires minimum transaction value
+  BOGO // Buy One Get One
+  AUTOMATIC // Automatically applied when conditions are met
+}
+
+enum DiscountValueType {
+  PERCENTAGE // Discount in percentage (1-100)
+  NOMINAL // Fixed amount discount
 }

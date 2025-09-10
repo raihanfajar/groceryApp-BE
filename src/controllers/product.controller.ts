@@ -1,14 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductService } from '../services/product.service';
 import { ApiError } from '../utils/ApiError';
-
-interface AuthenticatedRequest extends Request {
-	user?: {
-		id: string;
-		isSuper: boolean;
-		storeId?: string;
-	};
-}
+import { AuthenticatedRequest } from '../types/express';
 
 export class ProductController {
 	/**

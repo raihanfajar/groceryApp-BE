@@ -1,14 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { CategoryService } from '../services/category.service';
 import { ApiError } from '../utils/ApiError';
-
-interface AuthenticatedRequest extends Request {
-	user?: {
-		id: string;
-		isSuper: boolean;
-		storeId?: string;
-	};
-}
+import { AuthenticatedRequest } from '../types/express';
 
 export class CategoryController {
 	/**
