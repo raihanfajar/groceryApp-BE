@@ -132,3 +132,44 @@ export const resetPasswordUserService = async (userId: string, newPassword: stri
     // !Return
     return;
 }
+
+export const sessionLoginUserService = async (userId: string) => {
+    // !Extra validation
+    const existingUser = await prisma.users.findUnique({ where: { id: userId } });
+    if (!existingUser) throw new ApiError(404, 'User not found');
+    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+
+    // !Return
+    const { password: _, ...safe } = existingUser;
+    return { ...safe };
+}
+
+export const googleAuthUserService = () => {
+    // !still consulting with the genius ChatGPT
+}
+
+export const googleAuthCallbackUserService = async (googleProfile: any) => {
+    const email = googleProfile.emails?.[0]?.value;
+    const name = googleProfile.displayName;
+    const providerId = googleProfile.id;
+
+    let user = await prisma.users.findUnique({ where: { email } });
+
+    if (!user) {
+        user = await prisma.users.create({
+            data: {
+                name,
+                email,
+                provider: "google",
+                providerId,
+                isVerified: true, // !WE BELIVE IN GOOGLE
+            },
+        });
+    }
+
+    const payload = { userId: user.id };
+    const accessToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "2h" });
+
+    const { password: _, ...safe } = user;
+    return { ...safe, accessToken };
+};

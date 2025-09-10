@@ -2937,13 +2937,13 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
-    provider: string | null
-    providerId: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -2951,13 +2951,13 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
-    provider: string | null
-    providerId: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -2965,13 +2965,13 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
+    provider: number
+    providerId: number
     password: number
     isVerified: number
     createdAt: number
     updatedAt: number
     deletedAt: number
-    provider: number
-    providerId: number
     _all: number
   }
 
@@ -2981,13 +2981,13 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    provider?: true
-    providerId?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -2995,13 +2995,13 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    provider?: true
-    providerId?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -3009,13 +3009,13 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
-    provider?: true
-    providerId?: true
     _all?: true
   }
 
@@ -3096,13 +3096,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
-    provider: string | null
-    providerId: string | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -3127,13 +3127,13 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    provider?: boolean
-    providerId?: boolean
     carts?: boolean | Users$cartsArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
     addresses?: boolean | Users$addressesArgs<ExtArgs>
@@ -3146,13 +3146,13 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    provider?: boolean
-    providerId?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3160,13 +3160,13 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    provider?: boolean
-    providerId?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectScalar = {
@@ -3174,16 +3174,16 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    provider?: boolean
-    providerId?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt" | "provider" | "providerId", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "provider" | "providerId" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     carts?: boolean | Users$cartsArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
@@ -3207,13 +3207,13 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string | null
+      provider: string | null
+      providerId: string | null
       password: string | null
       isVerified: boolean
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
-      provider: string | null
-      providerId: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -3645,13 +3645,13 @@ export namespace Prisma {
     readonly name: FieldRef<"Users", 'String'>
     readonly email: FieldRef<"Users", 'String'>
     readonly phoneNumber: FieldRef<"Users", 'String'>
+    readonly provider: FieldRef<"Users", 'String'>
+    readonly providerId: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly isVerified: FieldRef<"Users", 'Boolean'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
     readonly updatedAt: FieldRef<"Users", 'DateTime'>
     readonly deletedAt: FieldRef<"Users", 'DateTime'>
-    readonly provider: FieldRef<"Users", 'String'>
-    readonly providerId: FieldRef<"Users", 'String'>
   }
     
 
@@ -24566,13 +24566,13 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     phoneNumber: 'phoneNumber',
+    provider: 'provider',
+    providerId: 'providerId',
     password: 'password',
     isVerified: 'isVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt',
-    provider: 'provider',
-    providerId: 'providerId'
+    deletedAt: 'deletedAt'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -25020,13 +25020,13 @@ export namespace Prisma {
     name?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     phoneNumber?: StringNullableFilter<"Users"> | string | null
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
-    provider?: StringNullableFilter<"Users"> | string | null
-    providerId?: StringNullableFilter<"Users"> | string | null
     carts?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
     transactions?: TransactionListRelationFilter
     addresses?: UserAddressListRelationFilter
@@ -25038,13 +25038,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    provider?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
     carts?: CartOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
     addresses?: UserAddressOrderByRelationAggregateInput
@@ -25060,13 +25060,13 @@ export namespace Prisma {
     OR?: UsersWhereInput[]
     NOT?: UsersWhereInput | UsersWhereInput[]
     name?: StringFilter<"Users"> | string
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
-    provider?: StringNullableFilter<"Users"> | string | null
-    providerId?: StringNullableFilter<"Users"> | string | null
     carts?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
     transactions?: TransactionListRelationFilter
     addresses?: UserAddressListRelationFilter
@@ -25078,13 +25078,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    provider?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
     _count?: UsersCountOrderByAggregateInput
     _max?: UsersMaxOrderByAggregateInput
     _min?: UsersMinOrderByAggregateInput
@@ -25098,13 +25098,13 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Users"> | string
     email?: StringWithAggregatesFilter<"Users"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    provider?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    providerId?: StringNullableWithAggregatesFilter<"Users"> | string | null
     password?: StringNullableWithAggregatesFilter<"Users"> | string | null
     isVerified?: BoolWithAggregatesFilter<"Users"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Users"> | Date | string | null
-    provider?: StringNullableWithAggregatesFilter<"Users"> | string | null
-    providerId?: StringNullableWithAggregatesFilter<"Users"> | string | null
   }
 
   export type UserAddressWhereInput = {
@@ -26579,13 +26579,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
@@ -26597,13 +26597,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
@@ -26615,13 +26615,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
@@ -26633,13 +26633,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
@@ -26651,13 +26651,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
   }
 
   export type UsersUpdateManyMutationInput = {
@@ -26665,13 +26665,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UsersUncheckedUpdateManyInput = {
@@ -26679,13 +26679,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserAddressCreateInput = {
@@ -28377,13 +28377,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
   }
 
   export type UsersMaxOrderByAggregateInput = {
@@ -28391,13 +28391,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
   }
 
   export type UsersMinOrderByAggregateInput = {
@@ -28405,13 +28405,13 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -31816,13 +31816,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
@@ -31833,13 +31833,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -31866,13 +31866,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
@@ -31883,13 +31883,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -33403,13 +33403,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
@@ -33420,13 +33420,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -33483,13 +33483,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
@@ -33500,13 +33500,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -33831,13 +33831,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
@@ -33848,13 +33848,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
@@ -34044,13 +34044,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
@@ -34061,13 +34061,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
@@ -35046,13 +35046,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
@@ -35063,13 +35063,13 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    provider?: string | null
-    providerId?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
@@ -35235,13 +35235,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
@@ -35252,13 +35252,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput

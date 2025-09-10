@@ -125,13 +125,13 @@ exports.Prisma.UsersScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phoneNumber: 'phoneNumber',
+  provider: 'provider',
+  providerId: 'providerId',
   password: 'password',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  provider: 'provider',
-  providerId: 'providerId'
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.UserAddressScalarFieldEnum = {

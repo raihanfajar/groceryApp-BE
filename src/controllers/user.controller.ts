@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { forgotPasswordUserService, loginUserService, registerUserService, resetPasswordUserService, verifyUserEmailService } from "../services/user.service";
-import { catchAsync } from "../utils/catchAsync";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
+import { forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resetPasswordUserService, sessionLoginUserService, verifyUserEmailService } from "../services/user.service";
+import { catchAsync } from "../utils/catchAsync";
 
 export const registerUserController = catchAsync(async (req: Request, res: Response) => {
     const result = await registerUserService(req.body);
@@ -26,4 +26,24 @@ export const forgotPasswordUserController = catchAsync(async (req: Request, res:
 export const resetPasswordUserController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
     await resetPasswordUserService(req.payload!.userId, req.body.newPassword);
     res.status(200).json({ status: "success", message: "Password reset successful" });
+});
+
+export const sessionLoginUserController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    const result = await sessionLoginUserService(req.payload!.userId);
+    res.status(200).json({ status: "success", message: "User login successful", data: result });
+});
+
+export const googleAuthUserController = catchAsync(async (_req, _res) => {
+    // This controller never really runs, because passport redirects to Google
+    // Just here for structure consistency
+});
+
+export const googleAuthCallbackUserController = catchAsync(async (req, res) => {
+    const googleProfile = req.user;
+    const result = await googleAuthCallbackUserService(googleProfile);
+
+    // Redirect back to FE with token
+    res.redirect(
+        `http://localhost:3000/login-success?token=${result.accessToken}&id=${result.id}&name=${encodeURIComponent(result.name)}&email=${encodeURIComponent(result.email)}`
+    );
 });
