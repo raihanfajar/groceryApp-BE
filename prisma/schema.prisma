@@ -10,19 +10,22 @@ datasource db {
 }
 
 model Users {
-  id            String        @id @default(uuid())
-  name          String
-  email         String        @unique
-  phoneNumber   String?       @unique
-  oauthProvider String?
-  password      String?
-  isVerified    Boolean       @default(false)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  deletedAt     DateTime?
-  carts         Cart?
-  transactions  Transaction[]
-  addresses     UserAddress[]
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  phoneNumber  String?       @unique
+  provider     String?
+  providerId   String?
+  password     String?
+  isVerified   Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    DateTime?
+  carts        Cart?
+  transactions Transaction[]
+  addresses    UserAddress[]
+
+  // @@unique([provider, providerId])
 }
 
 model UserAddress {
@@ -116,19 +119,19 @@ model StoreProduct {
   storeId      String
   productId    String
   stock        Int
-  minStock     Int?            @default(5)
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  minStock     Int?           @default(5)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
-  product      Product         @relation(fields: [productId], references: [id])
-  store        Store           @relation(fields: [storeId], references: [id])
+  product      Product        @relation(fields: [productId], references: [id])
+  store        Store          @relation(fields: [storeId], references: [id])
   stockJournal StockJournal[]
 
   @@id([storeId, productId])
 }
 
 model StockJournal {
-  id            String          @id @default(uuid())
+  id            String        @id @default(uuid())
   storeId       String
   productId     String
   adminId       String
@@ -138,10 +141,10 @@ model StockJournal {
   beforeStock   Int
   afterStock    Int
   notes         String?
-  createdAt     DateTime        @default(now())
-  admin         Admin           @relation(fields: [adminId], references: [id])
-  storeProduct  StoreProduct    @relation(fields: [storeId, productId], references: [storeId, productId])
-  transaction   Transaction?    @relation(fields: [transactionId], references: [id])
+  createdAt     DateTime      @default(now())
+  admin         Admin         @relation(fields: [adminId], references: [id])
+  storeProduct  StoreProduct  @relation(fields: [storeId, productId], references: [storeId, productId])
+  transaction   Transaction?  @relation(fields: [transactionId], references: [id])
 
   @@index([storeId, productId])
   @@index([adminId])

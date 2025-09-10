@@ -2562,7 +2562,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
-    oauthProvider: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
@@ -2575,7 +2576,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
-    oauthProvider: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
@@ -2588,7 +2590,8 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
-    oauthProvider: number
+    provider: number
+    providerId: number
     password: number
     isVerified: number
     createdAt: number
@@ -2603,7 +2606,8 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    oauthProvider?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
@@ -2616,7 +2620,8 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    oauthProvider?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
@@ -2629,7 +2634,8 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    oauthProvider?: true
+    provider?: true
+    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
@@ -2715,7 +2721,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string | null
-    oauthProvider: string | null
+    provider: string | null
+    providerId: string | null
     password: string | null
     isVerified: boolean
     createdAt: Date
@@ -2745,7 +2752,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    oauthProvider?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
@@ -2762,7 +2770,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    oauthProvider?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
@@ -2775,7 +2784,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    oauthProvider?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
@@ -2788,7 +2798,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    oauthProvider?: boolean
+    provider?: boolean
+    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
@@ -2796,7 +2807,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "oauthProvider" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "provider" | "providerId" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     carts?: boolean | Users$cartsArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
@@ -2818,7 +2829,8 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string | null
-      oauthProvider: string | null
+      provider: string | null
+      providerId: string | null
       password: string | null
       isVerified: boolean
       createdAt: Date
@@ -3254,7 +3266,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Users", 'String'>
     readonly email: FieldRef<"Users", 'String'>
     readonly phoneNumber: FieldRef<"Users", 'String'>
-    readonly oauthProvider: FieldRef<"Users", 'String'>
+    readonly provider: FieldRef<"Users", 'String'>
+    readonly providerId: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly isVerified: FieldRef<"Users", 'Boolean'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
@@ -20431,7 +20444,8 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     phoneNumber: 'phoneNumber',
-    oauthProvider: 'oauthProvider',
+    provider: 'provider',
+    providerId: 'providerId',
     password: 'password',
     isVerified: 'isVerified',
     createdAt: 'createdAt',
@@ -20808,7 +20822,8 @@ export namespace Prisma {
     name?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     phoneNumber?: StringNullableFilter<"Users"> | string | null
-    oauthProvider?: StringNullableFilter<"Users"> | string | null
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
@@ -20824,7 +20839,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    oauthProvider?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -20843,7 +20859,8 @@ export namespace Prisma {
     OR?: UsersWhereInput[]
     NOT?: UsersWhereInput | UsersWhereInput[]
     name?: StringFilter<"Users"> | string
-    oauthProvider?: StringNullableFilter<"Users"> | string | null
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
@@ -20859,7 +20876,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    oauthProvider?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -20878,7 +20896,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Users"> | string
     email?: StringWithAggregatesFilter<"Users"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"Users"> | string | null
-    oauthProvider?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    provider?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    providerId?: StringNullableWithAggregatesFilter<"Users"> | string | null
     password?: StringNullableWithAggregatesFilter<"Users"> | string | null
     isVerified?: BoolWithAggregatesFilter<"Users"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
@@ -22084,7 +22103,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -22100,7 +22120,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -22116,7 +22137,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22132,7 +22154,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22148,7 +22171,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -22161,7 +22185,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22174,7 +22199,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23566,7 +23592,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    oauthProvider?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -23579,7 +23606,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    oauthProvider?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -23592,7 +23620,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    oauthProvider?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -26296,7 +26325,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -26311,7 +26341,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -26342,7 +26373,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26357,7 +26389,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27898,7 +27931,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -27913,7 +27947,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -27974,7 +28009,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27989,7 +28025,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28318,7 +28355,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -28333,7 +28371,8 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    oauthProvider?: string | null
+    provider?: string | null
+    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
@@ -28495,7 +28534,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28510,7 +28550,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
