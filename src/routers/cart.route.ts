@@ -1,12 +1,12 @@
 import express from "express";
 import { CartController } from "../controllers/cart.controller";
-import { verifyToken } from "../middlewares/auth.middleware";
+import { mainVerifyToken } from "../middlewares/jwt.middleware";
 
 const cartRouter = express.Router();
 const cartController = new CartController();
 
 // User Authentication
-cartRouter.use(verifyToken)
+cartRouter.use(mainVerifyToken)
 
 // Get Cart Count
 cartRouter.get("/count", cartController.cartCount);

@@ -232,19 +232,6 @@ exports.Prisma.StockJournalScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.PromoProductScalarFieldEnum = {
-  id: 'id',
-  storeId: 'storeId',
-  productId: 'productId',
-  discountPercentage: 'discountPercentage',
-  discountNominal: 'discountNominal',
-  picture: 'picture',
-  expiryDate: 'expiryDate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
-};
-
 exports.Prisma.VoucherProductScalarFieldEnum = {
   code: 'code',
   discount: 'discount',
@@ -313,6 +300,58 @@ exports.Prisma.TransactionProductScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.DiscountScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  valueType: 'valueType',
+  value: 'value',
+  maxDiscountAmount: 'maxDiscountAmount',
+  minTransactionValue: 'minTransactionValue',
+  maxUsagePerCustomer: 'maxUsagePerCustomer',
+  totalUsageLimit: 'totalUsageLimit',
+  currentUsageCount: 'currentUsageCount',
+  isActive: 'isActive',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  adminId: 'adminId'
+};
+
+exports.Prisma.DiscountProductScalarFieldEnum = {
+  id: 'id',
+  discountId: 'discountId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BogoDiscountScalarFieldEnum = {
+  id: 'id',
+  discountId: 'discountId',
+  buyQuantity: 'buyQuantity',
+  getQuantity: 'getQuantity',
+  applyToSameProduct: 'applyToSameProduct',
+  maxBogoSets: 'maxBogoSets',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DiscountUsageHistoryScalarFieldEnum = {
+  id: 'id',
+  discountId: 'discountId',
+  transactionId: 'transactionId',
+  userId: 'userId',
+  adminId: 'adminId',
+  usedAt: 'usedAt',
+  discountValue: 'discountValue',
+  orderTotal: 'orderTotal',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -344,6 +383,18 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   cancelled: 'cancelled'
 };
 
+exports.DiscountType = exports.$Enums.DiscountType = {
+  MANUAL: 'MANUAL',
+  MINIMUM_PURCHASE: 'MINIMUM_PURCHASE',
+  BOGO: 'BOGO',
+  AUTOMATIC: 'AUTOMATIC'
+};
+
+exports.DiscountValueType = exports.$Enums.DiscountValueType = {
+  PERCENTAGE: 'PERCENTAGE',
+  NOMINAL: 'NOMINAL'
+};
+
 exports.Prisma.ModelName = {
   Users: 'Users',
   UserAddress: 'UserAddress',
@@ -353,13 +404,16 @@ exports.Prisma.ModelName = {
   Product: 'Product',
   StoreProduct: 'StoreProduct',
   StockJournal: 'StockJournal',
-  PromoProduct: 'PromoProduct',
   VoucherProduct: 'VoucherProduct',
   VoucherDelivery: 'VoucherDelivery',
   Cart: 'Cart',
   CartProduct: 'CartProduct',
   Transaction: 'Transaction',
-  TransactionProduct: 'TransactionProduct'
+  TransactionProduct: 'TransactionProduct',
+  Discount: 'Discount',
+  DiscountProduct: 'DiscountProduct',
+  BogoDiscount: 'BogoDiscount',
+  DiscountUsageHistory: 'DiscountUsageHistory'
 };
 
 /**
