@@ -7,46 +7,57 @@ import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
 export class CartController {
 	private cartService = new CartService();
 
-	cartCount = catchAsync(async (_: Request, res: Response) => {
-		const userId = res.locals.payload;
-		if (!userId) {
-			throw new ApiError(400, "User ID is required");
+	cartCount = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			const storeId = "7658f570-f8a7-4fb4-901a-433a21047108";
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			const count = await this.cartService.getCartCount(userId, storeId);
+			res.status(200).json({
+				message: "Cart count retrieved successfully",
+				data: { count },
+			});
 		}
-		const count = await this.cartService.getCartCount(userId);
-		res.status(200).json({
-			message: "Cart count retrieved successfully",
-			data: { count },
-		});
-	});
+	);
 
-	userCart = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
-		const { userId } = req.payload!;
-		if (!userId) {
-			throw new ApiError(400, "User ID is required");
+	userCart = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			const cart = await this.cartService.getUserCart(userId);
+			res.status(200).json({
+				message: "User cart retrieved successfully",
+				data: { cart },
+			});
 		}
-		const cart = await this.cartService.getUserCart(userId);
-		res.status(200).json({
-			message: "User cart retrieved successfully",
-			data: { cart },
-		});
-	});
+	);
 
-	addCartProduct = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
-		const { userId } = req.payload!;
-		if (!userId) {
-			throw new ApiError(400, "User ID is required");
+	addCartProduct = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			const { storeId, productId } = req.body;
+			const cart = await this.cartService.addProductToCart(
+				userId,
+				storeId,
+				productId
+			);
+			res.status(200).json({
+				message: "Cart product added successfully",
+				data: { cart },
+			});
 		}
-		const { storeId, productId } = req.body;
-		const cart = await this.cartService.addProductToCart(userId, storeId, productId);
-		res.status(200).json({
-			message: "Cart product added successfully",
-			data: { cart },
-		});
-	});
+	);
 
 	updateCartProductQuantity = catchAsync(
-		async (req: Request, res: Response) => {
-			const userId = res.locals.payload;
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
