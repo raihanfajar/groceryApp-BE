@@ -66,3 +66,6 @@ export const verifySuperAdmin = (
 
 	next();
 };
+
+// Combined middleware for admin routes that includes token verification
+export const validateAdminAccess = [verifyToken, verifyAdminRole];
