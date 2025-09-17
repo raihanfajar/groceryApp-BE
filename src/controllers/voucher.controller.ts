@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CartService } from "../services/cart.service";
 import { catchAsync } from "../utils/catchAsync";
 import { ApiError } from "../utils/ApiError";
 import { VoucherService } from "../services/voucher.service";

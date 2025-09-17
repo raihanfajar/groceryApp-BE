@@ -48,23 +48,24 @@ model UserAddress {
 }
 
 model Store {
-  id         String         @id @default(uuid())
-  provinceId Int
-  province   String
-  cityId     Int
-  city       String
-  address    String
-  name       String
-  lat        Decimal?       @db.Decimal(9, 6)
-  lng        Decimal?       @db.Decimal(9, 6)
-  radiusKm   Decimal        @db.Decimal(6, 2)
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
-  deletedAt  DateTime?
-  admins     Admin[]
-  cartItems  CartProduct[]
-  storeStock StoreProduct[]
-  discounts  Discount[]
+  id          String         @id @default(uuid())
+  provinceId  Int
+  province    String
+  cityId      Int
+  city        String
+  address     String
+  name        String
+  lat         Decimal?       @db.Decimal(9, 6)
+  lng         Decimal?       @db.Decimal(9, 6)
+  radiusKm    Decimal        @db.Decimal(6, 2)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  deletedAt   DateTime?
+  admins      Admin[]
+  cartItems   CartProduct[]
+  storeStock  StoreProduct[]
+  discounts   Discount[]
+  Transaction Transaction[]
 }
 
 model Admin {
@@ -207,17 +208,25 @@ model CartProduct {
 model Transaction {
   id                   String                 @id @default(uuid())
   userId               String
+  storeId              String
   status               OrderStatus            @default(waiting_payment)
   shippingPrice        Int
+  discountedShipping   Int                    @default(0) // potongan ongkir dari voucher
+  finalShippingPrice   Int // shippingPrice - discountedShipping
   totalPrice           Int
-  userAddress          String
+  address              String
   phoneNumber          String
+  provinceId           Int
+  province             String
+  cityId               Int
+  city                 String
   codeVoucherProduct   String?
   codeVoucherDelivery  String?
   paymentProof         String?
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @updatedAt
   deletedAt            DateTime?
+  store                Store                  @relation(fields: [storeId], references: [id])
   voucherDelivery      VoucherDelivery?       @relation(fields: [codeVoucherDelivery], references: [code])
   voucherProduct       VoucherProduct?        @relation(fields: [codeVoucherProduct], references: [code])
   user                 Users                  @relation(fields: [userId], references: [id])
@@ -232,6 +241,8 @@ model TransactionProduct {
   productId     String
   quantity      Int
   price         Int
+  discount      Int         @default(0) // potongan harga untuk produk ini
+  finalPrice    Int // (price - discount) * quantity
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   deletedAt     DateTime?

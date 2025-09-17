@@ -33,6 +33,13 @@ type CartWithPromoItem = {
 	} | null;
 };
 
+type ComputedCartItem = CartWithPromoItem & {
+	availability: {
+		status: "AVAILABLE" | "OUT_OF_STOCK";
+		currentStock: number;
+	};
+};
+
 export class CartService {
 	async getCartCount(userId: string, activeStoreId: string) {
 		const count = await prisma.$transaction(async (tx) => {
@@ -45,7 +52,7 @@ export class CartService {
 				throw new ApiError(400, "User doesnt have cart yet");
 			}
 
-			// Ambil semua item (id, product, store, qty)
+			// --- BAGIAN 1: SINKRONISASI KERANJANG ---
 			const items = await tx.cartProduct.findMany({
 				where: { cartId: cart.id },
 				select: { id: true, productId: true, storeId: true, quantity: true },
@@ -57,8 +64,6 @@ export class CartService {
 				if (hasMismatch) {
 					for (const it of items) {
 						if (it.storeId === activeStoreId) continue;
-
-						// Pastikan produk tersedia di store baru
 						const sp = await tx.storeProduct.findUnique({
 							where: {
 								storeId_productId: {
@@ -68,14 +73,10 @@ export class CartService {
 							},
 							select: { stock: true },
 						});
-
 						if (!sp || sp.stock <= 0) {
-							// Kebijakan: hapus item yang tidak tersedia di store baru
 							await tx.cartProduct.delete({ where: { id: it.id } });
 							continue;
 						}
-
-						// Upsert ke kombinasi (cartId, productId, activeStoreId)
 						await tx.cartProduct.upsert({
 							where: {
 								cartId_productId_storeId: {
@@ -84,10 +85,7 @@ export class CartService {
 									storeId: activeStoreId,
 								},
 							},
-							update: {
-								quantity: { increment: it.quantity },
-								updatedAt: new Date(),
-							},
+							update: { quantity: { increment: it.quantity } },
 							create: {
 								cartId: cart.id,
 								productId: it.productId,
@@ -96,18 +94,45 @@ export class CartService {
 							},
 						});
 
-						// Hapus baris lama (store lama)
+						// Hapus item dari storeid yang lama
 						await tx.cartProduct.delete({ where: { id: it.id } });
 					}
 				}
 			}
 
-			// Hitung ulang total item setelah remap (atau jika tidak perlu remap)
-			const total = await tx.cartProduct.count({
-				where: { cartId: cart.id },
+			// --- BAGIAN 2: HITUNG ITEM YANG TERSEDIA ---
+			// Ambil item yang sudah tersinkronisasi
+			const finalCartItems = await tx.cartProduct.findMany({
+				where: { cartId: cart.id, storeId: activeStoreId },
+				select: { productId: true, quantity: true },
 			});
 
-			return total;
+			if (finalCartItems.length === 0) {
+				return 0;
+			}
+
+			// Ambil data stok untuk semua produk relevan dalam satu query
+			const productIds = finalCartItems.map((item) => item.productId);
+			const stocks = await tx.storeProduct.findMany({
+				where: {
+					storeId: activeStoreId,
+					productId: { in: productIds },
+				},
+				select: { productId: true, stock: true },
+			});
+
+			const stockMap = new Map(stocks.map((s) => [s.productId, s.stock]));
+
+			// Hitung hanya item yang kuantitasnya mencukupi stok
+			const availableItemsCount = finalCartItems.reduce((acc, item) => {
+				const currentStock = stockMap.get(item.productId) ?? 0;
+				if (currentStock >= item.quantity) {
+					return acc + 1; // Tambahkan 1 ke total hitungan
+				}
+				return acc; // Jangan hitung jika stok kurang
+			}, 0);
+
+			return availableItemsCount;
 		});
 
 		return count;
@@ -129,20 +154,27 @@ export class CartService {
 
 		if (!cart) return null;
 
-		// We'll run inside a transaction to keep reads consistent (optional)
 		const cartWithComputed = await prisma.$transaction(async (tx) => {
-			// map items and compute discounts
-			const mappedItems: CartWithPromoItem[] = [];
+			const mappedItems: ComputedCartItem[] = [];
 
 			for (const item of cart.items) {
 				const product = item.product;
 				const basePrice: number = product.price;
 
-				// Find discounts that:
-				// - belong to the same store as the cart item
-				// - are active (isActive)
-				// - within start/end date range
-				// - apply to this product (via DiscountProduct)
+				// --- LOGIKA PENGECEKAN STOK YANG DISEDERHANAKAN ---
+				const stockData = await tx.storeProduct.findFirst({
+					where: { storeId: item.storeId, productId: product.id },
+					select: { stock: true },
+				});
+				const currentStock = stockData?.stock ?? 0;
+
+				const availabilityStatus: ComputedCartItem["availability"] = {
+					status: currentStock >= item.quantity ? "AVAILABLE" : "OUT_OF_STOCK",
+					currentStock: currentStock,
+				};
+				// --- AKHIR LOGIKA PENGECEKAN STOK ---
+
+				// Logika diskon Anda
 				const discounts = await tx.discount.findMany({
 					where: {
 						storeId: item.storeId,
@@ -160,15 +192,12 @@ export class CartService {
 					},
 				});
 
-				// compute best discount (max saving) among discounts found
 				let bestDiscount: any = null;
 				let bestDiscountAmount = 0;
 
 				for (const d of discounts) {
-					// compute discount amount per unit
 					let discountAmount = 0;
 					if (d.valueType === "PERCENTAGE") {
-						// percent value expected 1..100
 						discountAmount = Math.floor((basePrice * d.value) / 100);
 						if (d.maxDiscountAmount) {
 							discountAmount = Math.min(discountAmount, d.maxDiscountAmount);
@@ -183,13 +212,8 @@ export class CartService {
 					}
 				}
 
-				// Build item result
 				const activePrice = Math.max(0, basePrice - bestDiscountAmount);
-
-				// If BOGO present for any discount, pick first BOGO config (if any)
-				const bogo = discounts.find((d) => d.bogoConfig)
-					? discounts.find((d) => d.bogoConfig)!.bogoConfig
-					: null;
+				const bogo = discounts.find((d) => d.bogoConfig)?.bogoConfig ?? null;
 
 				mappedItems.push({
 					id: item.id,
@@ -222,14 +246,16 @@ export class CartService {
 								maxBogoSets: bogo.maxBogoSets ?? null,
 							}
 						: null,
+
+					// Tambahkan properti 'availability' yang baru di sini
+					availability: availabilityStatus,
 				});
 			}
 
-			// Return cart object with mapped items
 			return {
 				...cart,
 				items: mappedItems,
-			} as typeof cart & { items: CartWithPromoItem[] };
+			};
 		});
 
 		return cartWithComputed;
