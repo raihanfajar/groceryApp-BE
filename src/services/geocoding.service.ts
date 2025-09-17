@@ -14,7 +14,7 @@ export const rgcService = async (lat: string, lon: string) => {
 }
 
 export const fgcService = async (q: string, limit: string | undefined) => {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=${limit ?? 5}`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=${limit ?? 5}&countrycodes=id`;
 
     const r = await fetch(url, {
         headers: { "User-Agent": "FreshNear/1.0 (fnsupport@gmail.com)" },
