@@ -3,14 +3,6 @@ import { ProductService } from '../services/product.service';
 import { ApiError } from '../utils/ApiError';
 import { AuthenticatedRequest } from '../types/express';
 
-// interface AuthenticatedRequest extends Request {
-// 	user?: {
-// 		id: string;
-// 		isSuper: boolean;
-// 		storeId?: string;
-// 	};
-// }
-
 export class ProductController {
 	/**
 	 * GET /api/products

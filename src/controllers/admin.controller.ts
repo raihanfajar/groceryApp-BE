@@ -4,14 +4,6 @@ import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../utils/ApiError';
 import { AuthenticatedRequest } from '../types/express';
 
-// interface AuthenticatedRequest extends Request {
-// 	user?: {
-// 		id: string;
-// 		isSuper: boolean;
-// 		storeId?: string;
-// 	};
-// }
-
 export class AdminController {
 	private adminService = new AdminService();
 
