@@ -8,6 +8,7 @@ import userRouter from './user.route';
 import inventoryRouter from './inventory.route';
 import discountRouter from './discount.route';
 import reportRouter from './report.route';
+import transactionRouter from './transaction.route';
 
 const mainRouter = express.Router();
 
@@ -29,5 +30,6 @@ mainRouter.use('/categories', categoryRouter);
 mainRouter.use('/products', productRouter);
 mainRouter.use('/cart', cartRouter);
 mainRouter.use('/voucher', voucherRouter);
+mainRouter.use('/transaction', transactionRouter);
 
 export default mainRouter;
