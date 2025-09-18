@@ -2518,6 +2518,7 @@ export namespace Prisma {
     cartItems: number
     storeStock: number
     discounts: number
+    Transaction: number
   }
 
   export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2525,6 +2526,7 @@ export namespace Prisma {
     cartItems?: boolean | StoreCountOutputTypeCountCartItemsArgs
     storeStock?: boolean | StoreCountOutputTypeCountStoreStockArgs
     discounts?: boolean | StoreCountOutputTypeCountDiscountsArgs
+    Transaction?: boolean | StoreCountOutputTypeCountTransactionArgs
   }
 
   // Custom InputTypes
@@ -2564,6 +2566,13 @@ export namespace Prisma {
    */
   export type StoreCountOutputTypeCountDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiscountWhereInput
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -5656,6 +5665,7 @@ export namespace Prisma {
     cartItems?: boolean | Store$cartItemsArgs<ExtArgs>
     storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     discounts?: boolean | Store$discountsArgs<ExtArgs>
+    Transaction?: boolean | Store$TransactionArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
@@ -5713,6 +5723,7 @@ export namespace Prisma {
     cartItems?: boolean | Store$cartItemsArgs<ExtArgs>
     storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     discounts?: boolean | Store$discountsArgs<ExtArgs>
+    Transaction?: boolean | Store$TransactionArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5725,6 +5736,7 @@ export namespace Prisma {
       cartItems: Prisma.$CartProductPayload<ExtArgs>[]
       storeStock: Prisma.$StoreProductPayload<ExtArgs>[]
       discounts: Prisma.$DiscountPayload<ExtArgs>[]
+      Transaction: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6138,6 +6150,7 @@ export namespace Prisma {
     cartItems<T extends Store$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Store$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     storeStock<T extends Store$storeStockArgs<ExtArgs> = {}>(args?: Subset<T, Store$storeStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoreProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discounts<T extends Store$discountsArgs<ExtArgs> = {}>(args?: Subset<T, Store$discountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Transaction<T extends Store$TransactionArgs<ExtArgs> = {}>(args?: Subset<T, Store$TransactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6661,6 +6674,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiscountScalarFieldEnum | DiscountScalarFieldEnum[]
+  }
+
+  /**
+   * Store.Transaction
+   */
+  export type Store$TransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
@@ -17274,22 +17311,37 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateOutputType = {
     shippingPrice: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
     totalPrice: number | null
+    provinceId: number | null
+    cityId: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     shippingPrice: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
     totalPrice: number | null
+    provinceId: number | null
+    cityId: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    storeId: string | null
     status: $Enums.OrderStatus | null
     shippingPrice: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
     totalPrice: number | null
-    userAddress: string | null
+    address: string | null
     phoneNumber: string | null
+    provinceId: number | null
+    province: string | null
+    cityId: number | null
+    city: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17301,11 +17353,18 @@ export namespace Prisma {
   export type TransactionMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    storeId: string | null
     status: $Enums.OrderStatus | null
     shippingPrice: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
     totalPrice: number | null
-    userAddress: string | null
+    address: string | null
     phoneNumber: string | null
+    provinceId: number | null
+    province: string | null
+    cityId: number | null
+    city: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17317,11 +17376,18 @@ export namespace Prisma {
   export type TransactionCountAggregateOutputType = {
     id: number
     userId: number
+    storeId: number
     status: number
     shippingPrice: number
+    discountedShipping: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: number
+    address: number
     phoneNumber: number
+    provinceId: number
+    province: number
+    cityId: number
+    city: number
     codeVoucherProduct: number
     codeVoucherDelivery: number
     paymentProof: number
@@ -17334,22 +17400,37 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateInputType = {
     shippingPrice?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
     totalPrice?: true
+    provinceId?: true
+    cityId?: true
   }
 
   export type TransactionSumAggregateInputType = {
     shippingPrice?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
     totalPrice?: true
+    provinceId?: true
+    cityId?: true
   }
 
   export type TransactionMinAggregateInputType = {
     id?: true
     userId?: true
+    storeId?: true
     status?: true
     shippingPrice?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
     totalPrice?: true
-    userAddress?: true
+    address?: true
     phoneNumber?: true
+    provinceId?: true
+    province?: true
+    cityId?: true
+    city?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17361,11 +17442,18 @@ export namespace Prisma {
   export type TransactionMaxAggregateInputType = {
     id?: true
     userId?: true
+    storeId?: true
     status?: true
     shippingPrice?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
     totalPrice?: true
-    userAddress?: true
+    address?: true
     phoneNumber?: true
+    provinceId?: true
+    province?: true
+    cityId?: true
+    city?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17377,11 +17465,18 @@ export namespace Prisma {
   export type TransactionCountAggregateInputType = {
     id?: true
     userId?: true
+    storeId?: true
     status?: true
     shippingPrice?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
     totalPrice?: true
-    userAddress?: true
+    address?: true
     phoneNumber?: true
+    provinceId?: true
+    province?: true
+    cityId?: true
+    city?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17480,11 +17575,18 @@ export namespace Prisma {
   export type TransactionGroupByOutputType = {
     id: string
     userId: string
+    storeId: string
     status: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17515,17 +17617,25 @@ export namespace Prisma {
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    storeId?: boolean
     status?: boolean
     shippingPrice?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
     totalPrice?: boolean
-    userAddress?: boolean
+    address?: boolean
     phoneNumber?: boolean
+    provinceId?: boolean
+    province?: boolean
+    cityId?: boolean
+    city?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -17538,17 +17648,25 @@ export namespace Prisma {
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    storeId?: boolean
     status?: boolean
     shippingPrice?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
     totalPrice?: boolean
-    userAddress?: boolean
+    address?: boolean
     phoneNumber?: boolean
+    provinceId?: boolean
+    province?: boolean
+    cityId?: boolean
+    city?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -17557,17 +17675,25 @@ export namespace Prisma {
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    storeId?: boolean
     status?: boolean
     shippingPrice?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
     totalPrice?: boolean
-    userAddress?: boolean
+    address?: boolean
     phoneNumber?: boolean
+    provinceId?: boolean
+    province?: boolean
+    cityId?: boolean
+    city?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -17576,11 +17702,18 @@ export namespace Prisma {
   export type TransactionSelectScalar = {
     id?: boolean
     userId?: boolean
+    storeId?: boolean
     status?: boolean
     shippingPrice?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
     totalPrice?: boolean
-    userAddress?: boolean
+    address?: boolean
     phoneNumber?: boolean
+    provinceId?: boolean
+    province?: boolean
+    cityId?: boolean
+    city?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
@@ -17589,8 +17722,9 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "status" | "shippingPrice" | "totalPrice" | "userAddress" | "phoneNumber" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -17600,11 +17734,13 @@ export namespace Prisma {
     _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -17613,6 +17749,7 @@ export namespace Prisma {
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
+      store: Prisma.$StorePayload<ExtArgs>
       voucherDelivery: Prisma.$VoucherDeliveryPayload<ExtArgs> | null
       voucherProduct: Prisma.$VoucherProductPayload<ExtArgs> | null
       user: Prisma.$UsersPayload<ExtArgs>
@@ -17623,11 +17760,18 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      storeId: string
       status: $Enums.OrderStatus
       shippingPrice: number
+      discountedShipping: number
+      finalShippingPrice: number
       totalPrice: number
-      userAddress: string
+      address: string
       phoneNumber: string
+      provinceId: number
+      province: string
+      cityId: number
+      city: string
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
@@ -18028,6 +18172,7 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     voucherDelivery<T extends Transaction$voucherDeliveryArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$voucherDeliveryArgs<ExtArgs>>): Prisma__VoucherDeliveryClient<$Result.GetResult<Prisma.$VoucherDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     voucherProduct<T extends Transaction$voucherProductArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$voucherProductArgs<ExtArgs>>): Prisma__VoucherProductClient<$Result.GetResult<Prisma.$VoucherProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -18065,11 +18210,18 @@ export namespace Prisma {
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
+    readonly storeId: FieldRef<"Transaction", 'String'>
     readonly status: FieldRef<"Transaction", 'OrderStatus'>
     readonly shippingPrice: FieldRef<"Transaction", 'Int'>
+    readonly discountedShipping: FieldRef<"Transaction", 'Int'>
+    readonly finalShippingPrice: FieldRef<"Transaction", 'Int'>
     readonly totalPrice: FieldRef<"Transaction", 'Int'>
-    readonly userAddress: FieldRef<"Transaction", 'String'>
+    readonly address: FieldRef<"Transaction", 'String'>
     readonly phoneNumber: FieldRef<"Transaction", 'String'>
+    readonly provinceId: FieldRef<"Transaction", 'Int'>
+    readonly province: FieldRef<"Transaction", 'String'>
+    readonly cityId: FieldRef<"Transaction", 'Int'>
+    readonly city: FieldRef<"Transaction", 'String'>
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
@@ -18615,11 +18767,15 @@ export namespace Prisma {
   export type TransactionProductAvgAggregateOutputType = {
     quantity: number | null
     price: number | null
+    discount: number | null
+    finalPrice: number | null
   }
 
   export type TransactionProductSumAggregateOutputType = {
     quantity: number | null
     price: number | null
+    discount: number | null
+    finalPrice: number | null
   }
 
   export type TransactionProductMinAggregateOutputType = {
@@ -18628,6 +18784,8 @@ export namespace Prisma {
     productId: string | null
     quantity: number | null
     price: number | null
+    discount: number | null
+    finalPrice: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -18639,6 +18797,8 @@ export namespace Prisma {
     productId: string | null
     quantity: number | null
     price: number | null
+    discount: number | null
+    finalPrice: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -18650,6 +18810,8 @@ export namespace Prisma {
     productId: number
     quantity: number
     price: number
+    discount: number
+    finalPrice: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -18660,11 +18822,15 @@ export namespace Prisma {
   export type TransactionProductAvgAggregateInputType = {
     quantity?: true
     price?: true
+    discount?: true
+    finalPrice?: true
   }
 
   export type TransactionProductSumAggregateInputType = {
     quantity?: true
     price?: true
+    discount?: true
+    finalPrice?: true
   }
 
   export type TransactionProductMinAggregateInputType = {
@@ -18673,6 +18839,8 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
+    discount?: true
+    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -18684,6 +18852,8 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
+    discount?: true
+    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -18695,6 +18865,8 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
+    discount?: true
+    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -18793,6 +18965,8 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
+    discount: number
+    finalPrice: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -18823,6 +18997,8 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -18836,6 +19012,8 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -18849,6 +19027,8 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -18862,12 +19042,14 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type TransactionProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "productId" | "quantity" | "price" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transactionProduct"]>
+  export type TransactionProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "productId" | "quantity" | "price" | "discount" | "finalPrice" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transactionProduct"]>
   export type TransactionProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     transaction?: boolean | TransactionDefaultArgs<ExtArgs>
@@ -18893,6 +19075,8 @@ export namespace Prisma {
       productId: string
       quantity: number
       price: number
+      discount: number
+      finalPrice: number
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -19326,6 +19510,8 @@ export namespace Prisma {
     readonly productId: FieldRef<"TransactionProduct", 'String'>
     readonly quantity: FieldRef<"TransactionProduct", 'Int'>
     readonly price: FieldRef<"TransactionProduct", 'Int'>
+    readonly discount: FieldRef<"TransactionProduct", 'Int'>
+    readonly finalPrice: FieldRef<"TransactionProduct", 'Int'>
     readonly createdAt: FieldRef<"TransactionProduct", 'DateTime'>
     readonly updatedAt: FieldRef<"TransactionProduct", 'DateTime'>
     readonly deletedAt: FieldRef<"TransactionProduct", 'DateTime'>
@@ -24753,11 +24939,18 @@ export namespace Prisma {
   export const TransactionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    storeId: 'storeId',
     status: 'status',
     shippingPrice: 'shippingPrice',
+    discountedShipping: 'discountedShipping',
+    finalShippingPrice: 'finalShippingPrice',
     totalPrice: 'totalPrice',
-    userAddress: 'userAddress',
+    address: 'address',
     phoneNumber: 'phoneNumber',
+    provinceId: 'provinceId',
+    province: 'province',
+    cityId: 'cityId',
+    city: 'city',
     codeVoucherProduct: 'codeVoucherProduct',
     codeVoucherDelivery: 'codeVoucherDelivery',
     paymentProof: 'paymentProof',
@@ -24775,6 +24968,8 @@ export namespace Prisma {
     productId: 'productId',
     quantity: 'quantity',
     price: 'price',
+    discount: 'discount',
+    finalPrice: 'finalPrice',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -25230,6 +25425,7 @@ export namespace Prisma {
     cartItems?: CartProductListRelationFilter
     storeStock?: StoreProductListRelationFilter
     discounts?: DiscountListRelationFilter
+    Transaction?: TransactionListRelationFilter
   }
 
   export type StoreOrderByWithRelationInput = {
@@ -25250,6 +25446,7 @@ export namespace Prisma {
     cartItems?: CartProductOrderByRelationAggregateInput
     storeStock?: StoreProductOrderByRelationAggregateInput
     discounts?: DiscountOrderByRelationAggregateInput
+    Transaction?: TransactionOrderByRelationAggregateInput
   }
 
   export type StoreWhereUniqueInput = Prisma.AtLeast<{
@@ -25273,6 +25470,7 @@ export namespace Prisma {
     cartItems?: CartProductListRelationFilter
     storeStock?: StoreProductListRelationFilter
     discounts?: DiscountListRelationFilter
+    Transaction?: TransactionListRelationFilter
   }, "id">
 
   export type StoreOrderByWithAggregationInput = {
@@ -26042,17 +26240,25 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
+    storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
-    userAddress?: StringFilter<"Transaction"> | string
+    address?: StringFilter<"Transaction"> | string
     phoneNumber?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    city?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     voucherDelivery?: XOR<VoucherDeliveryNullableScalarRelationFilter, VoucherDeliveryWhereInput> | null
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
@@ -26064,17 +26270,25 @@ export namespace Prisma {
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    userAddress?: SortOrder
+    address?: SortOrder
     phoneNumber?: SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    store?: StoreOrderByWithRelationInput
     voucherDelivery?: VoucherDeliveryOrderByWithRelationInput
     voucherProduct?: VoucherProductOrderByWithRelationInput
     user?: UsersOrderByWithRelationInput
@@ -26089,17 +26303,25 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
+    storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
-    userAddress?: StringFilter<"Transaction"> | string
+    address?: StringFilter<"Transaction"> | string
     phoneNumber?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    city?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     voucherDelivery?: XOR<VoucherDeliveryNullableScalarRelationFilter, VoucherDeliveryWhereInput> | null
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
@@ -26111,11 +26333,18 @@ export namespace Prisma {
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    userAddress?: SortOrder
+    address?: SortOrder
     phoneNumber?: SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
@@ -26135,11 +26364,18 @@ export namespace Prisma {
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
+    storeId?: StringWithAggregatesFilter<"Transaction"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
+    finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    userAddress?: StringWithAggregatesFilter<"Transaction"> | string
+    address?: StringWithAggregatesFilter<"Transaction"> | string
     phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
+    provinceId?: IntWithAggregatesFilter<"Transaction"> | number
+    province?: StringWithAggregatesFilter<"Transaction"> | string
+    cityId?: IntWithAggregatesFilter<"Transaction"> | number
+    city?: StringWithAggregatesFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
@@ -26157,6 +26393,8 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
@@ -26170,6 +26408,8 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26186,6 +26426,8 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
@@ -26199,6 +26441,8 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26218,6 +26462,8 @@ export namespace Prisma {
     productId?: StringWithAggregatesFilter<"TransactionProduct"> | string
     quantity?: IntWithAggregatesFilter<"TransactionProduct"> | number
     price?: IntWithAggregatesFilter<"TransactionProduct"> | number
+    discount?: IntWithAggregatesFilter<"TransactionProduct"> | number
+    finalPrice?: IntWithAggregatesFilter<"TransactionProduct"> | number
     createdAt?: DateTimeWithAggregatesFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"TransactionProduct"> | Date | string | null
@@ -26821,6 +27067,7 @@ export namespace Prisma {
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateInput = {
@@ -26841,6 +27088,7 @@ export namespace Prisma {
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUpdateInput = {
@@ -26861,6 +27109,7 @@ export namespace Prisma {
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateInput = {
@@ -26881,6 +27130,7 @@ export namespace Prisma {
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateManyInput = {
@@ -27711,13 +27961,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
@@ -27729,11 +27986,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -27749,13 +28013,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
@@ -27767,11 +28038,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27786,11 +28064,18 @@ export namespace Prisma {
   export type TransactionCreateManyInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -27803,9 +28088,15 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27815,11 +28106,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27832,6 +28130,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27845,6 +28145,8 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27854,6 +28156,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27867,6 +28171,8 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27878,6 +28184,8 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27887,6 +28195,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27898,6 +28208,8 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29309,11 +29621,18 @@ export namespace Prisma {
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    userAddress?: SortOrder
+    address?: SortOrder
     phoneNumber?: SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -29324,17 +29643,28 @@ export namespace Prisma {
 
   export type TransactionAvgOrderByAggregateInput = {
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
+    provinceId?: SortOrder
+    cityId?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    userAddress?: SortOrder
+    address?: SortOrder
     phoneNumber?: SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -29346,11 +29676,18 @@ export namespace Prisma {
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    userAddress?: SortOrder
+    address?: SortOrder
     phoneNumber?: SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -29361,7 +29698,11 @@ export namespace Prisma {
 
   export type TransactionSumOrderByAggregateInput = {
     shippingPrice?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
+    provinceId?: SortOrder
+    cityId?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -29385,6 +29726,8 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29393,6 +29736,8 @@ export namespace Prisma {
   export type TransactionProductAvgOrderByAggregateInput = {
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
   }
 
   export type TransactionProductMaxOrderByAggregateInput = {
@@ -29401,6 +29746,8 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29412,6 +29759,8 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29420,6 +29769,8 @@ export namespace Prisma {
   export type TransactionProductSumOrderByAggregateInput = {
     quantity?: SortOrder
     price?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
   }
 
   export type EnumDiscountTypeFilter<$PrismaModel = never> = {
@@ -29913,6 +30264,13 @@ export namespace Prisma {
     connect?: DiscountWhereUniqueInput | DiscountWhereUniqueInput[]
   }
 
+  export type TransactionCreateNestedManyWithoutStoreInput = {
+    create?: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput> | TransactionCreateWithoutStoreInput[] | TransactionUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutStoreInput | TransactionCreateOrConnectWithoutStoreInput[]
+    createMany?: TransactionCreateManyStoreInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type AdminUncheckedCreateNestedManyWithoutStoreInput = {
     create?: XOR<AdminCreateWithoutStoreInput, AdminUncheckedCreateWithoutStoreInput> | AdminCreateWithoutStoreInput[] | AdminUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AdminCreateOrConnectWithoutStoreInput | AdminCreateOrConnectWithoutStoreInput[]
@@ -29939,6 +30297,13 @@ export namespace Prisma {
     connectOrCreate?: DiscountCreateOrConnectWithoutStoreInput | DiscountCreateOrConnectWithoutStoreInput[]
     createMany?: DiscountCreateManyStoreInputEnvelope
     connect?: DiscountWhereUniqueInput | DiscountWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput> | TransactionCreateWithoutStoreInput[] | TransactionUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutStoreInput | TransactionCreateOrConnectWithoutStoreInput[]
+    createMany?: TransactionCreateManyStoreInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -30005,6 +30370,20 @@ export namespace Prisma {
     deleteMany?: DiscountScalarWhereInput | DiscountScalarWhereInput[]
   }
 
+  export type TransactionUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput> | TransactionCreateWithoutStoreInput[] | TransactionUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutStoreInput | TransactionCreateOrConnectWithoutStoreInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutStoreInput | TransactionUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: TransactionCreateManyStoreInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutStoreInput | TransactionUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutStoreInput | TransactionUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type AdminUncheckedUpdateManyWithoutStoreNestedInput = {
     create?: XOR<AdminCreateWithoutStoreInput, AdminUncheckedCreateWithoutStoreInput> | AdminCreateWithoutStoreInput[] | AdminUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AdminCreateOrConnectWithoutStoreInput | AdminCreateOrConnectWithoutStoreInput[]
@@ -30059,6 +30438,20 @@ export namespace Prisma {
     update?: DiscountUpdateWithWhereUniqueWithoutStoreInput | DiscountUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: DiscountUpdateManyWithWhereWithoutStoreInput | DiscountUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: DiscountScalarWhereInput | DiscountScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput> | TransactionCreateWithoutStoreInput[] | TransactionUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutStoreInput | TransactionCreateOrConnectWithoutStoreInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutStoreInput | TransactionUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: TransactionCreateManyStoreInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutStoreInput | TransactionUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutStoreInput | TransactionUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type StoreCreateNestedOneWithoutAdminsInput = {
@@ -30743,6 +31136,12 @@ export namespace Prisma {
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutCartItemsInput, StoreUpdateWithoutCartItemsInput>, StoreUncheckedUpdateWithoutCartItemsInput>
   }
 
+  export type StoreCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
+    connect?: StoreWhereUniqueInput
+  }
+
   export type VoucherDeliveryCreateNestedOneWithoutTrxInput = {
     create?: XOR<VoucherDeliveryCreateWithoutTrxInput, VoucherDeliveryUncheckedCreateWithoutTrxInput>
     connectOrCreate?: VoucherDeliveryCreateOrConnectWithoutTrxInput
@@ -30805,6 +31204,14 @@ export namespace Prisma {
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
+  }
+
+  export type StoreUpdateOneRequiredWithoutTransactionNestedInput = {
+    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
+    upsert?: StoreUpsertWithoutTransactionInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutTransactionInput, StoreUpdateWithoutTransactionInput>, StoreUncheckedUpdateWithoutTransactionInput>
   }
 
   export type VoucherDeliveryUpdateOneWithoutTrxNestedInput = {
@@ -31567,13 +31974,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
@@ -31583,11 +31997,18 @@ export namespace Prisma {
 
   export type TransactionUncheckedCreateWithoutUserInput = {
     id?: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -31731,11 +32152,18 @@ export namespace Prisma {
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
+    storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
-    userAddress?: StringFilter<"Transaction"> | string
+    address?: StringFilter<"Transaction"> | string
     phoneNumber?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    city?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -32051,6 +32479,66 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TransactionCreateWithoutStoreInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    totalPrice: number
+    address: string
+    phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
+    voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    user: UsersCreateNestedOneWithoutTransactionsInput
+    products?: TransactionProductCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutStoreInput = {
+    id?: string
+    userId: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    totalPrice: number
+    address: string
+    phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    codeVoucherProduct?: string | null
+    codeVoucherDelivery?: string | null
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutStoreInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput>
+  }
+
+  export type TransactionCreateManyStoreInputEnvelope = {
+    data: TransactionCreateManyStoreInput | TransactionCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AdminUpsertWithWhereUniqueWithoutStoreInput = {
     where: AdminWhereUniqueInput
     update: XOR<AdminUpdateWithoutStoreInput, AdminUncheckedUpdateWithoutStoreInput>
@@ -32182,6 +32670,22 @@ export namespace Prisma {
     adminId?: StringFilter<"Discount"> | string
   }
 
+  export type TransactionUpsertWithWhereUniqueWithoutStoreInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutStoreInput, TransactionUncheckedUpdateWithoutStoreInput>
+    create: XOR<TransactionCreateWithoutStoreInput, TransactionUncheckedCreateWithoutStoreInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutStoreInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutStoreInput, TransactionUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutStoreInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutStoreInput>
+  }
+
   export type StoreCreateWithoutAdminsInput = {
     id?: string
     provinceId: number
@@ -32199,6 +32703,7 @@ export namespace Prisma {
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutAdminsInput = {
@@ -32218,6 +32723,7 @@ export namespace Prisma {
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutAdminsInput = {
@@ -32378,6 +32884,7 @@ export namespace Prisma {
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutAdminsInput = {
@@ -32397,6 +32904,7 @@ export namespace Prisma {
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StockJournalUpsertWithWhereUniqueWithoutAdminInput = {
@@ -32645,6 +33153,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32656,6 +33166,8 @@ export namespace Prisma {
     transactionId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32781,6 +33293,8 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
@@ -32878,6 +33392,7 @@ export namespace Prisma {
     admins?: AdminCreateNestedManyWithoutStoreInput
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutStoreStockInput = {
@@ -32897,6 +33412,7 @@ export namespace Prisma {
     admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutStoreStockInput = {
@@ -33021,6 +33537,7 @@ export namespace Prisma {
     admins?: AdminUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutStoreStockInput = {
@@ -33040,6 +33557,7 @@ export namespace Prisma {
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StockJournalUpsertWithWhereUniqueWithoutStoreProductInput = {
@@ -33120,13 +33638,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
@@ -33137,11 +33662,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutStockJournalInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -33242,13 +33774,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
@@ -33259,11 +33798,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutStockJournalInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33278,13 +33824,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
@@ -33295,11 +33848,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutVoucherProductInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -33340,13 +33900,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
@@ -33357,11 +33924,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutVoucherDeliveryInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -33615,6 +34189,7 @@ export namespace Prisma {
     admins?: AdminCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutCartItemsInput = {
@@ -33634,6 +34209,7 @@ export namespace Prisma {
     admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutCartItemsInput = {
@@ -33751,6 +34327,7 @@ export namespace Prisma {
     admins?: AdminUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutCartItemsInput = {
@@ -33770,6 +34347,52 @@ export namespace Prisma {
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreCreateWithoutTransactionInput = {
+    id?: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    admins?: AdminCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
+    discounts?: DiscountCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutTransactionInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
   }
 
   export type VoucherDeliveryCreateWithoutTrxInput = {
@@ -33869,6 +34492,8 @@ export namespace Prisma {
     id?: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33880,6 +34505,8 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33960,6 +34587,57 @@ export namespace Prisma {
   export type DiscountUsageHistoryCreateManyTransactionInputEnvelope = {
     data: DiscountUsageHistoryCreateManyTransactionInput | DiscountUsageHistoryCreateManyTransactionInput[]
     skipDuplicates?: boolean
+  }
+
+  export type StoreUpsertWithoutTransactionInput = {
+    update: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
+    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type StoreUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    admins?: AdminUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
+    discounts?: DiscountUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type VoucherDeliveryUpsertWithoutTrxInput = {
@@ -34174,13 +34852,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
@@ -34191,11 +34876,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutProductsInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -34281,13 +34973,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
@@ -34298,11 +34997,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34330,6 +35036,7 @@ export namespace Prisma {
     admins?: AdminCreateNestedManyWithoutStoreInput
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutDiscountsInput = {
@@ -34349,6 +35056,7 @@ export namespace Prisma {
     admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutDiscountsInput = {
@@ -34496,6 +35204,7 @@ export namespace Prisma {
     admins?: AdminUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutDiscountsInput = {
@@ -34515,6 +35224,7 @@ export namespace Prisma {
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type AdminUpsertWithoutCreatedDiscountsInput = {
@@ -35004,13 +35714,20 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     paymentProof?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
@@ -35021,11 +35738,18 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutDiscountUsageHistoryInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -35187,13 +35911,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
@@ -35204,11 +35935,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutDiscountUsageHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35305,11 +36043,18 @@ export namespace Prisma {
 
   export type TransactionCreateManyUserInput = {
     id?: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -35349,13 +36094,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
@@ -35365,11 +36117,18 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35383,11 +36142,18 @@ export namespace Prisma {
 
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35525,6 +36291,28 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     adminId: string
+  }
+
+  export type TransactionCreateManyStoreInput = {
+    id?: string
+    userId: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    totalPrice: number
+    address: string
+    phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    codeVoucherProduct?: string | null
+    codeVoucherDelivery?: string | null
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type AdminUpdateWithoutStoreInput = {
@@ -35692,6 +36480,78 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     adminId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TransactionUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
+    voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
+    products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StockJournalCreateManyAdminInput = {
@@ -35983,6 +36843,8 @@ export namespace Prisma {
     transactionId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36057,6 +36919,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36068,6 +36932,8 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36078,6 +36944,8 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36152,11 +37020,18 @@ export namespace Prisma {
   export type TransactionCreateManyVoucherProductInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -36168,13 +37043,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
@@ -36185,11 +37067,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36203,11 +37092,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36218,11 +37114,18 @@ export namespace Prisma {
   export type TransactionCreateManyVoucherDeliveryInput = {
     id?: string
     userId: string
+    storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
+    discountedShipping?: number
+    finalShippingPrice: number
     totalPrice: number
-    userAddress: string
+    address: string
     phoneNumber: string
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     createdAt?: Date | string
@@ -36234,13 +37137,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
@@ -36251,11 +37161,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36269,11 +37186,18 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    userAddress?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36326,6 +37250,8 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
+    discount?: number
+    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36359,6 +37285,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36370,6 +37298,8 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36380,6 +37310,8 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

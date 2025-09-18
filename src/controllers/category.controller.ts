@@ -79,6 +79,34 @@ export class CategoryController {
 	}
 
 	/**
+	 * GET /api/categories/slug/:slug
+	 * Get category by slug
+	 */
+	static async getCategoryBySlug(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			const { slug } = req.params;
+			const category = await CategoryService.getCategoryBySlug(slug);
+
+			if (!category) {
+				throw new ApiError(404, 'Category not found');
+			}
+
+			res.status(200).json({
+				status: 'success',
+				data: {
+					category,
+				},
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	/**
 	 * POST /api/admin/categories
 	 * Create new category (Super Admin only)
 	 */

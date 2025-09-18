@@ -1,6 +1,10 @@
 import { ProductCategory } from '../generated/prisma';
 import { prisma } from '../lib/prisma';
 import { ApiError } from '../utils/ApiError';
+import { generateSlug, generateUniqueSlug } from '../utils/slug';
+
+// Extend ProductCategory to include dynamic slug
+type ProductCategoryWithSlug = ProductCategory & { slug: string };
 
 export interface CreateCategoryInput {
 	name: string;
@@ -17,8 +21,8 @@ export class CategoryService {
 	/**
 	 * Get all active categories
 	 */
-	static async getAllCategories(): Promise<ProductCategory[]> {
-		return await prisma.productCategory.findMany({
+	static async getAllCategories(): Promise<ProductCategoryWithSlug[]> {
+		const categories = await prisma.productCategory.findMany({
 			where: {
 				deletedAt: null,
 				isActive: true,
@@ -39,13 +43,19 @@ export class CategoryService {
 				name: 'asc',
 			},
 		});
+
+		// Add dynamic slug generation
+		return categories.map((category) => ({
+			...category,
+			slug: generateSlug(category.name),
+		}));
 	}
 
 	/**
 	 * Get all categories for admin (including inactive)
 	 */
-	static async getAllCategoriesForAdmin(): Promise<ProductCategory[]> {
-		return await prisma.productCategory.findMany({
+	static async getAllCategoriesForAdmin(): Promise<ProductCategoryWithSlug[]> {
+		const categories = await prisma.productCategory.findMany({
 			where: {
 				deletedAt: null,
 			},
@@ -64,6 +74,12 @@ export class CategoryService {
 				name: 'asc',
 			},
 		});
+
+		// Add dynamic slug generation
+		return categories.map((category) => ({
+			...category,
+			slug: generateSlug(category.name),
+		}));
 	}
 
 	/**
@@ -90,11 +106,49 @@ export class CategoryService {
 	}
 
 	/**
+	 * Get category by slug (temporary implementation using name-based slug matching)
+	 */
+	static async getCategoryBySlug(
+		slug: string
+	): Promise<ProductCategoryWithSlug | null> {
+		// Get all categories and find the one that would generate this slug
+		const categories = await prisma.productCategory.findMany({
+			where: {
+				deletedAt: null,
+			},
+			include: {
+				_count: {
+					select: {
+						products: {
+							where: {
+								deletedAt: null,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		// Find category that would generate this slug
+		const matchingCategory = categories.find((category) => {
+			const categorySlug = generateSlug(category.name);
+			return categorySlug === slug;
+		});
+
+		if (!matchingCategory) return null;
+
+		return {
+			...matchingCategory,
+			slug: generateSlug(matchingCategory.name),
+		};
+	}
+
+	/**
 	 * Create new category (Super Admin only)
 	 */
 	static async createCategory(
 		data: CreateCategoryInput
-	): Promise<ProductCategory> {
+	): Promise<ProductCategoryWithSlug> {
 		// Check if category name already exists
 		const existingCategory = await prisma.productCategory.findFirst({
 			where: {
@@ -110,12 +164,18 @@ export class CategoryService {
 			throw new ApiError(400, 'Category with this name already exists');
 		}
 
-		return await prisma.productCategory.create({
+		const newCategory = await prisma.productCategory.create({
 			data: {
 				name: data.name.trim(),
 				description: data.description?.trim(),
 			},
 		});
+
+		// Add dynamic slug generation
+		return {
+			...newCategory,
+			slug: generateSlug(newCategory.name),
+		} as ProductCategoryWithSlug;
 	}
 
 	/**
@@ -124,7 +184,7 @@ export class CategoryService {
 	static async updateCategory(
 		id: string,
 		data: UpdateCategoryInput
-	): Promise<ProductCategory> {
+	): Promise<ProductCategoryWithSlug> {
 		// Check if category exists
 		const category = await this.getCategoryById(id);
 		if (!category) {
@@ -151,7 +211,7 @@ export class CategoryService {
 			}
 		}
 
-		return await prisma.productCategory.update({
+		const updatedCategory = await prisma.productCategory.update({
 			where: { id },
 			data: {
 				...(data.name && { name: data.name.trim() }),
@@ -161,6 +221,12 @@ export class CategoryService {
 				...(data.isActive !== undefined && { isActive: data.isActive }),
 			},
 		});
+
+		// Add dynamic slug generation
+		return {
+			...updatedCategory,
+			slug: generateSlug(updatedCategory.name),
+		} as ProductCategoryWithSlug;
 	}
 
 	/**
@@ -200,17 +266,25 @@ export class CategoryService {
 	/**
 	 * Toggle category status (Super Admin only)
 	 */
-	static async toggleCategoryStatus(id: string): Promise<ProductCategory> {
+	static async toggleCategoryStatus(
+		id: string
+	): Promise<ProductCategoryWithSlug> {
 		const category = await this.getCategoryById(id);
 		if (!category) {
 			throw new ApiError(404, 'Category not found');
 		}
 
-		return await prisma.productCategory.update({
+		const updatedCategory = await prisma.productCategory.update({
 			where: { id },
 			data: {
 				isActive: !category.isActive,
 			},
 		});
+
+		// Add dynamic slug generation
+		return {
+			...updatedCategory,
+			slug: generateSlug(updatedCategory.name),
+		} as ProductCategoryWithSlug;
 	}
 }

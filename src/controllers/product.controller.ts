@@ -17,6 +17,7 @@ export class ProductController {
 			const {
 				search,
 				categoryId,
+				categorySlug,
 				storeId,
 				minPrice,
 				maxPrice,
@@ -27,6 +28,7 @@ export class ProductController {
 			const filters = {
 				search: search as string,
 				categoryId: categoryId as string,
+				categorySlug: categorySlug as string,
 				storeId: storeId as string,
 				minPrice: minPrice ? parseInt(minPrice as string) : undefined,
 				maxPrice: maxPrice ? parseInt(maxPrice as string) : undefined,

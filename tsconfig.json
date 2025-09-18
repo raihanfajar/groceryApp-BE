@@ -8,5 +8,5 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true
 	},
-	"exclude": ["prisma/**/*", "dist/**/*", "node_modules/**/*"]
+	"exclude": ["prisma/**/*", "dist/**/*", "node_modules/**/*", "scripts/**/*"]
 }
