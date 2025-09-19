@@ -1,13 +1,13 @@
 import prisma from "../config";
+import { mailing } from "../functions/mailing";
 import { Users } from "../generated/prisma";
 import { comparePassword, hashPassword } from "../lib/bcrypt";
 import { generateToken } from "../lib/jwt";
-import { getTemplateUser, getVerifyUserEmailTemplate, transporter } from "../lib/nodemailer";
+import { getTemplateUser, transporter } from "../lib/nodemailer";
 import { ApiError } from "../utils/ApiError";
 
 export const registerUserService = async (body: Pick<Users, "name" | "email" | "password" | "phoneNumber">) => {
     const { name, email, password, phoneNumber } = body;
-    let verifyEmailToken = "";
 
     // !Extra validation
     const existingEmail = await prisma.users.findUnique({ where: { email } });
@@ -27,25 +27,7 @@ export const registerUserService = async (body: Pick<Users, "name" | "email" | "
     });
 
     // !Generate token and Send verification email
-    if (!newUser.isVerified) {
-        try {
-            const payload = { userId: newUser.id };
-            verifyEmailToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "30min" });
-
-            const templateHtml = getVerifyUserEmailTemplate(newUser.name, verifyEmailToken);
-            await transporter.sendMail({
-                sender: "FreshNear",
-                to: newUser.email,
-                subject: "Please verify your email",
-                html: templateHtml
-            })
-        } catch (error) {
-            console.error(error);
-            // ?Manual rollback newUser if email fails
-            await prisma.users.delete({ where: { id: newUser.id } });
-            throw new ApiError(500, "Failed to send verification email");
-        }
-    }
+    const verifyEmailToken = !newUser.isVerified && mailing(newUser, true, true);
 
     // !Return
     const { password: _, ...safe } = newUser;
@@ -87,9 +69,21 @@ export const loginUserService = async (body: Pick<Users, "email" | "password">) 
     return { ...safe, accessToken };
 }
 
+export const resendVerificationService = async (email: string) => {
+    // !Extra validation
+    const existingUser = await prisma.users.findUnique({ where: { email } });
+    if (!existingUser) throw new ApiError(404, 'User not found');
+    if (existingUser.isVerified) throw new ApiError(400, 'User is already verified');
+
+    // !Generate token and Send verification email
+    mailing(existingUser);
+
+    // !Return
+    return;
+}
+
 export const forgotPasswordUserService = async (body: Pick<Users, "email">) => {
     const { email } = body;
-    // console.log(`>>> email: ${email}`);
 
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { email } });
@@ -143,6 +137,41 @@ export const sessionLoginUserService = async (userId: string) => {
     const { password: _, ...safe } = existingUser;
     return { ...safe };
 }
+
+export const updateUserProfileInfoService = async (
+    userId: string,
+    body: Pick<Users, "name" | "email" | "phoneNumber">
+) => {
+    const { name, email, phoneNumber } = body;
+
+    // !Extra validation
+    const existingUser = await prisma.users.findUnique({ where: { id: userId } });
+    if (!existingUser) throw new ApiError(404, "User not found");
+    if (!existingUser.isVerified) throw new ApiError(401, "Please verify your email first");
+
+    // Check if email changed
+    const emailChanged = email && email !== existingUser.email;
+    if (emailChanged) {
+        const emailExists = await prisma.users.findFirst({ where: { email } });
+        if (emailExists) throw new ApiError(409, "Email already in use");
+    }
+
+    // Check if phone changed
+    if (phoneNumber && phoneNumber !== existingUser.phoneNumber) {
+        const phoneNumberExists = await prisma.users.findFirst({ where: { phoneNumber } });
+        if (phoneNumberExists) throw new ApiError(409, "Phone number already in use");
+    }
+
+    // !Update user info
+    const updatedUser = await prisma.users.update({
+        where: { id: userId },
+        data: { name, email, phoneNumber, isVerified: emailChanged ? false : existingUser.isVerified },
+    });
+
+    // !Return safe user and the flag
+    const { password: _, ...safe } = updatedUser;
+    return { user: safe, emailChanged };
+};
 
 export const googleAuthUserService = () => {
     // !still consulting with the genius ChatGPT
