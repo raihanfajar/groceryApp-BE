@@ -138,6 +138,41 @@ export const sessionLoginUserService = async (userId: string) => {
     return { ...safe };
 }
 
+export const updateUserProfileInfoService = async (
+    userId: string,
+    body: Pick<Users, "name" | "email" | "phoneNumber">
+) => {
+    const { name, email, phoneNumber } = body;
+
+    // !Extra validation
+    const existingUser = await prisma.users.findUnique({ where: { id: userId } });
+    if (!existingUser) throw new ApiError(404, "User not found");
+    if (!existingUser.isVerified) throw new ApiError(401, "Please verify your email first");
+
+    // Check if email changed
+    const emailChanged = email && email !== existingUser.email;
+    if (emailChanged) {
+        const emailExists = await prisma.users.findFirst({ where: { email } });
+        if (emailExists) throw new ApiError(409, "Email already in use");
+    }
+
+    // Check if phone changed
+    if (phoneNumber && phoneNumber !== existingUser.phoneNumber) {
+        const phoneNumberExists = await prisma.users.findFirst({ where: { phoneNumber } });
+        if (phoneNumberExists) throw new ApiError(409, "Phone number already in use");
+    }
+
+    // !Update user info
+    const updatedUser = await prisma.users.update({
+        where: { id: userId },
+        data: { name, email, phoneNumber, isVerified: emailChanged ? false : existingUser.isVerified },
+    });
+
+    // !Return safe user and the flag
+    const { password: _, ...safe } = updatedUser;
+    return { user: safe, emailChanged };
+};
+
 export const googleAuthUserService = () => {
     // !still consulting with the genius ChatGPT
 }

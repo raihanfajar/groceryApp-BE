@@ -5,8 +5,8 @@ import { catchAsync } from "../utils/catchAsync";
 export const rgcController = catchAsync(async (req: Request, res: Response) => {
     const { lat, lon } = req.query as { lat: string, lon: string };
     const result = await rgcService(lat, lon);
-    console.log("rgcResult");
-    console.log(result);
+    // console.log("rgcResult");
+    // console.log(result);
     res.status(200).json({ status: "success", message: "Geo info retrieved successfully", data: result });
 });
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, verifyUserEmailService } from "../services/user.service";
+import { forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, verifyUserEmailService } from "../services/user.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const registerUserController = catchAsync(async (req: Request, res: Response) => {
@@ -37,6 +37,14 @@ export const sessionLoginUserController = catchAsync(async (req: MainAuthenticat
     const result = await sessionLoginUserService(req.payload!.userId);
     res.status(200).json({ status: "success", message: "User login successful", data: result });
 });
+
+export const updateUserProfileInfoController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    const result = await updateUserProfileInfoService(req.payload!.userId, req.body);
+    const message = result.emailChanged
+        ? "User info updated successfully. Please verify your new email first."
+        : "User info updated successfully.";
+    res.status(200).json({ status: "success", message, data: result.user, emailChanged: result.emailChanged });
+})
 
 export const googleAuthUserController = catchAsync(async (_req, _res) => {
     // mau apa ini

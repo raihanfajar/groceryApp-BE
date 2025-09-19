@@ -2,7 +2,7 @@ import { ApiError } from "../utils/ApiError";
 
 export const rgcService = async (lat: string, lon: string) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-    console.log(`lat: ${lat}, lon: ${lon}`);
+    // console.log(`lat: ${lat}, lon: ${lon}`);
 
     const r = await fetch(url, {
         headers: { "User-Agent": "FreshNear/1.0 (fnsupport@gmail.com)" }

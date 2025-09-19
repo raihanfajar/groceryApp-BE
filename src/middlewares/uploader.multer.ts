@@ -12,7 +12,7 @@ const UPLOAD_DIRECTORY = process.env.UPLOAD_DIR!;
 export const uploaderMulter = (
   acceptedMimeTypes: string[],
   storageType: "disk" | "memory" = "memory", // Default ke memory jika tidak dispesifikasikan
-  fileSizeLimit: number = 1000000 // 5MB
+  fileSizeLimit: number = 1000000 // 1MB
 ) => {
   // Pastikan direktori tujuan ada jika menggunakan disk storage
   if (storageType === "disk" && !fs.existsSync(UPLOAD_DIRECTORY)) {
@@ -22,17 +22,17 @@ export const uploaderMulter = (
   const storage =
     storageType === "disk"
       ? multer.diskStorage({
-          destination: (req, file, cb) => {
-            cb(null, UPLOAD_DIRECTORY);
-          },
-          filename: (req, file, cb) => {
-            // IMPROVEMENT: Menggunakan path.extname untuk ekstensi yang andal
-            const fileExtension = path.extname(file.originalname);
-            // IMPROVEMENT: Menggunakan UUID untuk nama yang benar-benar unik
-            const uniqueFilename = `${uuidv4()}${fileExtension}`;
-            cb(null, uniqueFilename);
-          },
-        })
+        destination: (req, file, cb) => {
+          cb(null, UPLOAD_DIRECTORY);
+        },
+        filename: (req, file, cb) => {
+          // IMPROVEMENT: Menggunakan path.extname untuk ekstensi yang andal
+          const fileExtension = path.extname(file.originalname);
+          // IMPROVEMENT: Menggunakan UUID untuk nama yang benar-benar unik
+          const uniqueFilename = `${uuidv4()}${fileExtension}`;
+          cb(null, uniqueFilename);
+        },
+      })
       : multer.memoryStorage();
 
   const fileFilter = (
