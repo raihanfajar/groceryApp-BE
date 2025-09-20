@@ -12,6 +12,7 @@ import {
 	MidtransTransactionStatus,
 } from "../types/midTrans";
 import { computeMidtransSignature } from "../utils/computeMidtransSignature";
+import { sendOrderConfirmationEmail, sendOrderShippedEmail, sendPaymentConfirmedEmail } from "../lib/transactionMailer";
 
 export class TransactionService {
 	async getUserAddress(userId: string) {
@@ -199,6 +200,8 @@ export class TransactionService {
 
 			return newTransaction;
 		});
+
+		await sendOrderConfirmationEmail(user, transactionResult);
 
 		return {
 			transaction: transactionResult,
@@ -438,6 +441,24 @@ export class TransactionService {
 				);
 			}
 
+			if (newStatus === OrderStatus.on_process) {
+				const updatedTransaction = await prisma.transaction.update({
+					where: { id: orderId },
+					data: { status: newStatus, paidAt: new Date() },
+				});
+
+				const transactionWithUser = await prisma.transaction.findUnique({
+					where: { id: orderId },
+					include: { user: true },
+				});
+				if (transactionWithUser) {
+					await sendPaymentConfirmedEmail(
+						transactionWithUser.user,
+						updatedTransaction
+					);
+				}
+			}
+
 			// selesai
 			return;
 		} catch (err) {
@@ -649,6 +670,22 @@ export class TransactionService {
 				status: "on_process",
 			},
 		});
+
+		const updatedTransaction = await prisma.transaction.update({
+			where: { id: transactionId },
+			data: { status: "on_process", paidAt: new Date() },
+		});
+
+		const transactionWithUser = await prisma.transaction.findUnique({
+			where: { id: transactionId },
+			include: { user: true },
+		});
+		if (transactionWithUser) {
+			await sendPaymentConfirmedEmail(
+				transactionWithUser.user,
+				updatedTransaction
+			);
+		}
 		return confirm;
 	}
 
@@ -686,6 +723,15 @@ export class TransactionService {
 				expiryAt: addDays(new Date(), 7),
 			},
 		});
+
+		const transactionWithUser = await prisma.transaction.findUnique({
+			where: { id: transactionId },
+			include: { user: true },
+		});
+
+		if (transactionWithUser) {
+			await sendOrderShippedEmail(transactionWithUser.user, shippedTransaction);
+		}
 
 		return shippedTransaction;
 	}

@@ -37,10 +37,16 @@ interface IaddNewUserAddress {
     lat: number;
     lon: number;
     isDefault: boolean;
+    district: string;
+    city: string;
+    province: string;
+    districtId: number;
+    cityId: number;
+    provinceId: number;
 }
 
 export const addNewUserAddressService = async (body: IaddNewUserAddress, userId: string) => {
-    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault } = body;
+    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault, district, city, province, districtId, cityId, provinceId } = body;
 
     const addressDisplayName = await rgcService(lat.toString(), lon.toString()).then((res) => res.display_name);
 
@@ -60,6 +66,12 @@ export const addNewUserAddressService = async (body: IaddNewUserAddress, userId:
             lat,
             lon,
             isDefault,
+            district,
+            city,
+            province,
+            districtId,
+            cityId,
+            provinceId
         },
     })
 
