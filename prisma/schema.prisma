@@ -30,21 +30,27 @@ model Users {
 }
 
 model UserAddress {
-  id          String    @id @default(uuid())
-  userId      String
-  phoneNumber String
-  provinceId  Int
-  province    String
-  cityId      Int
-  city        String
-  address     String
-  lat         Decimal?  @db.Decimal(9, 6)
-  lng         Decimal?  @db.Decimal(9, 6)
-  isDefault   Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  user        Users     @relation(fields: [userId], references: [id])
+  id                  String  @id @default(uuid())
+  addressLabel        String
+  userId              String
+  receiverName        String
+  receiverPhoneNumber String
+  addressDisplayName  String
+  addressDetails      String
+  lat                 Decimal @db.Decimal(9, 6)
+  lon                 Decimal @db.Decimal(9, 6)
+  isDefault           Boolean @default(false)
+
+  // Redundant information
+  provinceId Int
+  province   String
+  cityId     Int
+  city       String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  user      Users     @relation(fields: [userId], references: [id])
 }
 
 model Store {

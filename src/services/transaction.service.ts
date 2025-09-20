@@ -118,8 +118,8 @@ export class TransactionService {
 					discountedShipping: deliveryVoucherDiscount,
 					finalShippingPrice,
 					totalPrice: grandTotalPrice,
-					address: userAddress.address,
-					phoneNumber: userAddress.phoneNumber,
+					address: userAddress.addressDetails,
+					phoneNumber: userAddress.receiverPhoneNumber,
 					provinceId: userAddress.provinceId,
 					province: userAddress.province,
 					cityId: userAddress.cityId,
@@ -143,7 +143,7 @@ export class TransactionService {
 					customer_details: {
 						first_name: user.name,
 						email: user.email,
-						phone: userAddress.phoneNumber,
+						phone: userAddress.receiverPhoneNumber,
 					},
 				};
 				const snapToken = await snap.createTransaction(parameters);

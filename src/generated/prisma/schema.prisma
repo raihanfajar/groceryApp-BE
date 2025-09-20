@@ -30,6 +30,7 @@ model Users {
 }
 
 model UserAddress {
+<<<<<<< HEAD
   id          String    @id @default(uuid())
   userId      String
   phoneNumber String
@@ -45,6 +46,29 @@ model UserAddress {
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
   user        Users     @relation(fields: [userId], references: [id])
+=======
+  id                  Int     @id @default(autoincrement())
+  addressLabel        String
+  userId              String
+  receiverName        String
+  receiverPhoneNumber String
+  addressDisplayName  String
+  addressDetails      String
+  lat                 Decimal @db.Decimal(9, 6)
+  lon                 Decimal @db.Decimal(9, 6)
+  isDefault           Boolean @default(false)
+
+  // Redundant information
+  provinceId Int?
+  province   String?
+  cityId     Int?
+  city       String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  user      Users     @relation(fields: [userId], references: [id])
+>>>>>>> main
 }
 
 model Store {
