@@ -30,21 +30,27 @@ model Users {
 }
 
 model UserAddress {
-  id          Int       @id @default(autoincrement())
-  userId      String
-  phoneNumber String
-  provinceId  Int
-  province    String
-  cityId      Int
-  city        String
-  address     String
-  lat         Decimal?  @db.Decimal(9, 6)
-  lng         Decimal?  @db.Decimal(9, 6)
-  isDefault   Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
-  user        Users     @relation(fields: [userId], references: [id])
+  id                  Int     @id @default(autoincrement())
+  addressLabel        String
+  userId              String
+  receiverName        String
+  receiverPhoneNumber String
+  addressDisplayName  String
+  addressDetails      String
+  lat                 Decimal @db.Decimal(9, 6)
+  lon                 Decimal @db.Decimal(9, 6)
+  isDefault           Boolean @default(false)
+
+  // Redundant information
+  provinceId Int?
+  province   String?
+  cityId     Int?
+  city       String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  user      Users     @relation(fields: [userId], references: [id])
 }
 
 model Store {
@@ -87,7 +93,9 @@ model Admin {
 model ProductCategory {
   id          String    @id @default(uuid())
   name        String    @unique
+  slug        String    @unique // URL-friendly slug for categories
   description String?
+  icon        String? // Icon identifier for the category
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

@@ -3,17 +3,19 @@ import { prisma } from '../lib/prisma';
 import { ApiError } from '../utils/ApiError';
 import { generateSlug, generateUniqueSlug } from '../utils/slug';
 
-// Extend ProductCategory to include dynamic slug
-type ProductCategoryWithSlug = ProductCategory & { slug: string };
+// ProductCategory now includes slug field from database
+type ProductCategoryWithSlug = ProductCategory;
 
 export interface CreateCategoryInput {
 	name: string;
 	description?: string;
+	icon?: string;
 }
 
 export interface UpdateCategoryInput {
 	name?: string;
 	description?: string;
+	icon?: string;
 	isActive?: boolean;
 }
 
@@ -44,11 +46,8 @@ export class CategoryService {
 			},
 		});
 
-		// Add dynamic slug generation
-		return categories.map((category) => ({
-			...category,
-			slug: generateSlug(category.name),
-		}));
+		// Return categories with database slug field
+		return categories;
 	}
 
 	/**
@@ -75,11 +74,8 @@ export class CategoryService {
 			},
 		});
 
-		// Add dynamic slug generation
-		return categories.map((category) => ({
-			...category,
-			slug: generateSlug(category.name),
-		}));
+		// Return categories with database slug field
+		return categories;
 	}
 
 	/**
@@ -106,14 +102,14 @@ export class CategoryService {
 	}
 
 	/**
-	 * Get category by slug (temporary implementation using name-based slug matching)
+	 * Get category by slug
 	 */
 	static async getCategoryBySlug(
 		slug: string
 	): Promise<ProductCategoryWithSlug | null> {
-		// Get all categories and find the one that would generate this slug
-		const categories = await prisma.productCategory.findMany({
+		return await prisma.productCategory.findFirst({
 			where: {
+				slug,
 				deletedAt: null,
 			},
 			include: {
@@ -128,19 +124,6 @@ export class CategoryService {
 				},
 			},
 		});
-
-		// Find category that would generate this slug
-		const matchingCategory = categories.find((category) => {
-			const categorySlug = generateSlug(category.name);
-			return categorySlug === slug;
-		});
-
-		if (!matchingCategory) return null;
-
-		return {
-			...matchingCategory,
-			slug: generateSlug(matchingCategory.name),
-		};
 	}
 
 	/**
@@ -164,18 +147,25 @@ export class CategoryService {
 			throw new ApiError(400, 'Category with this name already exists');
 		}
 
+		// Generate unique slug
+		const baseSlug = generateSlug(data.name);
+		const existingSlugs = await prisma.productCategory.findMany({
+			where: { deletedAt: null },
+			select: { slug: true },
+		});
+		const existingSlugStrings = existingSlugs.map((cat) => cat.slug);
+		const uniqueSlug = generateUniqueSlug(data.name, existingSlugStrings);
+
 		const newCategory = await prisma.productCategory.create({
 			data: {
 				name: data.name.trim(),
+				slug: uniqueSlug,
 				description: data.description?.trim(),
+				icon: data.icon?.trim(),
 			},
 		});
 
-		// Add dynamic slug generation
-		return {
-			...newCategory,
-			slug: generateSlug(newCategory.name),
-		} as ProductCategoryWithSlug;
+		return newCategory;
 	}
 
 	/**
@@ -211,22 +201,36 @@ export class CategoryService {
 			}
 		}
 
+		// Generate new slug if name is being updated
+		let newSlug: string | undefined;
+		if (data.name) {
+			const existingSlugs = await prisma.productCategory.findMany({
+				where: {
+					deletedAt: null,
+					id: { not: id }, // Exclude current category
+				},
+				select: { slug: true },
+			});
+			const existingSlugStrings = existingSlugs.map((cat) => cat.slug);
+			newSlug = generateUniqueSlug(data.name, existingSlugStrings);
+		}
+
 		const updatedCategory = await prisma.productCategory.update({
 			where: { id },
 			data: {
 				...(data.name && { name: data.name.trim() }),
+				...(newSlug && { slug: newSlug }),
 				...(data.description !== undefined && {
 					description: data.description?.trim() || null,
+				}),
+				...(data.icon !== undefined && {
+					icon: data.icon?.trim() || null,
 				}),
 				...(data.isActive !== undefined && { isActive: data.isActive }),
 			},
 		});
 
-		// Add dynamic slug generation
-		return {
-			...updatedCategory,
-			slug: generateSlug(updatedCategory.name),
-		} as ProductCategoryWithSlug;
+		return updatedCategory;
 	}
 
 	/**
@@ -281,10 +285,6 @@ export class CategoryService {
 			},
 		});
 
-		// Add dynamic slug generation
-		return {
-			...updatedCategory,
-			slug: generateSlug(updatedCategory.name),
-		} as ProductCategoryWithSlug;
+		return updatedCategory;
 	}
 }

@@ -120,7 +120,7 @@ export class CategoryController {
 				throw new ApiError(403, 'Only Super Admin can create categories');
 			}
 
-			const { name, description } = req.body;
+			const { name, description, icon } = req.body;
 
 			if (!name || name.trim().length === 0) {
 				throw new ApiError(400, 'Category name is required');
@@ -129,8 +129,8 @@ export class CategoryController {
 			const category = await CategoryService.createCategory({
 				name: name.trim(),
 				description: description?.trim(),
+				icon: icon?.trim(),
 			});
-
 			res.status(201).json({
 				status: 'success',
 				message: 'Category created successfully',
@@ -158,14 +158,14 @@ export class CategoryController {
 			}
 
 			const { id } = req.params;
-			const { name, description, isActive } = req.body;
+			const { name, description, icon, isActive } = req.body;
 
 			const updateData: any = {};
 			if (name !== undefined) updateData.name = name.trim();
 			if (description !== undefined)
 				updateData.description = description?.trim();
+			if (icon !== undefined) updateData.icon = icon?.trim();
 			if (isActive !== undefined) updateData.isActive = isActive;
-
 			const category = await CategoryService.updateCategory(id, updateData);
 
 			res.status(200).json({
@@ -182,7 +182,7 @@ export class CategoryController {
 
 	/**
 	 * DELETE /api/admin/categories/:id
-	 * Delete category (Super Admin only)
+	 * Delete category (Super Admin only - keep this restricted)
 	 */
 	static async deleteCategory(
 		req: AuthenticatedRequest,

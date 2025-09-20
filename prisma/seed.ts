@@ -1,4 +1,5 @@
 import { PrismaClient } from '../src/generated/prisma';
+import { generateSlug } from '../src/utils/slug';
 import bcrypt from 'bcryptjs';
 
 // Declare process for Node.js environment (for excluded files)
@@ -137,14 +138,17 @@ async function main() {
 			await prisma.userAddress.create({
 				data: {
 					userId: user1.id,
-					phoneNumber: '081234567890',
+					addressLabel: 'Home',
+					receiverName: 'John Doe',
+					receiverPhoneNumber: '081234567890',
+					addressDisplayName: 'Jakarta Selatan',
+					addressDetails: 'Jl. Kemang Raya No. 45',
+					lat: -6.2615,
+					lon: 106.8106,
 					provinceId: 10,
 					province: 'DKI JAKARTA',
 					cityId: 136,
 					city: 'JAKARTA SELATAN',
-					address: 'Jl. Kemang Raya No. 45',
-					lat: -6.2615,
-					lng: 106.8106,
 					isDefault: true,
 				},
 			});
@@ -158,14 +162,17 @@ async function main() {
 			await prisma.userAddress.create({
 				data: {
 					userId: user2.id,
-					phoneNumber: '081987654321',
+					addressLabel: 'Home',
+					receiverName: 'Jane Smith',
+					receiverPhoneNumber: '081987654321',
+					addressDisplayName: 'Bandung',
+					addressDetails: 'Jl. Dago No. 78',
+					lat: -6.8951,
+					lon: 107.6089,
 					provinceId: 5,
 					province: 'Jawa Barat',
 					cityId: 55,
 					city: 'Bandung',
-					address: 'Jl. Dago No. 78',
-					lat: -6.8951,
-					lng: 107.6089,
 					isDefault: true,
 				},
 			});
@@ -210,7 +217,10 @@ async function main() {
 
 			if (!existingCategory) {
 				const newCategory = await prisma.productCategory.create({
-					data: category,
+					data: {
+						...category,
+						slug: generateSlug(category.name),
+					},
 				});
 				createdCategories.push(newCategory);
 			} else {
