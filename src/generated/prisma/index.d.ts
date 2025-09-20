@@ -17415,6 +17415,8 @@ export namespace Prisma {
     totalPrice: number | null
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
@@ -17424,6 +17426,8 @@ export namespace Prisma {
     totalPrice: number | null
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
@@ -17441,6 +17445,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17469,6 +17475,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17497,6 +17505,8 @@ export namespace Prisma {
     province: number
     cityId: number
     city: number
+    district: number
+    districtId: number
     codeVoucherProduct: number
     codeVoucherDelivery: number
     paymentProof: number
@@ -17519,6 +17529,8 @@ export namespace Prisma {
     totalPrice?: true
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type TransactionSumAggregateInputType = {
@@ -17528,6 +17540,8 @@ export namespace Prisma {
     totalPrice?: true
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -17545,6 +17559,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17573,6 +17589,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17601,6 +17619,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
@@ -17716,6 +17736,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
@@ -17763,6 +17785,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
@@ -17799,6 +17823,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
@@ -17831,6 +17857,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
@@ -17863,6 +17891,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
@@ -17876,7 +17906,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
@@ -17926,6 +17956,8 @@ export namespace Prisma {
       province: string
       cityId: number
       city: string
+      district: number
+      districtId: number
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
@@ -18381,6 +18413,8 @@ export namespace Prisma {
     readonly province: FieldRef<"Transaction", 'String'>
     readonly cityId: FieldRef<"Transaction", 'Int'>
     readonly city: FieldRef<"Transaction", 'String'>
+    readonly district: FieldRef<"Transaction", 'Int'>
+    readonly districtId: FieldRef<"Transaction", 'Int'>
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
@@ -25122,6 +25156,8 @@ export namespace Prisma {
     province: 'province',
     cityId: 'cityId',
     city: 'city',
+    district: 'district',
+    districtId: 'districtId',
     codeVoucherProduct: 'codeVoucherProduct',
     codeVoucherDelivery: 'codeVoucherDelivery',
     paymentProof: 'paymentProof',
@@ -26463,6 +26499,8 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
+    district?: IntFilter<"Transaction"> | number
+    districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -26498,6 +26536,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
@@ -26536,6 +26576,8 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
+    district?: IntFilter<"Transaction"> | number
+    districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -26571,6 +26613,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
@@ -26607,6 +26651,8 @@ export namespace Prisma {
     province?: StringWithAggregatesFilter<"Transaction"> | string
     cityId?: IntWithAggregatesFilter<"Transaction"> | number
     city?: StringWithAggregatesFilter<"Transaction"> | string
+    district?: IntWithAggregatesFilter<"Transaction"> | number
+    districtId?: IntWithAggregatesFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
@@ -28258,6 +28304,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -28291,6 +28339,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -28320,6 +28370,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28353,6 +28405,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28384,6 +28438,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -28410,6 +28466,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28436,6 +28494,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29979,6 +30039,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -29999,6 +30061,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -30016,6 +30080,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -30044,6 +30110,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
@@ -30064,6 +30132,8 @@ export namespace Prisma {
     totalPrice?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -32344,6 +32414,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -32375,6 +32447,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -32546,6 +32620,8 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
+    district?: IntFilter<"Transaction"> | number
+    districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
@@ -32884,6 +32960,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -32915,6 +32993,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -34057,6 +34137,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -34089,6 +34171,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -34203,6 +34287,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34235,6 +34321,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34263,6 +34351,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -34295,6 +34385,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -34349,6 +34441,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -34381,6 +34475,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -35311,6 +35407,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -35343,6 +35441,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -35442,6 +35542,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35474,6 +35576,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36193,6 +36297,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
     snapToken?: string | null
@@ -36225,6 +36331,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -36400,6 +36508,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36432,6 +36542,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36545,6 +36657,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -36603,6 +36717,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36634,6 +36750,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36664,6 +36782,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36838,6 +36958,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -37031,6 +37153,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37062,6 +37186,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37092,6 +37218,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37583,6 +37711,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -37608,6 +37738,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37640,6 +37772,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37670,6 +37804,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37697,6 +37833,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: number
+    districtId: number
     codeVoucherProduct?: string | null
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -37722,6 +37860,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
     snapToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37754,6 +37894,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37784,6 +37926,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null

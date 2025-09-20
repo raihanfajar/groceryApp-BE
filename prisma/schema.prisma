@@ -230,6 +230,8 @@ model Transaction {
   province             String
   cityId               Int
   city                 String
+  district             Int
+  districtId           Int
   codeVoucherProduct   String?
   codeVoucherDelivery  String?
   paymentProof         String?
