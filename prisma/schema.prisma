@@ -46,6 +46,8 @@ model UserAddress {
   province   String
   cityId     Int
   city       String
+  district   Int
+  districtId Int
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -93,7 +95,9 @@ model Admin {
 model ProductCategory {
   id          String    @id @default(uuid())
   name        String    @unique
+  slug        String    @unique // URL-friendly slug for categories
   description String?
+  icon        String? // Icon identifier for the category
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

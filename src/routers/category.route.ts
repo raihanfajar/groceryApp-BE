@@ -6,6 +6,7 @@ const router = Router();
 
 // Public routes
 router.get('/', CategoryController.getCategories);
+router.get('/slug/:slug', CategoryController.getCategoryBySlug);
 router.get('/:id', CategoryController.getCategoryById);
 
 // Admin routes (require authentication)

@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import { ProductController } from '../controllers/product.controller';
 import { verifyToken, verifyAdminRole } from '../middlewares/auth.middleware';
+import {
+	uploadProductImages,
+	processProductImages,
+} from '../middlewares/upload.middleware';
 
 const router = Router();
 
@@ -20,12 +24,16 @@ router.post(
 	'/admin',
 	verifyToken,
 	verifyAdminRole,
+	uploadProductImages,
+	processProductImages,
 	ProductController.createProduct
 );
 router.put(
 	'/admin/:id',
 	verifyToken,
 	verifyAdminRole,
+	uploadProductImages,
+	processProductImages,
 	ProductController.updateProduct
 );
 router.delete(

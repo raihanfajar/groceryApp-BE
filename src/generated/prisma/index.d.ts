@@ -521,8 +521,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -2351,6 +2351,10 @@ export namespace Prisma {
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
     /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
+    /**
      * Global configuration for omitting model fields by default.
      * 
      * @example
@@ -4171,34 +4175,26 @@ export namespace Prisma {
   }
 
   export type UserAddressAvgAggregateOutputType = {
-<<<<<<< HEAD
-=======
-    id: number | null
     lat: Decimal | null
     lon: Decimal | null
->>>>>>> main
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type UserAddressSumAggregateOutputType = {
-<<<<<<< HEAD
-=======
-    id: number | null
     lat: Decimal | null
     lon: Decimal | null
->>>>>>> main
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type UserAddressMinAggregateOutputType = {
-<<<<<<< HEAD
     id: string | null
-=======
-    id: number | null
     addressLabel: string | null
->>>>>>> main
     userId: string | null
     receiverName: string | null
     receiverPhoneNumber: string | null
@@ -4211,18 +4207,16 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
   }
 
   export type UserAddressMaxAggregateOutputType = {
-<<<<<<< HEAD
     id: string | null
-=======
-    id: number | null
     addressLabel: string | null
->>>>>>> main
     userId: string | null
     receiverName: string | null
     receiverPhoneNumber: string | null
@@ -4235,6 +4229,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -4255,6 +4251,8 @@ export namespace Prisma {
     province: number
     cityId: number
     city: number
+    district: number
+    districtId: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -4263,25 +4261,21 @@ export namespace Prisma {
 
 
   export type UserAddressAvgAggregateInputType = {
-<<<<<<< HEAD
-=======
-    id?: true
     lat?: true
     lon?: true
->>>>>>> main
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressSumAggregateInputType = {
-<<<<<<< HEAD
-=======
-    id?: true
     lat?: true
     lon?: true
->>>>>>> main
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressMinAggregateInputType = {
@@ -4299,6 +4293,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4319,6 +4315,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4339,6 +4337,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4432,12 +4432,8 @@ export namespace Prisma {
   }
 
   export type UserAddressGroupByOutputType = {
-<<<<<<< HEAD
     id: string
-=======
-    id: number
     addressLabel: string
->>>>>>> main
     userId: string
     receiverName: string
     receiverPhoneNumber: string
@@ -4446,10 +4442,12 @@ export namespace Prisma {
     lat: Decimal
     lon: Decimal
     isDefault: boolean
-    provinceId: number | null
-    province: string | null
-    cityId: number | null
-    city: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -4489,6 +4487,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4510,6 +4510,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4531,6 +4533,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4552,12 +4556,14 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "addressLabel" | "userId" | "receiverName" | "receiverPhoneNumber" | "addressDisplayName" | "addressDetails" | "lat" | "lon" | "isDefault" | "provinceId" | "province" | "cityId" | "city" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userAddress"]>
+  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "addressLabel" | "userId" | "receiverName" | "receiverPhoneNumber" | "addressDisplayName" | "addressDetails" | "lat" | "lon" | "isDefault" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userAddress"]>
   export type UserAddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
@@ -4574,12 +4580,8 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-<<<<<<< HEAD
       id: string
-=======
-      id: number
       addressLabel: string
->>>>>>> main
       userId: string
       receiverName: string
       receiverPhoneNumber: string
@@ -4588,10 +4590,12 @@ export namespace Prisma {
       lat: Prisma.Decimal
       lon: Prisma.Decimal
       isDefault: boolean
-      provinceId: number | null
-      province: string | null
-      cityId: number | null
-      city: string | null
+      provinceId: number
+      province: string
+      cityId: number
+      city: string
+      district: number
+      districtId: number
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -5019,12 +5023,8 @@ export namespace Prisma {
    * Fields of the UserAddress model
    */
   interface UserAddressFieldRefs {
-<<<<<<< HEAD
     readonly id: FieldRef<"UserAddress", 'String'>
-=======
-    readonly id: FieldRef<"UserAddress", 'Int'>
     readonly addressLabel: FieldRef<"UserAddress", 'String'>
->>>>>>> main
     readonly userId: FieldRef<"UserAddress", 'String'>
     readonly receiverName: FieldRef<"UserAddress", 'String'>
     readonly receiverPhoneNumber: FieldRef<"UserAddress", 'String'>
@@ -5037,6 +5037,8 @@ export namespace Prisma {
     readonly province: FieldRef<"UserAddress", 'String'>
     readonly cityId: FieldRef<"UserAddress", 'Int'>
     readonly city: FieldRef<"UserAddress", 'String'>
+    readonly district: FieldRef<"UserAddress", 'Int'>
+    readonly districtId: FieldRef<"UserAddress", 'Int'>
     readonly createdAt: FieldRef<"UserAddress", 'DateTime'>
     readonly updatedAt: FieldRef<"UserAddress", 'DateTime'>
     readonly deletedAt: FieldRef<"UserAddress", 'DateTime'>
@@ -8018,7 +8020,9 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateOutputType = {
     id: string | null
     name: string | null
+    slug: string | null
     description: string | null
+    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8028,7 +8032,9 @@ export namespace Prisma {
   export type ProductCategoryMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    slug: string | null
     description: string | null
+    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8038,7 +8044,9 @@ export namespace Prisma {
   export type ProductCategoryCountAggregateOutputType = {
     id: number
     name: number
+    slug: number
     description: number
+    icon: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -8050,7 +8058,9 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8060,7 +8070,9 @@ export namespace Prisma {
   export type ProductCategoryMaxAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8070,7 +8082,9 @@ export namespace Prisma {
   export type ProductCategoryCountAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8153,7 +8167,9 @@ export namespace Prisma {
   export type ProductCategoryGroupByOutputType = {
     id: string
     name: string
+    slug: string
     description: string | null
+    icon: string | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -8180,7 +8196,9 @@ export namespace Prisma {
   export type ProductCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8192,7 +8210,9 @@ export namespace Prisma {
   export type ProductCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8202,7 +8222,9 @@ export namespace Prisma {
   export type ProductCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8212,14 +8234,16 @@ export namespace Prisma {
   export type ProductCategorySelectScalar = {
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["productCategory"]>
+  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "icon" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["productCategory"]>
   export type ProductCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | ProductCategory$productsArgs<ExtArgs>
     _count?: boolean | ProductCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -8235,7 +8259,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      slug: string
       description: string | null
+      icon: string | null
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -8666,7 +8692,9 @@ export namespace Prisma {
   interface ProductCategoryFieldRefs {
     readonly id: FieldRef<"ProductCategory", 'String'>
     readonly name: FieldRef<"ProductCategory", 'String'>
+    readonly slug: FieldRef<"ProductCategory", 'String'>
     readonly description: FieldRef<"ProductCategory", 'String'>
+    readonly icon: FieldRef<"ProductCategory", 'String'>
     readonly isActive: FieldRef<"ProductCategory", 'Boolean'>
     readonly createdAt: FieldRef<"ProductCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"ProductCategory", 'DateTime'>
@@ -24915,6 +24943,8 @@ export namespace Prisma {
     province: 'province',
     cityId: 'cityId',
     city: 'city',
+    district: 'district',
+    districtId: 'districtId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -24960,7 +24990,9 @@ export namespace Prisma {
   export const ProductCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    slug: 'slug',
     description: 'description',
+    icon: 'icon',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -25251,20 +25283,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -25275,6 +25293,20 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -25450,12 +25482,8 @@ export namespace Prisma {
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
-<<<<<<< HEAD
     id?: StringFilter<"UserAddress"> | string
-=======
-    id?: IntFilter<"UserAddress"> | number
     addressLabel?: StringFilter<"UserAddress"> | string
->>>>>>> main
     userId?: StringFilter<"UserAddress"> | string
     receiverName?: StringFilter<"UserAddress"> | string
     receiverPhoneNumber?: StringFilter<"UserAddress"> | string
@@ -25464,10 +25492,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -25485,10 +25515,12 @@ export namespace Prisma {
     lat?: SortOrder
     lon?: SortOrder
     isDefault?: SortOrder
-    provinceId?: SortOrderInput | SortOrder
-    province?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -25509,10 +25541,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -25530,10 +25564,12 @@ export namespace Prisma {
     lat?: SortOrder
     lon?: SortOrder
     isDefault?: SortOrder
-    provinceId?: SortOrderInput | SortOrder
-    province?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -25548,12 +25584,8 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
     OR?: UserAddressScalarWhereWithAggregatesInput[]
     NOT?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
-<<<<<<< HEAD
     id?: StringWithAggregatesFilter<"UserAddress"> | string
-=======
-    id?: IntWithAggregatesFilter<"UserAddress"> | number
     addressLabel?: StringWithAggregatesFilter<"UserAddress"> | string
->>>>>>> main
     userId?: StringWithAggregatesFilter<"UserAddress"> | string
     receiverName?: StringWithAggregatesFilter<"UserAddress"> | string
     receiverPhoneNumber?: StringWithAggregatesFilter<"UserAddress"> | string
@@ -25562,10 +25594,12 @@ export namespace Prisma {
     lat?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolWithAggregatesFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableWithAggregatesFilter<"UserAddress"> | number | null
-    province?: StringNullableWithAggregatesFilter<"UserAddress"> | string | null
-    cityId?: IntNullableWithAggregatesFilter<"UserAddress"> | number | null
-    city?: StringNullableWithAggregatesFilter<"UserAddress"> | string | null
+    provinceId?: IntWithAggregatesFilter<"UserAddress"> | number
+    province?: StringWithAggregatesFilter<"UserAddress"> | string
+    cityId?: IntWithAggregatesFilter<"UserAddress"> | number
+    city?: StringWithAggregatesFilter<"UserAddress"> | string
+    district?: IntWithAggregatesFilter<"UserAddress"> | number
+    districtId?: IntWithAggregatesFilter<"UserAddress"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"UserAddress"> | Date | string | null
@@ -25770,7 +25804,9 @@ export namespace Prisma {
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     id?: StringFilter<"ProductCategory"> | string
     name?: StringFilter<"ProductCategory"> | string
+    slug?: StringFilter<"ProductCategory"> | string
     description?: StringNullableFilter<"ProductCategory"> | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
@@ -25781,7 +25817,9 @@ export namespace Prisma {
   export type ProductCategoryOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25792,21 +25830,25 @@ export namespace Prisma {
   export type ProductCategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     name?: string
+    slug?: string
     AND?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     OR?: ProductCategoryWhereInput[]
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     description?: StringNullableFilter<"ProductCategory"> | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"ProductCategory"> | Date | string | null
     products?: ProductListRelationFilter
-  }, "id" | "name">
+  }, "id" | "name" | "slug">
 
   export type ProductCategoryOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25822,7 +25864,9 @@ export namespace Prisma {
     NOT?: ProductCategoryScalarWhereWithAggregatesInput | ProductCategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProductCategory"> | string
     name?: StringWithAggregatesFilter<"ProductCategory"> | string
+    slug?: StringWithAggregatesFilter<"ProductCategory"> | string
     description?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
+    icon?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
     isActive?: BoolWithAggregatesFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
@@ -27127,17 +27171,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateInput = {
-<<<<<<< HEAD
     id?: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    address: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-=======
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -27145,12 +27179,13 @@ export namespace Prisma {
     addressDetails: string
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27158,12 +27193,8 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedCreateInput = {
-<<<<<<< HEAD
     id?: string
-=======
-    id?: number
     addressLabel: string
->>>>>>> main
     userId: string
     receiverName: string
     receiverPhoneNumber: string
@@ -27172,27 +27203,19 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUpdateInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-=======
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27200,12 +27223,13 @@ export namespace Prisma {
     addressDetails?: StringFieldUpdateOperationsInput | string
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27213,12 +27237,8 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-=======
-    id?: IntFieldUpdateOperationsInput | number
     addressLabel?: StringFieldUpdateOperationsInput | string
->>>>>>> main
     userId?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27227,22 +27247,20 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressCreateManyInput = {
-<<<<<<< HEAD
     id?: string
-=======
-    id?: number
     addressLabel: string
->>>>>>> main
     userId: string
     receiverName: string
     receiverPhoneNumber: string
@@ -27251,27 +27269,19 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUpdateManyMutationInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-=======
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27279,24 +27289,21 @@ export namespace Prisma {
     addressDetails?: StringFieldUpdateOperationsInput | string
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateManyInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-=======
-    id?: IntFieldUpdateOperationsInput | number
     addressLabel?: StringFieldUpdateOperationsInput | string
->>>>>>> main
     userId?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27305,10 +27312,12 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27544,7 +27553,9 @@ export namespace Prisma {
   export type ProductCategoryCreateInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27555,7 +27566,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedCreateInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27566,7 +27579,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27577,7 +27592,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27588,7 +27605,9 @@ export namespace Prisma {
   export type ProductCategoryCreateManyInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27598,7 +27617,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27608,7 +27629,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29098,17 +29121,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -29120,15 +29132,15 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UsersScalarRelationFilter = {
@@ -29151,20 +29163,20 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
   export type UserAddressAvgOrderByAggregateInput = {
-<<<<<<< HEAD
-=======
-    id?: SortOrder
     lat?: SortOrder
     lon?: SortOrder
->>>>>>> main
     provinceId?: SortOrder
     cityId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type UserAddressMaxOrderByAggregateInput = {
@@ -29182,6 +29194,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29202,36 +29216,20 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
   export type UserAddressSumOrderByAggregateInput = {
-<<<<<<< HEAD
-=======
-    id?: SortOrder
     lat?: SortOrder
     lon?: SortOrder
->>>>>>> main
     provinceId?: SortOrder
     cityId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -29250,20 +29248,20 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DecimalNullableFilter<$PrismaModel = never> = {
@@ -29461,7 +29459,9 @@ export namespace Prisma {
   export type ProductCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29471,7 +29471,9 @@ export namespace Prisma {
   export type ProductCategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29481,11 +29483,24 @@ export namespace Prisma {
   export type ProductCategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -29591,6 +29606,22 @@ export namespace Prisma {
     price?: SortOrder
     zIndex?: SortOrder
     weight?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -30550,8 +30581,8 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -30564,14 +30595,6 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutAddressesInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutAddressesInput, UsersUpdateWithoutAddressesInput>, UsersUncheckedUpdateWithoutAddressesInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type AdminCreateNestedManyWithoutStoreInput = {
@@ -31036,6 +31059,14 @@ export namespace Prisma {
     connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
     createMany?: DiscountProductCreateManyProductInputEnvelope
     connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -32098,6 +32129,22 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -32125,49 +32172,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -32193,6 +32197,33 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -32371,17 +32402,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateWithoutUserInput = {
-<<<<<<< HEAD
     id?: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    address: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-=======
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -32389,30 +32410,20 @@ export namespace Prisma {
     addressDetails: string
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUncheckedCreateWithoutUserInput = {
-<<<<<<< HEAD
     id?: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    address: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-=======
-    id?: number
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -32420,12 +32431,13 @@ export namespace Prisma {
     addressDetails: string
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32567,12 +32579,8 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
     OR?: UserAddressScalarWhereInput[]
     NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-<<<<<<< HEAD
     id?: StringFilter<"UserAddress"> | string
-=======
-    id?: IntFilter<"UserAddress"> | number
     addressLabel?: StringFilter<"UserAddress"> | string
->>>>>>> main
     userId?: StringFilter<"UserAddress"> | string
     receiverName?: StringFilter<"UserAddress"> | string
     receiverPhoneNumber?: StringFilter<"UserAddress"> | string
@@ -32581,10 +32589,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -33489,7 +33499,9 @@ export namespace Prisma {
   export type ProductCategoryCreateWithoutProductsInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33499,7 +33511,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedCreateWithoutProductsInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33627,7 +33641,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33637,7 +33653,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36541,18 +36559,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateManyUserInput = {
-<<<<<<< HEAD
     id?: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    address: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-=======
-    id?: number
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -36560,12 +36567,13 @@ export namespace Prisma {
     addressDetails: string
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36670,17 +36678,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateWithoutUserInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-=======
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36688,30 +36686,20 @@ export namespace Prisma {
     addressDetails?: StringFieldUpdateOperationsInput | string
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateWithoutUserInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-=======
-    id?: IntFieldUpdateOperationsInput | number
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36719,30 +36707,20 @@ export namespace Prisma {
     addressDetails?: StringFieldUpdateOperationsInput | string
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
-<<<<<<< HEAD
     id?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-=======
-    id?: IntFieldUpdateOperationsInput | number
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36750,12 +36728,13 @@ export namespace Prisma {
     addressDetails?: StringFieldUpdateOperationsInput | string
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
->>>>>>> main
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

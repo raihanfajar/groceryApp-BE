@@ -2,6 +2,7 @@ import { Product, StoreProduct, Prisma } from '../generated/prisma';
 import { prisma } from '../lib/prisma';
 import { ApiError } from '../utils/ApiError';
 import { InventoryService } from './inventory.service';
+import { CategoryService } from './category.service';
 
 export interface CreateProductInput {
 	name: string;
@@ -31,6 +32,7 @@ export interface UpdateProductInput {
 export interface ProductFilters {
 	search?: string;
 	categoryId?: string;
+	category?: string;
 	storeId?: string;
 	minPrice?: number;
 	maxPrice?: number;
@@ -70,7 +72,7 @@ export class ProductService {
 	static async getProducts(
 		filters: ProductFilters = {},
 		page: number = 1,
-		limit: number = 20
+		limit: number = 12
 	): Promise<{
 		products: ProductWithStock[];
 		pagination: {
@@ -83,6 +85,7 @@ export class ProductService {
 		const {
 			search,
 			categoryId,
+			category,
 			storeId,
 			minPrice,
 			maxPrice,
@@ -91,11 +94,20 @@ export class ProductService {
 
 		const skip = (page - 1) * limit;
 
+		// Resolve category slug to categoryId if provided
+		let resolvedCategoryId = categoryId;
+		if (category && !categoryId) {
+			const categoryData = await CategoryService.getCategoryBySlug(category);
+			if (categoryData) {
+				resolvedCategoryId = categoryData.id;
+			}
+		}
+
 		// Build where clause - simplified for current schema
 		const whereClause: Prisma.ProductWhereInput = {
 			deletedAt: null,
 			isActive,
-			...(categoryId && { categoryId }),
+			...(resolvedCategoryId && { categoryId: resolvedCategoryId }),
 			...(search && {
 				OR: [
 					{
@@ -112,13 +124,9 @@ export class ProductService {
 					},
 				],
 			}),
-			...((minPrice !== undefined || maxPrice !== undefined) && {
-				price: {
-					...(minPrice !== undefined && { gte: minPrice }),
-					...(maxPrice !== undefined && { lte: maxPrice }),
-				},
-			}),
-			// Note: storeId filtering removed due to current schema limitations
+			...(minPrice && { price: { gte: minPrice } }),
+			...(maxPrice && { price: { lte: maxPrice } }),
+			...(minPrice && maxPrice && { price: { gte: minPrice, lte: maxPrice } }),
 		};
 
 		// Get total count

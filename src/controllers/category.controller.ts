@@ -5,7 +5,7 @@ import { AuthenticatedRequest } from '../types/express';
 
 export class CategoryController {
 	/**
-	 * GET /api/categories
+	 * GET /categories
 	 * Get all active categories (public)
 	 */
 	static async getCategories(
@@ -28,7 +28,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * GET /api/admin/categories
+	 * GET /admin/categories
 	 * Get all categories for admin (including inactive)
 	 */
 	static async getCategoriesForAdmin(
@@ -51,7 +51,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * GET /api/categories/:id
+	 * GET /categories/:id
 	 * Get category by ID
 	 */
 	static async getCategoryById(
@@ -79,7 +79,35 @@ export class CategoryController {
 	}
 
 	/**
-	 * POST /api/admin/categories
+	 * GET /categories/slug/:slug
+	 * Get category by slug
+	 */
+	static async getCategoryBySlug(
+		req: Request,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			const { slug } = req.params;
+			const category = await CategoryService.getCategoryBySlug(slug);
+
+			if (!category) {
+				throw new ApiError(404, 'Category not found');
+			}
+
+			res.status(200).json({
+				status: 'success',
+				data: {
+					category,
+				},
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	/**
+	 * POST /admin/categories
 	 * Create new category (Super Admin only)
 	 */
 	static async createCategory(
@@ -92,7 +120,7 @@ export class CategoryController {
 				throw new ApiError(403, 'Only Super Admin can create categories');
 			}
 
-			const { name, description } = req.body;
+			const { name, description, icon } = req.body;
 
 			if (!name || name.trim().length === 0) {
 				throw new ApiError(400, 'Category name is required');
@@ -101,8 +129,8 @@ export class CategoryController {
 			const category = await CategoryService.createCategory({
 				name: name.trim(),
 				description: description?.trim(),
+				icon: icon?.trim(),
 			});
-
 			res.status(201).json({
 				status: 'success',
 				message: 'Category created successfully',
@@ -116,7 +144,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * PUT /api/admin/categories/:id
+	 * PUT /admin/categories/:id
 	 * Update category (Super Admin only)
 	 */
 	static async updateCategory(
@@ -130,14 +158,14 @@ export class CategoryController {
 			}
 
 			const { id } = req.params;
-			const { name, description, isActive } = req.body;
+			const { name, description, icon, isActive } = req.body;
 
 			const updateData: any = {};
 			if (name !== undefined) updateData.name = name.trim();
 			if (description !== undefined)
 				updateData.description = description?.trim();
+			if (icon !== undefined) updateData.icon = icon?.trim();
 			if (isActive !== undefined) updateData.isActive = isActive;
-
 			const category = await CategoryService.updateCategory(id, updateData);
 
 			res.status(200).json({
@@ -153,8 +181,8 @@ export class CategoryController {
 	}
 
 	/**
-	 * DELETE /api/admin/categories/:id
-	 * Delete category (Super Admin only)
+	 * DELETE /admin/categories/:id
+	 * Delete category (Super Admin only - keep this restricted)
 	 */
 	static async deleteCategory(
 		req: AuthenticatedRequest,
@@ -179,7 +207,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * PATCH /api/admin/categories/:id/toggle-status
+	 * PATCH /admin/categories/:id/toggle-status
 	 * Toggle category status (Super Admin only)
 	 */
 	static async toggleCategoryStatus(
