@@ -295,6 +295,8 @@ exports.Prisma.TransactionScalarFieldEnum = {
   province: 'province',
   cityId: 'cityId',
   city: 'city',
+  district: 'district',
+  districtId: 'districtId',
   codeVoucherProduct: 'codeVoucherProduct',
   codeVoucherDelivery: 'codeVoucherDelivery',
   paymentProof: 'paymentProof',

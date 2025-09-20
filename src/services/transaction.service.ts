@@ -124,6 +124,8 @@ export class TransactionService {
 					province: userAddress.province,
 					cityId: userAddress.cityId,
 					city: userAddress.city,
+					district: userAddress.district,
+					districtId: userAddress.districtId,
 					status: "waiting_payment",
 					expiryAt:
 						paymentMethod === "manual_transfer"
