@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -69,5 +69,25 @@ export class CloudinaryService {
 		return match ? match[1] : null;
 	}
 }
+
+// Legacy function from main branch for compatibility
+export const cloudinaryUpload = async (
+	file: Buffer
+): Promise<UploadApiResponse> => {
+	if (!file || file.length === 0) {
+		throw new Error("File buffer is empty or invalid");
+	}
+	const base64String = `data:image/jpeg;base64,${file.toString("base64")}`;
+
+	try {
+		const result = await cloudinary.uploader.upload(base64String, {
+			folder: "evidence",
+		});
+		return result;
+	} catch (error) {
+		console.error("Cloudinary upload failed:", error);
+		throw new Error("Failed to upload file to Cloudinary.");
+	}
+};
 
 export default CloudinaryService;

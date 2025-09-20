@@ -1,13 +1,15 @@
 import express from 'express';
 import adminRouter from './admin.route';
-import categoryRouter from './category.route';
-import productRouter from './product.route';
 import cartRouter from './cart.route';
-import voucherRouter from './voucher.route';
-import userRouter from './user.route';
+import categoryRouter from './category.route';
+import geoCodingRouter from './geocoding.route';
 import inventoryRouter from './inventory.route';
+import productRouter from './product.route';
+import userRouter from './user.route';
+import voucherRouter from './voucher.route';
 import discountRouter from './discount.route';
 import reportRouter from './report.route';
+import transactionRouter from './transaction.route';
 
 const mainRouter = express.Router();
 
@@ -21,6 +23,7 @@ mainRouter.get('/', (_, res) => {
 });
 
 mainRouter.use('/user', userRouter);
+mainRouter.use('/geocoding', geoCodingRouter);
 mainRouter.use('/admin', adminRouter);
 mainRouter.use('/inventory', inventoryRouter);
 mainRouter.use('/discounts', discountRouter);
@@ -29,5 +32,6 @@ mainRouter.use('/categories', categoryRouter);
 mainRouter.use('/products', productRouter);
 mainRouter.use('/cart', cartRouter);
 mainRouter.use('/voucher', voucherRouter);
+mainRouter.use('/transaction', transactionRouter);
 
 export default mainRouter;
