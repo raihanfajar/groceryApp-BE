@@ -1,4 +1,6 @@
 import { ApiError } from "../utils/ApiError";
+import prisma from "../config";
+
 
 export const rgcService = async (lat: string, lon: string) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
@@ -24,3 +26,51 @@ export const fgcService = async (q: string, limit: string | undefined) => {
 
     return r.json();
 };
+
+interface IaddNewUserAddress {
+    userId: string;
+    addressLabel: string;
+    receiverName: string;
+    receiverPhoneNumber: string;
+    addressDisplayName: string;
+    addressDetails: string;
+    lat: number;
+    lon: number;
+    isDefault: boolean;
+}
+
+export const addNewUserAddressService = async (body: IaddNewUserAddress, userId: string) => {
+    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault } = body;
+
+    const addressDisplayName = await rgcService(lat.toString(), lon.toString()).then((res) => res.display_name);
+
+    // !Extra validation
+    const existingAddress = await prisma.userAddress.findFirst({ where: { userId, addressLabel } });
+    if (existingAddress) throw new ApiError(409, "Address label already in use");
+
+    //    !Add new address
+    const newAddress = await prisma.userAddress.create({
+        data: {
+            userId,
+            addressLabel,
+            receiverName,
+            receiverPhoneNumber,
+            addressDisplayName,
+            addressDetails,
+            lat,
+            lon,
+            isDefault,
+        },
+    })
+
+    // !Return
+    return newAddress;
+}
+
+export const getUserAddressService = async (userId: string) => {
+    const address = await prisma.users.findUnique({ where: { id: userId }, include: { addresses: true } });
+    if (!address) throw new ApiError(404, "User Address not found");
+
+    // !Return
+    return address;
+}
