@@ -5,7 +5,7 @@ import { AuthenticatedRequest } from '../types/express';
 
 export class CategoryController {
 	/**
-	 * GET /api/categories
+	 * GET /categories
 	 * Get all active categories (public)
 	 */
 	static async getCategories(
@@ -28,7 +28,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * GET /api/admin/categories
+	 * GET /admin/categories
 	 * Get all categories for admin (including inactive)
 	 */
 	static async getCategoriesForAdmin(
@@ -51,7 +51,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * GET /api/categories/:id
+	 * GET /categories/:id
 	 * Get category by ID
 	 */
 	static async getCategoryById(
@@ -79,7 +79,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * GET /api/categories/slug/:slug
+	 * GET /categories/slug/:slug
 	 * Get category by slug
 	 */
 	static async getCategoryBySlug(
@@ -107,7 +107,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * POST /api/admin/categories
+	 * POST /admin/categories
 	 * Create new category (Super Admin only)
 	 */
 	static async createCategory(
@@ -144,7 +144,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * PUT /api/admin/categories/:id
+	 * PUT /admin/categories/:id
 	 * Update category (Super Admin only)
 	 */
 	static async updateCategory(
@@ -181,7 +181,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * DELETE /api/admin/categories/:id
+	 * DELETE /admin/categories/:id
 	 * Delete category (Super Admin only - keep this restricted)
 	 */
 	static async deleteCategory(
@@ -207,7 +207,7 @@ export class CategoryController {
 	}
 
 	/**
-	 * PATCH /api/admin/categories/:id/toggle-status
+	 * PATCH /admin/categories/:id/toggle-status
 	 * Toggle category status (Super Admin only)
 	 */
 	static async toggleCategoryStatus(

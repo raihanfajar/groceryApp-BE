@@ -32,7 +32,7 @@ export interface UpdateProductInput {
 export interface ProductFilters {
 	search?: string;
 	categoryId?: string;
-	categorySlug?: string;
+	category?: string;
 	storeId?: string;
 	minPrice?: number;
 	maxPrice?: number;
@@ -85,7 +85,7 @@ export class ProductService {
 		const {
 			search,
 			categoryId,
-			categorySlug,
+			category,
 			storeId,
 			minPrice,
 			maxPrice,
@@ -94,12 +94,12 @@ export class ProductService {
 
 		const skip = (page - 1) * limit;
 
-		// Resolve categorySlug to categoryId if provided
+		// Resolve category slug to categoryId if provided
 		let resolvedCategoryId = categoryId;
-		if (categorySlug && !categoryId) {
-			const category = await CategoryService.getCategoryBySlug(categorySlug);
-			if (category) {
-				resolvedCategoryId = category.id;
+		if (category && !categoryId) {
+			const categoryData = await CategoryService.getCategoryBySlug(category);
+			if (categoryData) {
+				resolvedCategoryId = categoryData.id;
 			}
 		}
 
