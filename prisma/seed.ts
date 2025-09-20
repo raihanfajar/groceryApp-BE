@@ -1,6 +1,6 @@
 import { PrismaClient } from '../src/generated/prisma';
 import { generateSlug } from '../src/utils/slug';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 // Declare process for Node.js environment (for excluded files)
 declare const process: any;

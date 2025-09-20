@@ -23,7 +23,62 @@ export class TransactionController {
 		}
 	);
 
-	uploadPaymentProof = catchAsync (
+	createUserTransaction = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+
+			const {
+				userAddressId,
+				storeId,
+				shippingPrice,
+				voucherProductCode,
+				voucherDeliveryCode,
+				payment_method,
+			} = req.body;
+
+			if (!userAddressId || !storeId || shippingPrice === undefined) {
+				throw new ApiError(
+					400,
+					"userAddressId, storeId, and shippingPrice are required."
+				);
+			}
+			if (typeof shippingPrice !== "number" || shippingPrice < 0) {
+				throw new ApiError(400, "shippingPrice must be a non-negative number.");
+			}
+
+			const result = await this.transactionService.createUserTransaction(
+				userId,
+				userAddressId,
+				storeId,
+				shippingPrice,
+				voucherProductCode,
+				voucherDeliveryCode,
+				payment_method
+			);
+
+			res.status(201).json({
+				message:
+					"Transaction created successfully. Some items may be out of stock.",
+				data: result,
+			});
+		}
+	);
+
+	handleMidtransNotification = catchAsync(
+		async (req: Request, res: Response) => {
+			// Ambil seluruh body dari request, ini adalah notifikasi dari Midtrans
+			const notificationPayload = req.body;
+
+			// Panggil service yang sudah kita buat untuk menangani notifikasi
+			await this.transactionService.handleMidtransNotification(
+				notificationPayload
+			);
+
+			res.status(200).json({ status: "ok" });
+		}
+	);
+
+	uploadPaymentProof = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
 			const file = req.file as Express.Multer.File;
@@ -38,13 +93,17 @@ export class TransactionController {
 				throw new ApiError(400, "Transaction ID is required");
 			}
 
-			const paymentProof = await this.transactionService.uploadPaymentProof(userId, file, transactionId);
+			const paymentProof = await this.transactionService.uploadPaymentProof(
+				userId,
+				file,
+				transactionId
+			);
 			res.status(200).json({
 				message: "Payment proof uploaded successfully",
 				data: { paymentProof },
 			});
 		}
-	)
+	);
 
 	getUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
@@ -74,6 +133,27 @@ export class TransactionController {
 		}
 	);
 
+	completedUserTransaction = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			const transactionId = req.query.transaction as string;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			if (!transactionId) {
+				throw new ApiError(400, "Transaction ID is required");
+			}
+			const transaction = await this.transactionService.completeUserTransaction(
+				userId,
+				transactionId
+			);
+			res.status(200).json({
+				message: "User transaction completed successfully",
+				data: { transaction },
+			});
+		}
+	);
+
 	cancelUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
@@ -95,7 +175,8 @@ export class TransactionController {
 		}
 	);
 
-	getAllStoreTransaction = catchAsync(
+	// Admin Transaction
+	getStoreTransaction = catchAsync(
 		async (req: AuthenticatedRequest, res: Response) => {
 			const adminId = req.user!.id;
 			const statusQuery = req.query.status as string;
@@ -111,13 +192,43 @@ export class TransactionController {
 				throw new ApiError(400, `Invalid status value: ${statusQuery}`);
 			}
 
-			const transaction = await this.transactionService.getUserTransactions(
+			const transaction = await this.transactionService.getStoreTransactions(
 				adminId,
 				statusQuery as OrderStatus
 			);
 
 			res.status(200).json({
 				message: "User transaction retrieved successfully",
+				data: { transaction },
+			});
+		}
+	);
+
+	confirmingOrderTransaction = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const transactionId = req.query.transaction as string;
+			if (!transactionId) {
+				throw new ApiError(400, "Transaction ID is required");
+			}
+			const transaction =
+				await this.transactionService.confirmingOrderTransaction(transactionId);
+			res.status(200).json({
+				message: "User transaction canceled successfully",
+				data: { transaction },
+			});
+		}
+	);
+
+	cancelOrderPayment = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const transactionId = req.query.transaction as string;
+			if (!transactionId) {
+				throw new ApiError(400, "Transaction ID is required");
+			}
+			const transaction =
+				await this.transactionService.cancelOrderPayment(transactionId);
+			res.status(200).json({
+				message: "User transaction canceled successfully",
 				data: { transaction },
 			});
 		}
@@ -134,7 +245,7 @@ export class TransactionController {
 			res.status(200).json({
 				message: "User transaction canceled successfully",
 				data: { transaction },
-			}); 
+			});
 		}
 	);
 
@@ -146,6 +257,24 @@ export class TransactionController {
 			}
 			const transaction =
 				await this.transactionService.cancelStoreTransaction(transactionId);
+			res.status(200).json({
+				message: "User transaction canceled successfully",
+				data: { transaction },
+			});
+		}
+	);
+
+	// Super Admin
+	getAllTransactions = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const adminId = req.user!.id;
+			const storeId = req.query.storeId as string;
+
+			const transaction = await this.transactionService.getAllTransactions(
+				adminId,
+				storeId
+			);
+
 			res.status(200).json({
 				message: "User transaction canceled successfully",
 				data: { transaction },

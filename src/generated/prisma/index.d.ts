@@ -113,7 +113,7 @@ export namespace $Enums {
   waiting_confirmation: 'waiting_confirmation',
   on_process: 'on_process',
   shipped: 'shipped',
-  confirmed: 'confirmed',
+  completed: 'completed',
   cancelled: 'cancelled'
 };
 
@@ -521,8 +521,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -2351,6 +2351,10 @@ export namespace Prisma {
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
     /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
+    /**
      * Global configuration for omitting model fields by default.
      * 
      * @example
@@ -4171,23 +4175,25 @@ export namespace Prisma {
   }
 
   export type UserAddressAvgAggregateOutputType = {
-    id: number | null
     lat: Decimal | null
     lon: Decimal | null
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type UserAddressSumAggregateOutputType = {
-    id: number | null
     lat: Decimal | null
     lon: Decimal | null
     provinceId: number | null
     cityId: number | null
+    district: number | null
+    districtId: number | null
   }
 
   export type UserAddressMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     addressLabel: string | null
     userId: string | null
     receiverName: string | null
@@ -4201,13 +4207,15 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
   }
 
   export type UserAddressMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     addressLabel: string | null
     userId: string | null
     receiverName: string | null
@@ -4221,6 +4229,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: number | null
+    districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -4241,6 +4251,8 @@ export namespace Prisma {
     province: number
     cityId: number
     city: number
+    district: number
+    districtId: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -4249,19 +4261,21 @@ export namespace Prisma {
 
 
   export type UserAddressAvgAggregateInputType = {
-    id?: true
     lat?: true
     lon?: true
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressSumAggregateInputType = {
-    id?: true
     lat?: true
     lon?: true
     provinceId?: true
     cityId?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressMinAggregateInputType = {
@@ -4279,6 +4293,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4299,6 +4315,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4319,6 +4337,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -4412,7 +4432,7 @@ export namespace Prisma {
   }
 
   export type UserAddressGroupByOutputType = {
-    id: number
+    id: string
     addressLabel: string
     userId: string
     receiverName: string
@@ -4422,10 +4442,12 @@ export namespace Prisma {
     lat: Decimal
     lon: Decimal
     isDefault: boolean
-    provinceId: number | null
-    province: string | null
-    cityId: number | null
-    city: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -4465,6 +4487,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4486,6 +4510,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4507,6 +4533,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -4528,12 +4556,14 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "addressLabel" | "userId" | "receiverName" | "receiverPhoneNumber" | "addressDisplayName" | "addressDetails" | "lat" | "lon" | "isDefault" | "provinceId" | "province" | "cityId" | "city" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userAddress"]>
+  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "addressLabel" | "userId" | "receiverName" | "receiverPhoneNumber" | "addressDisplayName" | "addressDetails" | "lat" | "lon" | "isDefault" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userAddress"]>
   export type UserAddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
@@ -4550,7 +4580,7 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       addressLabel: string
       userId: string
       receiverName: string
@@ -4560,10 +4590,12 @@ export namespace Prisma {
       lat: Prisma.Decimal
       lon: Prisma.Decimal
       isDefault: boolean
-      provinceId: number | null
-      province: string | null
-      cityId: number | null
-      city: string | null
+      provinceId: number
+      province: string
+      cityId: number
+      city: string
+      district: number
+      districtId: number
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -4991,7 +5023,7 @@ export namespace Prisma {
    * Fields of the UserAddress model
    */
   interface UserAddressFieldRefs {
-    readonly id: FieldRef<"UserAddress", 'Int'>
+    readonly id: FieldRef<"UserAddress", 'String'>
     readonly addressLabel: FieldRef<"UserAddress", 'String'>
     readonly userId: FieldRef<"UserAddress", 'String'>
     readonly receiverName: FieldRef<"UserAddress", 'String'>
@@ -5005,6 +5037,8 @@ export namespace Prisma {
     readonly province: FieldRef<"UserAddress", 'String'>
     readonly cityId: FieldRef<"UserAddress", 'Int'>
     readonly city: FieldRef<"UserAddress", 'String'>
+    readonly district: FieldRef<"UserAddress", 'Int'>
+    readonly districtId: FieldRef<"UserAddress", 'Int'>
     readonly createdAt: FieldRef<"UserAddress", 'DateTime'>
     readonly updatedAt: FieldRef<"UserAddress", 'DateTime'>
     readonly deletedAt: FieldRef<"UserAddress", 'DateTime'>
@@ -17410,6 +17444,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -17433,6 +17472,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -17456,6 +17500,11 @@ export namespace Prisma {
     codeVoucherProduct: number
     codeVoucherDelivery: number
     paymentProof: number
+    paymentMethod: number
+    snapToken: number
+    snapRedirectUrl: number
+    paidAt: number
+    expiryAt: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -17499,6 +17548,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17522,6 +17576,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17545,6 +17604,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17643,7 +17707,7 @@ export namespace Prisma {
     storeId: string
     status: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping: number
+    discountedShipping: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -17655,6 +17719,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -17697,6 +17766,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17728,6 +17802,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17755,6 +17834,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17782,12 +17866,17 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
@@ -17828,7 +17917,7 @@ export namespace Prisma {
       storeId: string
       status: $Enums.OrderStatus
       shippingPrice: number
-      discountedShipping: number
+      discountedShipping: number | null
       finalShippingPrice: number
       totalPrice: number
       address: string
@@ -17840,6 +17929,11 @@ export namespace Prisma {
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
+      paymentMethod: string | null
+      snapToken: string | null
+      snapRedirectUrl: string | null
+      paidAt: Date | null
+      expiryAt: Date | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -18290,6 +18384,11 @@ export namespace Prisma {
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
+    readonly paymentMethod: FieldRef<"Transaction", 'String'>
+    readonly snapToken: FieldRef<"Transaction", 'String'>
+    readonly snapRedirectUrl: FieldRef<"Transaction", 'String'>
+    readonly paidAt: FieldRef<"Transaction", 'DateTime'>
+    readonly expiryAt: FieldRef<"Transaction", 'DateTime'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
     readonly deletedAt: FieldRef<"Transaction", 'DateTime'>
@@ -24844,6 +24943,8 @@ export namespace Prisma {
     province: 'province',
     cityId: 'cityId',
     city: 'city',
+    district: 'district',
+    districtId: 'districtId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -25024,6 +25125,11 @@ export namespace Prisma {
     codeVoucherProduct: 'codeVoucherProduct',
     codeVoucherDelivery: 'codeVoucherDelivery',
     paymentProof: 'paymentProof',
+    paymentMethod: 'paymentMethod',
+    snapToken: 'snapToken',
+    snapRedirectUrl: 'snapRedirectUrl',
+    paidAt: 'paidAt',
+    expiryAt: 'expiryAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -25177,20 +25283,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -25201,6 +25293,20 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -25376,7 +25482,7 @@ export namespace Prisma {
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
-    id?: IntFilter<"UserAddress"> | number
+    id?: StringFilter<"UserAddress"> | string
     addressLabel?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
     receiverName?: StringFilter<"UserAddress"> | string
@@ -25386,10 +25492,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -25407,10 +25515,12 @@ export namespace Prisma {
     lat?: SortOrder
     lon?: SortOrder
     isDefault?: SortOrder
-    provinceId?: SortOrderInput | SortOrder
-    province?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -25418,7 +25528,7 @@ export namespace Prisma {
   }
 
   export type UserAddressWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
@@ -25431,10 +25541,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -25452,10 +25564,12 @@ export namespace Prisma {
     lat?: SortOrder
     lon?: SortOrder
     isDefault?: SortOrder
-    provinceId?: SortOrderInput | SortOrder
-    province?: SortOrderInput | SortOrder
-    cityId?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
+    provinceId?: SortOrder
+    province?: SortOrder
+    cityId?: SortOrder
+    city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -25470,7 +25584,7 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
     OR?: UserAddressScalarWhereWithAggregatesInput[]
     NOT?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"UserAddress"> | number
+    id?: StringWithAggregatesFilter<"UserAddress"> | string
     addressLabel?: StringWithAggregatesFilter<"UserAddress"> | string
     userId?: StringWithAggregatesFilter<"UserAddress"> | string
     receiverName?: StringWithAggregatesFilter<"UserAddress"> | string
@@ -25480,10 +25594,12 @@ export namespace Prisma {
     lat?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolWithAggregatesFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableWithAggregatesFilter<"UserAddress"> | number | null
-    province?: StringNullableWithAggregatesFilter<"UserAddress"> | string | null
-    cityId?: IntNullableWithAggregatesFilter<"UserAddress"> | number | null
-    city?: StringNullableWithAggregatesFilter<"UserAddress"> | string | null
+    provinceId?: IntWithAggregatesFilter<"UserAddress"> | number
+    province?: StringWithAggregatesFilter<"UserAddress"> | string
+    cityId?: IntWithAggregatesFilter<"UserAddress"> | number
+    city?: StringWithAggregatesFilter<"UserAddress"> | string
+    district?: IntWithAggregatesFilter<"UserAddress"> | number
+    districtId?: IntWithAggregatesFilter<"UserAddress"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"UserAddress"> | Date | string | null
@@ -26338,7 +26454,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26350,6 +26466,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -26368,7 +26489,7 @@ export namespace Prisma {
     storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
+    discountedShipping?: SortOrderInput | SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26380,6 +26501,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26401,7 +26527,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26413,6 +26539,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -26431,7 +26562,7 @@ export namespace Prisma {
     storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
+    discountedShipping?: SortOrderInput | SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26443,6 +26574,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26462,7 +26598,7 @@ export namespace Prisma {
     storeId?: StringWithAggregatesFilter<"Transaction"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedShipping?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
     finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
     address?: StringWithAggregatesFilter<"Transaction"> | string
@@ -26474,6 +26610,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapToken?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
@@ -27030,6 +27171,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateInput = {
+    id?: string
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -27038,10 +27180,12 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27049,7 +27193,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedCreateInput = {
-    id?: number
+    id?: string
     addressLabel: string
     userId: string
     receiverName: string
@@ -27059,16 +27203,19 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27077,10 +27224,12 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27088,7 +27237,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
@@ -27098,17 +27247,19 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressCreateManyInput = {
-    id?: number
+    id?: string
     addressLabel: string
     userId: string
     receiverName: string
@@ -27118,16 +27269,19 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -27136,17 +27290,19 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
@@ -27156,10 +27312,12 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28091,7 +28249,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28101,6 +28259,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -28119,7 +28282,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28131,6 +28294,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -28143,7 +28311,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28153,6 +28321,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28171,7 +28344,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28183,6 +28356,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28197,7 +28375,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28209,6 +28387,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -28218,7 +28401,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28228,6 +28411,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28239,7 +28427,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28251,6 +28439,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28928,17 +29121,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -28950,15 +29132,15 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UsersScalarRelationFilter = {
@@ -28981,17 +29163,20 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
   export type UserAddressAvgOrderByAggregateInput = {
-    id?: SortOrder
     lat?: SortOrder
     lon?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type UserAddressMaxOrderByAggregateInput = {
@@ -29009,6 +29194,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29029,33 +29216,20 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
   }
 
   export type UserAddressSumOrderByAggregateInput = {
-    id?: SortOrder
     lat?: SortOrder
     lon?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -29074,20 +29248,20 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DecimalNullableFilter<$PrismaModel = never> = {
@@ -29318,6 +29492,17 @@ export namespace Prisma {
     deletedAt?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -29421,6 +29606,22 @@ export namespace Prisma {
     price?: SortOrder
     zIndex?: SortOrder
     weight?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -29781,6 +29982,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29813,6 +30019,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29836,6 +30047,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -30365,8 +30581,8 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -30379,14 +30595,6 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutAddressesInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutAddressesInput, UsersUpdateWithoutAddressesInput>, UsersUncheckedUpdateWithoutAddressesInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type AdminCreateNestedManyWithoutStoreInput = {
@@ -30851,6 +31059,14 @@ export namespace Prisma {
     connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
     createMany?: DiscountProductCreateManyProductInputEnvelope
     connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -31913,6 +32129,22 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -31940,49 +32172,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -32008,6 +32197,33 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -32119,7 +32335,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32129,6 +32345,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32145,7 +32366,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32157,6 +32378,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32176,6 +32402,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateWithoutUserInput = {
+    id?: string
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -32184,17 +32411,19 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -32203,10 +32432,12 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32306,7 +32537,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -32318,6 +32549,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -32343,7 +32579,7 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
     OR?: UserAddressScalarWhereInput[]
     NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-    id?: IntFilter<"UserAddress"> | number
+    id?: StringFilter<"UserAddress"> | string
     addressLabel?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
     receiverName?: StringFilter<"UserAddress"> | string
@@ -32353,10 +32589,12 @@ export namespace Prisma {
     lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntNullableFilter<"UserAddress"> | number | null
-    province?: StringNullableFilter<"UserAddress"> | string | null
-    cityId?: IntNullableFilter<"UserAddress"> | number | null
-    city?: StringNullableFilter<"UserAddress"> | string | null
+    provinceId?: IntFilter<"UserAddress"> | number
+    province?: StringFilter<"UserAddress"> | string
+    cityId?: IntFilter<"UserAddress"> | number
+    city?: StringFilter<"UserAddress"> | string
+    district?: IntFilter<"UserAddress"> | number
+    districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
@@ -32637,7 +32875,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32647,6 +32885,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32663,7 +32906,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32675,6 +32918,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33800,7 +34048,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33810,6 +34058,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33827,7 +34080,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33839,6 +34092,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33936,7 +34194,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -33946,6 +34204,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33963,7 +34226,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -33975,6 +34238,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33986,7 +34254,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33996,6 +34264,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34013,7 +34286,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34024,6 +34297,11 @@ export namespace Prisma {
     city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34062,7 +34340,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34072,6 +34350,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34089,7 +34372,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34100,6 +34383,11 @@ export namespace Prisma {
     city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35014,7 +35302,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35024,6 +35312,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35041,7 +35334,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35053,6 +35346,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35135,7 +35433,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35145,6 +35443,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35162,7 +35465,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35174,6 +35477,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35876,7 +36184,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35886,6 +36194,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35903,7 +36216,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35915,6 +36228,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36073,7 +36391,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36083,6 +36401,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36100,7 +36423,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36112,6 +36435,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36208,7 +36536,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36220,13 +36548,18 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressCreateManyUserInput = {
-    id?: number
+    id?: string
     addressLabel: string
     receiverName: string
     receiverPhoneNumber: string
@@ -36235,10 +36568,12 @@ export namespace Prisma {
     lat: Decimal | DecimalJsLike | number | string
     lon: Decimal | DecimalJsLike | number | string
     isDefault?: boolean
-    provinceId?: number | null
-    province?: string | null
-    cityId?: number | null
-    city?: string | null
+    provinceId: number
+    province: string
+    cityId: number
+    city: string
+    district: number
+    districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36259,7 +36594,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36269,6 +36604,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36285,7 +36625,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36297,6 +36637,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36310,7 +36655,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36322,12 +36667,18 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36336,17 +36687,19 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36355,17 +36708,19 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     addressLabel?: StringFieldUpdateOperationsInput | string
     receiverName?: StringFieldUpdateOperationsInput | string
     receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
@@ -36374,10 +36729,12 @@ export namespace Prisma {
     lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: NullableIntFieldUpdateOperationsInput | number | null
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    cityId?: NullableIntFieldUpdateOperationsInput | number | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
+    provinceId?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    city?: StringFieldUpdateOperationsInput | string
+    district?: IntFieldUpdateOperationsInput | number
+    districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36472,7 +36829,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36484,6 +36841,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36660,7 +37022,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36670,6 +37032,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36686,7 +37053,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36698,6 +37065,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36711,7 +37083,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36723,6 +37095,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37197,7 +37574,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37208,6 +37585,11 @@ export namespace Prisma {
     city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37217,7 +37599,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37227,6 +37609,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37244,7 +37631,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37255,6 +37642,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37269,7 +37661,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37280,6 +37672,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37291,7 +37688,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37302,6 +37699,11 @@ export namespace Prisma {
     city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37311,7 +37713,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37321,6 +37723,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37338,7 +37745,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37349,6 +37756,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37363,7 +37775,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37374,6 +37786,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

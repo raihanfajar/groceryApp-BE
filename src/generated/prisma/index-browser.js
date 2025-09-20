@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.14.0
- * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+ * Prisma Client JS version: 6.16.2
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.14.0",
-  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
+  client: "6.16.2",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -149,6 +149,8 @@ exports.Prisma.UserAddressScalarFieldEnum = {
   province: 'province',
   cityId: 'cityId',
   city: 'city',
+  district: 'district',
+  districtId: 'districtId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -296,6 +298,11 @@ exports.Prisma.TransactionScalarFieldEnum = {
   codeVoucherProduct: 'codeVoucherProduct',
   codeVoucherDelivery: 'codeVoucherDelivery',
   paymentProof: 'paymentProof',
+  paymentMethod: 'paymentMethod',
+  snapToken: 'snapToken',
+  snapRedirectUrl: 'snapRedirectUrl',
+  paidAt: 'paidAt',
+  expiryAt: 'expiryAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -393,7 +400,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   waiting_confirmation: 'waiting_confirmation',
   on_process: 'on_process',
   shipped: 'shipped',
-  confirmed: 'confirmed',
+  completed: 'completed',
   cancelled: 'cancelled'
 };
 
