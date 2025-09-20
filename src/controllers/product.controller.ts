@@ -17,6 +17,7 @@ export class ProductController {
 			const {
 				search,
 				categoryId,
+				category,
 				storeId,
 				minPrice,
 				maxPrice,
@@ -27,12 +28,12 @@ export class ProductController {
 			const filters = {
 				search: search as string,
 				categoryId: categoryId as string,
+				category: category as string,
 				storeId: storeId as string,
 				minPrice: minPrice ? parseInt(minPrice as string) : undefined,
 				maxPrice: maxPrice ? parseInt(maxPrice as string) : undefined,
 				isActive: true,
 			};
-
 			const result = await ProductService.getProducts(
 				filters,
 				parseInt(page as string),

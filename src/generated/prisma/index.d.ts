@@ -7986,7 +7986,9 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateOutputType = {
     id: string | null
     name: string | null
+    slug: string | null
     description: string | null
+    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7996,7 +7998,9 @@ export namespace Prisma {
   export type ProductCategoryMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    slug: string | null
     description: string | null
+    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -8006,7 +8010,9 @@ export namespace Prisma {
   export type ProductCategoryCountAggregateOutputType = {
     id: number
     name: number
+    slug: number
     description: number
+    icon: number
     isActive: number
     createdAt: number
     updatedAt: number
@@ -8018,7 +8024,9 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8028,7 +8036,9 @@ export namespace Prisma {
   export type ProductCategoryMaxAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8038,7 +8048,9 @@ export namespace Prisma {
   export type ProductCategoryCountAggregateInputType = {
     id?: true
     name?: true
+    slug?: true
     description?: true
+    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
@@ -8121,7 +8133,9 @@ export namespace Prisma {
   export type ProductCategoryGroupByOutputType = {
     id: string
     name: string
+    slug: string
     description: string | null
+    icon: string | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -8148,7 +8162,9 @@ export namespace Prisma {
   export type ProductCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8160,7 +8176,9 @@ export namespace Prisma {
   export type ProductCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8170,7 +8188,9 @@ export namespace Prisma {
   export type ProductCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -8180,14 +8200,16 @@ export namespace Prisma {
   export type ProductCategorySelectScalar = {
     id?: boolean
     name?: boolean
+    slug?: boolean
     description?: boolean
+    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["productCategory"]>
+  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "icon" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["productCategory"]>
   export type ProductCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | ProductCategory$productsArgs<ExtArgs>
     _count?: boolean | ProductCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -8203,7 +8225,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      slug: string
       description: string | null
+      icon: string | null
       isActive: boolean
       createdAt: Date
       updatedAt: Date
@@ -8634,7 +8658,9 @@ export namespace Prisma {
   interface ProductCategoryFieldRefs {
     readonly id: FieldRef<"ProductCategory", 'String'>
     readonly name: FieldRef<"ProductCategory", 'String'>
+    readonly slug: FieldRef<"ProductCategory", 'String'>
     readonly description: FieldRef<"ProductCategory", 'String'>
+    readonly icon: FieldRef<"ProductCategory", 'String'>
     readonly isActive: FieldRef<"ProductCategory", 'Boolean'>
     readonly createdAt: FieldRef<"ProductCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"ProductCategory", 'DateTime'>
@@ -24863,7 +24889,9 @@ export namespace Prisma {
   export const ProductCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    slug: 'slug',
     description: 'description',
+    icon: 'icon',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -25660,7 +25688,9 @@ export namespace Prisma {
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     id?: StringFilter<"ProductCategory"> | string
     name?: StringFilter<"ProductCategory"> | string
+    slug?: StringFilter<"ProductCategory"> | string
     description?: StringNullableFilter<"ProductCategory"> | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
@@ -25671,7 +25701,9 @@ export namespace Prisma {
   export type ProductCategoryOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25682,21 +25714,25 @@ export namespace Prisma {
   export type ProductCategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     name?: string
+    slug?: string
     AND?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     OR?: ProductCategoryWhereInput[]
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     description?: StringNullableFilter<"ProductCategory"> | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"ProductCategory"> | Date | string | null
     products?: ProductListRelationFilter
-  }, "id" | "name">
+  }, "id" | "name" | "slug">
 
   export type ProductCategoryOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25712,7 +25748,9 @@ export namespace Prisma {
     NOT?: ProductCategoryScalarWhereWithAggregatesInput | ProductCategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProductCategory"> | string
     name?: StringWithAggregatesFilter<"ProductCategory"> | string
+    slug?: StringWithAggregatesFilter<"ProductCategory"> | string
     description?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
+    icon?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
     isActive?: BoolWithAggregatesFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
@@ -27357,7 +27395,9 @@ export namespace Prisma {
   export type ProductCategoryCreateInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27368,7 +27408,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedCreateInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27379,7 +27421,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27390,7 +27434,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27401,7 +27447,9 @@ export namespace Prisma {
   export type ProductCategoryCreateManyInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27411,7 +27459,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27421,7 +27471,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29233,7 +29285,9 @@ export namespace Prisma {
   export type ProductCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29243,7 +29297,9 @@ export namespace Prisma {
   export type ProductCategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29253,7 +29309,9 @@ export namespace Prisma {
   export type ProductCategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     description?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -33193,7 +33251,9 @@ export namespace Prisma {
   export type ProductCategoryCreateWithoutProductsInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33203,7 +33263,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedCreateWithoutProductsInput = {
     id?: string
     name: string
+    slug: string
     description?: string | null
+    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -33331,7 +33393,9 @@ export namespace Prisma {
   export type ProductCategoryUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33341,7 +33405,9 @@ export namespace Prisma {
   export type ProductCategoryUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

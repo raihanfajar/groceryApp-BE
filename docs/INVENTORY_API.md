@@ -1,17 +1,8 @@
-# Inventory Management System API Documentation
+# Inventory Management API Documentation
 
 ## Overview
 
-The Inventory Management System provides comprehensive stock control with the following features:
-
-- **Different stocks for different stores**: Each store maintains its own inventory
-- **Role-based access control**:
-  - **Super Admin**: Can manage inventory across all stores
-  - **Store Admin**: Can only manage inventory for their assigned store
-- **Stock journal/history**: Complete audit trail of all stock movements
-- **Stock movement types**: IN, OUT, ADJUSTMENT, TRANSFER, INITIAL
-- **Low stock alerts**: Configurable minimum stock levels
-- **Bulk operations**: Update multiple products at once
+The inventory management system provides comprehensive stock tracking, movement logging, and reporting capabilities for the grocery app. It supports different access levels for Super Admins and Store Admins.
 
 ## Base URL
 
@@ -21,38 +12,35 @@ The Inventory Management System provides comprehensive stock control with the fo
 
 ## Authentication
 
-All endpoints require admin authentication:
+All inventory endpoints require admin authentication:
 
-- Header: `Authorization: Bearer <token>`
-- User must have admin role
-
-## Stock Movement Types
-
-| Type         | Description                          | Usage                        |
-| ------------ | ------------------------------------ | ---------------------------- |
-| `IN`         | Stock increase (receiving inventory) | Adding new stock             |
-| `OUT`        | Stock decrease (sales, damages)      | Reducing stock               |
-| `ADJUSTMENT` | Direct stock adjustment              | Correcting stock levels      |
-| `TRANSFER`   | Inter-store transfer                 | Moving stock between stores  |
-| `INITIAL`    | Initial stock setup                  | Setting up initial inventory |
+- **Super Admin**: Can manage inventory for all stores
+- **Store Admin**: Can only manage inventory for their assigned store
 
 ## Endpoints
 
-### 1. Update Stock (Single Product)
+### 1. Update Stock
 
-**POST** `/inventory/stock/update`
+Update stock for a single product with automatic journal logging.
 
-Update stock for a single product with journal entry.
+**Endpoint:** `POST /inventory/stock/update`
+
+**Headers:**
+
+```
+Authorization: Bearer <admin_token>
+Content-Type: application/json
+```
 
 **Request Body:**
 
 ```json
 {
-	"productId": "uuid",
-	"storeId": "uuid", // Optional for Store Admins (auto-selected)
+	"productId": "product-uuid",
+	"storeId": "store-uuid", // Optional for Store Admins (auto-assigned)
 	"quantity": 50,
 	"type": "IN", // IN, OUT, ADJUSTMENT, TRANSFER, INITIAL
-	"notes": "Received new shipment" // Optional
+	"notes": "Restocking from supplier" // Optional
 }
 ```
 
@@ -63,39 +51,39 @@ Update stock for a single product with journal entry.
 	"status": "success",
 	"message": "Stock updated successfully",
 	"data": {
-		"storeId": "uuid",
-		"productId": "uuid",
-		"stock": 75,
+		"storeId": "store-uuid",
+		"productId": "product-uuid",
+		"stock": 150,
 		"minStock": 5,
-		"createdAt": "2025-09-08T10:30:00Z",
-		"updatedAt": "2025-09-08T10:30:00Z"
+		"createdAt": "2025-09-08T03:37:23.000Z",
+		"updatedAt": "2025-09-08T03:45:12.000Z"
 	}
 }
 ```
 
 ### 2. Bulk Stock Update
 
-**POST** `/inventory/stock/bulk-update`
+Update stock for multiple products in a single transaction.
 
-Update stock for multiple products at once.
+**Endpoint:** `POST /inventory/stock/bulk-update`
 
 **Request Body:**
 
 ```json
 {
-	"storeId": "uuid", // Optional for Store Admins
+	"storeId": "store-uuid", // Optional for Store Admins
 	"items": [
 		{
-			"productId": "uuid1",
-			"quantity": 30,
+			"productId": "product-1-uuid",
+			"quantity": 20,
 			"type": "IN",
 			"notes": "Weekly restock"
 		},
 		{
-			"productId": "uuid2",
+			"productId": "product-2-uuid",
 			"quantity": 15,
 			"type": "ADJUSTMENT",
-			"notes": "Inventory correction"
+			"notes": "Physical count correction"
 		}
 	]
 }
@@ -109,18 +97,18 @@ Update stock for multiple products at once.
 	"message": "2 products updated successfully",
 	"data": [
 		{
-			"storeId": "uuid",
-			"productId": "uuid1",
-			"stock": 55,
-			"minStock": 5,
-			"updatedAt": "2025-09-08T10:30:00Z"
+			"storeId": "store-uuid",
+			"productId": "product-1-uuid",
+			"stock": 120,
+			"minStock": 10,
+			"updatedAt": "2025-09-08T03:45:12.000Z"
 		},
 		{
-			"storeId": "uuid",
-			"productId": "uuid2",
-			"stock": 40,
-			"minStock": 10,
-			"updatedAt": "2025-09-08T10:30:00Z"
+			"storeId": "store-uuid",
+			"productId": "product-2-uuid",
+			"stock": 85,
+			"minStock": 5,
+			"updatedAt": "2025-09-08T03:45:13.000Z"
 		}
 	]
 }
@@ -128,19 +116,19 @@ Update stock for multiple products at once.
 
 ### 3. Transfer Stock Between Stores
 
-**POST** `/inventory/transfer` _(Super Admin Only)_
+Transfer stock from one store to another (Super Admin only).
 
-Transfer stock from one store to another.
+**Endpoint:** `POST /inventory/transfer`
 
 **Request Body:**
 
 ```json
 {
-	"fromStoreId": "uuid1",
-	"toStoreId": "uuid2",
-	"productId": "uuid",
-	"quantity": 20,
-	"notes": "Transfer to high-demand store"
+	"fromStoreId": "store-1-uuid",
+	"toStoreId": "store-2-uuid",
+	"productId": "product-uuid",
+	"quantity": 10,
+	"notes": "Low stock at Store 2" // Optional
 }
 ```
 
@@ -152,14 +140,14 @@ Transfer stock from one store to another.
 	"message": "Stock transferred successfully",
 	"data": {
 		"fromStore": {
-			"storeId": "uuid1",
-			"productId": "uuid",
-			"stock": 30
+			"storeId": "store-1-uuid",
+			"productId": "product-uuid",
+			"stock": 90
 		},
 		"toStore": {
-			"storeId": "uuid2",
-			"productId": "uuid",
-			"stock": 70
+			"storeId": "store-2-uuid",
+			"productId": "product-uuid",
+			"stock": 25
 		}
 	}
 }
@@ -167,16 +155,16 @@ Transfer stock from one store to another.
 
 ### 4. Set Minimum Stock Level
 
-**PUT** `/inventory/min-stock`
+Set the minimum stock threshold for inventory alerts.
 
-Set minimum stock level for low stock alerts.
+**Endpoint:** `PUT /inventory/min-stock`
 
 **Request Body:**
 
 ```json
 {
-	"productId": "uuid",
-	"storeId": "uuid", // Optional for Store Admins
+	"productId": "product-uuid",
+	"storeId": "store-uuid", // Optional for Store Admins
 	"minStock": 10
 }
 ```
@@ -188,31 +176,33 @@ Set minimum stock level for low stock alerts.
 	"status": "success",
 	"message": "Minimum stock level updated successfully",
 	"data": {
-		"storeId": "uuid",
-		"productId": "uuid",
+		"storeId": "store-uuid",
+		"productId": "product-uuid",
 		"stock": 45,
 		"minStock": 10,
-		"updatedAt": "2025-09-08T10:30:00Z"
+		"updatedAt": "2025-09-08T03:45:12.000Z"
 	}
 }
 ```
 
 ### 5. Get Stock Journal
 
-**GET** `/inventory/journal`
+Retrieve stock movement history with filtering options.
 
-Get stock movement history with filters and pagination.
+**Endpoint:** `GET /inventory/journal`
 
 **Query Parameters:**
 
-- `storeId` (string, optional): Filter by store (Super Admin only)
-- `productId` (string, optional): Filter by product
-- `adminId` (string, optional): Filter by admin who made changes
-- `type` (string, optional): Filter by movement type
-- `dateFrom` (string, optional): Start date (YYYY-MM-DD)
-- `dateTo` (string, optional): End date (YYYY-MM-DD)
-- `page` (number, optional): Page number (default: 1)
-- `limit` (number, optional): Items per page (default: 20)
+```
+?storeId=store-uuid          // Optional for Super Admin
+&productId=product-uuid      // Filter by specific product
+&adminId=admin-uuid          // Filter by admin who made changes
+&type=IN                     // Filter by movement type
+&dateFrom=2025-09-01         // Filter from date (YYYY-MM-DD)
+&dateTo=2025-09-08           // Filter to date (YYYY-MM-DD)
+&page=1                      // Page number (default: 1)
+&limit=20                    // Items per page (default: 20)
+```
 
 **Response:**
 
@@ -222,33 +212,32 @@ Get stock movement history with filters and pagination.
 	"data": {
 		"data": [
 			{
-				"id": "uuid",
-				"storeId": "uuid",
-				"productId": "uuid",
-				"adminId": "uuid",
-				"transactionId": null,
+				"id": "journal-uuid",
+				"storeId": "store-uuid",
+				"productId": "product-uuid",
 				"type": "IN",
-				"quantity": 30,
-				"beforeStock": 25,
-				"afterStock": 55,
+				"quantity": 50,
+				"beforeStock": 100,
+				"afterStock": 150,
 				"notes": "Weekly restock",
-				"createdAt": "2025-09-08T10:30:00Z",
+				"createdAt": "2025-09-08T03:45:12.000Z",
 				"storeProduct": {
 					"product": {
-						"id": "uuid",
+						"id": "product-uuid",
 						"name": "Fresh Apples",
-						"picture1": "https://example.com/apple.jpg"
+						"picture1": "apple-image.jpg"
 					},
 					"store": {
-						"id": "uuid",
-						"name": "Jakarta Central Store"
+						"id": "store-uuid",
+						"name": "Jakarta Store"
 					}
 				},
 				"admin": {
-					"id": "uuid",
-					"name": "John Admin",
-					"email": "john@example.com"
-				}
+					"id": "admin-uuid",
+					"name": "John Doe",
+					"email": "john@groceryapp.com"
+				},
+				"transaction": null
 			}
 		],
 		"pagination": {
@@ -263,13 +252,15 @@ Get stock movement history with filters and pagination.
 
 ### 6. Get Inventory Summary
 
-**GET** `/inventory/summary`
+Get comprehensive inventory statistics for a store.
 
-Get comprehensive inventory overview for a store.
+**Endpoint:** `GET /inventory/summary`
 
 **Query Parameters:**
 
-- `storeId` (string, optional): Store ID (Super Admin only, Store Admins auto-filtered)
+```
+?storeId=store-uuid  // Required for Super Admin, auto-assigned for Store Admins
+```
 
 **Response:**
 
@@ -277,23 +268,23 @@ Get comprehensive inventory overview for a store.
 {
 	"status": "success",
 	"data": {
-		"totalProducts": 156,
-		"totalStock": 2847,
-		"lowStockProducts": 12,
-		"outOfStockProducts": 3,
-		"recentMovements": 45,
+		"totalProducts": 45,
+		"totalStock": 2350,
+		"lowStockProducts": 5,
+		"outOfStockProducts": 2,
+		"recentMovements": 23,
 		"stockByCategory": [
 			{
-				"categoryId": "uuid1",
+				"categoryId": "category-1-uuid",
 				"categoryName": "Fresh Fruits",
-				"totalStock": 890,
-				"productCount": 45
+				"totalStock": 450,
+				"productCount": 12
 			},
 			{
-				"categoryId": "uuid2",
+				"categoryId": "category-2-uuid",
 				"categoryName": "Vegetables",
-				"totalStock": 1205,
-				"productCount": 67
+				"totalStock": 320,
+				"productCount": 8
 			}
 		]
 	}
@@ -302,13 +293,15 @@ Get comprehensive inventory overview for a store.
 
 ### 7. Get Low Stock Alerts
 
-**GET** `/inventory/low-stock`
+Get products that are below minimum stock levels.
 
-Get products with low or out-of-stock levels.
+**Endpoint:** `GET /inventory/low-stock`
 
 **Query Parameters:**
 
-- `storeId` (string, optional): Store ID (Super Admin only)
+```
+?storeId=store-uuid  // Required for Super Admin, auto-assigned for Store Admins
+```
 
 **Response:**
 
@@ -317,139 +310,100 @@ Get products with low or out-of-stock levels.
 	"status": "success",
 	"data": [
 		{
-			"storeId": "uuid",
-			"productId": "uuid",
-			"stock": 0,
-			"minStock": 5,
-			"isOutOfStock": true,
-			"alertLevel": "critical",
-			"product": {
-				"id": "uuid",
-				"name": "Premium Oranges",
-				"picture1": "https://example.com/orange.jpg",
-				"price": 25000,
-				"category": {
-					"id": "uuid",
-					"name": "Fresh Fruits"
-				}
-			}
-		},
-		{
-			"storeId": "uuid",
-			"productId": "uuid2",
+			"storeId": "store-uuid",
+			"productId": "product-uuid",
 			"stock": 3,
 			"minStock": 10,
 			"isOutOfStock": false,
 			"alertLevel": "warning",
 			"product": {
-				"id": "uuid2",
-				"name": "Fresh Milk",
-				"picture1": "https://example.com/milk.jpg",
+				"id": "product-uuid",
+				"name": "Fresh Bananas",
+				"picture1": "banana-image.jpg",
 				"price": 15000,
 				"category": {
-					"id": "uuid2",
-					"name": "Dairy Products"
+					"id": "category-uuid",
+					"name": "Fresh Fruits"
 				}
-			}
+			},
+			"createdAt": "2025-09-01T10:00:00.000Z",
+			"updatedAt": "2025-09-08T03:45:12.000Z"
 		}
 	]
 }
 ```
 
+## Stock Movement Types
+
+| Type         | Description                   | Usage                                          |
+| ------------ | ----------------------------- | ---------------------------------------------- |
+| `IN`         | Stock increase                | Receiving new inventory from suppliers         |
+| `OUT`        | Stock decrease                | Sales, damages, or manual removals             |
+| `ADJUSTMENT` | Direct stock correction       | Setting exact stock level after physical count |
+| `TRANSFER`   | Stock movement between stores | Moving inventory from one store to another     |
+| `INITIAL`    | Initial stock setup           | Setting up stock for new products              |
+
+## Permission Matrix
+
+| Action                   | Super Admin | Store Admin    |
+| ------------------------ | ----------- | -------------- |
+| Update stock (any store) | ✅          | ❌             |
+| Update stock (own store) | ✅          | ✅             |
+| Transfer between stores  | ✅          | ❌             |
+| View journal (any store) | ✅          | ❌             |
+| View journal (own store) | ✅          | ✅             |
+| Set minimum stock        | ✅          | ✅ (own store) |
+| View inventory summary   | ✅          | ✅ (own store) |
+| View low stock alerts    | ✅          | ✅ (own store) |
+
 ## Error Responses
 
-All endpoints return consistent error responses:
+### 400 Bad Request
 
 ```json
 {
 	"status": "error",
-	"message": "Error description",
-	"code": 400
+	"message": "Invalid stock movement type"
 }
 ```
 
-### Common Error Codes:
+### 403 Forbidden
 
-- `400` - Bad Request (validation errors)
-- `401` - Unauthorized (invalid token)
-- `403` - Forbidden (insufficient permissions)
-- `404` - Not Found (resource doesn't exist)
-- `500` - Internal Server Error
-
-## Admin Role Permissions
-
-### Super Admin Can:
-
-- ✅ View inventory for all stores
-- ✅ Update stock for any store
-- ✅ Transfer stock between stores
-- ✅ View stock journal for all stores
-- ✅ Set minimum stock levels for any store
-
-### Store Admin Can:
-
-- ✅ View inventory for their assigned store only
-- ✅ Update stock for their assigned store only
-- ❌ Transfer stock between stores
-- ✅ View stock journal for their store only
-- ✅ Set minimum stock levels for their store only
-
-## Integration with Product Management
-
-The inventory system is integrated with the existing product management:
-
-- When updating stock via `/api/products/admin/:id/stock`, it automatically creates journal entries
-- Stock movements are tracked when products are sold (transaction completion)
-- Stock validation occurs when customers add items to cart
-
-## Database Schema
-
-### StoreProduct Table
-
-```sql
-- storeId: String (FK to Store)
-- productId: String (FK to Product)
-- stock: Int (current stock level)
-- minStock: Int (minimum stock threshold)
-- createdAt: DateTime
-- updatedAt: DateTime
+```json
+{
+	"status": "error",
+	"message": "Admin can only manage inventory for their assigned store"
+}
 ```
 
-### StockJournal Table
+### 404 Not Found
 
-```sql
-- id: String (UUID, PK)
-- storeId: String (FK to Store)
-- productId: String (FK to Product)
-- adminId: String (FK to Admin)
-- transactionId: String (FK to Transaction, nullable)
-- type: StockMovement (enum)
-- quantity: Int (movement amount)
-- beforeStock: Int (stock before movement)
-- afterStock: Int (stock after movement)
-- notes: String (optional description)
-- createdAt: DateTime
+```json
+{
+	"status": "error",
+	"message": "Product not found or inactive"
+}
 ```
 
-## Best Practices
+### 500 Internal Server Error
 
-### For Stock Updates:
+```json
+{
+	"status": "error",
+	"message": "Internal server error"
+}
+```
 
-1. Always provide meaningful notes for stock movements
-2. Use appropriate movement types (IN for receiving, OUT for sales, ADJUSTMENT for corrections)
-3. Validate stock levels before allowing OUT movements
-4. Set minimum stock levels to enable proper alerts
+## Integration Notes
 
-### For Store Admins:
+1. **Automatic Journal Logging**: All stock changes are automatically logged with admin information, timestamps, and before/after stock levels.
 
-1. Regularly check low stock alerts
-2. Update minimum stock levels based on sales patterns
-3. Use bulk updates for efficiency during restocking
-4. Add detailed notes for audit trail
+2. **Transaction Safety**: Stock updates are wrapped in database transactions to ensure data consistency.
 
-### For Super Admins:
+3. **Store Admin Restrictions**: Store admins are automatically restricted to their assigned store and cannot specify different store IDs.
 
-1. Monitor stock across all stores via inventory summary
-2. Use transfer functionality to balance stock between stores
-3. Review stock journal regularly for unusual patterns
-4. Set consistent minimum stock policies across stores
+4. **Stock Validation**: The system prevents negative stock levels for OUT and TRANSFER operations.
+
+5. **Low Stock Monitoring**: Products below their minimum stock levels trigger alerts in the dashboard.
+
+6. **Audit Trail**: Complete audit trail with admin attribution for all inventory changes.

@@ -185,7 +185,9 @@ exports.Prisma.AdminScalarFieldEnum = {
 exports.Prisma.ProductCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  slug: 'slug',
   description: 'description',
+  icon: 'icon',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
