@@ -30,7 +30,7 @@ model Users {
 }
 
 model UserAddress {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   userId      String
   phoneNumber String
   provinceId  Int
@@ -211,7 +211,7 @@ model Transaction {
   storeId              String
   status               OrderStatus            @default(waiting_payment)
   shippingPrice        Int
-  discountedShipping   Int                    @default(0) // potongan ongkir dari voucher
+  discountedShipping   Int?                   @default(0) // potongan ongkir dari voucher
   finalShippingPrice   Int // shippingPrice - discountedShipping
   totalPrice           Int
   address              String
@@ -223,6 +223,11 @@ model Transaction {
   codeVoucherProduct   String?
   codeVoucherDelivery  String?
   paymentProof         String?
+  paymentMethod        String? // BARU: Menyimpan metode bayar (e.g., "gopay", "bca_va", "manual_transfer")
+  snapToken            String?                @db.Text // Token dari Midtrans
+  snapRedirectUrl      String?                @db.Text // URL redirect dari Midtrans
+  paidAt               DateTime? // BARU: Waktu saat pembayaran lunas
+  expiryAt             DateTime?
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @updatedAt
   deletedAt            DateTime?
@@ -255,7 +260,7 @@ enum OrderStatus {
   waiting_confirmation
   on_process
   shipped
-  confirmed
+  completed
   cancelled
 }
 

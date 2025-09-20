@@ -1,8 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import mainRouter from './routers/index.route';
-import { errorHandler } from './middlewares/errorHandler';
-import passport from './config/passport';
+import express from "express";
+import cors from "cors";
+import mainRouter from "./routers/index.route";
+import { errorHandler } from "./middlewares/errorHandler";
+import passport from "./config/passport";
+import { expiryTransactionSchedule } from "./jobs/cronJobs";
 
 const PORT = process.env.PORT || 8000;
 
@@ -15,8 +16,15 @@ app.use(passport.initialize()); // !Middleware to initialize passport (GOOGLE OA
 app.use(mainRouter); // !Main Router
 app.use(errorHandler); // !Custom Error Handler Middleware (should be last)
 
-app.listen(PORT, () => {
-	console.log(
-		`⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ [API] Server runs on port ${PORT} ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡`
-	);
+app.listen(Number(PORT), "0.0.0.0", () => {
+	console.log(`➜ API running on port ${PORT}`);
+
+	try {
+		if (process.env.ENABLE_JOBS !== "false") {
+			expiryTransactionSchedule?.();
+			console.log("✓ scheduler started");
+		}
+	} catch (err) {
+		console.error("scheduler failed to start:", err);
+	}
 });

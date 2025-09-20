@@ -113,7 +113,7 @@ export namespace $Enums {
   waiting_confirmation: 'waiting_confirmation',
   on_process: 'on_process',
   shipped: 'shipped',
-  confirmed: 'confirmed',
+  completed: 'completed',
   cancelled: 'cancelled'
 };
 
@@ -4171,7 +4171,6 @@ export namespace Prisma {
   }
 
   export type UserAddressAvgAggregateOutputType = {
-    id: number | null
     provinceId: number | null
     cityId: number | null
     lat: Decimal | null
@@ -4179,7 +4178,6 @@ export namespace Prisma {
   }
 
   export type UserAddressSumAggregateOutputType = {
-    id: number | null
     provinceId: number | null
     cityId: number | null
     lat: Decimal | null
@@ -4187,7 +4185,7 @@ export namespace Prisma {
   }
 
   export type UserAddressMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     phoneNumber: string | null
     provinceId: number | null
@@ -4204,7 +4202,7 @@ export namespace Prisma {
   }
 
   export type UserAddressMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     phoneNumber: string | null
     provinceId: number | null
@@ -4240,7 +4238,6 @@ export namespace Prisma {
 
 
   export type UserAddressAvgAggregateInputType = {
-    id?: true
     provinceId?: true
     cityId?: true
     lat?: true
@@ -4248,7 +4245,6 @@ export namespace Prisma {
   }
 
   export type UserAddressSumAggregateInputType = {
-    id?: true
     provinceId?: true
     cityId?: true
     lat?: true
@@ -4394,7 +4390,7 @@ export namespace Prisma {
   }
 
   export type UserAddressGroupByOutputType = {
-    id: number
+    id: string
     userId: string
     phoneNumber: string
     provinceId: number
@@ -4517,7 +4513,7 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       userId: string
       phoneNumber: string
       provinceId: number
@@ -4955,7 +4951,7 @@ export namespace Prisma {
    * Fields of the UserAddress model
    */
   interface UserAddressFieldRefs {
-    readonly id: FieldRef<"UserAddress", 'Int'>
+    readonly id: FieldRef<"UserAddress", 'String'>
     readonly userId: FieldRef<"UserAddress", 'String'>
     readonly phoneNumber: FieldRef<"UserAddress", 'String'>
     readonly provinceId: FieldRef<"UserAddress", 'Int'>
@@ -17345,6 +17341,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -17368,6 +17369,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -17391,6 +17397,11 @@ export namespace Prisma {
     codeVoucherProduct: number
     codeVoucherDelivery: number
     paymentProof: number
+    paymentMethod: number
+    snapToken: number
+    snapRedirectUrl: number
+    paidAt: number
+    expiryAt: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -17434,6 +17445,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17457,6 +17473,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17480,6 +17501,11 @@ export namespace Prisma {
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
+    paymentMethod?: true
+    snapToken?: true
+    snapRedirectUrl?: true
+    paidAt?: true
+    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -17578,7 +17604,7 @@ export namespace Prisma {
     storeId: string
     status: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping: number
+    discountedShipping: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -17590,6 +17616,11 @@ export namespace Prisma {
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
+    paymentMethod: string | null
+    snapToken: string | null
+    snapRedirectUrl: string | null
+    paidAt: Date | null
+    expiryAt: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -17632,6 +17663,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17663,6 +17699,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17690,6 +17731,11 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -17717,12 +17763,17 @@ export namespace Prisma {
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
+    paymentMethod?: boolean
+    snapToken?: boolean
+    snapRedirectUrl?: boolean
+    paidAt?: boolean
+    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
@@ -17763,7 +17814,7 @@ export namespace Prisma {
       storeId: string
       status: $Enums.OrderStatus
       shippingPrice: number
-      discountedShipping: number
+      discountedShipping: number | null
       finalShippingPrice: number
       totalPrice: number
       address: string
@@ -17775,6 +17826,11 @@ export namespace Prisma {
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
+      paymentMethod: string | null
+      snapToken: string | null
+      snapRedirectUrl: string | null
+      paidAt: Date | null
+      expiryAt: Date | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -18225,6 +18281,11 @@ export namespace Prisma {
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
+    readonly paymentMethod: FieldRef<"Transaction", 'String'>
+    readonly snapToken: FieldRef<"Transaction", 'String'>
+    readonly snapRedirectUrl: FieldRef<"Transaction", 'String'>
+    readonly paidAt: FieldRef<"Transaction", 'DateTime'>
+    readonly expiryAt: FieldRef<"Transaction", 'DateTime'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
     readonly deletedAt: FieldRef<"Transaction", 'DateTime'>
@@ -24954,6 +25015,11 @@ export namespace Prisma {
     codeVoucherProduct: 'codeVoucherProduct',
     codeVoucherDelivery: 'codeVoucherDelivery',
     paymentProof: 'paymentProof',
+    paymentMethod: 'paymentMethod',
+    snapToken: 'snapToken',
+    snapRedirectUrl: 'snapRedirectUrl',
+    paidAt: 'paidAt',
+    expiryAt: 'expiryAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
@@ -25306,7 +25372,7 @@ export namespace Prisma {
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
-    id?: IntFilter<"UserAddress"> | number
+    id?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
     phoneNumber?: StringFilter<"UserAddress"> | string
     provinceId?: IntFilter<"UserAddress"> | number
@@ -25342,7 +25408,7 @@ export namespace Prisma {
   }
 
   export type UserAddressWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
@@ -25388,7 +25454,7 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
     OR?: UserAddressScalarWhereWithAggregatesInput[]
     NOT?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"UserAddress"> | number
+    id?: StringWithAggregatesFilter<"UserAddress"> | string
     userId?: StringWithAggregatesFilter<"UserAddress"> | string
     phoneNumber?: StringWithAggregatesFilter<"UserAddress"> | string
     provinceId?: IntWithAggregatesFilter<"UserAddress"> | number
@@ -26243,7 +26309,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26255,6 +26321,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -26273,7 +26344,7 @@ export namespace Prisma {
     storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
+    discountedShipping?: SortOrderInput | SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26285,6 +26356,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26306,7 +26382,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26318,6 +26394,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -26336,7 +26417,7 @@ export namespace Prisma {
     storeId?: SortOrder
     status?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
+    discountedShipping?: SortOrderInput | SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26348,6 +26429,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -26367,7 +26453,7 @@ export namespace Prisma {
     storeId?: StringWithAggregatesFilter<"Transaction"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedShipping?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
     finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
     address?: StringWithAggregatesFilter<"Transaction"> | string
@@ -26379,6 +26465,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapToken?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
@@ -26935,6 +27026,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateInput = {
+    id?: string
     phoneNumber: string
     provinceId: number
     province: string
@@ -26951,7 +27043,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedCreateInput = {
-    id?: number
+    id?: string
     userId: string
     phoneNumber: string
     provinceId: number
@@ -26968,6 +27060,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
@@ -26984,7 +27077,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
@@ -27001,7 +27094,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateManyInput = {
-    id?: number
+    id?: string
     userId: string
     phoneNumber: string
     provinceId: number
@@ -27018,6 +27111,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
@@ -27033,7 +27127,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
@@ -27961,7 +28055,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -27971,6 +28065,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -27989,7 +28088,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28001,6 +28100,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -28013,7 +28117,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28023,6 +28127,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28041,7 +28150,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28053,6 +28162,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28067,7 +28181,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28079,6 +28193,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -28088,7 +28207,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28098,6 +28217,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28109,7 +28233,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28121,6 +28245,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28843,7 +28972,6 @@ export namespace Prisma {
   }
 
   export type UserAddressAvgOrderByAggregateInput = {
-    id?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
@@ -28885,7 +29013,6 @@ export namespace Prisma {
   }
 
   export type UserAddressSumOrderByAggregateInput = {
-    id?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
@@ -29636,6 +29763,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29668,6 +29800,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -29691,6 +29828,11 @@ export namespace Prisma {
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
+    paymentMethod?: SortOrder
+    snapToken?: SortOrder
+    snapRedirectUrl?: SortOrder
+    paidAt?: SortOrder
+    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -31974,7 +32116,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -31984,6 +32126,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32000,7 +32147,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32012,6 +32159,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32031,6 +32183,7 @@ export namespace Prisma {
   }
 
   export type UserAddressCreateWithoutUserInput = {
+    id?: string
     phoneNumber: string
     provinceId: number
     province: string
@@ -32046,7 +32199,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     phoneNumber: string
     provinceId: number
     province: string
@@ -32155,7 +32308,7 @@ export namespace Prisma {
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -32167,6 +32320,11 @@ export namespace Prisma {
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
@@ -32192,7 +32350,7 @@ export namespace Prisma {
     AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
     OR?: UserAddressScalarWhereInput[]
     NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-    id?: IntFilter<"UserAddress"> | number
+    id?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
     phoneNumber?: StringFilter<"UserAddress"> | string
     provinceId?: IntFilter<"UserAddress"> | number
@@ -32483,7 +32641,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32493,6 +32651,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -32509,7 +32672,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32521,6 +32684,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33638,7 +33806,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33648,6 +33816,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33665,7 +33838,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33677,6 +33850,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33774,7 +33952,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -33784,6 +33962,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33801,7 +33984,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -33813,6 +33996,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -33824,7 +34012,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33834,6 +34022,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33851,7 +34044,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33862,6 +34055,11 @@ export namespace Prisma {
     city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33900,7 +34098,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33910,6 +34108,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -33927,7 +34130,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33938,6 +34141,11 @@ export namespace Prisma {
     city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34852,7 +35060,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34862,6 +35070,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34879,7 +35092,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34891,6 +35104,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -34973,7 +35191,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -34983,6 +35201,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35000,7 +35223,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35012,6 +35235,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35714,7 +35942,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35724,6 +35952,11 @@ export namespace Prisma {
     cityId: number
     city: string
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35741,7 +35974,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35753,6 +35986,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -35911,7 +36149,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35921,6 +36159,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35938,7 +36181,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35950,6 +36193,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36046,7 +36294,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36058,13 +36306,18 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
   }
 
   export type UserAddressCreateManyUserInput = {
-    id?: number
+    id?: string
     phoneNumber: string
     provinceId: number
     province: string
@@ -36094,7 +36347,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36104,6 +36357,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36120,7 +36378,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36132,6 +36390,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36145,7 +36408,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36157,12 +36420,18 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserAddressUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
@@ -36178,7 +36447,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
@@ -36194,7 +36463,7 @@ export namespace Prisma {
   }
 
   export type UserAddressUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
@@ -36298,7 +36567,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36310,6 +36579,11 @@ export namespace Prisma {
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -36486,7 +36760,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36496,6 +36770,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36512,7 +36791,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36524,6 +36803,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36537,7 +36821,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36549,6 +36833,11 @@ export namespace Prisma {
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37023,7 +37312,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37034,6 +37323,11 @@ export namespace Prisma {
     city: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37043,7 +37337,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37053,6 +37347,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37070,7 +37369,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37081,6 +37380,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37095,7 +37399,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37106,6 +37410,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37117,7 +37426,7 @@ export namespace Prisma {
     storeId: string
     status?: $Enums.OrderStatus
     shippingPrice: number
-    discountedShipping?: number
+    discountedShipping?: number | null
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37128,6 +37437,11 @@ export namespace Prisma {
     city: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
+    paymentMethod?: string | null
+    snapToken?: string | null
+    snapRedirectUrl?: string | null
+    paidAt?: Date | string | null
+    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37137,7 +37451,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37147,6 +37461,11 @@ export namespace Prisma {
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37164,7 +37483,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37175,6 +37494,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37189,7 +37513,7 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37200,6 +37524,11 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

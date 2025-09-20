@@ -291,6 +291,11 @@ exports.Prisma.TransactionScalarFieldEnum = {
   codeVoucherProduct: 'codeVoucherProduct',
   codeVoucherDelivery: 'codeVoucherDelivery',
   paymentProof: 'paymentProof',
+  paymentMethod: 'paymentMethod',
+  snapToken: 'snapToken',
+  snapRedirectUrl: 'snapRedirectUrl',
+  paidAt: 'paidAt',
+  expiryAt: 'expiryAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -388,7 +393,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   waiting_confirmation: 'waiting_confirmation',
   on_process: 'on_process',
   shipped: 'shipped',
-  confirmed: 'confirmed',
+  completed: 'completed',
   cancelled: 'cancelled'
 };
 
