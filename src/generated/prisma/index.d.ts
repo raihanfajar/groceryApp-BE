@@ -9410,7 +9410,7 @@ export namespace Prisma {
     deletedAt: Date | null
     categoryId: string
     isActive: boolean
-    weight: number | null
+    weight: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -9557,7 +9557,7 @@ export namespace Prisma {
       deletedAt: Date | null
       categoryId: string
       isActive: boolean
-      weight: number | null
+      weight: number
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -25962,7 +25962,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     categoryId?: StringFilter<"Product"> | string
     isActive?: BoolFilter<"Product"> | boolean
-    weight?: FloatNullableFilter<"Product"> | number | null
+    weight?: FloatFilter<"Product"> | number
     cartItems?: CartProductListRelationFilter
     category?: XOR<ProductCategoryScalarRelationFilter, ProductCategoryWhereInput>
     storeStock?: StoreProductListRelationFilter
@@ -25986,7 +25986,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     isActive?: SortOrder
-    weight?: SortOrderInput | SortOrder
+    weight?: SortOrder
     cartItems?: CartProductOrderByRelationAggregateInput
     category?: ProductCategoryOrderByWithRelationInput
     storeStock?: StoreProductOrderByRelationAggregateInput
@@ -26013,7 +26013,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     categoryId?: StringFilter<"Product"> | string
     isActive?: BoolFilter<"Product"> | boolean
-    weight?: FloatNullableFilter<"Product"> | number | null
+    weight?: FloatFilter<"Product"> | number
     cartItems?: CartProductListRelationFilter
     category?: XOR<ProductCategoryScalarRelationFilter, ProductCategoryWhereInput>
     storeStock?: StoreProductListRelationFilter
@@ -26037,7 +26037,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     isActive?: SortOrder
-    weight?: SortOrderInput | SortOrder
+    weight?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -26064,7 +26064,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     categoryId?: StringWithAggregatesFilter<"Product"> | string
     isActive?: BoolWithAggregatesFilter<"Product"> | boolean
-    weight?: FloatNullableWithAggregatesFilter<"Product"> | number | null
+    weight?: FloatWithAggregatesFilter<"Product"> | number
   }
 
   export type StoreProductWhereInput = {
@@ -27747,7 +27747,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
@@ -27771,7 +27771,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
@@ -27793,7 +27793,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
@@ -27817,7 +27817,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
@@ -27840,7 +27840,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -27858,7 +27858,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -27877,7 +27877,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
   }
 
   export type StoreProductCreateInput = {
@@ -29617,15 +29617,15 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type ProductCategoryScalarRelationFilter = {
@@ -29738,20 +29738,20 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type ProductScalarRelationFilter = {
@@ -31191,8 +31191,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -32321,17 +32321,6 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -32348,7 +32337,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -32356,12 +32345,23 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumStockMovementFilter<$PrismaModel = never> = {
@@ -33529,7 +33529,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
@@ -33551,7 +33551,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
@@ -33603,7 +33603,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     categoryId?: StringFilter<"Product"> | string
     isActive?: BoolFilter<"Product"> | boolean
-    weight?: FloatNullableFilter<"Product"> | number | null
+    weight?: FloatFilter<"Product"> | number
   }
 
   export type CartProductCreateWithoutProductInput = {
@@ -33891,7 +33891,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
@@ -33914,7 +33914,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
     discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
@@ -34034,7 +34034,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
@@ -34057,7 +34057,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
     discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
@@ -34752,7 +34752,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
@@ -34775,7 +34775,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
     discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
@@ -34888,7 +34888,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
@@ -34911,7 +34911,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
     discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
@@ -35444,7 +35444,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
@@ -35467,7 +35467,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
@@ -35573,7 +35573,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
@@ -35596,7 +35596,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
@@ -36063,7 +36063,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
@@ -36086,7 +36086,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     categoryId: string
     isActive?: boolean
-    weight?: number | null
+    weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
@@ -36182,7 +36182,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
@@ -36205,7 +36205,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
@@ -37525,7 +37525,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     isActive?: boolean
-    weight?: number | null
+    weight: number
   }
 
   export type ProductUpdateWithoutCategoryInput = {
@@ -37543,7 +37543,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
@@ -37565,7 +37565,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
@@ -37587,7 +37587,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: FloatFieldUpdateOperationsInput | number
   }
 
   export type CartProductCreateManyProductInput = {

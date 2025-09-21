@@ -26,6 +26,9 @@ transactionRouter.use(mainVerifyToken);
 // Get User Address
 transactionRouter.get("/address", transactionController.userAddress);
 
+// Calculate Shipping Price
+transactionRouter.post("/shipping", transactionController.calculateShippingPrice);
+
 // Create Transaction
 transactionRouter.post("/create", transactionController.createUserTransaction);
 
