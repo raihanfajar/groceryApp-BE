@@ -24,7 +24,11 @@ export class TransactionController {
 				throw new ApiError(400, "User address ID is required");
 			}
 			const shippingPrice =
-				await this.transactionService.calculateShippingPrice(userId, userAddressId, storeId);
+				await this.transactionService.calculateShippingPrice(
+					userId,
+					userAddressId,
+					storeId
+				);
 			res.status(200).json({
 				message: "Shipping price retrieved successfully",
 				data: { shippingPrice },

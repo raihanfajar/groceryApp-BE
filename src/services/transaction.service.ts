@@ -61,10 +61,10 @@ export class TransactionService {
 		if (totalWeight === 0) throw new ApiError(400, "Total weight is zero.");
 
 		const params = new URLSearchParams();
-		params.append("origin", userAddress.districtId.toString()); 
-		params.append("destination", store.cityId.toString()); 
+		params.append("origin", userAddress.districtId.toString());
+		params.append("destination", store.cityId.toString());
 		params.append("weight", totalWeight.toString());
-		params.append("courier", "jne"); 
+		params.append("courier", "jne");
 
 		const response = await fetch("https://api.rajaongkir.com/starter/cost", {
 			method: "POST",
