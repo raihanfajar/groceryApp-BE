@@ -521,8 +521,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.2
-   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -2351,10 +2351,6 @@ export namespace Prisma {
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
     /**
-     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
-     */
-    adapter?: runtime.SqlDriverAdapterFactory | null
-    /**
      * Global configuration for omitting model fields by default.
      * 
      * @example
@@ -4179,7 +4175,6 @@ export namespace Prisma {
     lon: Decimal | null
     provinceId: number | null
     cityId: number | null
-    district: number | null
     districtId: number | null
   }
 
@@ -4188,7 +4183,6 @@ export namespace Prisma {
     lon: Decimal | null
     provinceId: number | null
     cityId: number | null
-    district: number | null
     districtId: number | null
   }
 
@@ -4207,7 +4201,7 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
-    district: number | null
+    district: string | null
     districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4229,7 +4223,7 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
-    district: number | null
+    district: string | null
     districtId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4265,7 +4259,6 @@ export namespace Prisma {
     lon?: true
     provinceId?: true
     cityId?: true
-    district?: true
     districtId?: true
   }
 
@@ -4274,7 +4267,6 @@ export namespace Prisma {
     lon?: true
     provinceId?: true
     cityId?: true
-    district?: true
     districtId?: true
   }
 
@@ -4446,7 +4438,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt: Date
     updatedAt: Date
@@ -4594,7 +4586,7 @@ export namespace Prisma {
       province: string
       cityId: number
       city: string
-      district: number
+      district: string
       districtId: number
       createdAt: Date
       updatedAt: Date
@@ -5037,7 +5029,7 @@ export namespace Prisma {
     readonly province: FieldRef<"UserAddress", 'String'>
     readonly cityId: FieldRef<"UserAddress", 'Int'>
     readonly city: FieldRef<"UserAddress", 'String'>
-    readonly district: FieldRef<"UserAddress", 'Int'>
+    readonly district: FieldRef<"UserAddress", 'String'>
     readonly districtId: FieldRef<"UserAddress", 'Int'>
     readonly createdAt: FieldRef<"UserAddress", 'DateTime'>
     readonly updatedAt: FieldRef<"UserAddress", 'DateTime'>
@@ -17415,7 +17407,6 @@ export namespace Prisma {
     totalPrice: number | null
     provinceId: number | null
     cityId: number | null
-    district: number | null
     districtId: number | null
   }
 
@@ -17426,7 +17417,6 @@ export namespace Prisma {
     totalPrice: number | null
     provinceId: number | null
     cityId: number | null
-    district: number | null
     districtId: number | null
   }
 
@@ -17445,7 +17435,7 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
-    district: number | null
+    district: string | null
     districtId: number | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
@@ -17475,7 +17465,7 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
-    district: number | null
+    district: string | null
     districtId: number | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
@@ -17529,7 +17519,6 @@ export namespace Prisma {
     totalPrice?: true
     provinceId?: true
     cityId?: true
-    district?: true
     districtId?: true
   }
 
@@ -17540,7 +17529,6 @@ export namespace Prisma {
     totalPrice?: true
     provinceId?: true
     cityId?: true
-    district?: true
     districtId?: true
   }
 
@@ -17736,7 +17724,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
@@ -17956,7 +17944,7 @@ export namespace Prisma {
       province: string
       cityId: number
       city: string
-      district: number
+      district: string
       districtId: number
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
@@ -18413,7 +18401,7 @@ export namespace Prisma {
     readonly province: FieldRef<"Transaction", 'String'>
     readonly cityId: FieldRef<"Transaction", 'Int'>
     readonly city: FieldRef<"Transaction", 'String'>
-    readonly district: FieldRef<"Transaction", 'Int'>
+    readonly district: FieldRef<"Transaction", 'String'>
     readonly districtId: FieldRef<"Transaction", 'Int'>
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
@@ -25532,7 +25520,7 @@ export namespace Prisma {
     province?: StringFilter<"UserAddress"> | string
     cityId?: IntFilter<"UserAddress"> | number
     city?: StringFilter<"UserAddress"> | string
-    district?: IntFilter<"UserAddress"> | number
+    district?: StringFilter<"UserAddress"> | string
     districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
@@ -25581,7 +25569,7 @@ export namespace Prisma {
     province?: StringFilter<"UserAddress"> | string
     cityId?: IntFilter<"UserAddress"> | number
     city?: StringFilter<"UserAddress"> | string
-    district?: IntFilter<"UserAddress"> | number
+    district?: StringFilter<"UserAddress"> | string
     districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
@@ -25634,7 +25622,7 @@ export namespace Prisma {
     province?: StringWithAggregatesFilter<"UserAddress"> | string
     cityId?: IntWithAggregatesFilter<"UserAddress"> | number
     city?: StringWithAggregatesFilter<"UserAddress"> | string
-    district?: IntWithAggregatesFilter<"UserAddress"> | number
+    district?: StringWithAggregatesFilter<"UserAddress"> | string
     districtId?: IntWithAggregatesFilter<"UserAddress"> | number
     createdAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
@@ -26499,7 +26487,7 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
-    district?: IntFilter<"Transaction"> | number
+    district?: StringFilter<"Transaction"> | string
     districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
@@ -26576,7 +26564,7 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
-    district?: IntFilter<"Transaction"> | number
+    district?: StringFilter<"Transaction"> | string
     districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
@@ -26651,7 +26639,7 @@ export namespace Prisma {
     province?: StringWithAggregatesFilter<"Transaction"> | string
     cityId?: IntWithAggregatesFilter<"Transaction"> | number
     city?: StringWithAggregatesFilter<"Transaction"> | string
-    district?: IntWithAggregatesFilter<"Transaction"> | number
+    district?: StringWithAggregatesFilter<"Transaction"> | string
     districtId?: IntWithAggregatesFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
@@ -27230,7 +27218,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27253,7 +27241,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27274,7 +27262,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27297,7 +27285,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27319,7 +27307,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27340,7 +27328,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27362,7 +27350,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28304,7 +28292,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -28339,7 +28327,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -28370,7 +28358,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28405,7 +28393,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28438,7 +28426,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -28466,7 +28454,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28494,7 +28482,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29235,7 +29223,6 @@ export namespace Prisma {
     lon?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
-    district?: SortOrder
     districtId?: SortOrder
   }
 
@@ -29288,7 +29275,6 @@ export namespace Prisma {
     lon?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
-    district?: SortOrder
     districtId?: SortOrder
   }
 
@@ -30061,7 +30047,6 @@ export namespace Prisma {
     totalPrice?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
-    district?: SortOrder
     districtId?: SortOrder
   }
 
@@ -30132,7 +30117,6 @@ export namespace Prisma {
     totalPrice?: SortOrder
     provinceId?: SortOrder
     cityId?: SortOrder
-    district?: SortOrder
     districtId?: SortOrder
   }
 
@@ -32414,7 +32398,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -32447,7 +32431,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -32489,7 +32473,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32510,7 +32494,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -32620,7 +32604,7 @@ export namespace Prisma {
     province?: StringFilter<"Transaction"> | string
     cityId?: IntFilter<"Transaction"> | number
     city?: StringFilter<"Transaction"> | string
-    district?: IntFilter<"Transaction"> | number
+    district?: StringFilter<"Transaction"> | string
     districtId?: IntFilter<"Transaction"> | number
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
@@ -32669,7 +32653,7 @@ export namespace Prisma {
     province?: StringFilter<"UserAddress"> | string
     cityId?: IntFilter<"UserAddress"> | number
     city?: StringFilter<"UserAddress"> | string
-    district?: IntFilter<"UserAddress"> | number
+    district?: StringFilter<"UserAddress"> | string
     districtId?: IntFilter<"UserAddress"> | number
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
@@ -32960,7 +32944,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -32993,7 +32977,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -34137,7 +34121,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -34171,7 +34155,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -34287,7 +34271,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34321,7 +34305,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34351,7 +34335,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -34385,7 +34369,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -34441,7 +34425,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -34475,7 +34459,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     paymentProof?: string | null
@@ -35407,7 +35391,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -35441,7 +35425,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -35542,7 +35526,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35576,7 +35560,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36297,7 +36281,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     paymentProof?: string | null
     paymentMethod?: string | null
@@ -36331,7 +36315,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -36508,7 +36492,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36542,7 +36526,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36657,7 +36641,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -36686,7 +36670,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36717,7 +36701,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36750,7 +36734,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36782,7 +36766,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36811,7 +36795,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36832,7 +36816,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36853,7 +36837,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36958,7 +36942,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
@@ -37153,7 +37137,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37186,7 +37170,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37218,7 +37202,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37711,7 +37695,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
@@ -37738,7 +37722,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37772,7 +37756,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37804,7 +37788,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37833,7 +37817,7 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
-    district: number
+    district: string
     districtId: number
     codeVoucherProduct?: string | null
     paymentProof?: string | null
@@ -37860,7 +37844,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
     paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37894,7 +37878,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37926,7 +37910,7 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
     districtId?: IntFieldUpdateOperationsInput | number
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null

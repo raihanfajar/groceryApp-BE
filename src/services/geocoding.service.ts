@@ -1,5 +1,5 @@
-import { ApiError } from "../utils/ApiError";
 import prisma from "../config";
+import { ApiError } from "../utils/ApiError";
 
 
 export const rgcService = async (lat: string, lon: string) => {
@@ -37,12 +37,23 @@ interface IaddNewUserAddress {
     lat: number;
     lon: number;
     isDefault: boolean;
+    province: string;
+    provinceId: number;
+    city: string;
+    cityId: number;
+    district: string;
+    districtId: number;
 }
 
 export const addNewUserAddressService = async (body: IaddNewUserAddress, userId: string) => {
-    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault } = body;
+    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault, province, provinceId = 1, city, cityId = 1, district, districtId = 1 } = body;
+    // TODO: PROVINCE, CITY, DISTRICT --- CHECK RAJAONGKIR API
 
-    const addressDisplayName = await rgcService(lat.toString(), lon.toString()).then((res) => res.display_name);
+    const rgcResponse = await rgcService(lat.toString(), lon.toString()).then((res) => res);
+
+    console.log(rgcResponse?.address?.city);
+    console.log(rgcResponse?.address?.state);
+    console.log(rgcResponse?.address?.city_district);
 
     // !Extra validation
     const existingAddress = await prisma.userAddress.findFirst({ where: { userId, addressLabel } });
@@ -55,11 +66,17 @@ export const addNewUserAddressService = async (body: IaddNewUserAddress, userId:
             addressLabel,
             receiverName,
             receiverPhoneNumber,
-            addressDisplayName,
+            addressDisplayName: rgcResponse.display_name,
             addressDetails,
             lat,
             lon,
             isDefault,
+            province: rgcResponse?.address?.state || "This precise location has no province",
+            provinceId,
+            city: rgcResponse?.address?.city || "This precise location has no city",
+            cityId,
+            district: rgcResponse?.address?.city_district || "This precise location has no district",
+            districtId
         },
     })
 
