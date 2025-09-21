@@ -61,6 +61,8 @@ model Store {
   province    String
   cityId      Int
   city        String
+  district    String
+  districtId  Int
   address     String
   name        String
   lat         Decimal?       @db.Decimal(9, 6)

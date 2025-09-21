@@ -162,6 +162,8 @@ exports.Prisma.StoreScalarFieldEnum = {
   province: 'province',
   cityId: 'cityId',
   city: 'city',
+  district: 'district',
+  districtId: 'districtId',
   address: 'address',
   name: 'name',
   lat: 'lat',

@@ -5463,6 +5463,7 @@ export namespace Prisma {
   export type StoreAvgAggregateOutputType = {
     provinceId: number | null
     cityId: number | null
+    districtId: number | null
     lat: Decimal | null
     lng: Decimal | null
     radiusKm: Decimal | null
@@ -5471,6 +5472,7 @@ export namespace Prisma {
   export type StoreSumAggregateOutputType = {
     provinceId: number | null
     cityId: number | null
+    districtId: number | null
     lat: Decimal | null
     lng: Decimal | null
     radiusKm: Decimal | null
@@ -5482,6 +5484,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: string | null
+    districtId: number | null
     address: string | null
     name: string | null
     lat: Decimal | null
@@ -5498,6 +5502,8 @@ export namespace Prisma {
     province: string | null
     cityId: number | null
     city: string | null
+    district: string | null
+    districtId: number | null
     address: string | null
     name: string | null
     lat: Decimal | null
@@ -5514,6 +5520,8 @@ export namespace Prisma {
     province: number
     cityId: number
     city: number
+    district: number
+    districtId: number
     address: number
     name: number
     lat: number
@@ -5529,6 +5537,7 @@ export namespace Prisma {
   export type StoreAvgAggregateInputType = {
     provinceId?: true
     cityId?: true
+    districtId?: true
     lat?: true
     lng?: true
     radiusKm?: true
@@ -5537,6 +5546,7 @@ export namespace Prisma {
   export type StoreSumAggregateInputType = {
     provinceId?: true
     cityId?: true
+    districtId?: true
     lat?: true
     lng?: true
     radiusKm?: true
@@ -5548,6 +5558,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5564,6 +5576,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5580,6 +5594,8 @@ export namespace Prisma {
     province?: true
     cityId?: true
     city?: true
+    district?: true
+    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5683,6 +5699,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat: Decimal | null
@@ -5718,6 +5736,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5740,6 +5760,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5756,6 +5778,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5772,6 +5796,8 @@ export namespace Prisma {
     province?: boolean
     cityId?: boolean
     city?: boolean
+    district?: boolean
+    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5782,7 +5808,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provinceId" | "province" | "cityId" | "city" | "address" | "name" | "lat" | "lng" | "radiusKm" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["store"]>
+  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "address" | "name" | "lat" | "lng" | "radiusKm" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["store"]>
   export type StoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admins?: boolean | Store$adminsArgs<ExtArgs>
     cartItems?: boolean | Store$cartItemsArgs<ExtArgs>
@@ -5809,6 +5835,8 @@ export namespace Prisma {
       province: string
       cityId: number
       city: string
+      district: string
+      districtId: number
       address: string
       name: string
       lat: Prisma.Decimal | null
@@ -6250,6 +6278,8 @@ export namespace Prisma {
     readonly province: FieldRef<"Store", 'String'>
     readonly cityId: FieldRef<"Store", 'Int'>
     readonly city: FieldRef<"Store", 'String'>
+    readonly district: FieldRef<"Store", 'String'>
+    readonly districtId: FieldRef<"Store", 'Int'>
     readonly address: FieldRef<"Store", 'String'>
     readonly name: FieldRef<"Store", 'String'>
     readonly lat: FieldRef<"Store", 'Decimal'>
@@ -24981,6 +25011,8 @@ export namespace Prisma {
     province: 'province',
     cityId: 'cityId',
     city: 'city',
+    district: 'district',
+    districtId: 'districtId',
     address: 'address',
     name: 'name',
     lat: 'lat',
@@ -25638,6 +25670,8 @@ export namespace Prisma {
     province?: StringFilter<"Store"> | string
     cityId?: IntFilter<"Store"> | number
     city?: StringFilter<"Store"> | string
+    district?: StringFilter<"Store"> | string
+    districtId?: IntFilter<"Store"> | number
     address?: StringFilter<"Store"> | string
     name?: StringFilter<"Store"> | string
     lat?: DecimalNullableFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -25659,6 +25693,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrderInput | SortOrder
@@ -25683,6 +25719,8 @@ export namespace Prisma {
     province?: StringFilter<"Store"> | string
     cityId?: IntFilter<"Store"> | number
     city?: StringFilter<"Store"> | string
+    district?: StringFilter<"Store"> | string
+    districtId?: IntFilter<"Store"> | number
     address?: StringFilter<"Store"> | string
     name?: StringFilter<"Store"> | string
     lat?: DecimalNullableFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -25704,6 +25742,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrderInput | SortOrder
@@ -25728,6 +25768,8 @@ export namespace Prisma {
     province?: StringWithAggregatesFilter<"Store"> | string
     cityId?: IntWithAggregatesFilter<"Store"> | number
     city?: StringWithAggregatesFilter<"Store"> | string
+    district?: StringWithAggregatesFilter<"Store"> | string
+    districtId?: IntWithAggregatesFilter<"Store"> | number
     address?: StringWithAggregatesFilter<"Store"> | string
     name?: StringWithAggregatesFilter<"Store"> | string
     lat?: DecimalNullableWithAggregatesFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -27363,6 +27405,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27384,6 +27428,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27405,6 +27451,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27426,6 +27474,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27447,6 +27497,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27463,6 +27515,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27479,6 +27533,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -29367,6 +29423,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29380,6 +29438,7 @@ export namespace Prisma {
   export type StoreAvgOrderByAggregateInput = {
     provinceId?: SortOrder
     cityId?: SortOrder
+    districtId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
     radiusKm?: SortOrder
@@ -29391,6 +29450,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29407,6 +29468,8 @@ export namespace Prisma {
     province?: SortOrder
     cityId?: SortOrder
     city?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29420,6 +29483,7 @@ export namespace Prisma {
   export type StoreSumOrderByAggregateInput = {
     provinceId?: SortOrder
     cityId?: SortOrder
+    districtId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
     radiusKm?: SortOrder
@@ -33158,6 +33222,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -33178,6 +33244,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -33339,6 +33407,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -33359,6 +33429,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -33855,6 +33927,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -33875,6 +33949,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -34000,6 +34076,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34020,6 +34098,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34708,6 +34788,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -34728,6 +34810,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -34846,6 +34930,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34866,6 +34952,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34886,6 +34974,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -34906,6 +34996,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -35136,6 +35228,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -35156,6 +35250,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -35583,6 +35679,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -35603,6 +35701,8 @@ export namespace Prisma {
     province: string
     cityId: number
     city: string
+    district: string
+    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -35751,6 +35851,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -35771,6 +35873,8 @@ export namespace Prisma {
     province?: StringFieldUpdateOperationsInput | string
     cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
