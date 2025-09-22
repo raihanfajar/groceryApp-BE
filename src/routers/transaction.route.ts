@@ -51,6 +51,9 @@ transactionRouter.put(
 // Get User Transaction
 transactionRouter.get("/user", transactionController.getUserTransaction);
 
+// Get User Transaction Detail
+transactionRouter.get("user-detail", transactionController.getUserTransactionDetail);
+
 // Cancel user Transaction
 transactionRouter.put("/cancel", transactionController.cancelUserTransaction);
 

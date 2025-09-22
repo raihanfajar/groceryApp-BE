@@ -18,6 +18,20 @@ import {
 	sendPaymentConfirmedEmail,
 } from "../lib/transactionMailer";
 
+type CalculatedProductDetail = {
+	cartProductId: string;
+	productId: string;
+	quantity: number;
+	originalPrice: number;
+	appliedDiscount: number;
+	priceAfterDiscount: number;
+};
+
+type PriceCalculationResult = {
+	productDetails: CalculatedProductDetail[];
+	totalPriceAfterDiscount: number; // Ini adalah total harga produk setelah diskon per-item
+};
+
 export class TransactionService {
 	async getUserAddress(userId: string) {
 		const address = await prisma.userAddress.findMany({
@@ -112,7 +126,6 @@ export class TransactionService {
 			prisma.users.findUnique({ where: { id: userId } }),
 			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
 		]);
-
 		if (!cart) throw new ApiError(404, "Cart not found");
 		if (!user) throw new ApiError(404, "User not found");
 		if (!userAddress) throw new ApiError(404, "User address not found");
@@ -165,13 +178,19 @@ export class TransactionService {
 				tx
 			);
 
+			// --- KALKULASI HARGA SESUAI ATURAN BARU ---
+			const totalProductPrice = priceDetails.totalPriceAfterDiscount; // Total setelah diskon item
+
 			let productVoucherDiscount = 0;
 			if (validVoucherProduct) {
 				productVoucherDiscount = Math.min(
-					priceDetails.totalPriceAfterDiscount,
+					totalProductPrice,
 					validVoucherProduct.maxDiscount
 				);
 			}
+			const discountedProductPrice = productVoucherDiscount; // Ini adalah total potongan dari voucher
+			const finalProductPrice = totalProductPrice - discountedProductPrice; // Harga produk final setelah voucher
+
 			let deliveryVoucherDiscount = 0;
 			if (validVoucherDelivery) {
 				deliveryVoucherDiscount = Math.min(
@@ -179,9 +198,6 @@ export class TransactionService {
 					validVoucherDelivery.maxDiscount
 				);
 			}
-
-			const finalProductPrice =
-				priceDetails.totalPriceAfterDiscount - productVoucherDiscount;
 			const finalShippingPrice = shippingPrice - deliveryVoucherDiscount;
 			const grandTotalPrice = finalProductPrice + finalShippingPrice;
 
@@ -191,6 +207,9 @@ export class TransactionService {
 					storeId,
 					shippingPrice,
 					paymentMethod,
+					totalProductPrice: totalProductPrice,
+					discountedProductPrice: discountedProductPrice,
+					finalProductPrice: finalProductPrice,
 					discountedShipping: deliveryVoucherDiscount,
 					finalShippingPrice,
 					totalPrice: grandTotalPrice,
@@ -317,14 +336,13 @@ export class TransactionService {
 		cartProducts: CartProductWithDetails[],
 		userId: string,
 		tx: Prisma.TransactionClient
-	) {
+	): Promise<PriceCalculationResult> {
 		const productIds = cartProducts.map((p) => p.productId);
 		const subTotal = cartProducts.reduce(
 			(sum, p) => sum + p.product.price * p.quantity,
 			0
 		);
 
-		// Ambil semua diskon yang berpotensi valid
 		const potentialDiscounts = await tx.discount.findMany({
 			where: {
 				isActive: true,
@@ -338,43 +356,33 @@ export class TransactionService {
 		const discountIds = potentialDiscounts.map((d) => d.id);
 		const userUsageCounts = await tx.discountUsageHistory.groupBy({
 			by: ["discountId"],
-			where: {
-				userId: userId,
-				discountId: { in: discountIds },
-			},
+			where: { userId: userId, discountId: { in: discountIds } },
 			_count: { id: true },
 		});
-
 		const usageMap = new Map<string, number>();
 		for (const usage of userUsageCounts) {
 			usageMap.set(usage.discountId, usage._count.id);
 		}
 
 		let totalPriceAfterDiscount = 0;
-		const productDetails = [];
+		const productDetails: CalculatedProductDetail[] = [];
 
 		for (const item of cartProducts) {
 			let itemPrice = item.product.price;
 			let appliedDiscount = 0;
-
 			const discountForProduct = potentialDiscounts.find((d) =>
 				d.products.some((p) => p.productId === item.productId)
 			);
 
 			if (discountForProduct) {
-				// --- VALIDASI GABUNGAN ---
-				// Cek 1: Syarat minimum belanja
 				const isMinimumPurchaseMet =
 					!discountForProduct.minTransactionValue ||
 					subTotal >= discountForProduct.minTransactionValue;
-
-				// Cek 2: Batas penggunaan per pelanggan
 				const usageCount = usageMap.get(discountForProduct.id) || 0;
 				const isUsageLimitOk =
 					!discountForProduct.maxUsagePerCustomer ||
 					usageCount < discountForProduct.maxUsagePerCustomer;
 
-				// Hanya terapkan diskon jika SEMUA syarat terpenuhi
 				if (isMinimumPurchaseMet && isUsageLimitOk) {
 					if (discountForProduct.valueType === "PERCENTAGE") {
 						appliedDiscount = Math.floor(
@@ -393,8 +401,6 @@ export class TransactionService {
 			}
 
 			const finalItemPrice = itemPrice - appliedDiscount;
-			const finalTotalPriceForItem = finalItemPrice * item.quantity;
-
 			productDetails.push({
 				cartProductId: item.id,
 				productId: item.productId,
@@ -403,8 +409,7 @@ export class TransactionService {
 				appliedDiscount,
 				priceAfterDiscount: finalItemPrice,
 			});
-
-			totalPriceAfterDiscount += finalTotalPriceForItem;
+			totalPriceAfterDiscount += finalItemPrice * item.quantity;
 		}
 
 		return { productDetails, totalPriceAfterDiscount };
@@ -623,6 +628,24 @@ export class TransactionService {
 		});
 
 		return transactions;
+	}
+
+	async getUserTransactionDetail(userId: string, transactionId: string) {
+		const transaction = await prisma.transaction.findFirst({
+			where: {
+				id: transactionId,
+				userId: userId,
+			},
+			include: {
+				products: {
+					include: {
+						product: true,
+					},
+				},
+			},
+		});
+		if (!transaction) throw new ApiError(404, "Transaction not found");
+		return transaction;
 	}
 
 	async completeUserTransaction(userId: string, transactionId: string) {
