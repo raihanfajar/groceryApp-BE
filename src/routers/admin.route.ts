@@ -24,6 +24,9 @@ adminRouter.use(verifyAdminRole);
 // Admin profile
 adminRouter.get('/profile', adminController.getProfile);
 
+// Get all stores (accessible to all admins)
+adminRouter.get('/stores', adminController.getAllStores);
+
 // Super Admin only routes
 adminRouter.use(verifySuperAdmin);
 
