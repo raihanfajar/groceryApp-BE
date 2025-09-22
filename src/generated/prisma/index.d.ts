@@ -17435,6 +17435,9 @@ export namespace Prisma {
   }
 
   export type TransactionAvgAggregateOutputType = {
+    totalProductPrice: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
     shippingPrice: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
@@ -17445,6 +17448,9 @@ export namespace Prisma {
   }
 
   export type TransactionSumAggregateOutputType = {
+    totalProductPrice: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
     shippingPrice: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
@@ -17459,6 +17465,9 @@ export namespace Prisma {
     userId: string | null
     storeId: string | null
     status: $Enums.OrderStatus | null
+    totalProductPrice: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
     shippingPrice: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
@@ -17489,6 +17498,9 @@ export namespace Prisma {
     userId: string | null
     storeId: string | null
     status: $Enums.OrderStatus | null
+    totalProductPrice: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
     shippingPrice: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
@@ -17519,6 +17531,9 @@ export namespace Prisma {
     userId: number
     storeId: number
     status: number
+    totalProductPrice: number
+    discountedProductPrice: number
+    finalProductPrice: number
     shippingPrice: number
     discountedShipping: number
     finalShippingPrice: number
@@ -17547,6 +17562,9 @@ export namespace Prisma {
 
 
   export type TransactionAvgAggregateInputType = {
+    totalProductPrice?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
     shippingPrice?: true
     discountedShipping?: true
     finalShippingPrice?: true
@@ -17557,6 +17575,9 @@ export namespace Prisma {
   }
 
   export type TransactionSumAggregateInputType = {
+    totalProductPrice?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
     shippingPrice?: true
     discountedShipping?: true
     finalShippingPrice?: true
@@ -17571,6 +17592,9 @@ export namespace Prisma {
     userId?: true
     storeId?: true
     status?: true
+    totalProductPrice?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
     shippingPrice?: true
     discountedShipping?: true
     finalShippingPrice?: true
@@ -17601,6 +17625,9 @@ export namespace Prisma {
     userId?: true
     storeId?: true
     status?: true
+    totalProductPrice?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
     shippingPrice?: true
     discountedShipping?: true
     finalShippingPrice?: true
@@ -17631,6 +17658,9 @@ export namespace Prisma {
     userId?: true
     storeId?: true
     status?: true
+    totalProductPrice?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
     shippingPrice?: true
     discountedShipping?: true
     finalShippingPrice?: true
@@ -17748,8 +17778,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping: number | null
+    discountedShipping: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -17797,6 +17830,9 @@ export namespace Prisma {
     userId?: boolean
     storeId?: boolean
     status?: boolean
+    totalProductPrice?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
     shippingPrice?: boolean
     discountedShipping?: boolean
     finalShippingPrice?: boolean
@@ -17835,6 +17871,9 @@ export namespace Prisma {
     userId?: boolean
     storeId?: boolean
     status?: boolean
+    totalProductPrice?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
     shippingPrice?: boolean
     discountedShipping?: boolean
     finalShippingPrice?: boolean
@@ -17869,6 +17908,9 @@ export namespace Prisma {
     userId?: boolean
     storeId?: boolean
     status?: boolean
+    totalProductPrice?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
     shippingPrice?: boolean
     discountedShipping?: boolean
     finalShippingPrice?: boolean
@@ -17903,6 +17945,9 @@ export namespace Prisma {
     userId?: boolean
     storeId?: boolean
     status?: boolean
+    totalProductPrice?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
     shippingPrice?: boolean
     discountedShipping?: boolean
     finalShippingPrice?: boolean
@@ -17928,7 +17973,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "totalProductPrice" | "discountedProductPrice" | "finalProductPrice" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
@@ -17968,8 +18013,11 @@ export namespace Prisma {
       userId: string
       storeId: string
       status: $Enums.OrderStatus
+      totalProductPrice: number
+      discountedProductPrice: number
+      finalProductPrice: number
       shippingPrice: number
-      discountedShipping: number | null
+      discountedShipping: number
       finalShippingPrice: number
       totalPrice: number
       address: string
@@ -18425,6 +18473,9 @@ export namespace Prisma {
     readonly userId: FieldRef<"Transaction", 'String'>
     readonly storeId: FieldRef<"Transaction", 'String'>
     readonly status: FieldRef<"Transaction", 'OrderStatus'>
+    readonly totalProductPrice: FieldRef<"Transaction", 'Int'>
+    readonly discountedProductPrice: FieldRef<"Transaction", 'Int'>
+    readonly finalProductPrice: FieldRef<"Transaction", 'Int'>
     readonly shippingPrice: FieldRef<"Transaction", 'Int'>
     readonly discountedShipping: FieldRef<"Transaction", 'Int'>
     readonly finalShippingPrice: FieldRef<"Transaction", 'Int'>
@@ -25170,6 +25221,9 @@ export namespace Prisma {
     userId: 'userId',
     storeId: 'storeId',
     status: 'status',
+    totalProductPrice: 'totalProductPrice',
+    discountedProductPrice: 'discountedProductPrice',
+    finalProductPrice: 'finalProductPrice',
     shippingPrice: 'shippingPrice',
     discountedShipping: 'discountedShipping',
     finalShippingPrice: 'finalShippingPrice',
@@ -26523,8 +26577,11 @@ export namespace Prisma {
     userId?: StringFilter<"Transaction"> | string
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
+    discountedShipping?: IntFilter<"Transaction"> | number
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26560,8 +26617,11 @@ export namespace Prisma {
     userId?: SortOrder
     storeId?: SortOrder
     status?: SortOrder
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrderInput | SortOrder
+    discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26600,8 +26660,11 @@ export namespace Prisma {
     userId?: StringFilter<"Transaction"> | string
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
+    discountedShipping?: IntFilter<"Transaction"> | number
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -26637,8 +26700,11 @@ export namespace Prisma {
     userId?: SortOrder
     storeId?: SortOrder
     status?: SortOrder
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrderInput | SortOrder
+    discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
     address?: SortOrder
@@ -26675,8 +26741,11 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Transaction"> | string
     storeId?: StringWithAggregatesFilter<"Transaction"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Transaction"> | $Enums.OrderStatus
+    totalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    finalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    discountedShipping?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
+    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
     finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
     address?: StringWithAggregatesFilter<"Transaction"> | string
@@ -28342,8 +28411,11 @@ export namespace Prisma {
   export type TransactionCreateInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28377,8 +28449,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28408,8 +28483,11 @@ export namespace Prisma {
   export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28443,8 +28521,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28476,8 +28557,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -28504,8 +28588,11 @@ export namespace Prisma {
   export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -28532,8 +28619,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -30083,6 +30173,9 @@ export namespace Prisma {
     userId?: SortOrder
     storeId?: SortOrder
     status?: SortOrder
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
@@ -30109,6 +30202,9 @@ export namespace Prisma {
   }
 
   export type TransactionAvgOrderByAggregateInput = {
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
@@ -30123,6 +30219,9 @@ export namespace Prisma {
     userId?: SortOrder
     storeId?: SortOrder
     status?: SortOrder
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
@@ -30153,6 +30252,9 @@ export namespace Prisma {
     userId?: SortOrder
     storeId?: SortOrder
     status?: SortOrder
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
@@ -30179,6 +30281,9 @@ export namespace Prisma {
   }
 
   export type TransactionSumOrderByAggregateInput = {
+    totalProductPrice?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
@@ -32456,8 +32561,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutUserInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32489,8 +32597,11 @@ export namespace Prisma {
     id?: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -32662,8 +32773,11 @@ export namespace Prisma {
     userId?: StringFilter<"Transaction"> | string
     storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntNullableFilter<"Transaction"> | number | null
+    discountedShipping?: IntFilter<"Transaction"> | number
     finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
     address?: StringFilter<"Transaction"> | string
@@ -33002,8 +33116,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutStoreInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -33035,8 +33152,11 @@ export namespace Prisma {
     id?: string
     userId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34195,8 +34315,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutStockJournalInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34229,8 +34352,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34345,8 +34471,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutStockJournalInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -34379,8 +34508,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -34409,8 +34541,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutVoucherProductInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34443,8 +34578,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34499,8 +34637,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutVoucherDeliveryInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -34533,8 +34674,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35481,8 +35625,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutProductsInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35515,8 +35662,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -35616,8 +35766,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -35650,8 +35803,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36379,8 +36535,11 @@ export namespace Prisma {
   export type TransactionCreateWithoutDiscountUsageHistoryInput = {
     id?: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36413,8 +36572,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36590,8 +36752,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutDiscountUsageHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36624,8 +36789,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36739,8 +36907,11 @@ export namespace Prisma {
     id?: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -36799,8 +36970,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36832,8 +37006,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -36864,8 +37041,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37040,8 +37220,11 @@ export namespace Prisma {
     id?: string
     userId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37235,8 +37418,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37268,8 +37454,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37300,8 +37489,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37793,8 +37985,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37820,8 +38015,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37854,8 +38052,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37886,8 +38087,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37915,8 +38119,11 @@ export namespace Prisma {
     userId: string
     storeId: string
     status?: $Enums.OrderStatus
+    totalProductPrice: number
+    discountedProductPrice?: number
+    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number | null
+    discountedShipping?: number
     finalShippingPrice: number
     totalPrice: number
     address: string
@@ -37942,8 +38149,11 @@ export namespace Prisma {
   export type TransactionUpdateWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -37976,8 +38186,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -38008,8 +38221,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: NullableIntFieldUpdateOperationsInput | number | null
+    discountedShipping?: IntFieldUpdateOperationsInput | number
     finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string

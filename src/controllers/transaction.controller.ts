@@ -160,6 +160,28 @@ export class TransactionController {
 		}
 	);
 
+	getUserTransactionDetail = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			const transactionId = req.query.transaction as string;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			if (!transactionId) {
+				throw new ApiError(400, "Transaction ID is required");
+			}
+			const transaction =
+				await this.transactionService.getUserTransactionDetail(
+					userId,
+					transactionId
+				);
+			res.status(200).json({
+				message: "User transaction detail retrieved successfully",
+				data: { transaction },
+			});
+		}
+	);
+
 	completedUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
