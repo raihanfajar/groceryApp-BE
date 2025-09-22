@@ -9,7 +9,7 @@ export interface CreateProductInput {
 	description: string;
 	categoryId: string;
 	price: number;
-	weight?: number;
+	weight: number;
 	picture1: string;
 	picture2?: string;
 	picture3?: string;

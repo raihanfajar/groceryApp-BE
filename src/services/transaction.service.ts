@@ -12,7 +12,11 @@ import {
 	MidtransTransactionStatus,
 } from "../types/midTrans";
 import { computeMidtransSignature } from "../utils/computeMidtransSignature";
-import { sendOrderConfirmationEmail, sendOrderShippedEmail, sendPaymentConfirmedEmail } from "../lib/transactionMailer";
+import {
+	sendOrderConfirmationEmail,
+	sendOrderShippedEmail,
+	sendPaymentConfirmedEmail,
+} from "../lib/transactionMailer";
 
 export class TransactionService {
 	async getUserAddress(userId: string) {
@@ -21,6 +25,77 @@ export class TransactionService {
 		});
 		if (!address) throw new ApiError(404, "User Address not found");
 		return address;
+	}
+
+	async calculateShippingPrice(
+		userId: string,
+		userAddressId: string,
+		storeId: string
+	) {
+		const [cart, store, userAddress] = await Promise.all([
+			prisma.cart.findUnique({ where: { userId } }),
+			prisma.store.findUnique({ where: { id: storeId } }),
+			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
+		]);
+
+		if (!cart) throw new ApiError(404, "Cart not found");
+		if (!store) throw new ApiError(404, "Store not found");
+		if (!userAddress) throw new ApiError(404, "User address not found");
+
+		const cartItems = await prisma.cartProduct.findMany({
+			where: { cartId: cart.id },
+			include: { product: true },
+		});
+		if (cartItems.length === 0) throw new ApiError(400, "Cart is empty");
+
+		const { inStockItems } = await this._filterStock(cartItems, storeId);
+		if (inStockItems.length === 0) {
+			throw new ApiError(400, "All products in the cart are out of stock.");
+		}
+
+		let totalWeight = 0;
+		for (const item of inStockItems) {
+			const itemWeight = item.product.weight || 0;
+			totalWeight += itemWeight * item.quantity;
+		}
+		if (totalWeight === 0) throw new ApiError(400, "Total weight is zero.");
+
+		const params = new URLSearchParams();
+		params.append("origin", userAddress.districtId.toString());
+		params.append("destination", store.cityId.toString());
+		params.append("weight", totalWeight.toString());
+		params.append("courier", "jne");
+
+		const response = await fetch("https://api.rajaongkir.com/starter/cost", {
+			method: "POST",
+			headers: {
+				key: process.env.RAJAONGKIR_API_KEY!,
+				"content-type": "application/x-www-form-urlencoded",
+			},
+			body: params,
+		});
+
+		if (!response.ok) {
+			throw new Error(
+				`RajaOngkir API request failed with status ${response.status}`
+			);
+		}
+
+		const jsonResponse = await response.json();
+		const results = jsonResponse.rajaongkir.results[0]?.costs;
+
+		if (!results || results.length === 0) {
+			throw new ApiError(404, "No shipping options found.");
+		}
+
+		let lowestPrice = Infinity;
+		for (const service of results) {
+			if (service.cost && service.cost[0]?.value < lowestPrice) {
+				lowestPrice = service.cost[0].value;
+			}
+		}
+
+		return { price: lowestPrice };
 	}
 
 	async createUserTransaction(

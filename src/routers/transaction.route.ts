@@ -17,14 +17,20 @@ const uploader = uploaderMulter(
 
 // Midtrans notification
 transactionRouter.post(
-    "/midtrans/notification",
-    transactionController.handleMidtransNotification
+	"/midtrans/notification",
+	transactionController.handleMidtransNotification
 );
 
 transactionRouter.use(mainVerifyToken);
 
 // Get User Address
 transactionRouter.get("/address", transactionController.userAddress);
+
+// Calculate Shipping Price
+transactionRouter.post(
+	"/shipping",
+	transactionController.calculateShippingPrice
+);
 
 // Create Transaction
 transactionRouter.post("/create", transactionController.createUserTransaction);
