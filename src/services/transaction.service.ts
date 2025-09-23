@@ -178,8 +178,7 @@ export class TransactionService {
 				tx
 			);
 
-			// --- KALKULASI HARGA SESUAI ATURAN BARU ---
-			const totalProductPrice = priceDetails.totalPriceAfterDiscount; // Total setelah diskon item
+			const totalProductPrice = priceDetails.totalPriceAfterDiscount;
 
 			let productVoucherDiscount = 0;
 			if (validVoucherProduct) {
@@ -188,8 +187,8 @@ export class TransactionService {
 					validVoucherProduct.maxDiscount
 				);
 			}
-			const discountedProductPrice = productVoucherDiscount; // Ini adalah total potongan dari voucher
-			const finalProductPrice = totalProductPrice - discountedProductPrice; // Harga produk final setelah voucher
+			const discountedProductPrice = productVoucherDiscount;
+			const finalProductPrice = totalProductPrice - discountedProductPrice;
 
 			let deliveryVoucherDiscount = 0;
 			if (validVoucherDelivery) {
@@ -207,6 +206,7 @@ export class TransactionService {
 					storeId,
 					shippingPrice,
 					paymentMethod,
+					receiverName: userAddress.receiverName,
 					totalProductPrice: totalProductPrice,
 					discountedProductPrice: discountedProductPrice,
 					finalProductPrice: finalProductPrice,
@@ -221,6 +221,7 @@ export class TransactionService {
 					city: userAddress.city,
 					district: userAddress.district,
 					districtId: userAddress.districtId,
+					addressLabel: userAddress.addressLabel,
 					status: "waiting_payment",
 					expiryAt:
 						paymentMethod === "manual_transfer"

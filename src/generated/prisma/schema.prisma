@@ -230,6 +230,7 @@ model Transaction {
   finalShippingPrice     Int // shippingPrice - discountedShipping
   totalPrice             Int
   address                String
+  receiverName           String
   phoneNumber            String
   provinceId             Int
   province               String
@@ -237,6 +238,7 @@ model Transaction {
   city                   String
   district               String
   districtId             Int
+  addressLabel           String
   codeVoucherProduct     String?
   codeVoucherDelivery    String?
   paymentProof           String?
