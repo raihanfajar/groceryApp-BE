@@ -9,6 +9,33 @@ import { AuthenticatedRequest } from "../types/express";
 export class TransactionController {
 	private transactionService = new TransactionService();
 
+	calculateShippingPrice = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			const { storeId } = req.query as { storeId: string };
+			if (!storeId) {
+				throw new ApiError(400, "Store ID is required");
+			}
+			const { userAddressId } = req.query as { userAddressId: string };
+			if (!userAddressId) {
+				throw new ApiError(400, "User address ID is required");
+			}
+			const shippingPrice =
+				await this.transactionService.calculateShippingPrice(
+					userId,
+					userAddressId,
+					storeId
+				);
+			res.status(200).json({
+				message: "Shipping price retrieved successfully",
+				data: { shippingPrice },
+			});
+		}
+	);
+
 	userAddress = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
@@ -128,6 +155,28 @@ export class TransactionController {
 
 			res.status(200).json({
 				message: "User transaction retrieved successfully",
+				data: { transaction },
+			});
+		}
+	);
+
+	getUserTransactionDetail = catchAsync(
+		async (req: MainAuthenticatedRequest, res: Response) => {
+			const { userId } = req.payload!;
+			const transactionId = req.query.transaction as string;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
+			}
+			if (!transactionId) {
+				throw new ApiError(400, "Transaction ID is required");
+			}
+			const transaction =
+				await this.transactionService.getUserTransactionDetail(
+					userId,
+					transactionId
+				);
+			res.status(200).json({
+				message: "User transaction detail retrieved successfully",
 				data: { transaction },
 			});
 		}

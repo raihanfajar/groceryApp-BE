@@ -204,7 +204,7 @@ export class ProductController {
 				description: description.trim(),
 				categoryId,
 				price: parseInt(price),
-				weight: weight ? parseFloat(weight) : undefined,
+				weight: weight ? parseFloat(weight) : 0,
 				picture1,
 				picture2,
 				picture3,

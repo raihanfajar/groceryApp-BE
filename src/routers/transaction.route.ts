@@ -17,14 +17,20 @@ const uploader = uploaderMulter(
 
 // Midtrans notification
 transactionRouter.post(
-    "/midtrans/notification",
-    transactionController.handleMidtransNotification
+	"/midtrans/notification",
+	transactionController.handleMidtransNotification
 );
 
 transactionRouter.use(mainVerifyToken);
 
 // Get User Address
 transactionRouter.get("/address", transactionController.userAddress);
+
+// Calculate Shipping Price
+transactionRouter.post(
+	"/shipping",
+	transactionController.calculateShippingPrice
+);
 
 // Create Transaction
 transactionRouter.post("/create", transactionController.createUserTransaction);
@@ -44,6 +50,9 @@ transactionRouter.put(
 
 // Get User Transaction
 transactionRouter.get("/user", transactionController.getUserTransaction);
+
+// Get User Transaction Detail
+transactionRouter.get("user-detail", transactionController.getUserTransactionDetail);
 
 // Cancel user Transaction
 transactionRouter.put("/cancel", transactionController.cancelUserTransaction);
