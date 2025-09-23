@@ -1,4 +1,5 @@
 import prisma from "../config";
+import { getLocationIdsFromNominatim } from "../helper/getLocationIdsFromNominatim";
 import { ApiError } from "../utils/ApiError";
 
 
@@ -37,29 +38,52 @@ interface IaddNewUserAddress {
     lat: number;
     lon: number;
     isDefault: boolean;
-    province: string;
-    provinceId: number;
-    city: string;
-    cityId: number;
-    district: string;
-    districtId: number;
 }
 
 export const addNewUserAddressService = async (body: IaddNewUserAddress, userId: string) => {
-    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault, province, provinceId = 1, city, cityId = 1, district, districtId = 1 } = body;
+    const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault, } = body;
     // TODO: PROVINCE, CITY, DISTRICT --- CHECK RAJAONGKIR API
 
     const rgcResponse = await rgcService(lat.toString(), lon.toString()).then((res) => res);
 
-    console.log(rgcResponse?.address?.city);
-    console.log(rgcResponse?.address?.state);
-    console.log(rgcResponse?.address?.city_district);
 
     // !Extra validation
     const existingAddress = await prisma.userAddress.findFirst({ where: { userId, addressLabel } });
     if (existingAddress) throw new ApiError(409, "Address label already in use");
 
-    //    !Add new address
+    // !Determining address level
+    // Province level
+    const provinceLevel =
+        rgcResponse?.address?.state ??
+        rgcResponse?.address?.region ??
+        rgcResponse?.address?.province ??
+        rgcResponse?.address?.county ?? "This precise location has no province";
+
+    // City level
+    const cityLevel =
+        rgcResponse?.address?.city ??
+        rgcResponse?.address?.town ??
+        rgcResponse?.address?.municipality ??
+        rgcResponse?.address?.village ??
+        "This precise location has no city";
+
+    // District / Subdistrict level
+    const districtLevel =
+        rgcResponse?.address?.city_district ??
+        rgcResponse?.address?.suburb ??
+        rgcResponse?.address?.neighbourhood ??
+        "This precise location has no district";
+
+    console.log(rgcResponse);
+    console.log(provinceLevel?.toUpperCase());
+    console.log(cityLevel?.toUpperCase());
+    console.log(districtLevel?.toUpperCase());
+
+    // !Get location ids
+    const { provinceId, cityId, districtId } = await getLocationIdsFromNominatim(provinceLevel, cityLevel, districtLevel);
+    console.log(provinceId, cityId, districtId);
+
+    //  !Add new address
     const newAddress = await prisma.userAddress.create({
         data: {
             userId,
@@ -71,12 +95,12 @@ export const addNewUserAddressService = async (body: IaddNewUserAddress, userId:
             lat,
             lon,
             isDefault,
-            province: rgcResponse?.address?.state || "This precise location has no province",
-            provinceId,
-            city: rgcResponse?.address?.city || "This precise location has no city",
-            cityId,
-            district: rgcResponse?.address?.city_district || "This precise location has no district",
-            districtId
+            province: provinceLevel?.toUpperCase(),
+            provinceId: provinceId ?? 1,
+            city: cityLevel?.toUpperCase(),
+            cityId: cityId ?? 1,
+            district: districtLevel?.toUpperCase(),
+            districtId: districtId ?? 1,
         },
     })
 
