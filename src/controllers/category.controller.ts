@@ -181,8 +181,9 @@ export class CategoryController {
 	}
 
 	/**
-	 * DELETE /admin/categories/:id
-	 * Delete category (Super Admin only - keep this restricted)
+	 * DELETE /admin/categories/:id?hard=true
+	 * Delete category (Super Admin only)
+	 * Query param 'hard=true' for permanent deletion, otherwise soft delete
 	 */
 	static async deleteCategory(
 		req: AuthenticatedRequest,
@@ -195,11 +196,13 @@ export class CategoryController {
 			}
 
 			const { id } = req.params;
-			await CategoryService.deleteCategory(id);
+			const hardDelete = req.query.hard === 'true';
+
+			await CategoryService.deleteCategory(id, hardDelete);
 
 			res.status(200).json({
 				status: 'success',
-				message: 'Category deleted successfully',
+				message: `Category ${hardDelete ? 'permanently deleted' : 'deleted'} successfully`,
 			});
 		} catch (error) {
 			next(error);
@@ -228,6 +231,42 @@ export class CategoryController {
 				message: `Category ${category.isActive ? 'activated' : 'deactivated'} successfully`,
 				data: {
 					category,
+				},
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	/**
+	 * POST /admin/categories/cleanup-deleted
+	 * Permanently delete all soft-deleted categories that have no products (Super Admin only)
+	 */
+	static async cleanupDeletedCategories(
+		req: AuthenticatedRequest,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			if (!req.user?.isSuper) {
+				throw new ApiError(
+					403,
+					'Only Super Admin can cleanup deleted categories'
+				);
+			}
+
+			const result = await CategoryService.cleanupDeletedCategories();
+
+			res.status(200).json({
+				status: 'success',
+				message: `Cleanup completed. ${result.deleted.length} categories permanently deleted, ${result.skipped.length} skipped.`,
+				data: {
+					deleted: result.deleted,
+					skipped: result.skipped,
+					summary: {
+						deletedCount: result.deleted.length,
+						skippedCount: result.skipped.length,
+					},
 				},
 			});
 		} catch (error) {

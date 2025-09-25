@@ -40,5 +40,11 @@ router.patch(
 	verifyAdminRole,
 	CategoryController.toggleCategoryStatus
 );
+router.post(
+	'/admin/cleanup-deleted',
+	verifyToken,
+	verifyAdminRole,
+	CategoryController.cleanupDeletedCategories
+);
 
 export default router;
