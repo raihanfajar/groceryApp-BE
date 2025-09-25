@@ -40,6 +40,19 @@ export class AdminController {
 		});
 	});
 
+	// Get all stores
+	getAllStores = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const stores = await this.adminService.getAllStores();
+
+			res.status(200).json({
+				status: 'success',
+				message: 'Stores retrieved successfully',
+				data: stores,
+			});
+		}
+	);
+
 	// Get all store admins (Super Admin only)
 	getAllStoreAdmins = catchAsync(
 		async (req: AuthenticatedRequest, res: Response) => {

@@ -107,6 +107,25 @@ export class AdminService {
 		return storeAdmins;
 	}
 
+	// Get all stores
+	async getAllStores() {
+		const stores = await prisma.store.findMany({
+			where: { deletedAt: null },
+			select: {
+				id: true,
+				name: true,
+				city: true,
+				province: true,
+				address: true,
+				createdAt: true,
+				updatedAt: true,
+			},
+			orderBy: { createdAt: 'asc' },
+		});
+
+		return stores;
+	}
+
 	// Create store admin (Super Admin only)
 	async createStoreAdmin(
 		adminId: string,

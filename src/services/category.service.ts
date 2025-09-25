@@ -235,15 +235,17 @@ export class CategoryService {
 
 	/**
 	 * Delete category (Super Admin only)
+	 * @param id - Category ID
+	 * @param hardDelete - If true, permanently delete from database (default: false for soft delete)
 	 */
-	static async deleteCategory(id: string): Promise<void> {
+	static async deleteCategory(id: string, hardDelete = false): Promise<void> {
 		// Check if category exists
 		const category = await this.getCategoryById(id);
 		if (!category) {
 			throw new ApiError(404, 'Category not found');
 		}
 
-		// Check if category has products
+		// Check if category has active products
 		const productsCount = await prisma.product.count({
 			where: {
 				categoryId: id,
@@ -254,17 +256,90 @@ export class CategoryService {
 		if (productsCount > 0) {
 			throw new ApiError(
 				400,
-				`Cannot delete category. It has ${productsCount} product(s) associated with it.`
+				`Cannot delete category "${category.name}". It has ${productsCount} active product(s) associated with it. Please remove or reassign these products first.`
 			);
 		}
 
-		// Soft delete
-		await prisma.productCategory.update({
-			where: { id },
-			data: {
-				deletedAt: new Date(),
+		if (hardDelete) {
+			// Hard delete - permanently remove from database
+			try {
+				await prisma.productCategory.delete({
+					where: { id },
+				});
+			} catch (error: any) {
+				// Check for foreign key constraint errors
+				if (error.code === 'P2003') {
+					throw new ApiError(
+						400,
+						`Cannot permanently delete category "${category.name}". It is referenced by other records in the system.`
+					);
+				}
+				throw error;
+			}
+		} else {
+			// Soft delete - set deletedAt timestamp
+			await prisma.productCategory.update({
+				where: { id },
+				data: {
+					deletedAt: new Date(),
+				},
+			});
+		}
+	}
+
+	/**
+	 * Permanently delete all soft-deleted categories that have no products
+	 * (Super Admin only - cleanup utility)
+	 */
+	static async cleanupDeletedCategories(): Promise<{
+		deleted: string[];
+		skipped: Array<{ name: string; productCount: number }>;
+	}> {
+		const deletedCategories = await prisma.productCategory.findMany({
+			where: {
+				deletedAt: {
+					not: null,
+				},
+			},
+			include: {
+				_count: {
+					select: {
+						products: {
+							where: {
+								deletedAt: null,
+							},
+						},
+					},
+				},
 			},
 		});
+
+		const deleted: string[] = [];
+		const skipped: Array<{ name: string; productCount: number }> = [];
+
+		for (const category of deletedCategories) {
+			if (category._count.products === 0) {
+				try {
+					await prisma.productCategory.delete({
+						where: { id: category.id },
+					});
+					deleted.push(category.name);
+				} catch (error) {
+					// If deletion fails, skip this category
+					skipped.push({
+						name: category.name,
+						productCount: category._count.products,
+					});
+				}
+			} else {
+				skipped.push({
+					name: category.name,
+					productCount: category._count.products,
+				});
+			}
+		}
+
+		return { deleted, skipped };
 	}
 
 	/**
