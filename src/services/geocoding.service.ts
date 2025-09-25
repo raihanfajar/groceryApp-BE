@@ -144,7 +144,7 @@ export const getUserAddressService = async (userId: string) => {
     return addresses;
 };
 
-export const setUserDefaultAddressService = async (addressId: string, userId: string) => {
+export const setUserDefaultAddressService = async (userId: string, addressId: string) => {
     // !Extra validation
     const address = await prisma.userAddress.findUnique({ where: { id: addressId } });
     if (!address) throw new ApiError(404, "Address not found");
@@ -161,10 +161,10 @@ export const setUserDefaultAddressService = async (addressId: string, userId: st
     });
 
     // !Return
-    return address;
+    return;
 }
 
-export const deleteUserAddressService = async (addressId: string, userId: string) => {
+export const deleteUserAddressService = async (addressId: string) => {
     // !Extra validation
     const address = await prisma.userAddress.findUnique({ where: { id: addressId } });
     if (!address) throw new ApiError(404, "Address not found");
@@ -174,5 +174,5 @@ export const deleteUserAddressService = async (addressId: string, userId: string
     });
 
     // !Return
-    return address;
+    return;
 }

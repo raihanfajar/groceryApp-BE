@@ -127,6 +127,24 @@ export const resetPasswordUserService = async (userId: string, newPassword: stri
     return;
 }
 
+export const changePasswordUserService = async (userId: string, currentPassword: string, newPassword: string) => {
+    // !Extra validation
+    const existingUser = await prisma.users.findUnique({ where: { id: userId } });
+    if (!existingUser) throw new ApiError(404, 'User not found');
+    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+    const isPasswordValid = await comparePassword(currentPassword!, existingUser.password!);
+    if (!isPasswordValid) throw new ApiError(401, 'Invalid current password');
+
+    // !Update password
+    await prisma.users.update({
+        where: { id: userId },
+        data: { password: await hashPassword(newPassword) },
+    });
+
+    // !Return
+    return;
+}
+
 export const sessionLoginUserService = async (userId: string) => {
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { id: userId } });

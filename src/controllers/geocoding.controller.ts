@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { addNewUserAddressService, fgcService, getUserAddressService, rgcService } from "../services/geocoding.service";
+import { addNewUserAddressService, deleteUserAddressService, fgcService, getUserAddressService, rgcService, setUserDefaultAddressService } from "../services/geocoding.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const rgcController = catchAsync(async (req: Request, res: Response) => {
@@ -25,4 +25,14 @@ export const addNewUserAddressController = catchAsync(async (req: MainAuthentica
 export const getUserAddressController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
     const result = await getUserAddressService(req.payload!.userId);
     res.status(200).json({ status: "success", message: "User address retrieved successfully", data: result });
+});
+
+export const setUserDefaultAddressController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    await setUserDefaultAddressService(req.payload!.userId, req.body.addressId);
+    res.status(200).json({ status: "success", message: "Address set as default" });
+});
+
+export const deleteUserAddressController = catchAsync(async (req: Request, res: Response) => {
+    await deleteUserAddressService(req.query.addressId as string);
+    res.status(200).json({ status: "success", message: "Address deleted successfully" });
 });

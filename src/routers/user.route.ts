@@ -1,5 +1,5 @@
 import express from "express";
-import { forgotPasswordUserController, googleAuthCallbackUserController, googleAuthUserController, loginUserController, registerUserController, resendVerificationController, resetPasswordUserController, sessionLoginUserController, updateUserProfileInfoController, verifyUserEmailController } from "../controllers/user.controller";
+import { changePasswordUserController, forgotPasswordUserController, googleAuthCallbackUserController, googleAuthUserController, loginUserController, registerUserController, resendVerificationController, resetPasswordUserController, sessionLoginUserController, updateUserProfileInfoController, verifyUserEmailController } from "../controllers/user.controller";
 import { mainVerifyToken } from "../middlewares/jwt.middleware";
 import { checkLoginUserRequest, checkRegisterUserRequest } from "../middlewares/user.middleware";
 import passport from "../config/passport";
@@ -12,6 +12,7 @@ userRouter.post("/login", checkLoginUserRequest, loginUserController);
 userRouter.post("/resend-verification", resendVerificationController);
 userRouter.post("/forgot-password", forgotPasswordUserController);
 userRouter.post("/reset-password", mainVerifyToken, resetPasswordUserController);
+userRouter.patch("/change-password", mainVerifyToken, changePasswordUserController);
 userRouter.get("/session-login", mainVerifyToken, sessionLoginUserController);
 userRouter.patch("/update-user-profile-info", mainVerifyToken, updateUserProfileInfoController);
 
