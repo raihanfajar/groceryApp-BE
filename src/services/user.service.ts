@@ -62,7 +62,7 @@ export const loginUserService = async (body: Pick<Users, "email" | "password">) 
 
     // !Payload and Token signing
     const payload = { userId: existingUser.id };
-    const accessToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "2h" });
+    const accessToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "24h" });
 
     // !Return
     const { password: _, ...safe } = existingUser;
