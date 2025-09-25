@@ -79,15 +79,19 @@ export class TransactionService {
 		params.append("destination", store.cityId.toString());
 		params.append("weight", totalWeight.toString());
 		params.append("courier", "jne");
+		params.append("price", "lowest");
 
-		const response = await fetch("https://api.rajaongkir.com/starter/cost", {
-			method: "POST",
-			headers: {
-				key: process.env.RAJAONGKIR_API_KEY!,
-				"content-type": "application/x-www-form-urlencoded",
-			},
-			body: params,
-		});
+		const response = await fetch(
+			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
+			{
+				method: "POST",
+				headers: {
+					key: process.env.RAJAONGKIR_API_KEY!,
+					"content-type": "application/x-www-form-urlencoded",
+				},
+				body: params,
+			}
+		);
 
 		if (!response.ok) {
 			throw new Error(
