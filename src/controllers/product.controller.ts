@@ -262,7 +262,7 @@ export class ProductController {
 			if (picture2 !== undefined) updateData.picture2 = picture2;
 			if (picture3 !== undefined) updateData.picture3 = picture3;
 			if (picture4 !== undefined) updateData.picture4 = picture4;
-			if (isActive !== undefined) updateData.isActive = isActive;
+			if (isActive !== undefined) updateData.isActive = isActive === 'true';
 
 			const product = await ProductService.updateProduct(id, updateData);
 

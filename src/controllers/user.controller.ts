@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, verifyUserEmailService } from "../services/user.service";
+import { changePasswordUserService, forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, verifyUserEmailService } from "../services/user.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const registerUserController = catchAsync(async (req: Request, res: Response) => {
@@ -32,6 +32,11 @@ export const resetPasswordUserController = catchAsync(async (req: MainAuthentica
     await resetPasswordUserService(req.payload!.userId, req.body.newPassword);
     res.status(200).json({ status: "success", message: "Password reset successful" });
 });
+
+export const changePasswordUserController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    await changePasswordUserService(req.payload!.userId, req.body.currentPassword, req.body.newPassword);
+    res.status(200).json({ status: "success", message: "Password changed" });
+})
 
 export const sessionLoginUserController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
     const result = await sessionLoginUserService(req.payload!.userId);
