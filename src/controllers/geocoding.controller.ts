@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { addNewUserAddressService, deleteUserAddressService, fgcService, getUserAddressService, rgcService, setUserDefaultAddressService } from "../services/geocoding.service";
+import { addNewUserAddressService, deleteUserAddressService, fgcService, getAllStoreService, getUserAddressService, rgcService, setUserDefaultAddressService } from "../services/geocoding.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const rgcController = catchAsync(async (req: Request, res: Response) => {
@@ -35,4 +35,9 @@ export const setUserDefaultAddressController = catchAsync(async (req: MainAuthen
 export const deleteUserAddressController = catchAsync(async (req: Request, res: Response) => {
     await deleteUserAddressService(req.query.addressId as string);
     res.status(200).json({ status: "success", message: "Address deleted successfully" });
+});
+
+export const getAllStoreController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    const result = await getAllStoreService(req.payload!.userId);
+    res.status(200).json({ status: "success", message: "All stores retrieved successfully", data: result });
 });
