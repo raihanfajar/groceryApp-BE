@@ -176,3 +176,18 @@ export const deleteUserAddressService = async (addressId: string) => {
     // !Return
     return;
 }
+
+export const getAllStoreService = async (userId: string) => {
+    // !Extra validation
+    const user = await prisma.users.findUnique({ where: { id: userId } });
+    if (!user) throw new ApiError(404, "User not found");
+
+    // !Get all store
+    const stores = await prisma.store.findMany({
+        where: { deletedAt: null },
+        orderBy: { createdAt: 'asc' },
+    });
+
+    // !Return
+    return stores;
+}
