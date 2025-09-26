@@ -148,14 +148,49 @@ export class TransactionController {
 				throw new ApiError(400, `Invalid status value: ${statusQuery}`);
 			}
 
+			const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+			const pageSize = req.query.pageSize
+				? parseInt(req.query.pageSize as string, 10)
+				: 10;
+
+			let parsedStartDate: Date | undefined;
+			let parsedEndDate: Date | undefined;
+
+			if (req.query.startDate) {
+				const s = new Date(req.query.startDate as string);
+				if (isNaN(s.getTime())) {
+					throw new ApiError(400, "Invalid startDate format");
+				}
+				parsedStartDate = s;
+			}
+
+			if (req.query.endDate) {
+				const e = new Date(req.query.endDate as string);
+				if (isNaN(e.getTime())) {
+					throw new ApiError(400, "Invalid endDate format");
+				}
+				parsedEndDate = e;
+			}
+
+			if (parsedStartDate && parsedEndDate && parsedStartDate > parsedEndDate) {
+				throw new ApiError(400, "startDate must be before or equal to endDate");
+			}
+
 			const transaction = await this.transactionService.getUserTransactions(
 				userId,
-				statusQuery as OrderStatus
+				{
+					status: statusQuery as OrderStatus,
+					orderId: (req.query.orderId as string) || undefined,
+					startDate: parsedStartDate,
+					endDate: parsedEndDate,
+					page,
+					pageSize,
+				}
 			);
 
 			res.status(200).json({
 				message: "User transaction retrieved successfully",
-				data: { transaction },
+				data: transaction,
 			});
 		}
 	);
