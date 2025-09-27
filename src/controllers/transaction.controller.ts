@@ -109,7 +109,7 @@ export class TransactionController {
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
 			const file = req.file as Express.Multer.File;
-			const transactionId = req.query.transaction as string;
+			const transactionId = req.query.transactionId as string;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
@@ -198,7 +198,7 @@ export class TransactionController {
 	getUserTransactionDetail = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
-			const transactionId = req.query.transaction as string;
+			const transactionId = req.query.transactionId as string;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
@@ -220,7 +220,7 @@ export class TransactionController {
 	completedUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
-			const transactionId = req.query.transaction as string;
+			const transactionId = req.query.transactionId as string;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
@@ -241,7 +241,7 @@ export class TransactionController {
 	cancelUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
-			const transactionId = req.query.transaction as string;
+			const transactionId = req.query.transactionId as string;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
