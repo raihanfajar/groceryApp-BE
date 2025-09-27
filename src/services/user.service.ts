@@ -149,7 +149,7 @@ export const sessionLoginUserService = async (userId: string) => {
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { id: userId } });
     if (!existingUser) throw new ApiError(404, 'User not found');
-    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+    // if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
 
     // !Return
     const { password: _, ...safe } = existingUser;
@@ -165,7 +165,6 @@ export const updateUserProfileInfoService = async (
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { id: userId } });
     if (!existingUser) throw new ApiError(404, "User not found");
-    if (!existingUser.isVerified) throw new ApiError(401, "Please verify your email first");
 
     // Check if email changed
     const emailChanged = email && email !== existingUser.email;
