@@ -41,9 +41,10 @@ export class DiscountController {
 				}
 				storeId = user.storeId;
 			} else {
-				// Super admin must specify store ID
-				if (!storeId) {
-					throw new ApiError(400, 'Store ID is required for Super Admin');
+				// Super admin can create global discounts (storeId = null) or store-specific discounts
+				// If storeId is provided as empty string, convert to null for global discount
+				if (storeId === '') {
+					storeId = null;
 				}
 			}
 
@@ -311,6 +312,41 @@ export class DiscountController {
 			res.json({
 				status: 'success',
 				data: discounts,
+			});
+		}
+	);
+
+	static applyManualDiscount = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const { user } = req;
+			if (!user) {
+				throw new ApiError(401, 'Authentication required');
+			}
+
+			const { discountId, userId } = req.body;
+
+			if (!discountId || !userId) {
+				throw new ApiError(400, 'Discount ID and User ID are required');
+			}
+
+			// Import CartService here to avoid circular dependency
+			const { CartService } = await import('../services/cart.service');
+			const cartService = new CartService();
+
+			// For store admins, pass their storeId to restrict to their store
+			const storeId = user.isSuper ? undefined : user.storeId;
+
+			const result = await cartService.applyManualDiscount(
+				user.id,
+				userId,
+				discountId,
+				storeId
+			);
+
+			res.json({
+				status: 'success',
+				message: 'Manual discount applied successfully',
+				data: result,
 			});
 		}
 	);

@@ -135,7 +135,7 @@ export const DiscountType: {
   MANUAL: 'MANUAL',
   MINIMUM_PURCHASE: 'MINIMUM_PURCHASE',
   BOGO: 'BOGO',
-  AUTOMATIC: 'AUTOMATIC'
+  REGULAR: 'REGULAR'
 };
 
 export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
@@ -20471,7 +20471,7 @@ export namespace Prisma {
 
   export type DiscountGroupByOutputType = {
     id: string
-    storeId: string
+    storeId: string | null
     name: string
     description: string | null
     type: $Enums.DiscountType
@@ -20530,7 +20530,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
     products?: boolean | Discount$productsArgs<ExtArgs>
     usageHistory?: boolean | Discount$usageHistoryArgs<ExtArgs>
@@ -20558,7 +20558,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discount"]>
 
@@ -20582,7 +20582,7 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discount"]>
 
@@ -20610,7 +20610,7 @@ export namespace Prisma {
 
   export type DiscountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "description" | "type" | "valueType" | "value" | "maxDiscountAmount" | "minTransactionValue" | "maxUsagePerCustomer" | "totalUsageLimit" | "currentUsageCount" | "isActive" | "startDate" | "endDate" | "createdAt" | "updatedAt" | "deletedAt" | "adminId", ExtArgs["result"]["discount"]>
   export type DiscountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
     products?: boolean | Discount$productsArgs<ExtArgs>
     usageHistory?: boolean | Discount$usageHistoryArgs<ExtArgs>
@@ -20618,18 +20618,18 @@ export namespace Prisma {
     _count?: boolean | DiscountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DiscountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
   }
   export type DiscountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
   }
 
   export type $DiscountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Discount"
     objects: {
-      store: Prisma.$StorePayload<ExtArgs>
+      store: Prisma.$StorePayload<ExtArgs> | null
       admin: Prisma.$AdminPayload<ExtArgs>
       products: Prisma.$DiscountProductPayload<ExtArgs>[]
       usageHistory: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
@@ -20637,7 +20637,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      storeId: string
+      storeId: string | null
       name: string
       description: string | null
       type: $Enums.DiscountType
@@ -21049,7 +21049,7 @@ export namespace Prisma {
    */
   export interface Prisma__DiscountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    store<T extends Discount$storeArgs<ExtArgs> = {}>(args?: Subset<T, Discount$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Discount$productsArgs<ExtArgs> = {}>(args?: Subset<T, Discount$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usageHistory<T extends Discount$usageHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Discount$usageHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -21495,6 +21495,25 @@ export namespace Prisma {
      * Limit how many Discounts to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Discount.store
+   */
+  export type Discount$storeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    where?: StoreWhereInput
   }
 
   /**
@@ -26859,7 +26878,7 @@ export namespace Prisma {
     OR?: DiscountWhereInput[]
     NOT?: DiscountWhereInput | DiscountWhereInput[]
     id?: StringFilter<"Discount"> | string
-    storeId?: StringFilter<"Discount"> | string
+    storeId?: StringNullableFilter<"Discount"> | string | null
     name?: StringFilter<"Discount"> | string
     description?: StringNullableFilter<"Discount"> | string | null
     type?: EnumDiscountTypeFilter<"Discount"> | $Enums.DiscountType
@@ -26877,7 +26896,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Discount"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Discount"> | Date | string | null
     adminId?: StringFilter<"Discount"> | string
-    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
     admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
     products?: DiscountProductListRelationFilter
     usageHistory?: DiscountUsageHistoryListRelationFilter
@@ -26886,7 +26905,7 @@ export namespace Prisma {
 
   export type DiscountOrderByWithRelationInput = {
     id?: SortOrder
-    storeId?: SortOrder
+    storeId?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     type?: SortOrder
@@ -26916,7 +26935,7 @@ export namespace Prisma {
     AND?: DiscountWhereInput | DiscountWhereInput[]
     OR?: DiscountWhereInput[]
     NOT?: DiscountWhereInput | DiscountWhereInput[]
-    storeId?: StringFilter<"Discount"> | string
+    storeId?: StringNullableFilter<"Discount"> | string | null
     name?: StringFilter<"Discount"> | string
     description?: StringNullableFilter<"Discount"> | string | null
     type?: EnumDiscountTypeFilter<"Discount"> | $Enums.DiscountType
@@ -26934,7 +26953,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Discount"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Discount"> | Date | string | null
     adminId?: StringFilter<"Discount"> | string
-    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
     admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
     products?: DiscountProductListRelationFilter
     usageHistory?: DiscountUsageHistoryListRelationFilter
@@ -26943,7 +26962,7 @@ export namespace Prisma {
 
   export type DiscountOrderByWithAggregationInput = {
     id?: SortOrder
-    storeId?: SortOrder
+    storeId?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     type?: SortOrder
@@ -26973,7 +26992,7 @@ export namespace Prisma {
     OR?: DiscountScalarWhereWithAggregatesInput[]
     NOT?: DiscountScalarWhereWithAggregatesInput | DiscountScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Discount"> | string
-    storeId?: StringWithAggregatesFilter<"Discount"> | string
+    storeId?: StringNullableWithAggregatesFilter<"Discount"> | string | null
     name?: StringWithAggregatesFilter<"Discount"> | string
     description?: StringNullableWithAggregatesFilter<"Discount"> | string | null
     type?: EnumDiscountTypeWithAggregatesFilter<"Discount"> | $Enums.DiscountType
@@ -28754,7 +28773,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
@@ -28763,7 +28782,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedCreateInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -28804,7 +28823,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
@@ -28813,7 +28832,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -28838,7 +28857,7 @@ export namespace Prisma {
 
   export type DiscountCreateManyInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -28880,7 +28899,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -32002,10 +32021,12 @@ export namespace Prisma {
     set?: $Enums.DiscountValueType
   }
 
-  export type StoreUpdateOneRequiredWithoutDiscountsNestedInput = {
+  export type StoreUpdateOneWithoutDiscountsNestedInput = {
     create?: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
     connectOrCreate?: StoreCreateOrConnectWithoutDiscountsInput
     upsert?: StoreUpsertWithoutDiscountsInput
+    disconnect?: StoreWhereInput | boolean
+    delete?: StoreWhereInput | boolean
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutDiscountsInput, StoreUpdateWithoutDiscountsInput>, StoreUncheckedUpdateWithoutDiscountsInput>
   }
@@ -33304,7 +33325,7 @@ export namespace Prisma {
     OR?: DiscountScalarWhereInput[]
     NOT?: DiscountScalarWhereInput | DiscountScalarWhereInput[]
     id?: StringFilter<"Discount"> | string
-    storeId?: StringFilter<"Discount"> | string
+    storeId?: StringNullableFilter<"Discount"> | string | null
     name?: StringFilter<"Discount"> | string
     description?: StringNullableFilter<"Discount"> | string | null
     type?: EnumDiscountTypeFilter<"Discount"> | $Enums.DiscountType
@@ -33442,7 +33463,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
@@ -33450,7 +33471,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedCreateWithoutAdminInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -36169,7 +36190,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
@@ -36177,7 +36198,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedCreateWithoutProductsInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -36282,7 +36303,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
@@ -36290,7 +36311,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -36385,7 +36406,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
@@ -36393,7 +36414,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedCreateWithoutBogoConfigInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -36449,7 +36470,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
@@ -36457,7 +36478,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateWithoutBogoConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -36497,7 +36518,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
@@ -36505,7 +36526,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedCreateWithoutUsageHistoryInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -36708,7 +36729,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
@@ -36716,7 +36737,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateWithoutUsageHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -37532,7 +37553,7 @@ export namespace Prisma {
 
   export type DiscountCreateManyAdminInput = {
     id?: string
-    storeId: string
+    storeId?: string | null
     name: string
     description?: string | null
     type: $Enums.DiscountType
@@ -37618,7 +37639,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
@@ -37626,7 +37647,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
@@ -37650,7 +37671,7 @@ export namespace Prisma {
 
   export type DiscountUncheckedUpdateManyWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType

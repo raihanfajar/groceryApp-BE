@@ -9,7 +9,7 @@ import { ApiError } from '../utils/ApiError';
 const prisma = new PrismaClient();
 
 interface CreateDiscountDto {
-	storeId: string;
+	storeId: string | null; // null for global discounts
 	name: string;
 	description?: string;
 	type: DiscountType;
@@ -103,26 +103,102 @@ export class DiscountService {
 				}
 			}
 
-			// Verify products exist and belong to the store
-			const products = await prisma.storeProduct.findMany({
-				where: {
-					storeId: data.storeId,
-					productId: { in: data.productIds },
-					deletedAt: null,
-					product: {
+			// Verify products exist
+			if (data.storeId) {
+				// Store-specific discount: verify products belong to the store
+				const products = await prisma.storeProduct.findMany({
+					where: {
+						storeId: data.storeId,
+						productId: { in: data.productIds },
+						deletedAt: null,
+						product: {
+							isActive: true,
+							deletedAt: null,
+						},
+					},
+					include: {
+						product: true,
+					},
+				});
+
+				if (products.length !== data.productIds.length) {
+					throw new ApiError(
+						400,
+						'Some products not found or not available in this store'
+					);
+				}
+			} else {
+				// Global discount: verify products exist (regardless of store)
+				const products = await prisma.product.findMany({
+					where: {
+						id: { in: data.productIds },
 						isActive: true,
 						deletedAt: null,
 					},
+				});
+
+				if (products.length !== data.productIds.length) {
+					throw new ApiError(400, 'Some products not found or inactive');
+				}
+			}
+
+			// Check for existing active discounts on the same products
+			const whereConditions = {
+				isActive: true,
+				// Check if discount period overlaps
+				AND: [
+					{ startDate: { lte: data.endDate } },
+					{ endDate: { gte: data.startDate } },
+				],
+				products: {
+					some: {
+						productId: { in: data.productIds },
+					},
+				},
+			};
+
+			// Add store condition based on discount type
+			let storeCondition = {};
+			if (data.storeId) {
+				// Store-specific discount: check for conflicts with same store and global discounts
+				storeCondition = {
+					OR: [{ storeId: data.storeId }, { storeId: null }],
+				};
+			} else {
+				// Global discount: check for conflicts with all existing discounts (all stores)
+				storeCondition = {};
+			}
+
+			const existingDiscounts = await prisma.discount.findMany({
+				where: {
+					...whereConditions,
+					...storeCondition,
 				},
 				include: {
-					product: true,
+					products: {
+						include: {
+							product: {
+								select: { name: true },
+							},
+						},
+					},
+					store: {
+						select: { name: true },
+					},
 				},
 			});
 
-			if (products.length !== data.productIds.length) {
+			if (existingDiscounts.length > 0) {
+				const conflictingProducts = existingDiscounts.flatMap((discount) =>
+					discount.products
+						.filter((p: any) => data.productIds.includes(p.productId))
+						.map((p: any) => p.product.name)
+				);
+				const uniqueProducts = [...new Set(conflictingProducts)];
+
 				throw new ApiError(
-					400,
-					'Some products not found or not available in this store'
+					409,
+					`Products already have active discounts: ${uniqueProducts.join(', ')}. Only one discount per product is allowed.`
 				);
 			}
 
@@ -254,20 +330,36 @@ export class DiscountService {
 
 				// Update product associations if provided
 				if (data.productIds) {
-					// Verify products exist and belong to the store
-					const products = await tx.storeProduct.findMany({
-						where: {
-							storeId: existingDiscount.storeId,
-							productId: { in: data.productIds },
-							deletedAt: null,
-						},
-					});
+					// Verify products exist
+					if (existingDiscount.storeId) {
+						// Store-specific discount: verify products belong to the store
+						const products = await tx.storeProduct.findMany({
+							where: {
+								storeId: existingDiscount.storeId,
+								productId: { in: data.productIds },
+								deletedAt: null,
+							},
+						});
 
-					if (products.length !== data.productIds.length) {
-						throw new ApiError(
-							400,
-							'Some products not found or not available in this store'
-						);
+						if (products.length !== data.productIds.length) {
+							throw new ApiError(
+								400,
+								'Some products not found or not available in this store'
+							);
+						}
+					} else {
+						// Global discount: verify products exist (regardless of store)
+						const products = await tx.product.findMany({
+							where: {
+								id: { in: data.productIds },
+								isActive: true,
+								deletedAt: null,
+							},
+						});
+
+						if (products.length !== data.productIds.length) {
+							throw new ApiError(400, 'Some products not found or inactive');
+						}
 					}
 
 					// Remove existing associations
