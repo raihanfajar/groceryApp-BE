@@ -79,15 +79,19 @@ export class TransactionService {
 		params.append("destination", store.cityId.toString());
 		params.append("weight", totalWeight.toString());
 		params.append("courier", "jne");
+		params.append("price", "lowest");
 
-		const response = await fetch("https://api.rajaongkir.com/starter/cost", {
-			method: "POST",
-			headers: {
-				key: process.env.RAJAONGKIR_API_KEY!,
-				"content-type": "application/x-www-form-urlencoded",
-			},
-			body: params,
-		});
+		const response = await fetch(
+			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
+			{
+				method: "POST",
+				headers: {
+					key: process.env.RAJAONGKIR_API_KEY!,
+					"content-type": "application/x-www-form-urlencoded",
+				},
+				body: params,
+			}
+		);
 
 		if (!response.ok) {
 			throw new Error(
@@ -178,8 +182,7 @@ export class TransactionService {
 				tx
 			);
 
-			// --- KALKULASI HARGA SESUAI ATURAN BARU ---
-			const totalProductPrice = priceDetails.totalPriceAfterDiscount; // Total setelah diskon item
+			const totalProductPrice = priceDetails.totalPriceAfterDiscount;
 
 			let productVoucherDiscount = 0;
 			if (validVoucherProduct) {
@@ -188,8 +191,8 @@ export class TransactionService {
 					validVoucherProduct.maxDiscount
 				);
 			}
-			const discountedProductPrice = productVoucherDiscount; // Ini adalah total potongan dari voucher
-			const finalProductPrice = totalProductPrice - discountedProductPrice; // Harga produk final setelah voucher
+			const discountedProductPrice = productVoucherDiscount;
+			const finalProductPrice = totalProductPrice - discountedProductPrice;
 
 			let deliveryVoucherDiscount = 0;
 			if (validVoucherDelivery) {
@@ -207,6 +210,7 @@ export class TransactionService {
 					storeId,
 					shippingPrice,
 					paymentMethod,
+					receiverName: userAddress.receiverName,
 					totalProductPrice: totalProductPrice,
 					discountedProductPrice: discountedProductPrice,
 					finalProductPrice: finalProductPrice,
@@ -221,6 +225,7 @@ export class TransactionService {
 					city: userAddress.city,
 					district: userAddress.district,
 					districtId: userAddress.districtId,
+					addressLabel: userAddress.addressLabel,
 					status: "waiting_payment",
 					expiryAt:
 						paymentMethod === "manual_transfer"
@@ -586,48 +591,75 @@ export class TransactionService {
 
 	async getUserTransactions(
 		userId: string,
-		status?: OrderStatus,
-		orderId?: string,
-		date?: Date
+		opts?: {
+			status?: OrderStatus;
+			orderId?: string;
+			startDate?: Date;
+			endDate?: Date;
+			page?: number;
+			pageSize?: number;
+		}
 	) {
-		const whereCondition: Prisma.TransactionWhereInput = {
-			userId: userId,
-		};
+		const {
+			status,
+			orderId,
+			startDate,
+			endDate,
+			page = 1,
+			pageSize = 5,
+		} = opts ?? {};
+		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
+		const skip = (Math.max(page, 1) - 1) * safePageSize;
 
-		if (status) {
-			whereCondition.status = status;
+		const whereCondition: Prisma.TransactionWhereInput = { userId };
+
+		if (status) whereCondition.status = status;
+		if (orderId) whereCondition.id = orderId;
+
+		if (startDate || endDate) {
+			if (startDate) {
+				const s = new Date(startDate);
+				s.setHours(0, 0, 0, 0);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					gte: s,
+				};
+			}
+			if (endDate) {
+				const e = new Date(endDate);
+				e.setHours(23, 59, 59, 999);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					lte: e,
+				};
+			}
 		}
 
-		if (date) {
-			const startDate = new Date(date);
-			startDate.setHours(0, 0, 0, 0); // Mulai dari jam 00:00:00
-
-			const endDate = new Date(date);
-			endDate.setHours(23, 59, 59, 999); // Berakhir pada jam 23:59:59
-
-			whereCondition.createdAt = {
-				gte: startDate,
-				lte: endDate,
-			};
-		}
-
-		if (orderId) {
-			whereCondition.id = orderId;
-		}
-
-		const transactions = await prisma.transaction.findMany({
-			where: whereCondition,
-			include: {
-				products: {
-					include: {
-						product: true,
-					},
+		const [transactions, total] = await Promise.all([
+			prisma.transaction.findMany({
+				where: whereCondition,
+				include: {
+					products: { include: { product: true } },
 				},
-			},
-			orderBy: { createdAt: "desc" },
-		});
+				orderBy: { createdAt: "desc" },
+				skip,
+				take: safePageSize,
+			}),
+			prisma.transaction.count({ where: whereCondition }),
+		]);
 
-		return transactions;
+		const totalPages = Math.ceil(total / safePageSize);
+
+		return {
+			data: transactions,
+			meta: {
+				total,
+				page: Math.max(page, 1),
+				pageSize: safePageSize,
+				totalPages,
+				hasNext: page < totalPages,
+			},
+		};
 	}
 
 	async getUserTransactionDetail(userId: string, transactionId: string) {
