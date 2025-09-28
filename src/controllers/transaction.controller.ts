@@ -93,10 +93,8 @@ export class TransactionController {
 
 	handleMidtransNotification = catchAsync(
 		async (req: Request, res: Response) => {
-			// Ambil seluruh body dari request, ini adalah notifikasi dari Midtrans
 			const notificationPayload = req.body;
 
-			// Panggil service yang sudah kita buat untuk menangani notifikasi
 			await this.transactionService.handleMidtransNotification(
 				notificationPayload
 			);
