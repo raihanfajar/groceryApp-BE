@@ -10,6 +10,7 @@ import voucherRouter from "./voucher.route";
 import discountRouter from "./discount.route";
 import reportRouter from "./report.route";
 import transactionRouter from "./transaction.route";
+import storeRouter from "./store.route";
 
 const mainRouter = express.Router();
 
@@ -24,6 +25,7 @@ mainRouter.get("/", (_, res) => {
 
 mainRouter.use("/user", userRouter);
 mainRouter.use("/geocoding", geoCodingRouter);
+mainRouter.use("/stores", storeRouter);
 mainRouter.use("/admin", adminRouter);
 mainRouter.use("/inventory", inventoryRouter);
 mainRouter.use("/discounts", discountRouter);

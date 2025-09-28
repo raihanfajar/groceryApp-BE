@@ -56,7 +56,7 @@ export const loginUserService = async (body: Pick<Users, "email" | "password">) 
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { email } });
     if (!existingUser) throw new ApiError(404, 'User not found');
-    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+    // if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
     const isPasswordValid = await comparePassword(password!, existingUser.password!);
     if (!isPasswordValid) throw new ApiError(401, 'Invalid email or password');
 
@@ -88,7 +88,7 @@ export const forgotPasswordUserService = async (body: Pick<Users, "email">) => {
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { email } });
     if (!existingUser) throw new ApiError(404, 'User not found');
-    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+    // if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
 
     // !Generate token and Send reset password email
     try {
@@ -115,7 +115,7 @@ export const resetPasswordUserService = async (userId: string, newPassword: stri
     // !Extra validation
     const existingUser = await prisma.users.findUnique({ where: { id: userId } });
     if (!existingUser) throw new ApiError(404, 'User not found');
-    if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
+    // if (!existingUser.isVerified) throw new ApiError(401, 'Please verify your email first');
 
     // !Update password
     await prisma.users.update({
