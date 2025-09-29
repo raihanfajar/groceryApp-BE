@@ -132,6 +132,7 @@ export type StockMovement = (typeof StockMovement)[keyof typeof StockMovement]
 
 
 export const DiscountType: {
+  REGULAR: 'REGULAR',
   MANUAL: 'MANUAL',
   MINIMUM_PURCHASE: 'MINIMUM_PURCHASE',
   BOGO: 'BOGO',

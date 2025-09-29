@@ -414,6 +414,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
 };
 
 exports.DiscountType = exports.$Enums.DiscountType = {
+  REGULAR: 'REGULAR',
   MANUAL: 'MANUAL',
   MINIMUM_PURCHASE: 'MINIMUM_PURCHASE',
   BOGO: 'BOGO',

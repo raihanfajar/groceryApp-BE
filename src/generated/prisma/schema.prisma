@@ -367,6 +367,7 @@ model DiscountUsageHistory {
 }
 
 enum DiscountType {
+  REGULAR
   MANUAL // Can be applied manually by admin
   MINIMUM_PURCHASE // Requires minimum transaction value
   BOGO // Buy One Get One

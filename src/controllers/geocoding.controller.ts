@@ -41,3 +41,58 @@ export const getAllStoreController = catchAsync(async (req: MainAuthenticatedReq
     const result = await getAllStoreService(req.payload!.userId);
     res.status(200).json({ status: "success", message: "All stores retrieved successfully", data: result });
 });
+
+export const getRajongProvince = catchAsync(async (req: Request, res: Response) => {
+    const rajaRes = await fetch(
+        'https://rajaongkir.komerce.id/api/v1/destination/province/',
+        { headers: { key: process.env.RAJAONGKIR_API_KEY! } }
+    );
+
+    if (!rajaRes.ok) {
+        return res.status(rajaRes.status).json({
+            status: 'error',
+            message: `RajaOngkir responded with ${rajaRes.status}`,
+        });
+    };
+
+    const data = await rajaRes.json();   // ← convert the body
+    res.status(200).json({ status: 'success', data });
+});
+
+export const getRajongCityByProvinceId = catchAsync(async (req: Request, res: Response) => {
+    const { provinceId } = req.query as { provinceId: string };
+    console.log(provinceId);
+    const rajaRes = await fetch(
+        'https://rajaongkir.komerce.id/api/v1/destination/city/' + provinceId,
+        { headers: { key: process.env.RAJAONGKIR_API_KEY! } }
+    );
+
+    if (!rajaRes.ok) {
+        return res.status(rajaRes.status).json({
+            status: 'error',
+            message: `RajaOngkir responded with ${rajaRes.status}`,
+        });
+    };
+
+    const data = await rajaRes.json();   // ← convert the body
+    res.status(200).json({ status: 'success', data });
+});
+
+export const getRajongDistrictByCityId = catchAsync(async (req: Request, res: Response) => {
+    const { cityId } = req.query as { cityId: string };
+    console.log(cityId);
+    const rajaRes = await fetch(
+        'https://rajaongkir.komerce.id/api/v1/destination/district/' + cityId,
+        { headers: { key: process.env.RAJAONGKIR_API_KEY! } }
+    );
+
+    if (!rajaRes.ok) {
+        return res.status(rajaRes.status).json({
+            status: 'error',
+            message: `RajaOngkir responded with ${rajaRes.status}`,
+        });
+    };
+
+    const data = await rajaRes.json();   // ← convert the body
+    res.status(200).json({ status: 'success', data });
+});
