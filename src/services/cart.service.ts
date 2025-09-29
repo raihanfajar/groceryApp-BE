@@ -35,7 +35,7 @@ type CartWithPromoItem = {
 
 type ComputedCartItem = CartWithPromoItem & {
 	availability: {
-		status: "AVAILABLE" | "OUT_OF_STOCK" | "NOT_AVAILABLE";
+		status: 'AVAILABLE' | 'OUT_OF_STOCK' | 'NOT_AVAILABLE';
 		currentStock: number;
 	};
 };
@@ -155,7 +155,7 @@ export class CartService {
 		if (!cart) return null;
 
 		const cartWithComputed = await prisma.$transaction(async (tx) => {
-			type Key = string; 
+			type Key = string;
 
 			const pairs = new Set<Key>();
 			const storeIdsSet = new Set<string>();
@@ -200,12 +200,12 @@ export class CartService {
 				include: {
 					bogoConfig: true,
 					products: {
-						select: { productId: true }, 
+						select: { productId: true },
 					},
 				},
 			});
 
-			const discountIndex = new Map<string, any[]>(); 
+			const discountIndex = new Map<string, any[]>();
 			for (const d of discounts) {
 				for (const p of d.products || []) {
 					const key = `${d.storeId}:${p.productId}`;
@@ -228,17 +228,17 @@ export class CartService {
 				// - jika storeProduct tidak ada -> kategori "not_avaible" (tetap jangan hapus)
 				// - jika ada tapi stock < quantity -> "OUT_OF_STOCK"
 				// - jika ada dan stock >= quantity -> "AVAILABLE"
-				let availabilityStatus: ComputedCartItem["availability"];
+				let availabilityStatus: ComputedCartItem['availability'];
 				if (currentStock === null) {
 					availabilityStatus = {
-						status: "NOT_AVAILABLE", 
+						status: 'NOT_AVAILABLE',
 						currentStock: 0,
 					};
 				} else {
 					const numericStock = currentStock ?? 0;
 					availabilityStatus = {
 						status:
-							numericStock >= item.quantity ? "AVAILABLE" : "OUT_OF_STOCK",
+							numericStock >= item.quantity ? 'AVAILABLE' : 'OUT_OF_STOCK',
 						currentStock: numericStock,
 					};
 				}
