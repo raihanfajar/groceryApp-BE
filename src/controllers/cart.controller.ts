@@ -10,7 +10,7 @@ export class CartController {
 	cartCount = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
 			const { userId } = req.payload!;
-			const storeId = "7658f570-f8a7-4fb4-901a-433a21047108";
+			const storeId = req.query.storeId as string;
 			if (!userId) {
 				throw new ApiError(400, "User ID is required");
 			}
