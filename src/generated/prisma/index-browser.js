@@ -417,7 +417,7 @@ exports.DiscountType = exports.$Enums.DiscountType = {
   MANUAL: 'MANUAL',
   MINIMUM_PURCHASE: 'MINIMUM_PURCHASE',
   BOGO: 'BOGO',
-  AUTOMATIC: 'AUTOMATIC'
+  REGULAR: 'REGULAR'
 };
 
 exports.DiscountValueType = exports.$Enums.DiscountValueType = {
