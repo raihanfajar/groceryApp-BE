@@ -32,25 +32,31 @@ export class DiscountMiddleware {
 			throw new ApiError(400, 'Valid discount type is required');
 		}
 
-		if (!valueType || !Object.values(DiscountValueType).includes(valueType)) {
-			throw new ApiError(400, 'Valid discount value type is required');
-		}
+		// For BOGO discounts, value and valueType are not required
+		if (type !== DiscountType.BOGO) {
+			if (!valueType || !Object.values(DiscountValueType).includes(valueType)) {
+				throw new ApiError(400, 'Valid discount value type is required');
+			}
 
-		if (
-			value === undefined ||
-			value === null ||
-			typeof value !== 'number' ||
-			value <= 0
-		) {
-			throw new ApiError(400, 'Value must be a positive number');
-		}
+			if (
+				value === undefined ||
+				value === null ||
+				typeof value !== 'number' ||
+				value <= 0
+			) {
+				throw new ApiError(400, 'Value must be a positive number');
+			}
 
-		// Validate percentage bounds
-		if (
-			valueType === DiscountValueType.PERCENTAGE &&
-			(value < 1 || value > 100)
-		) {
-			throw new ApiError(400, 'Percentage discount must be between 1 and 100');
+			// Validate percentage bounds
+			if (
+				valueType === DiscountValueType.PERCENTAGE &&
+				(value < 1 || value > 100)
+			) {
+				throw new ApiError(
+					400,
+					'Percentage discount must be between 1 and 100'
+				);
+			}
 		}
 
 		// Validate dates

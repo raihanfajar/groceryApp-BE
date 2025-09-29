@@ -49,6 +49,9 @@ discountRouter.post(
 	DiscountController.applyDiscount
 );
 
+// Apply manual discount to cart (admin only)
+discountRouter.post('/apply/manual', DiscountController.applyManualDiscount);
+
 // Get discount usage report (admin only)
 discountRouter.get(
 	'/report/usage',
