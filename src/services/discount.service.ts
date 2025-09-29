@@ -9,12 +9,12 @@ import { ApiError } from '../utils/ApiError';
 const prisma = new PrismaClient();
 
 interface CreateDiscountDto {
-	storeId: string;
+	storeId: string | null; // null for global discounts
 	name: string;
 	description?: string;
 	type: DiscountType;
-	valueType: DiscountValueType;
-	value: number;
+	valueType?: DiscountValueType; // Optional for BOGO discounts
+	value?: number; // Optional for BOGO discounts
 	maxDiscountAmount?: number;
 	minTransactionValue?: number;
 	maxUsagePerCustomer?: number;
@@ -70,19 +70,26 @@ interface DiscountFilter {
 export class DiscountService {
 	static async createDiscount(data: CreateDiscountDto) {
 		try {
-			// Validate discount value
-			if (
-				data.valueType === DiscountValueType.PERCENTAGE &&
-				(data.value < 1 || data.value > 100)
-			) {
-				throw new ApiError(
-					400,
-					'Percentage discount must be between 1 and 100'
-				);
-			}
+			// Validate discount value (skip for BOGO discounts)
+			if (data.type !== DiscountType.BOGO) {
+				if (
+					data.valueType === DiscountValueType.PERCENTAGE &&
+					data.value !== undefined &&
+					(data.value < 1 || data.value > 100)
+				) {
+					throw new ApiError(
+						400,
+						'Percentage discount must be between 1 and 100'
+					);
+				}
 
-			if (data.valueType === DiscountValueType.NOMINAL && data.value <= 0) {
-				throw new ApiError(400, 'Nominal discount must be greater than 0');
+				if (
+					data.valueType === DiscountValueType.NOMINAL &&
+					data.value !== undefined &&
+					data.value <= 0
+				) {
+					throw new ApiError(400, 'Nominal discount must be greater than 0');
+				}
 			}
 
 			// Validate dates
@@ -103,47 +110,134 @@ export class DiscountService {
 				}
 			}
 
-			// Verify products exist and belong to the store
-			const products = await prisma.storeProduct.findMany({
-				where: {
-					storeId: data.storeId,
-					productId: { in: data.productIds },
-					deletedAt: null,
-					product: {
+			// Verify products exist
+			if (data.storeId) {
+				// Store-specific discount: verify products belong to the store
+				const products = await prisma.storeProduct.findMany({
+					where: {
+						storeId: data.storeId,
+						productId: { in: data.productIds },
+						deletedAt: null,
+						product: {
+							isActive: true,
+							deletedAt: null,
+						},
+					},
+					include: {
+						product: true,
+					},
+				});
+
+				if (products.length !== data.productIds.length) {
+					throw new ApiError(
+						400,
+						'Some products not found or not available in this store'
+					);
+				}
+			} else {
+				// Global discount: verify products exist (regardless of store)
+				const products = await prisma.product.findMany({
+					where: {
+						id: { in: data.productIds },
 						isActive: true,
 						deletedAt: null,
 					},
+				});
+
+				if (products.length !== data.productIds.length) {
+					throw new ApiError(400, 'Some products not found or inactive');
+				}
+			}
+
+			// Check for existing active discounts on the same products
+			const whereConditions = {
+				isActive: true,
+				// Check if discount period overlaps
+				AND: [
+					{ startDate: { lte: data.endDate } },
+					{ endDate: { gte: data.startDate } },
+				],
+				products: {
+					some: {
+						productId: { in: data.productIds },
+					},
+				},
+			};
+
+			// Add store condition based on discount type
+			let storeCondition = {};
+			if (data.storeId) {
+				// Store-specific discount: check for conflicts with same store and global discounts
+				storeCondition = {
+					OR: [{ storeId: data.storeId }, { storeId: null }],
+				};
+			} else {
+				// Global discount: check for conflicts with all existing discounts (all stores)
+				storeCondition = {};
+			}
+
+			const existingDiscounts = await prisma.discount.findMany({
+				where: {
+					...whereConditions,
+					...storeCondition,
 				},
 				include: {
-					product: true,
+					products: {
+						include: {
+							product: {
+								select: { name: true },
+							},
+						},
+					},
+					store: {
+						select: { name: true },
+					},
 				},
 			});
 
-			if (products.length !== data.productIds.length) {
+			if (existingDiscounts.length > 0) {
+				const conflictingProducts = existingDiscounts.flatMap((discount) =>
+					discount.products
+						.filter((p: any) => data.productIds.includes(p.productId))
+						.map((p: any) => p.product.name)
+				);
+				const uniqueProducts = [...new Set(conflictingProducts)];
+
 				throw new ApiError(
-					400,
-					'Some products not found or not available in this store'
+					409,
+					`Products already have active discounts: ${uniqueProducts.join(', ')}. Only one discount per product is allowed.`
 				);
 			}
 
 			return await prisma.$transaction(async (tx) => {
 				// Create the discount
+				const discountData: any = {
+					storeId: data.storeId,
+					name: data.name,
+					description: data.description,
+					type: data.type,
+					minTransactionValue: data.minTransactionValue,
+					maxUsagePerCustomer: data.maxUsagePerCustomer,
+					totalUsageLimit: data.totalUsageLimit,
+					startDate: data.startDate,
+					endDate: data.endDate,
+					adminId: data.adminId,
+				};
+
+				// Handle value-related fields based on discount type
+				if (data.type !== DiscountType.BOGO) {
+					discountData.valueType = data.valueType;
+					discountData.value = data.value;
+					discountData.maxDiscountAmount = data.maxDiscountAmount;
+				} else {
+					// For BOGO discounts, provide default values since DB requires them
+					discountData.valueType = DiscountValueType.PERCENTAGE;
+					discountData.value = 0; // Not used for BOGO logic
+					discountData.maxDiscountAmount = null;
+				}
+
 				const discount = await tx.discount.create({
-					data: {
-						storeId: data.storeId,
-						name: data.name,
-						description: data.description,
-						type: data.type,
-						valueType: data.valueType,
-						value: data.value,
-						maxDiscountAmount: data.maxDiscountAmount,
-						minTransactionValue: data.minTransactionValue,
-						maxUsagePerCustomer: data.maxUsagePerCustomer,
-						totalUsageLimit: data.totalUsageLimit,
-						startDate: data.startDate,
-						endDate: data.endDate,
-						adminId: data.adminId,
-					},
+					data: discountData,
 				});
 
 				// Create discount-product associations
@@ -170,6 +264,7 @@ export class DiscountService {
 				return discount;
 			});
 		} catch (error) {
+			console.error('Error creating discount:', error);
 			if (error instanceof ApiError) throw error;
 			throw new ApiError(500, 'Failed to create discount');
 		}
@@ -254,20 +349,36 @@ export class DiscountService {
 
 				// Update product associations if provided
 				if (data.productIds) {
-					// Verify products exist and belong to the store
-					const products = await tx.storeProduct.findMany({
-						where: {
-							storeId: existingDiscount.storeId,
-							productId: { in: data.productIds },
-							deletedAt: null,
-						},
-					});
+					// Verify products exist
+					if (existingDiscount.storeId) {
+						// Store-specific discount: verify products belong to the store
+						const products = await tx.storeProduct.findMany({
+							where: {
+								storeId: existingDiscount.storeId,
+								productId: { in: data.productIds },
+								deletedAt: null,
+							},
+						});
 
-					if (products.length !== data.productIds.length) {
-						throw new ApiError(
-							400,
-							'Some products not found or not available in this store'
-						);
+						if (products.length !== data.productIds.length) {
+							throw new ApiError(
+								400,
+								'Some products not found or not available in this store'
+							);
+						}
+					} else {
+						// Global discount: verify products exist (regardless of store)
+						const products = await tx.product.findMany({
+							where: {
+								id: { in: data.productIds },
+								isActive: true,
+								deletedAt: null,
+							},
+						});
+
+						if (products.length !== data.productIds.length) {
+							throw new ApiError(400, 'Some products not found or inactive');
+						}
 					}
 
 					// Remove existing associations
@@ -355,9 +466,21 @@ export class DiscountService {
 
 			const where: Prisma.DiscountWhereInput = {
 				deletedAt: null,
-				...whereConditions,
 			};
 
+			// Handle storeId filtering to include global discounts
+			if (filter.storeId) {
+				where.OR = [
+					{ storeId: filter.storeId }, // Store-specific discounts
+					{ storeId: null }, // Global discounts
+				];
+			} else if (filter.storeId === null) {
+				where.storeId = null; // Only global discounts
+			}
+
+			// Add other filter conditions
+			if (filter.type) where.type = filter.type;
+			if (filter.isActive !== undefined) where.isActive = filter.isActive;
 			if (filter.dateFrom || filter.dateTo) {
 				where.AND = [];
 				if (filter.dateFrom) {
@@ -376,7 +499,9 @@ export class DiscountService {
 				prisma.discount.findMany({
 					where,
 					include: {
-						store: { select: { id: true, name: true } },
+						store: {
+							select: { id: true, name: true, city: true, province: true },
+						},
 						admin: { select: { id: true, name: true, email: true } },
 						products: {
 							include: {
@@ -423,7 +548,9 @@ export class DiscountService {
 			const discount = await prisma.discount.findUnique({
 				where: { id: discountId, deletedAt: null },
 				include: {
-					store: { select: { id: true, name: true } },
+					store: {
+						select: { id: true, name: true, city: true, province: true },
+					},
 					admin: { select: { id: true, name: true, email: true } },
 					products: {
 						include: {
@@ -605,7 +732,9 @@ export class DiscountService {
 								type: true,
 								valueType: true,
 								value: true,
-								store: { select: { id: true, name: true } },
+								store: {
+									select: { id: true, name: true, city: true, province: true },
+								},
 							},
 						},
 						user: { select: { id: true, name: true, email: true } },

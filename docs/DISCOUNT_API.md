@@ -19,12 +19,12 @@ All discount endpoints require admin authentication:
 
 ## Discount Types
 
-| Type               | Description                                   |
-| ------------------ | --------------------------------------------- |
-| `MANUAL`           | Can be applied manually by admin              |
-| `MINIMUM_PURCHASE` | Requires minimum transaction value            |
-| `BOGO`             | Buy One Get One offers                        |
-| `AUTOMATIC`        | Automatically applied when conditions are met |
+| Type               | Description                                                     |
+| ------------------ | --------------------------------------------------------------- |
+| `MANUAL`           | Can be applied manually by admin                                |
+| `MINIMUM_PURCHASE` | Requires minimum transaction value                              |
+| `BOGO`             | Buy One Get One offers                                          |
+| `REGULAR`          | Regular discount, automatically applied when conditions are met |
 
 ## Discount Value Types
 
@@ -54,7 +54,7 @@ Content-Type: application/json
 {
 	"name": "Weekend Special",
 	"description": "20% off on fresh fruits",
-	"type": "AUTOMATIC",
+	"type": "REGULAR",
 	"valueType": "PERCENTAGE",
 	"value": 20,
 	"maxDiscountAmount": 50000,
@@ -98,7 +98,7 @@ Content-Type: application/json
 		"storeId": "store-uuid",
 		"name": "Weekend Special",
 		"description": "20% off on fresh fruits",
-		"type": "AUTOMATIC",
+		"type": "REGULAR",
 		"valueType": "PERCENTAGE",
 		"value": 20,
 		"maxDiscountAmount": 50000,
@@ -175,7 +175,7 @@ Retrieve discounts with filtering options.
 
 ```
 ?storeId=store-uuid          // Optional for Super Admin (auto-set for Store Admin)
-&type=AUTOMATIC              // Filter by discount type
+&type=REGULAR              // Filter by discount type
 &isActive=true               // Filter by active status
 &dateFrom=2025-09-01         // Filter from date
 &dateTo=2025-09-30           // Filter to date
@@ -195,7 +195,7 @@ Retrieve discounts with filtering options.
 				"storeId": "store-uuid",
 				"name": "Weekend Special",
 				"description": "20% off on fresh fruits",
-				"type": "AUTOMATIC",
+				"type": "REGULAR",
 				"valueType": "PERCENTAGE",
 				"value": 20,
 				"maxDiscountAmount": 50000,
@@ -389,7 +389,7 @@ Retrieve comprehensive discount usage statistics and history.
 				"discount": {
 					"id": "discount-uuid",
 					"name": "Weekend Special",
-					"type": "AUTOMATIC",
+					"type": "REGULAR",
 					"valueType": "PERCENTAGE",
 					"value": 20,
 					"store": {
@@ -445,7 +445,7 @@ Get applicable discounts for a specific order (public endpoint for frontend).
 			"id": "discount-uuid",
 			"name": "Weekend Special",
 			"description": "20% off on fresh fruits",
-			"type": "AUTOMATIC",
+			"type": "REGULAR",
 			"valueType": "PERCENTAGE",
 			"value": 20,
 			"maxDiscountAmount": 50000,

@@ -293,7 +293,7 @@ enum StockMovement {
 
 model Discount {
   id                  String                 @id @default(uuid())
-  storeId             String
+  storeId             String? // null for global discounts
   name                String
   description         String?
   type                DiscountType
@@ -311,7 +311,7 @@ model Discount {
   updatedAt           DateTime               @updatedAt
   deletedAt           DateTime?
   adminId             String // who created the discount
-  store               Store                  @relation(fields: [storeId], references: [id])
+  store               Store?                 @relation(fields: [storeId], references: [id])
   admin               Admin                  @relation("DiscountCreator", fields: [adminId], references: [id])
   products            DiscountProduct[]
   usageHistory        DiscountUsageHistory[]
@@ -370,7 +370,7 @@ enum DiscountType {
   MANUAL // Can be applied manually by admin
   MINIMUM_PURCHASE // Requires minimum transaction value
   BOGO // Buy One Get One
-  AUTOMATIC // Automatically applied when conditions are met
+  REGULAR // Regular discount, automatically applied when conditions are met
 }
 
 enum DiscountValueType {

@@ -1,5 +1,5 @@
-import { prisma } from "../lib/prisma";
-import { ApiError } from "../utils/ApiError";
+import { prisma } from '../lib/prisma';
+import { ApiError } from '../utils/ApiError';
 
 type CartWithPromoItem = {
 	// basic cart product fields
@@ -35,7 +35,7 @@ type CartWithPromoItem = {
 
 type ComputedCartItem = CartWithPromoItem & {
 	availability: {
-		status: "AVAILABLE" | "OUT_OF_STOCK" | "NOT_AVAILABLE";
+		status: 'AVAILABLE' | 'OUT_OF_STOCK' | 'NOT_AVAILABLE';
 		currentStock: number;
 	};
 };
@@ -49,7 +49,7 @@ export class CartService {
 			});
 
 			if (!cart) {
-				throw new ApiError(400, "User doesnt have cart yet");
+				throw new ApiError(400, 'User doesnt have cart yet');
 			}
 
 			// --- BAGIAN 1: SINKRONISASI KERANJANG (DIREVISI) ---
@@ -155,7 +155,7 @@ export class CartService {
 		if (!cart) return null;
 
 		const cartWithComputed = await prisma.$transaction(async (tx) => {
-			type Key = string; 
+			type Key = string;
 
 			const pairs = new Set<Key>();
 			const storeIdsSet = new Set<string>();
@@ -200,12 +200,12 @@ export class CartService {
 				include: {
 					bogoConfig: true,
 					products: {
-						select: { productId: true }, 
+						select: { productId: true },
 					},
 				},
 			});
 
-			const discountIndex = new Map<string, any[]>(); 
+			const discountIndex = new Map<string, any[]>();
 			for (const d of discounts) {
 				for (const p of d.products || []) {
 					const key = `${d.storeId}:${p.productId}`;
@@ -228,17 +228,17 @@ export class CartService {
 				// - jika storeProduct tidak ada -> kategori "not_avaible" (tetap jangan hapus)
 				// - jika ada tapi stock < quantity -> "OUT_OF_STOCK"
 				// - jika ada dan stock >= quantity -> "AVAILABLE"
-				let availabilityStatus: ComputedCartItem["availability"];
+				let availabilityStatus: ComputedCartItem['availability'];
 				if (currentStock === null) {
 					availabilityStatus = {
-						status: "NOT_AVAILABLE", 
+						status: 'NOT_AVAILABLE',
 						currentStock: 0,
 					};
 				} else {
 					const numericStock = currentStock ?? 0;
 					availabilityStatus = {
 						status:
-							numericStock >= item.quantity ? "AVAILABLE" : "OUT_OF_STOCK",
+							numericStock >= item.quantity ? 'AVAILABLE' : 'OUT_OF_STOCK',
 						currentStock: numericStock,
 					};
 				}
@@ -251,13 +251,37 @@ export class CartService {
 				let bestDiscountAmount = 0;
 				for (const d of candidateDiscounts) {
 					let discountAmount = 0;
-					if (d.valueType === "PERCENTAGE") {
-						discountAmount = Math.floor((basePrice * d.value) / 100);
-						if (d.maxDiscountAmount) {
-							discountAmount = Math.min(discountAmount, d.maxDiscountAmount);
+
+					if (d.type === 'BOGO' && d.bogoConfig) {
+						// Calculate BOGO discount
+						const { buyQuantity, getQuantity, maxBogoSets } = d.bogoConfig;
+						const totalRequiredItems = buyQuantity + getQuantity;
+						const maxPossibleSets = Math.floor(
+							item.quantity / totalRequiredItems
+						);
+						const actualSets = maxBogoSets
+							? Math.min(maxPossibleSets, maxBogoSets)
+							: maxPossibleSets;
+						const freeItems = actualSets * getQuantity;
+
+						if (d.valueType === 'PERCENTAGE') {
+							// For BOGO, percentage is usually 100% (free items)
+							discountAmount = Math.floor(
+								(basePrice * d.value * freeItems) / 100
+							);
+						} else if (d.valueType === 'NOMINAL') {
+							discountAmount = d.value * freeItems;
 						}
-					} else if (d.valueType === "NOMINAL") {
-						discountAmount = d.value;
+					} else {
+						// Regular discount calculation for REGULAR and MINIMUM_PURCHASE
+						if (d.valueType === 'PERCENTAGE') {
+							discountAmount = Math.floor((basePrice * d.value) / 100);
+							if (d.maxDiscountAmount) {
+								discountAmount = Math.min(discountAmount, d.maxDiscountAmount);
+							}
+						} else if (d.valueType === 'NOMINAL') {
+							discountAmount = d.value;
+						}
 					}
 
 					if (discountAmount > bestDiscountAmount) {
@@ -321,7 +345,7 @@ export class CartService {
 		});
 
 		if (!cart) {
-			throw new ApiError(400, "User is not Found");
+			throw new ApiError(400, 'User is not Found');
 		}
 
 		const stock = await prisma.storeProduct.findFirst({
@@ -329,10 +353,10 @@ export class CartService {
 			select: { stock: true },
 		});
 		if (!stock) {
-			throw new ApiError(400, "Product is not Found");
+			throw new ApiError(400, 'Product is not Found');
 		}
 		if (stock.stock <= 0) {
-			throw new ApiError(400, "Product is out of stock");
+			throw new ApiError(400, 'Product is out of stock');
 		}
 
 		const addProduct = await prisma.cartProduct.findFirst({
@@ -369,7 +393,7 @@ export class CartService {
 		});
 
 		if (!cart) {
-			throw new ApiError(400, "User is not Found");
+			throw new ApiError(400, 'User is not Found');
 		}
 		if (quantity === 0) {
 			const cartProduct = await prisma.cartProduct.delete({
@@ -390,10 +414,10 @@ export class CartService {
 					},
 				});
 				if (!stock) {
-					throw new ApiError(400, "Product is not Found on this store");
+					throw new ApiError(400, 'Product is not Found on this store');
 				}
 				if (stock && stock.stock < quantity) {
-					throw new ApiError(400, "Not enough stock");
+					throw new ApiError(400, 'Not enough stock');
 				}
 				const cartProduct = await tx.cartProduct.update({
 					where: {
@@ -406,5 +430,179 @@ export class CartService {
 				return cartProduct;
 			});
 		}
+	}
+
+	async applyManualDiscount(
+		adminId: string,
+		userId: string,
+		discountId: string,
+		storeId?: string
+	) {
+		return await prisma.$transaction(async (tx) => {
+			// Verify discount exists and is MANUAL type
+			const discount = await tx.discount.findFirst({
+				where: {
+					id: discountId,
+					type: 'MANUAL',
+					isActive: true,
+					...(storeId && { storeId }), // For store admin, restrict to their store
+				},
+				include: {
+					products: {
+						include: {
+							product: true,
+						},
+					},
+					bogoConfig: true,
+				},
+			});
+
+			if (!discount) {
+				throw new ApiError(404, 'Manual discount not found or not available');
+			}
+
+			// Check if discount is within date range
+			const now = new Date();
+			if (discount.startDate > now || discount.endDate < now) {
+				throw new ApiError(400, 'Discount is not active at this time');
+			}
+
+			// Check usage limits
+			if (discount.totalUsageLimit) {
+				const currentUsage = await tx.discountUsageHistory.count({
+					where: { discountId: discount.id },
+				});
+				if (currentUsage >= discount.totalUsageLimit) {
+					throw new ApiError(400, 'Discount usage limit exceeded');
+				}
+			}
+
+			if (discount.maxUsagePerCustomer) {
+				const userUsage = await tx.discountUsageHistory.count({
+					where: {
+						discountId: discount.id,
+						userId: userId,
+					},
+				});
+				if (userUsage >= discount.maxUsagePerCustomer) {
+					throw new ApiError(
+						400,
+						'User has reached maximum usage for this discount'
+					);
+				}
+			}
+
+			// Get user's cart
+			const cart = await tx.cart.findFirst({
+				where: { userId },
+				include: {
+					items: {
+						include: {
+							product: true,
+						},
+					},
+				},
+			});
+
+			if (!cart || cart.items.length === 0) {
+				throw new ApiError(400, 'Cart is empty');
+			}
+
+			// Calculate discount value
+			const applicableItems = cart.items.filter((item) =>
+				discount.products.some((dp) => dp.productId === item.productId)
+			);
+
+			if (applicableItems.length === 0) {
+				throw new ApiError(
+					400,
+					'No applicable products in cart for this discount'
+				);
+			}
+
+			const orderTotal = cart.items.reduce((total, item) => {
+				return total + item.product.price * item.quantity;
+			}, 0);
+
+			// Check minimum transaction value
+			if (
+				discount.minTransactionValue &&
+				orderTotal < discount.minTransactionValue
+			) {
+				throw new ApiError(
+					400,
+					`Minimum transaction value of ${discount.minTransactionValue} not met`
+				);
+			}
+
+			let totalDiscountValue = 0;
+
+			for (const item of applicableItems) {
+				const basePrice = item.product.price;
+				let discountAmount = 0;
+
+				if (discount.type === 'BOGO' && discount.bogoConfig) {
+					// Calculate BOGO discount
+					const { buyQuantity, getQuantity, maxBogoSets } = discount.bogoConfig;
+					const totalRequiredItems = buyQuantity + getQuantity;
+					const maxPossibleSets = Math.floor(
+						item.quantity / totalRequiredItems
+					);
+					const actualSets = maxBogoSets
+						? Math.min(maxPossibleSets, maxBogoSets)
+						: maxPossibleSets;
+					const freeItems = actualSets * getQuantity;
+
+					if (discount.valueType === 'PERCENTAGE') {
+						discountAmount = Math.floor(
+							(basePrice * discount.value * freeItems) / 100
+						);
+					} else if (discount.valueType === 'NOMINAL') {
+						discountAmount = discount.value * freeItems;
+					}
+				} else {
+					// Regular discount calculation
+					if (discount.valueType === 'PERCENTAGE') {
+						discountAmount = Math.floor(
+							(basePrice * item.quantity * discount.value) / 100
+						);
+						if (discount.maxDiscountAmount) {
+							discountAmount = Math.min(
+								discountAmount,
+								discount.maxDiscountAmount
+							);
+						}
+					} else if (discount.valueType === 'NOMINAL') {
+						discountAmount = discount.value * item.quantity;
+					}
+				}
+
+				totalDiscountValue += discountAmount;
+			}
+
+			// Record usage history
+			const usageHistory = await tx.discountUsageHistory.create({
+				data: {
+					discountId: discount.id,
+					userId: userId,
+					adminId: adminId,
+					discountValue: totalDiscountValue,
+					orderTotal: orderTotal,
+					usedAt: now,
+				},
+			});
+
+			return {
+				discount: {
+					id: discount.id,
+					name: discount.name,
+					type: discount.type,
+				},
+				appliedValue: totalDiscountValue,
+				orderTotal: orderTotal,
+				finalTotal: orderTotal - totalDiscountValue,
+				usageHistory,
+			};
+		});
 	}
 }
