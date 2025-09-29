@@ -153,6 +153,7 @@ export class TransactionService {
 				throw new ApiError(400, "Product voucher is not valid.");
 			}
 		}
+		if (!paymentMethod) throw new ApiError(400, "Payment method is required.");
 		let validVoucherDelivery = null;
 		if (codeVoucherDelivery) {
 			validVoucherDelivery = await prisma.voucherDelivery.findUnique({
@@ -558,6 +559,7 @@ export class TransactionService {
 		file: Express.Multer.File,
 		transactionId: string
 	) {
+		console.log("udh masuk service");
 		prisma.$transaction(async (tx) => {
 			const transaction = await tx.transaction.findFirst({
 				where: {
@@ -756,25 +758,111 @@ export class TransactionService {
 	}
 
 	// Admin transaction Actions
-	async getStoreTransactions(adminId: string, status?: OrderStatus) {
+	async getStoreTransactions(
+		adminId: string,
+		opts?: {
+			status?: OrderStatus;
+			orderId?: string;
+			startDate?: Date;
+			endDate?: Date;
+			page?: number;
+			pageSize?: number;
+		}
+	) {
 		const admin = await prisma.admin.findFirst({
-			where: {
-				id: adminId,
-			},
+			where: { id: adminId },
 		});
 
 		if (!admin) {
 			throw new ApiError(404, "Admin not found");
 		}
+
 		const storeId = admin.storeId;
+		if (!storeId) {
+			throw new ApiError(404, "Admin has no store assigned");
+		}
 
-		if (!storeId) throw new ApiError(404, "Admin has no store assigned");
+		const {
+			status,
+			orderId,
+			startDate,
+			endDate,
+			page = 1,
+			pageSize = 5,
+		} = opts ?? {};
 
-		const transactions = await prisma.transaction.findMany({
-			where: {
-				storeId: storeId,
-				status: status,
+		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
+		const safePage = Math.max(page, 1);
+		const skip = (safePage - 1) * safePageSize;
+
+		const whereCondition: Prisma.TransactionWhereInput = {
+			storeId,
+		};
+
+		if (status) whereCondition.status = status;
+		if (orderId) whereCondition.id = orderId;
+
+		if (startDate || endDate) {
+			if (startDate) {
+				const s = new Date(startDate);
+				s.setHours(0, 0, 0, 0);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					gte: s,
+				};
+			}
+			if (endDate) {
+				const e = new Date(endDate);
+				e.setHours(23, 59, 59, 999);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					lte: e,
+				};
+			}
+		}
+
+		const [transactions, total] = await Promise.all([
+			prisma.transaction.findMany({
+				where: whereCondition,
+				include: {
+					products: {
+						include: {
+							product: true,
+						},
+					},
+				},
+				orderBy: { createdAt: "desc" },
+				skip,
+				take: safePageSize,
+			}),
+			prisma.transaction.count({ where: whereCondition }),
+		]);
+
+		const totalPages = Math.ceil(total / safePageSize);
+
+		return {
+			data: transactions,
+			meta: {
+				total,
+				page: safePage,
+				pageSize: safePageSize,
+				totalPages,
+				hasNext: safePage < totalPages,
 			},
+		};
+	}
+
+	async getUserTransactionDetailAdmin(adminId: string, transactionId: string) {
+		const admin = await prisma.admin.findFirst({
+			where: { id: adminId },
+		});
+
+		if (!admin) {
+			throw new ApiError(404, "Admin not found");
+		}
+
+		const transaction = await prisma.transaction.findFirst({
+			where: { id: transactionId },
 			include: {
 				products: {
 					include: {
@@ -784,7 +872,23 @@ export class TransactionService {
 			},
 		});
 
-		return transactions;
+		if (!transaction) {
+			throw new ApiError(404, "Transaction not found");
+		}
+
+		if (!admin.isSuper) {
+			if (!admin.storeId) {
+				throw new ApiError(403, "Admin has no store assigned");
+			}
+			if (transaction.storeId !== admin.storeId) {
+				throw new ApiError(
+					403,
+					"Forbidden: you don't have access to this transaction"
+				);
+			}
+		}
+
+		return transaction;
 	}
 
 	// Confirming order transaction
@@ -905,29 +1009,96 @@ export class TransactionService {
 	}
 
 	// Suped Admin Actions
-	async getAllTransactions(adminId: string, storeId?: string) {
+	async getAllTransactions(
+		adminId: string,
+		opts?: {
+			storeId?: string;
+			status?: OrderStatus;
+			orderId?: string;
+			startDate?: Date;
+			endDate?: Date;
+			page?: number;
+			pageSize?: number;
+		}
+	) {
 		const admin = await prisma.admin.findFirst({
 			where: {
 				id: adminId,
 				isSuper: true,
 			},
 		});
-		if (!admin) throw new ApiError(404, "Admin not found / not super admin");
+
+		if (!admin) {
+			throw new ApiError(404, "Admin not found / not super admin");
+		}
+
+		const {
+			storeId,
+			status,
+			orderId,
+			startDate,
+			endDate,
+			page = 1,
+			pageSize = 5,
+		} = opts ?? {};
+
+		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
+		const safePage = Math.max(page, 1);
+		const skip = (safePage - 1) * safePageSize;
 
 		const whereCondition: Prisma.TransactionWhereInput = {};
 
 		if (storeId) whereCondition.storeId = storeId;
+		if (status) whereCondition.status = status;
+		if (orderId) whereCondition.id = orderId;
 
-		const transactions = await prisma.transaction.findMany({
-			where: whereCondition,
-			include: {
-				products: {
-					include: {
-						product: true,
+		if (startDate || endDate) {
+			if (startDate) {
+				const s = new Date(startDate);
+				s.setHours(0, 0, 0, 0);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					gte: s,
+				};
+			}
+			if (endDate) {
+				const e = new Date(endDate);
+				e.setHours(23, 59, 59, 999);
+				whereCondition.createdAt = {
+					...(whereCondition.createdAt as any),
+					lte: e,
+				};
+			}
+		}
+
+		const [transactions, total] = await Promise.all([
+			prisma.transaction.findMany({
+				where: whereCondition,
+				include: {
+					products: {
+						include: {
+							product: true,
+						},
 					},
 				},
+				orderBy: { createdAt: "desc" }, // transaksi terbaru di atas
+				skip,
+				take: safePageSize,
+			}),
+			prisma.transaction.count({ where: whereCondition }),
+		]);
+
+		const totalPages = Math.ceil(total / safePageSize);
+
+		return {
+			data: transactions,
+			meta: {
+				total,
+				page: safePage,
+				pageSize: safePageSize,
+				totalPages,
+				hasNext: safePage < totalPages,
 			},
-		});
-		return transactions;
+		};
 	}
 }
