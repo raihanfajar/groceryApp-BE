@@ -13,8 +13,8 @@ interface CreateDiscountDto {
 	name: string;
 	description?: string;
 	type: DiscountType;
-	valueType: DiscountValueType;
-	value: number;
+	valueType?: DiscountValueType; // Optional for BOGO discounts
+	value?: number; // Optional for BOGO discounts
 	maxDiscountAmount?: number;
 	minTransactionValue?: number;
 	maxUsagePerCustomer?: number;
@@ -70,19 +70,26 @@ interface DiscountFilter {
 export class DiscountService {
 	static async createDiscount(data: CreateDiscountDto) {
 		try {
-			// Validate discount value
-			if (
-				data.valueType === DiscountValueType.PERCENTAGE &&
-				(data.value < 1 || data.value > 100)
-			) {
-				throw new ApiError(
-					400,
-					'Percentage discount must be between 1 and 100'
-				);
-			}
+			// Validate discount value (skip for BOGO discounts)
+			if (data.type !== DiscountType.BOGO) {
+				if (
+					data.valueType === DiscountValueType.PERCENTAGE &&
+					data.value !== undefined &&
+					(data.value < 1 || data.value > 100)
+				) {
+					throw new ApiError(
+						400,
+						'Percentage discount must be between 1 and 100'
+					);
+				}
 
-			if (data.valueType === DiscountValueType.NOMINAL && data.value <= 0) {
-				throw new ApiError(400, 'Nominal discount must be greater than 0');
+				if (
+					data.valueType === DiscountValueType.NOMINAL &&
+					data.value !== undefined &&
+					data.value <= 0
+				) {
+					throw new ApiError(400, 'Nominal discount must be greater than 0');
+				}
 			}
 
 			// Validate dates
@@ -204,22 +211,33 @@ export class DiscountService {
 
 			return await prisma.$transaction(async (tx) => {
 				// Create the discount
+				const discountData: any = {
+					storeId: data.storeId,
+					name: data.name,
+					description: data.description,
+					type: data.type,
+					minTransactionValue: data.minTransactionValue,
+					maxUsagePerCustomer: data.maxUsagePerCustomer,
+					totalUsageLimit: data.totalUsageLimit,
+					startDate: data.startDate,
+					endDate: data.endDate,
+					adminId: data.adminId,
+				};
+
+				// Handle value-related fields based on discount type
+				if (data.type !== DiscountType.BOGO) {
+					discountData.valueType = data.valueType;
+					discountData.value = data.value;
+					discountData.maxDiscountAmount = data.maxDiscountAmount;
+				} else {
+					// For BOGO discounts, provide default values since DB requires them
+					discountData.valueType = DiscountValueType.PERCENTAGE;
+					discountData.value = 0; // Not used for BOGO logic
+					discountData.maxDiscountAmount = null;
+				}
+
 				const discount = await tx.discount.create({
-					data: {
-						storeId: data.storeId,
-						name: data.name,
-						description: data.description,
-						type: data.type,
-						valueType: data.valueType,
-						value: data.value,
-						maxDiscountAmount: data.maxDiscountAmount,
-						minTransactionValue: data.minTransactionValue,
-						maxUsagePerCustomer: data.maxUsagePerCustomer,
-						totalUsageLimit: data.totalUsageLimit,
-						startDate: data.startDate,
-						endDate: data.endDate,
-						adminId: data.adminId,
-					},
+					data: discountData,
 				});
 
 				// Create discount-product associations
@@ -246,6 +264,7 @@ export class DiscountService {
 				return discount;
 			});
 		} catch (error) {
+			console.error('Error creating discount:', error);
 			if (error instanceof ApiError) throw error;
 			throw new ApiError(500, 'Failed to create discount');
 		}
@@ -447,9 +466,21 @@ export class DiscountService {
 
 			const where: Prisma.DiscountWhereInput = {
 				deletedAt: null,
-				...whereConditions,
 			};
 
+			// Handle storeId filtering to include global discounts
+			if (filter.storeId) {
+				where.OR = [
+					{ storeId: filter.storeId }, // Store-specific discounts
+					{ storeId: null }, // Global discounts
+				];
+			} else if (filter.storeId === null) {
+				where.storeId = null; // Only global discounts
+			}
+
+			// Add other filter conditions
+			if (filter.type) where.type = filter.type;
+			if (filter.isActive !== undefined) where.isActive = filter.isActive;
 			if (filter.dateFrom || filter.dateTo) {
 				where.AND = [];
 				if (filter.dateFrom) {
@@ -468,7 +499,9 @@ export class DiscountService {
 				prisma.discount.findMany({
 					where,
 					include: {
-						store: { select: { id: true, name: true } },
+						store: {
+							select: { id: true, name: true, city: true, province: true },
+						},
 						admin: { select: { id: true, name: true, email: true } },
 						products: {
 							include: {
@@ -515,7 +548,9 @@ export class DiscountService {
 			const discount = await prisma.discount.findUnique({
 				where: { id: discountId, deletedAt: null },
 				include: {
-					store: { select: { id: true, name: true } },
+					store: {
+						select: { id: true, name: true, city: true, province: true },
+					},
 					admin: { select: { id: true, name: true, email: true } },
 					products: {
 						include: {
@@ -697,7 +732,9 @@ export class DiscountService {
 								type: true,
 								valueType: true,
 								value: true,
-								store: { select: { id: true, name: true } },
+								store: {
+									select: { id: true, name: true, city: true, province: true },
+								},
 							},
 						},
 						user: { select: { id: true, name: true, email: true } },

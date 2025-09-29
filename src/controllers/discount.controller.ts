@@ -49,15 +49,12 @@ export class DiscountController {
 			}
 
 			// Validate required fields
-			if (
-				!name ||
-				!type ||
-				!valueType ||
-				value === undefined ||
-				!startDate ||
-				!endDate ||
-				!productIds?.length
-			) {
+			const baseRequiredFields =
+				!name || !type || !startDate || !endDate || !productIds?.length;
+			const nonBogoRequiredFields =
+				type !== DiscountType.BOGO && (!valueType || value === undefined);
+
+			if (baseRequiredFields || nonBogoRequiredFields) {
 				throw new ApiError(400, 'Missing required fields');
 			}
 
@@ -66,18 +63,19 @@ export class DiscountController {
 				throw new ApiError(400, 'Invalid discount type');
 			}
 
-			if (!Object.values(DiscountValueType).includes(valueType)) {
+			// Only validate valueType for non-BOGO discounts
+			if (
+				type !== DiscountType.BOGO &&
+				!Object.values(DiscountValueType).includes(valueType)
+			) {
 				throw new ApiError(400, 'Invalid discount value type');
 			}
 
-			const discount = await DiscountService.createDiscount({
+			const discountData: any = {
 				storeId,
 				name,
 				description,
 				type,
-				valueType,
-				value,
-				maxDiscountAmount,
 				minTransactionValue,
 				maxUsagePerCustomer,
 				totalUsageLimit,
@@ -89,7 +87,16 @@ export class DiscountController {
 				getQuantity,
 				applyToSameProduct,
 				maxBogoSets,
-			});
+			};
+
+			// Only add value-related fields for non-BOGO discounts
+			if (type !== DiscountType.BOGO) {
+				discountData.valueType = valueType;
+				discountData.value = value;
+				discountData.maxDiscountAmount = maxDiscountAmount;
+			}
+
+			const discount = await DiscountService.createDiscount(discountData);
 
 			res.status(201).json({
 				status: 'success',
