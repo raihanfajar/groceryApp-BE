@@ -12,6 +12,7 @@ geoCodingRouter.post("/set-user-default-address", mainVerifyToken, setUserDefaul
 geoCodingRouter.delete("/delete-user-address", mainVerifyToken, deleteUserAddressController);
 geoCodingRouter.get("/get-all-store", mainVerifyToken, getAllStoreController);
 
+// !WARNING:RAJONG STUFFS BELOW
 geoCodingRouter.get("/rajong-province", getRajongProvince);
 geoCodingRouter.get("/rajong-city", getRajongCityByProvinceId);
 geoCodingRouter.get("/rajong-district", getRajongDistrictByCityId);
