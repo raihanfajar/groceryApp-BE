@@ -18,7 +18,5 @@ export const shippingTransaction = async () => {
 		console.log(
 			`[⌚ CRON] ${shippedStatus.count} shipped transactions have been confirmed.`
 		);
-	} else {
-		console.log("[⌚ CRON] No shipped transactions to process.");
 	}
 };

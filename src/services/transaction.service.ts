@@ -72,14 +72,19 @@ export class TransactionService {
 			const itemWeight = item.product.weight || 0;
 			totalWeight += itemWeight * item.quantity;
 		}
-		if (totalWeight === 0) throw new ApiError(400, "Total weight is zero.");
+		if (totalWeight === 0) {
+			return { price: 10000 };
+		}
 
-		const params = new URLSearchParams();
-		params.append("origin", userAddress.districtId.toString());
-		params.append("destination", store.cityId.toString());
-		params.append("weight", totalWeight.toString());
-		params.append("courier", "jne");
-		params.append("price", "lowest");
+		// ---- Bagian API Call (Diperbaiki Sesuai Screenshot) ----
+		const params = new URLSearchParams({
+			origin: userAddress.districtId.toString(),
+			destination: store.districtId.toString(),
+			weight: totalWeight.toString(),
+			courier: "jne:sicepat:jnt",
+		});
+
+		console.log(totalWeight)
 
 		const response = await fetch(
 			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
@@ -94,23 +99,33 @@ export class TransactionService {
 		);
 
 		if (!response.ok) {
-			throw new Error(
-				`RajaOngkir API request failed with status ${response.status}`
-			);
+			throw new ApiError(500, `RajaOngkir API request failed`);
 		}
 
 		const jsonResponse = await response.json();
-		const results = jsonResponse.rajaongkir.results[0]?.costs;
 
-		if (!results || results.length === 0) {
+		if (jsonResponse.meta?.status !== "success") {
+			throw new ApiError(
+				400,
+				jsonResponse.meta?.message || "RajaOngkir returned an error."
+			);
+		}
+
+		const shippingOptions = jsonResponse.data;
+
+		if (!shippingOptions || shippingOptions.length === 0) {
 			throw new ApiError(404, "No shipping options found.");
 		}
 
 		let lowestPrice = Infinity;
-		for (const service of results) {
-			if (service.cost && service.cost[0]?.value < lowestPrice) {
-				lowestPrice = service.cost[0].value;
+		for (const option of shippingOptions) {
+			if (option.cost < lowestPrice) {
+				lowestPrice = option.cost;
 			}
+		}
+
+		if (lowestPrice === Infinity) {
+			throw new ApiError(404, "Shipping cost could not be determined.");
 		}
 
 		return { price: lowestPrice };

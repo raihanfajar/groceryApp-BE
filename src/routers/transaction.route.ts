@@ -26,7 +26,7 @@ transactionRouter.get(
 	mainVerifyToken,
 	transactionController.userAddress
 );
-transactionRouter.post(
+transactionRouter.get(
 	"/shipping",
 	mainVerifyToken,
 	transactionController.calculateShippingPrice
