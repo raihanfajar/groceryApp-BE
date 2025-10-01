@@ -5,19 +5,20 @@ import { mainVerifyToken } from "../middlewares/jwt.middleware";
 const cartRouter = express.Router();
 const cartController = new CartController();
 
-// User Authentication
-cartRouter.use(mainVerifyToken)
-
 // Get Cart Count
-cartRouter.get("/count", cartController.cartCount);
+cartRouter.get("/count", mainVerifyToken, cartController.cartCount);
 
 // Get User Cart
-cartRouter.get("/user", cartController.userCart);
+cartRouter.get("/user", mainVerifyToken, cartController.userCart);
 
 // Add Cart Product
-cartRouter.post("/add", cartController.addCartProduct); 
+cartRouter.post("/add", mainVerifyToken, cartController.addCartProduct);
 
 // Update Cart Product Quantity
-cartRouter.put("/update", cartController.updateCartProductQuantity);
+cartRouter.put(
+	"/update",
+	mainVerifyToken,
+	cartController.updateCartProductQuantity
+);
 
 export default cartRouter;
