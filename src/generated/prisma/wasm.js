@@ -428,7 +428,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/adit/Projects/groceryApp/groceryApp-BE/src/generated/prisma",
+      "value": "C:\\Purwadhika\\FinalProject\\groceryApp-BE\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -437,12 +437,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/adit/Projects/groceryApp/groceryApp-BE/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Purwadhika\\FinalProject\\groceryApp-BE\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -456,7 +456,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
