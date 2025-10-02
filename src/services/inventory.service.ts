@@ -389,16 +389,22 @@ export class InventoryService {
 	/**
 	 * Get low stock alerts for a store
 	 */
-	static async getLowStockAlerts(storeId: string) {
-		const lowStockProducts = await prisma.storeProduct.findMany({
-			where: {
-				storeId,
+	static async getLowStockAlerts(storeId?: string) {
+		const whereClause: any = {
+			deletedAt: null,
+			product: {
 				deletedAt: null,
-				product: {
-					deletedAt: null,
-					isActive: true,
-				},
+				isActive: true,
 			},
+		};
+
+		// Add storeId filter only if provided
+		if (storeId) {
+			whereClause.storeId = storeId;
+		}
+
+		const lowStockProducts = await prisma.storeProduct.findMany({
+			where: whereClause,
 			include: {
 				product: {
 					include: {
@@ -408,6 +414,13 @@ export class InventoryService {
 								name: true,
 							},
 						},
+					},
+				},
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
 					},
 				},
 			},

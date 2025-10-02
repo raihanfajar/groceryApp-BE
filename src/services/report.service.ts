@@ -132,21 +132,33 @@ export class ReportService {
 				}),
 
 				// Daily sales breakdown
-				prisma.$queryRaw`
-				SELECT 
-					DATE(t."createdAt") as date,
-					COUNT(t.id)::integer as transaction_count,
-					COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
-				FROM "FreshNear"."Transaction" t
-				WHERE t."createdAt" >= ${startDate}
-					AND t."createdAt" <= ${endDate}
-					AND t.status IN ('completed', 'shipped')
-				GROUP BY DATE(t."createdAt")
-				ORDER BY date ASC
-			`,
-			]);
-
-		// Get product details for top products
+				validatedStoreId
+					? prisma.$queryRaw`
+					SELECT 
+						DATE(t."createdAt") as date,
+						COUNT(t.id)::integer as transaction_count,
+						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
+					FROM "FreshNear"."Transaction" t
+					WHERE t."createdAt" >= ${startDate}
+						AND t."createdAt" <= ${endDate}
+						AND t.status IN ('completed', 'shipped')
+						AND t."storeId" = ${validatedStoreId}
+					GROUP BY DATE(t."createdAt")
+					ORDER BY date ASC
+				`
+					: prisma.$queryRaw`
+					SELECT 
+						DATE(t."createdAt") as date,
+						COUNT(t.id)::integer as transaction_count,
+						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
+					FROM "FreshNear"."Transaction" t
+					WHERE t."createdAt" >= ${startDate}
+						AND t."createdAt" <= ${endDate}
+						AND t.status IN ('completed', 'shipped')
+					GROUP BY DATE(t."createdAt")
+					ORDER BY date ASC
+				`,
+			]); // Get product details for top products
 		const productIds = topProducts.map((p) => p.productId);
 		const productDetails = await prisma.product.findMany({
 			where: { id: { in: productIds } },
