@@ -237,10 +237,20 @@ export class ReportController {
 						topProducts: salesReport.topProducts.slice(0, 5), // Top 5 only
 					},
 					stock: {
-						period: stockReport.period,
-						summary: stockReport.summary,
-						lowStockAlerts: stockReport.lowStockAlerts,
-						movementsByType: stockReport.movementsByType,
+						period: {
+							month: stockReport.month,
+							year: stockReport.year,
+							startDate: '', // Could be added if needed
+							endDate: '', // Could be added if needed
+						},
+						summary: {
+							totalProducts: stockReport.totalProducts,
+							lowStockCount: stockReport.lowStockProducts,
+							outOfStockCount: stockReport.outOfStockProducts,
+							totalStockValue: stockReport.stockValue,
+						},
+						lowStockAlerts: [], // This would need to be queried separately if needed
+						movementsByType: stockReport.stockMovements,
 					},
 				},
 			});
