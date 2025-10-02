@@ -464,28 +464,101 @@ export class ReportService {
 			};
 		});
 
-		return {
-			period,
-			summary: {
-				totalMovements,
-				uniqueProducts: stockMovements.length,
-				totalQuantityMoved: stockMovements.reduce(
-					(sum, m) => sum + (m._sum?.quantity || 0),
-					0
-				),
+		// Get current stock metrics
+		const storeProducts = await prisma.storeProduct.findMany({
+			where: {
+				deletedAt: null,
+				...(validatedStoreId && { storeId: validatedStoreId }),
+				product: {
+					deletedAt: null,
+					isActive: true,
+				},
 			},
-			movementsByType: stockByType,
-			productMovements: stockMovementsWithDetails,
-			lowStockAlerts: lowStockProducts.map((sp) => ({
-				productId: sp.productId,
-				productName: sp.product.name,
-				categoryName: sp.product.category?.name || 'Unknown',
-				storeId: sp.storeId,
-				storeName: sp.store.name,
-				currentStock: sp.stock,
-				status: sp.stock === 0 ? 'OUT_OF_STOCK' : 'LOW_STOCK',
+			include: {
+				product: {
+					select: {
+						name: true,
+						price: true,
+					},
+				},
+				store: {
+					select: {
+						name: true,
+					},
+				},
+			},
+		});
+
+		const totalProducts = storeProducts.length;
+		const lowStockCount = storeProducts.filter(
+			(sp) => sp.stock > 0 && sp.stock <= (sp.minStock || 5)
+		).length;
+		const outOfStockCount = storeProducts.filter((sp) => sp.stock === 0).length;
+		const stockValue = storeProducts.reduce(
+			(sum, sp) => sum + sp.stock * sp.product.price,
+			0
+		);
+
+		// Get store name for response
+		let storeName: string | undefined;
+		if (validatedStoreId && storeProducts.length > 0) {
+			storeName = storeProducts[0].store.name;
+		}
+
+		// Get top restocked products (products with most IN movements in this period)
+		const inMovements = await prisma.stockJournal.groupBy({
+			by: ['productId'],
+			where: {
+				...whereConditions,
+				type: 'IN',
+			},
+			_sum: {
+				quantity: true,
+			},
+			orderBy: {
+				_sum: {
+					quantity: 'desc',
+				},
+			},
+			take: 5,
+		});
+
+		const topRestockedIds = inMovements.map((m) => m.productId);
+		const topRestockedDetails = await prisma.product.findMany({
+			where: { id: { in: topRestockedIds } },
+			select: {
+				id: true,
+				name: true,
+			},
+		});
+
+		const topRestockedProducts = inMovements.map((movement) => {
+			const product = topRestockedDetails.find(
+				(p) => p.id === movement.productId
+			);
+			return {
+				productId: movement.productId,
+				productName: product?.name || 'Unknown',
+				quantity: movement._sum?.quantity || 0,
+			};
+		});
+
+		return {
+			month: filters.month || new Date().getMonth() + 1,
+			year: filters.year || new Date().getFullYear(),
+			storeId: validatedStoreId,
+			storeName,
+			totalProducts,
+			lowStockProducts: lowStockCount,
+			outOfStockProducts: outOfStockCount,
+			stockValue,
+			stockMovements: stockByType.map((st) => ({
+				type: st.type,
+				quantity: st._sum?.quantity || 0,
+				count:
+					typeof st._count === 'object' ? st._count._all || 0 : st._count || 0,
 			})),
-			storeFilter: validatedStoreId,
+			topRestockedProducts,
 		};
 	}
 
