@@ -10,88 +10,106 @@ import { uploaderMulter } from "../middlewares/uploader.multer";
 
 const transactionRouter = express.Router();
 const transactionController = new TransactionController();
-const uploader = uploaderMulter(
-	["image"], // Menerima tipe file gambar (jpeg, png, gif, dll.)
-	"memory"
-);
+const uploader = uploaderMulter(["image"], "memory");
 
-// Midtrans notification
+// --- Public route ---
+// Midtrans notification does not need a token
 transactionRouter.post(
 	"/midtrans/notification",
 	transactionController.handleMidtransNotification
 );
 
-transactionRouter.use(mainVerifyToken);
-
-// Get User Address
-transactionRouter.get("/address", transactionController.userAddress);
-
-// Calculate Shipping Price
-transactionRouter.post(
+// --- User protected routes ---
+// These routes require a standard user token
+transactionRouter.get(
+	"/address",
+	mainVerifyToken,
+	transactionController.userAddress
+);
+transactionRouter.get(
 	"/shipping",
+	mainVerifyToken,
 	transactionController.calculateShippingPrice
 );
-
-// Create Transaction
-transactionRouter.post("/create", transactionController.createUserTransaction);
-
-// Upload payment proof
+transactionRouter.post(
+	"/create",
+	mainVerifyToken,
+	transactionController.createUserTransaction
+);
 transactionRouter.post(
 	"/upload-proof",
+	mainVerifyToken,
 	uploader.single("paymentProof"),
 	transactionController.uploadPaymentProof
 );
-
-// Completed User Transaction
 transactionRouter.put(
 	"/complete",
+	mainVerifyToken,
 	transactionController.completedUserTransaction
 );
+transactionRouter.get(
+	"/user",
+	mainVerifyToken,
+	transactionController.getUserTransaction
+);
+transactionRouter.get(
+	"/user-detail",
+	mainVerifyToken,
+	transactionController.getUserTransactionDetail
+);
+transactionRouter.put(
+	"/cancel",
+	mainVerifyToken,
+	transactionController.cancelUserTransaction
+);
 
-// Get User Transaction
-transactionRouter.get("/user", transactionController.getUserTransaction);
-
-// Get User Transaction Detail
-transactionRouter.get("user-detail", transactionController.getUserTransactionDetail);
-
-// Cancel user Transaction
-transactionRouter.put("/cancel", transactionController.cancelUserTransaction);
-
-// Protected routes (require admin token)
-transactionRouter.use(verifyToken);
-transactionRouter.use(verifyAdminRole);
-
-//  Get All Store Transaction
-transactionRouter.get("/admin", transactionController.getStoreTransaction);
-
-// Confirming Store Transaction
+// --- Admin protected routes ---
+// These routes require admin verification
+transactionRouter.get(
+	"/admin",
+	verifyToken,
+	verifyAdminRole,
+	transactionController.getStoreTransaction
+);
+transactionRouter.get(
+	"/admin-detail",
+	verifyToken,
+	verifyAdminRole,
+	transactionController.getUserTransactionDetailAdmin
+);
 transactionRouter.put(
 	"/admin/confirm",
+	verifyToken,
+	verifyAdminRole,
 	transactionController.confirmingOrderTransaction
 );
-
-// Cancelling order Payment
 transactionRouter.put(
 	"/admin/cancel-payment",
+	verifyToken,
+	verifyAdminRole,
 	transactionController.cancelOrderPayment
 );
-
-// Shipping Store Transaction
 transactionRouter.put(
 	"/admin/shipping",
+	verifyToken,
+	verifyAdminRole,
 	transactionController.shippedTransaction
 );
-
-// Cancel Store Transaction
 transactionRouter.put(
 	"/admin/cancel",
+	verifyToken,
+	verifyAdminRole,
 	transactionController.cancelStoreTransaction
 );
 
-// Super Admin only routes
-transactionRouter.use(verifySuperAdmin);
-
-// Get All Transaction
-transactionRouter.get("/admin/all", transactionController.getAllTransactions);
+// --- Super Admin only routes ---
+// This route requires super admin verification
+transactionRouter.get(
+	"/admin/all",
+	verifyToken,
+	verifyAdminRole,
+	verifySuperAdmin,
+	transactionController.getAllTransactions
+);
 
 export default transactionRouter;
