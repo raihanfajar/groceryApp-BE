@@ -88,23 +88,13 @@ export class ReportService {
 				lte: endDate,
 			},
 			status: {
-				in: ['confirmed', 'shipped'], // Only completed transactions
+				in: ['completed', 'shipped'], // Only completed/shipped transactions
 			},
 		};
 
 		// Add store filter if specified
 		if (validatedStoreId) {
-			whereConditions.products = {
-				some: {
-					product: {
-						storeProducts: {
-							some: {
-								storeId: validatedStoreId,
-							},
-						},
-					},
-				},
-			};
+			whereConditions.storeId = validatedStoreId;
 		}
 
 		// Get sales data
@@ -150,7 +140,7 @@ export class ReportService {
 				FROM "FreshNear"."Transaction" t
 				WHERE t."createdAt" >= ${startDate}
 					AND t."createdAt" <= ${endDate}
-					AND t.status IN ('confirmed', 'shipped')
+					AND t.status IN ('completed', 'shipped')
 				GROUP BY DATE(t."createdAt")
 				ORDER BY date ASC
 			`,
@@ -209,7 +199,8 @@ export class ReportService {
 			filters.year
 		);
 
-		const categoryStats = await prisma.$queryRaw`
+		const categoryStats = validatedStoreId
+			? await prisma.$queryRaw`
 			SELECT 
 				c.id as category_id,
 				c.name as category_name,
@@ -217,21 +208,35 @@ export class ReportService {
 				COALESCE(SUM(tp.quantity), 0)::integer as total_quantity_sold,
 				COALESCE(SUM(tp.price), 0)::integer as total_revenue,
 				COALESCE(AVG(tp.price), 0)::decimal as average_order_value
-			FROM "FreshNear"."Category" c
+			FROM "FreshNear"."ProductCategory" c
 			LEFT JOIN "FreshNear"."Product" p ON p."categoryId" = c.id
 			LEFT JOIN "FreshNear"."TransactionProduct" tp ON tp."productId" = p.id
 			LEFT JOIN "FreshNear"."Transaction" t ON t.id = tp."transactionId"
 			WHERE t."createdAt" >= ${startDate}
 				AND t."createdAt" <= ${endDate}
-				AND t.status IN ('confirmed', 'shipped')
-				${
-					validatedStoreId
-						? prisma.$queryRaw`AND EXISTS (
+				AND t.status IN ('completed', 'shipped')
+				AND EXISTS (
 					SELECT 1 FROM "FreshNear"."StoreProduct" sp 
 					WHERE sp."productId" = p.id AND sp."storeId" = ${validatedStoreId}
-				)`
-						: prisma.$queryRaw``
-				}
+				)
+			GROUP BY c.id, c.name
+			ORDER BY total_revenue DESC
+		`
+			: await prisma.$queryRaw`
+			SELECT 
+				c.id as category_id,
+				c.name as category_name,
+				COUNT(DISTINCT t.id)::integer as transaction_count,
+				COALESCE(SUM(tp.quantity), 0)::integer as total_quantity_sold,
+				COALESCE(SUM(tp.price), 0)::integer as total_revenue,
+				COALESCE(AVG(tp.price), 0)::decimal as average_order_value
+			FROM "FreshNear"."ProductCategory" c
+			LEFT JOIN "FreshNear"."Product" p ON p."categoryId" = c.id
+			LEFT JOIN "FreshNear"."TransactionProduct" tp ON tp."productId" = p.id
+			LEFT JOIN "FreshNear"."Transaction" t ON t.id = tp."transactionId"
+			WHERE t."createdAt" >= ${startDate}
+				AND t."createdAt" <= ${endDate}
+				AND t.status IN ('completed', 'shipped')
 			GROUP BY c.id, c.name
 			ORDER BY total_revenue DESC
 		`;
@@ -263,25 +268,19 @@ export class ReportService {
 					lte: endDate,
 				},
 				status: {
-					in: ['confirmed', 'shipped'],
+					in: ['completed', 'shipped'],
 				},
 			},
 		};
 
+		// Add store filter if specified
+		if (validatedStoreId) {
+			whereConditions.transaction.storeId = validatedStoreId;
+		}
+
 		// Add product filter if specified
 		if (filters.productId) {
 			whereConditions.productId = filters.productId;
-		}
-
-		// Add store filter if specified
-		if (validatedStoreId) {
-			whereConditions.product = {
-				storeProducts: {
-					some: {
-						storeId: validatedStoreId,
-					},
-				},
-			};
 		}
 
 		const productSales = await prisma.transactionProduct.groupBy({
@@ -465,28 +464,101 @@ export class ReportService {
 			};
 		});
 
-		return {
-			period,
-			summary: {
-				totalMovements,
-				uniqueProducts: stockMovements.length,
-				totalQuantityMoved: stockMovements.reduce(
-					(sum, m) => sum + (m._sum?.quantity || 0),
-					0
-				),
+		// Get current stock metrics
+		const storeProducts = await prisma.storeProduct.findMany({
+			where: {
+				deletedAt: null,
+				...(validatedStoreId && { storeId: validatedStoreId }),
+				product: {
+					deletedAt: null,
+					isActive: true,
+				},
 			},
-			movementsByType: stockByType,
-			productMovements: stockMovementsWithDetails,
-			lowStockAlerts: lowStockProducts.map((sp) => ({
-				productId: sp.productId,
-				productName: sp.product.name,
-				categoryName: sp.product.category?.name || 'Unknown',
-				storeId: sp.storeId,
-				storeName: sp.store.name,
-				currentStock: sp.stock,
-				status: sp.stock === 0 ? 'OUT_OF_STOCK' : 'LOW_STOCK',
+			include: {
+				product: {
+					select: {
+						name: true,
+						price: true,
+					},
+				},
+				store: {
+					select: {
+						name: true,
+					},
+				},
+			},
+		});
+
+		const totalProducts = storeProducts.length;
+		const lowStockCount = storeProducts.filter(
+			(sp) => sp.stock > 0 && sp.stock <= (sp.minStock || 5)
+		).length;
+		const outOfStockCount = storeProducts.filter((sp) => sp.stock === 0).length;
+		const stockValue = storeProducts.reduce(
+			(sum, sp) => sum + sp.stock * sp.product.price,
+			0
+		);
+
+		// Get store name for response
+		let storeName: string | undefined;
+		if (validatedStoreId && storeProducts.length > 0) {
+			storeName = storeProducts[0].store.name;
+		}
+
+		// Get top restocked products (products with most IN movements in this period)
+		const inMovements = await prisma.stockJournal.groupBy({
+			by: ['productId'],
+			where: {
+				...whereConditions,
+				type: 'IN',
+			},
+			_sum: {
+				quantity: true,
+			},
+			orderBy: {
+				_sum: {
+					quantity: 'desc',
+				},
+			},
+			take: 5,
+		});
+
+		const topRestockedIds = inMovements.map((m) => m.productId);
+		const topRestockedDetails = await prisma.product.findMany({
+			where: { id: { in: topRestockedIds } },
+			select: {
+				id: true,
+				name: true,
+			},
+		});
+
+		const topRestockedProducts = inMovements.map((movement) => {
+			const product = topRestockedDetails.find(
+				(p) => p.id === movement.productId
+			);
+			return {
+				productId: movement.productId,
+				productName: product?.name || 'Unknown',
+				quantity: movement._sum?.quantity || 0,
+			};
+		});
+
+		return {
+			month: filters.month || new Date().getMonth() + 1,
+			year: filters.year || new Date().getFullYear(),
+			storeId: validatedStoreId,
+			storeName,
+			totalProducts,
+			lowStockProducts: lowStockCount,
+			outOfStockProducts: outOfStockCount,
+			stockValue,
+			stockMovements: stockByType.map((st) => ({
+				type: st.type,
+				quantity: st._sum?.quantity || 0,
+				count:
+					typeof st._count === 'object' ? st._count._all || 0 : st._count || 0,
 			})),
-			storeFilter: validatedStoreId,
+			topRestockedProducts,
 		};
 	}
 
