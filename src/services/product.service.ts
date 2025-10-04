@@ -51,6 +51,14 @@ export interface ProductWithStock extends Product {
 		id: string;
 		name: string;
 	};
+	discount?: {
+		id: string;
+		name: string;
+		type: string;
+		valueType: string;
+		value: number;
+		maxDiscountAmount: number | null;
+	} | null;
 }
 
 export class ProductService {
@@ -155,6 +163,33 @@ export class ProductService {
 						},
 					},
 				},
+				discountProducts: {
+					where: {
+						discount: {
+							isActive: true,
+							deletedAt: null,
+							startDate: {
+								lte: new Date(),
+							},
+							endDate: {
+								gte: new Date(),
+							},
+						},
+					},
+					include: {
+						discount: {
+							select: {
+								id: true,
+								name: true,
+								type: true,
+								valueType: true,
+								value: true,
+								maxDiscountAmount: true,
+							},
+						},
+					},
+					take: 1, // Only get the first active discount
+				},
 			},
 			orderBy: {
 				createdAt: 'desc',
@@ -163,15 +198,21 @@ export class ProductService {
 			take: limit,
 		});
 
-		// Calculate total stock for each product
-		const productsWithStock: ProductWithStock[] = products.map((product) => ({
-			...product,
-			totalStock:
-				product.storeStock?.reduce(
-					(total: number, stock: any) => total + stock.stock,
-					0
-				) || 0,
-		}));
+		// Calculate total stock and extract discount for each product
+		const productsWithStock: ProductWithStock[] = products.map((product) => {
+			const activeDiscount = product.discountProducts?.[0]?.discount;
+			const { discountProducts, ...productWithoutJunction } = product;
+
+			return {
+				...productWithoutJunction,
+				totalStock:
+					product.storeStock?.reduce(
+						(total: number, stock: any) => total + stock.stock,
+						0
+					) || 0,
+				discount: activeDiscount || null,
+			};
+		});
 
 		return {
 			products: productsWithStock,
@@ -213,18 +254,50 @@ export class ProductService {
 						},
 					},
 				},
+				discountProducts: {
+					where: {
+						discount: {
+							isActive: true,
+							deletedAt: null,
+							startDate: {
+								lte: new Date(),
+							},
+							endDate: {
+								gte: new Date(),
+							},
+						},
+					},
+					include: {
+						discount: {
+							select: {
+								id: true,
+								name: true,
+								type: true,
+								valueType: true,
+								value: true,
+								maxDiscountAmount: true,
+							},
+						},
+					},
+					take: 1,
+				},
 			},
 		});
 
 		if (!product) return null;
 
+		const activeDiscount = product.discountProducts?.[0]?.discount;
+
+		const { discountProducts, ...productWithoutJunction } = product;
+
 		return {
-			...product,
+			...productWithoutJunction,
 			totalStock:
 				product.storeStock?.reduce(
 					(total: number, stock: any) => total + stock.stock,
 					0
 				) || 0,
+			discount: activeDiscount || null,
 		};
 	}
 
@@ -260,18 +333,49 @@ export class ProductService {
 						},
 					},
 				},
+				discountProducts: {
+					where: {
+						discount: {
+							isActive: true,
+							deletedAt: null,
+							startDate: {
+								lte: new Date(),
+							},
+							endDate: {
+								gte: new Date(),
+							},
+						},
+					},
+					include: {
+						discount: {
+							select: {
+								id: true,
+								name: true,
+								type: true,
+								valueType: true,
+								value: true,
+								maxDiscountAmount: true,
+							},
+						},
+					},
+					take: 1,
+				},
 			},
 		});
 
 		if (!product) return null;
 
+		const activeDiscount = product.discountProducts?.[0]?.discount;
+		const { discountProducts, ...productWithoutJunction } = product;
+
 		return {
-			...product,
+			...productWithoutJunction,
 			totalStock:
 				product.storeStock?.reduce(
 					(total: number, stock: any) => total + stock.stock,
 					0
 				) || 0,
+			discount: activeDiscount || null,
 		};
 	}
 
