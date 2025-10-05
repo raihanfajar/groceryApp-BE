@@ -76,15 +76,12 @@ export class TransactionService {
 			return { price: 10000 };
 		}
 
-		// ---- Bagian API Call (Diperbaiki Sesuai Screenshot) ----
 		const params = new URLSearchParams({
 			origin: userAddress.districtId.toString(),
 			destination: store.districtId.toString(),
 			weight: totalWeight.toString(),
 			courier: "jne:sicepat:jnt",
 		});
-
-		console.log(totalWeight)
 
 		const response = await fetch(
 			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
@@ -440,13 +437,11 @@ export class TransactionService {
 		try {
 			const typedCoreApi = coreApi as unknown as MidtransCoreApi;
 
-			// 0. cek MIDTRANS_SERVER_KEY
 			const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY ?? "";
 			if (!MIDTRANS_SERVER_KEY) {
 				throw new Error("MIDTRANS_SERVER_KEY not configured");
 			}
 
-			// 1. validasi signature_key dari payload (segera tolak jika mismatch)
 			const incomingSignature = (notification.signature_key ?? "") as string;
 			const incomingOrderId = notification.order_id;
 			const incomingStatusCode = (notification.status_code ?? "") as string;
@@ -460,11 +455,9 @@ export class TransactionService {
 			});
 
 			if (incomingSignature !== expectedSignature) {
-				// signature mismatch -> hentikan proses (caller webhook bisa return 4xx)
 				throw new Error("Invalid Midtrans signature_key");
 			}
 
-			// 2. verifikasi ke Core API Midtrans
 			const statusResponse = await typedCoreApi.transaction.notification(
 				notification as unknown
 			);
@@ -478,7 +471,6 @@ export class TransactionService {
 				parseFloat(statusResponse.gross_amount || "0")
 			);
 
-			// 3. ambil trx dari DB
 			const trx = await prisma.transaction.findUnique({
 				where: { id: orderId },
 			});
@@ -488,12 +480,10 @@ export class TransactionService {
 				return;
 			}
 
-			// 4. jika sudah final, ignore
 			if (trx.status === "completed" || trx.status === "cancelled") {
 				return;
 			}
 
-			// 5. validasi jumlah
 			if (trx.totalPrice !== grossAmount) {
 				console.error(
 					`[Webhook] Invalid amount for ${orderId}. DB: ${trx.totalPrice}, Midtrans: ${grossAmount}`
@@ -501,7 +491,6 @@ export class TransactionService {
 				return;
 			}
 
-			// 6. mapping status Midtrans -> internal
 			let newStatus: OrderStatus | null = null;
 
 			if (transactionStatus === "capture") {
@@ -518,12 +507,9 @@ export class TransactionService {
 			) {
 				newStatus = OrderStatus.cancelled;
 			} else {
-				// refund / chargeback / partial_refund / partial_chargeback dll.
-				// sesuai permintaan: tidak melakukan DB action untuk kasus refund
 				newStatus = null;
 			}
 
-			// 7. update DB jika diperlukan (set paidAt hanya saat benar-benar lunas)
 			if (newStatus) {
 				const updateData: Partial<{ status: OrderStatus; paidAt?: Date }> = {
 					status: newStatus,
@@ -560,10 +546,8 @@ export class TransactionService {
 				}
 			}
 
-			// selesai
 			return;
 		} catch (err) {
-			// tangani error agar caller (webhook route) bisa memberikan response 4xx/5xx sesuai kebijakan
 			console.error("[Webhook] Error processing Midtrans notification:", err);
 			throw err;
 		}
@@ -574,7 +558,6 @@ export class TransactionService {
 		file: Express.Multer.File,
 		transactionId: string
 	) {
-		console.log("udh masuk service");
 		prisma.$transaction(async (tx) => {
 			const transaction = await tx.transaction.findFirst({
 				where: {
@@ -782,21 +765,9 @@ export class TransactionService {
 			endDate?: Date;
 			page?: number;
 			pageSize?: number;
+			storeId?: string;
 		}
 	) {
-		const admin = await prisma.admin.findFirst({
-			where: { id: adminId },
-		});
-
-		if (!admin) {
-			throw new ApiError(404, "Admin not found");
-		}
-
-		const storeId = admin.storeId;
-		if (!storeId) {
-			throw new ApiError(404, "Admin has no store assigned");
-		}
-
 		const {
 			status,
 			orderId,
@@ -804,35 +775,52 @@ export class TransactionService {
 			endDate,
 			page = 1,
 			pageSize = 5,
+			storeId: filterStoreId,
 		} = opts ?? {};
+
+		let resolvedStoreId = filterStoreId;
+
+		if (!resolvedStoreId) {
+			const admin = await prisma.admin.findUnique({
+				where: { id: adminId },
+				select: { storeId: true, isSuper: true },
+			});
+
+			if (!admin) {
+				throw new ApiError(404, "Admin not found");
+			}
+
+			if (!admin.isSuper) {
+				if (!admin.storeId) {
+					throw new ApiError(404, "Admin has no store assigned");
+				}
+				resolvedStoreId = admin.storeId;
+			}
+		}
 
 		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
 		const safePage = Math.max(page, 1);
 		const skip = (safePage - 1) * safePageSize;
 
-		const whereCondition: Prisma.TransactionWhereInput = {
-			storeId,
-		};
+		const whereCondition: Prisma.TransactionWhereInput = {};
 
+		if (resolvedStoreId) {
+			whereCondition.storeId = resolvedStoreId;
+		}
 		if (status) whereCondition.status = status;
 		if (orderId) whereCondition.id = orderId;
 
 		if (startDate || endDate) {
+			whereCondition.createdAt = {};
 			if (startDate) {
 				const s = new Date(startDate);
 				s.setHours(0, 0, 0, 0);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					gte: s,
-				};
+				whereCondition.createdAt.gte = s;
 			}
 			if (endDate) {
 				const e = new Date(endDate);
 				e.setHours(23, 59, 59, 999);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					lte: e,
-				};
+				whereCondition.createdAt.lte = e;
 			}
 		}
 
@@ -865,45 +853,6 @@ export class TransactionService {
 				hasNext: safePage < totalPages,
 			},
 		};
-	}
-
-	async getUserTransactionDetailAdmin(adminId: string, transactionId: string) {
-		const admin = await prisma.admin.findFirst({
-			where: { id: adminId },
-		});
-
-		if (!admin) {
-			throw new ApiError(404, "Admin not found");
-		}
-
-		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId },
-			include: {
-				products: {
-					include: {
-						product: true,
-					},
-				},
-			},
-		});
-
-		if (!transaction) {
-			throw new ApiError(404, "Transaction not found");
-		}
-
-		if (!admin.isSuper) {
-			if (!admin.storeId) {
-				throw new ApiError(403, "Admin has no store assigned");
-			}
-			if (transaction.storeId !== admin.storeId) {
-				throw new ApiError(
-					403,
-					"Forbidden: you don't have access to this transaction"
-				);
-			}
-		}
-
-		return transaction;
 	}
 
 	// Confirming order transaction
@@ -1023,97 +972,23 @@ export class TransactionService {
 		return canceledTransaction;
 	}
 
-	// Suped Admin Actions
-	async getAllTransactions(
-		adminId: string,
-		opts?: {
-			storeId?: string;
-			status?: OrderStatus;
-			orderId?: string;
-			startDate?: Date;
-			endDate?: Date;
-			page?: number;
-			pageSize?: number;
-		}
-	) {
+	// Get all store list
+	async getAllStoreList(userId: string) {
 		const admin = await prisma.admin.findFirst({
-			where: {
-				id: adminId,
-				isSuper: true,
+			where: { id: userId },
+		});
+		if (!admin?.isSuper) {
+			throw new ApiError(403, "Only super admin can access this route");
+		}
+
+		const stores = await prisma.store.findMany({
+			where: { deletedAt: null },
+			select: {
+				id: true,
+				name: true,
 			},
 		});
 
-		if (!admin) {
-			throw new ApiError(404, "Admin not found / not super admin");
-		}
-
-		const {
-			storeId,
-			status,
-			orderId,
-			startDate,
-			endDate,
-			page = 1,
-			pageSize = 5,
-		} = opts ?? {};
-
-		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
-		const safePage = Math.max(page, 1);
-		const skip = (safePage - 1) * safePageSize;
-
-		const whereCondition: Prisma.TransactionWhereInput = {};
-
-		if (storeId) whereCondition.storeId = storeId;
-		if (status) whereCondition.status = status;
-		if (orderId) whereCondition.id = orderId;
-
-		if (startDate || endDate) {
-			if (startDate) {
-				const s = new Date(startDate);
-				s.setHours(0, 0, 0, 0);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					gte: s,
-				};
-			}
-			if (endDate) {
-				const e = new Date(endDate);
-				e.setHours(23, 59, 59, 999);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					lte: e,
-				};
-			}
-		}
-
-		const [transactions, total] = await Promise.all([
-			prisma.transaction.findMany({
-				where: whereCondition,
-				include: {
-					products: {
-						include: {
-							product: true,
-						},
-					},
-				},
-				orderBy: { createdAt: "desc" }, // transaksi terbaru di atas
-				skip,
-				take: safePageSize,
-			}),
-			prisma.transaction.count({ where: whereCondition }),
-		]);
-
-		const totalPages = Math.ceil(total / safePageSize);
-
-		return {
-			data: transactions,
-			meta: {
-				total,
-				page: safePage,
-				pageSize: safePageSize,
-				totalPages,
-				hasNext: safePage < totalPages,
-			},
-		};
+		return stores;
 	}
 }

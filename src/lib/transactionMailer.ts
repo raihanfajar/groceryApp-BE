@@ -44,7 +44,7 @@ export const sendOrderConfirmationEmail = async (
 	await transporter.sendMail({
 		from: "FreshNear <no-reply@freshnear.com>",
 		to: user.email,
-		subject: `Pesanan #${transaction.id} Dikonfirmasi`,
+		subject: `Order #${transaction.id} Confirmed`,
 		html: emailHtml,
 	});
 };
@@ -71,7 +71,7 @@ export const sendPaymentConfirmedEmail = async (
 	await transporter.sendMail({
 		from: "FreshNear <no-reply@freshnear.com>",
 		to: user.email,
-		subject: `Pembayaran untuk Pesanan #${transaction.id} Berhasil`,
+		subject: `Payment for order #${transaction.id} Successfull`,
 		html: emailHtml,
 	});
 };
@@ -98,8 +98,7 @@ export const sendOrderShippedEmail = async (
 	await transporter.sendMail({
 		from: "FreshNear <no-reply@freshnear.com>",
 		to: user.email,
-		subject: `Pesanan #${transaction.id} Telah Dikirim`,
+		subject: `Order #${transaction.id} Has been shipped`,
 		html: emailHtml,
 	});
-	console.log(`[Mailer] Order shipped confirmation sent to ${user.email}`);
 };
