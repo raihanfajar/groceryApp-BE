@@ -1,0 +1,1 @@
+{"key":"district-1","value":{"meta":{"message":"Success Get District By City ID","code":200,"status":"success"},"data":[{"id":1,"name":"MATARAM"},{"id":2,"name":"AMPENAN"},{"id":3,"name":"CAKRANEGARA"},{"id":4,"name":"SELAPARANG (SELAPRANG)"},{"id":5,"name":"SEKARBELA"},{"id":6,"name":"SANDUBAYA (SANDUJAYA)"}]}}
