@@ -52,7 +52,6 @@ export class TransactionController {
 
 	createUserTransaction = catchAsync(
 		async (req: MainAuthenticatedRequest, res: Response) => {
-			console.log("createUserTransaction");
 			const { userId } = req.payload!;
 
 			const {
@@ -261,18 +260,25 @@ export class TransactionController {
 	// Admin Transaction
 	getStoreTransaction = catchAsync(
 		async (req: AuthenticatedRequest, res: Response) => {
-			const adminId = req.user!.id;
+			const { id: adminId, isSuper } = req.user!;
 			const statusQuery = req.query.status as string | undefined;
+			const storeIdQuery = req.query.storeId as string | undefined;
 
 			if (!adminId) {
 				throw new ApiError(400, "Admin ID is required");
 			}
 
-			if (
-				statusQuery &&
-				!Object.values(OrderStatus).includes(statusQuery as OrderStatus)
-			) {
-				throw new ApiError(400, `Invalid status value: ${statusQuery}`);
+			let statusFilter: OrderStatus | undefined;
+			if (statusQuery && statusQuery !== "all") {
+				if (!Object.values(OrderStatus).includes(statusQuery as OrderStatus)) {
+					throw new ApiError(400, `Invalid status value: ${statusQuery}`);
+				}
+				statusFilter = statusQuery as OrderStatus;
+			}
+
+			let storeIdForService: string | undefined;
+			if (isSuper && storeIdQuery && storeIdQuery !== "all") {
+				storeIdForService = storeIdQuery;
 			}
 
 			const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
@@ -306,43 +312,18 @@ export class TransactionController {
 			const transaction = await this.transactionService.getStoreTransactions(
 				adminId,
 				{
-					status: statusQuery as OrderStatus | undefined,
+					status: statusFilter,
 					orderId: (req.query.orderId as string) || undefined,
 					startDate: parsedStartDate,
 					endDate: parsedEndDate,
 					page,
 					pageSize,
+					storeId: storeIdForService,
 				}
 			);
 
 			res.status(200).json({
 				message: "Store transactions retrieved successfully",
-				data: transaction,
-			});
-		}
-	);
-
-	getUserTransactionDetailAdmin = catchAsync(
-		async (req: AuthenticatedRequest, res: Response) => {
-			const adminId = req.user?.id;
-			const transactionId = (req.params.transactionId as string) || undefined;
-
-			if (!adminId) {
-				throw new ApiError(400, "Admin ID is required");
-			}
-
-			if (!transactionId) {
-				throw new ApiError(400, "Transaction ID is required");
-			}
-
-			const transaction =
-				await this.transactionService.getUserTransactionDetailAdmin(
-					adminId,
-					transactionId
-				);
-
-			res.status(200).json({
-				message: "Transaction retrieved successfully",
 				data: transaction,
 			});
 		}
@@ -408,68 +389,16 @@ export class TransactionController {
 		}
 	);
 
-	// Super Admin
-	getAllTransactions = catchAsync(
+	getAllStoreList = catchAsync(
 		async (req: AuthenticatedRequest, res: Response) => {
-			const adminId = req.user!.id;
-			const storeId = (req.query.storeId as string) || undefined;
-			const statusQuery = req.query.status as string | undefined;
-
-			if (!adminId) {
-				throw new ApiError(400, "Admin ID is required");
+			const userId = req.user!.id;
+			if (!userId) {
+				throw new ApiError(400, "User ID is required");
 			}
-
-			if (
-				statusQuery &&
-				!Object.values(OrderStatus).includes(statusQuery as OrderStatus)
-			) {
-				throw new ApiError(400, `Invalid status value: ${statusQuery}`);
-			}
-
-			const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
-			const pageSize = req.query.pageSize
-				? parseInt(req.query.pageSize as string, 10)
-				: 10;
-
-			let parsedStartDate: Date | undefined;
-			let parsedEndDate: Date | undefined;
-
-			if (req.query.startDate) {
-				const s = new Date(req.query.startDate as string);
-				if (isNaN(s.getTime())) {
-					throw new ApiError(400, "Invalid startDate format");
-				}
-				parsedStartDate = s;
-			}
-
-			if (req.query.endDate) {
-				const e = new Date(req.query.endDate as string);
-				if (isNaN(e.getTime())) {
-					throw new ApiError(400, "Invalid endDate format");
-				}
-				parsedEndDate = e;
-			}
-
-			if (parsedStartDate && parsedEndDate && parsedStartDate > parsedEndDate) {
-				throw new ApiError(400, "startDate must be before or equal to endDate");
-			}
-
-			const transaction = await this.transactionService.getAllTransactions(
-				adminId,
-				{
-					storeId,
-					status: statusQuery as OrderStatus | undefined,
-					orderId: (req.query.orderId as string) || undefined,
-					startDate: parsedStartDate,
-					endDate: parsedEndDate,
-					page,
-					pageSize,
-				}
-			);
-
+			const storeList = await this.transactionService.getAllStoreList(userId);
 			res.status(200).json({
-				message: "All transactions retrieved successfully",
-				data: transaction,
+				message: "Store list retrieved successfully",
+				data: { storeList },
 			});
 		}
 	);
