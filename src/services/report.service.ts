@@ -165,6 +165,7 @@ export class ReportService {
 			select: {
 				id: true,
 				name: true,
+				picture1: true,
 				category: {
 					select: { name: true },
 				},
@@ -177,7 +178,8 @@ export class ReportService {
 				productId: product.productId,
 				productName: details?.name || 'Unknown',
 				categoryName: details?.category?.name || 'Unknown',
-				totalQuantitySold: product._sum?.quantity || 0,
+				picture: details?.picture1 || undefined,
+				quantitySold: product._sum?.quantity || 0,
 				totalRevenue: product._sum?.price || 0,
 			};
 		});
