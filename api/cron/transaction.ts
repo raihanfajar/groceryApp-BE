@@ -3,7 +3,7 @@ import { confirmingOrderTransaction } from '../../src/jobs/transactionJobs/confi
 
 export const config = {
     runtime: 'edge',
-    schedule: '* * * * *' // runs every minute
+    schedule: '0 0 * * *' // runs once per day at midnight UTC
 };
 
 export default async function handler() {
