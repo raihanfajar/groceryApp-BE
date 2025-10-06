@@ -4,7 +4,7 @@ import { getVerifyUserEmailTemplate, transporter } from "../lib/nodemailer";
 import { ApiError } from "../utils/ApiError";
 import prisma from "../config";
 
-export const mailing = async (targetUser: Users, rollbackNeeded: boolean = false, needReturnValue: boolean = false) => {
+export const mailing = async (targetUser: Users, rollbackNeeded: boolean = false, needReturnValue: boolean = false): Promise<string | void> => {
     let verifyEmailToken = "";
     try {
         const payload = { userId: targetUser.id };

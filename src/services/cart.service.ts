@@ -412,7 +412,7 @@ export class CartService {
 		storeId: string,
 		productId: string,
 		quantity: number
-	) {
+	): Promise<{ message: string }> {
 		const cart = await prisma.cart.findFirst({
 			where: { userId },
 			select: { id: true },
@@ -422,12 +422,12 @@ export class CartService {
 			throw new ApiError(400, "User is not Found");
 		}
 		if (quantity === 0) {
-			const cartProduct = await prisma.cartProduct.delete({
+			await prisma.cartProduct.delete({
 				where: {
 					cartId_productId_storeId: { cartId: cart.id, productId, storeId },
 				},
 			});
-			return cartProduct;
+			return { message: "Product removed from cart" };
 		} else {
 			await prisma.$transaction(async (tx) => {
 				const stock = await tx.storeProduct.findFirst({
@@ -445,7 +445,7 @@ export class CartService {
 				if (stock && stock.stock < quantity) {
 					throw new ApiError(400, "Not enough stock");
 				}
-				const cartProduct = await tx.cartProduct.update({
+				await tx.cartProduct.update({
 					where: {
 						cartId_productId_storeId: { cartId: cart.id, productId, storeId },
 					},
@@ -453,8 +453,8 @@ export class CartService {
 						quantity,
 					},
 				});
-				return cartProduct;
 			});
+			return { message: "Cart quantity updated" };
 		}
 	}
 
