@@ -15,56 +15,49 @@ model Users {
   name           String
   email          String                 @unique
   phoneNumber    String?                @unique
-  provider       String?
-  providerId     String?
   password       String?
-  profilePicture String? //!BARU NIH BROS
   isVerified     Boolean                @default(false)
   createdAt      DateTime               @default(now())
   updatedAt      DateTime               @updatedAt
   deletedAt      DateTime?
+  provider       String?
+  providerId     String?
+  profilePicture String?
   carts          Cart?
+  discountUsage  DiscountUsageHistory[]
   transactions   Transaction[]
   addresses      UserAddress[]
-  discountUsage  DiscountUsageHistory[]
 
   @@unique([provider, providerId])
 }
 
 model UserAddress {
-  id                  String  @id @default(uuid())
-  addressLabel        String
+  id                  String    @id @default(uuid())
   userId              String
+  province            String
+  city                String
+  lat                 Decimal   @db.Decimal(9, 6)
+  isDefault           Boolean   @default(false)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  deletedAt           DateTime?
+  cityId              Int
+  provinceId          Int
+  addressDetails      String
+  addressDisplayName  String
+  addressLabel        String
+  lon                 Decimal   @db.Decimal(9, 6)
   receiverName        String
   receiverPhoneNumber String
-  addressDisplayName  String
-  addressDetails      String
-  lat                 Decimal @db.Decimal(9, 6)
-  lon                 Decimal @db.Decimal(9, 6)
-  isDefault           Boolean @default(false)
-
-  // Redundant information
-  provinceId Int
-  province   String
-  cityId     Int
-  city       String
-  district   String
-  districtId Int
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  user      Users     @relation(fields: [userId], references: [id])
+  district            String
+  districtId          Int
+  user                Users     @relation(fields: [userId], references: [id])
 }
 
 model Store {
   id          String         @id @default(uuid())
-  provinceId  Int
   province    String
-  cityId      Int
   city        String
-  district    String
-  districtId  Int
   address     String
   name        String
   lat         Decimal?       @db.Decimal(9, 6)
@@ -73,10 +66,14 @@ model Store {
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   deletedAt   DateTime?
+  cityId      Int
+  provinceId  Int
+  district    String
+  districtId  Int
   admins      Admin[]
   cartItems   CartProduct[]
-  storeStock  StoreProduct[]
   discounts   Discount[]
+  storeStock  StoreProduct[]
   Transaction Transaction[]
 }
 
@@ -91,21 +88,21 @@ model Admin {
   updatedAt        DateTime               @updatedAt
   deletedAt        DateTime?
   store            Store?                 @relation(fields: [storeId], references: [id])
-  stockJournal     StockJournal[]
   createdDiscounts Discount[]             @relation("DiscountCreator")
   appliedDiscounts DiscountUsageHistory[] @relation("DiscountApplier")
+  stockJournal     StockJournal[]
 }
 
 model ProductCategory {
   id          String    @id @default(uuid())
   name        String    @unique
-  slug        String    @unique // URL-friendly slug for categories
   description String?
-  icon        String? // Icon identifier for the category
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+  icon        String?
+  slug        String    @unique
   products    Product[]
 }
 
@@ -127,23 +124,23 @@ model Product {
   isActive         Boolean              @default(true)
   weight           Float
   cartItems        CartProduct[]
+  discountProducts DiscountProduct[]
   category         ProductCategory      @relation(fields: [categoryId], references: [id])
   storeStock       StoreProduct[]
   trxProducts      TransactionProduct[]
-  discountProducts DiscountProduct[]
 }
 
 model StoreProduct {
   storeId      String
   productId    String
   stock        Int
-  minStock     Int?           @default(5)
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   deletedAt    DateTime?
+  minStock     Int?           @default(5)
+  stockJournal StockJournal[]
   product      Product        @relation(fields: [productId], references: [id])
   store        Store          @relation(fields: [storeId], references: [id])
-  stockJournal StockJournal[]
 
   @@id([storeId, productId])
 }
@@ -222,43 +219,43 @@ model CartProduct {
 model Transaction {
   id                     String                 @id @default(uuid())
   userId                 String
-  storeId                String
   status                 OrderStatus            @default(waiting_payment)
-  totalProductPrice      Int // total harga semua produk sebelum diskon
-  discountedProductPrice Int                    @default(0) // total potongan produk
-  finalProductPrice      Int // totalProductPrice - discountedProductPrice
   shippingPrice          Int
-  discountedShipping     Int                    @default(0) // potongan ongkir dari voucher
-  finalShippingPrice     Int // shippingPrice - discountedShipping
   totalPrice             Int
-  address                String
-  receiverName           String
   phoneNumber            String
-  provinceId             Int
-  province               String
-  cityId                 Int
-  city                   String
-  district               String
-  districtId             Int
-  addressLabel           String
   codeVoucherProduct     String?
   codeVoucherDelivery    String?
   paymentProof           String?
-  paymentMethod          String? // BARU: Menyimpan metode bayar (e.g., "gopay", "bca_va", "manual_transfer")
-  snapToken              String?                @db.Text // Token dari Midtrans
-  snapRedirectUrl        String?                @db.Text // URL redirect dari Midtrans
-  paidAt                 DateTime? // BARU: Waktu saat pembayaran lunas
-  expiryAt               DateTime?
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
   deletedAt              DateTime?
-  store                  Store                  @relation(fields: [storeId], references: [id])
+  address                String
+  city                   String
+  cityId                 Int
+  discountedShipping     Int                    @default(0)
+  finalShippingPrice     Int
+  province               String
+  provinceId             Int
+  storeId                String
+  expiryAt               DateTime?
+  paidAt                 DateTime?
+  paymentMethod          String?
+  snapRedirectUrl        String?
+  snapToken              String?
+  district               String
+  districtId             Int
+  discountedProductPrice Int                    @default(0)
+  finalProductPrice      Int
+  totalProductPrice      Int
+  receiverName           String
+  addressLabel           String
+  discountUsageHistory   DiscountUsageHistory[]
+  stockJournal           StockJournal[]
   voucherDelivery        VoucherDelivery?       @relation(fields: [codeVoucherDelivery], references: [code])
   voucherProduct         VoucherProduct?        @relation(fields: [codeVoucherProduct], references: [code])
+  store                  Store                  @relation(fields: [storeId], references: [id])
   user                   Users                  @relation(fields: [userId], references: [id])
   products               TransactionProduct[]
-  stockJournal           StockJournal[]
-  discountUsageHistory   DiscountUsageHistory[]
 }
 
 model TransactionProduct {
@@ -267,44 +264,27 @@ model TransactionProduct {
   productId     String
   quantity      Int
   price         Int
-  discount      Int         @default(0) // potongan harga untuk produk ini
-  finalPrice    Int // (price - discount) * quantity
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   deletedAt     DateTime?
+  discount      Int         @default(0)
+  finalPrice    Int
   product       Product     @relation(fields: [productId], references: [id])
   transaction   Transaction @relation(fields: [transactionId], references: [id])
 }
 
-enum OrderStatus {
-  waiting_payment
-  waiting_confirmation
-  on_process
-  shipped
-  completed
-  cancelled
-}
-
-enum StockMovement {
-  IN
-  OUT
-  ADJUSTMENT
-  TRANSFER
-  INITIAL
-}
-
 model Discount {
   id                  String                 @id @default(uuid())
-  storeId             String? // null for global discounts
+  storeId             String?
   name                String
   description         String?
   type                DiscountType
   valueType           DiscountValueType
-  value               Int // percentage (1-100) or nominal amount
-  maxDiscountAmount   Int? // max discount for percentage type
-  minTransactionValue Int? // minimum transaction for discount to apply
-  maxUsagePerCustomer Int? // max times a customer can use this discount
-  totalUsageLimit     Int? // total usage limit across all customers
+  value               Int
+  maxDiscountAmount   Int?
+  minTransactionValue Int?
+  maxUsagePerCustomer Int?
+  totalUsageLimit     Int?
   currentUsageCount   Int                    @default(0)
   isActive            Boolean                @default(true)
   startDate           DateTime
@@ -312,12 +292,12 @@ model Discount {
   createdAt           DateTime               @default(now())
   updatedAt           DateTime               @updatedAt
   deletedAt           DateTime?
-  adminId             String // who created the discount
-  store               Store?                 @relation(fields: [storeId], references: [id])
+  adminId             String
+  bogoConfig          BogoDiscount?
   admin               Admin                  @relation("DiscountCreator", fields: [adminId], references: [id])
+  store               Store?                 @relation(fields: [storeId], references: [id])
   products            DiscountProduct[]
   usageHistory        DiscountUsageHistory[]
-  bogoConfig          BogoDiscount?
 
   @@index([storeId])
   @@index([isActive])
@@ -338,10 +318,10 @@ model DiscountProduct {
 model BogoDiscount {
   id                 String   @id @default(uuid())
   discountId         String   @unique
-  buyQuantity        Int // quantity to buy
-  getQuantity        Int // quantity to get free
-  applyToSameProduct Boolean  @default(true) // if false, can get different product
-  maxBogoSets        Int? // max number of BOGO sets per transaction
+  buyQuantity        Int
+  getQuantity        Int
+  applyToSameProduct Boolean  @default(true)
+  maxBogoSets        Int?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   discount           Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
@@ -352,15 +332,15 @@ model DiscountUsageHistory {
   discountId    String
   transactionId String?
   userId        String?
-  adminId       String? // if manually applied by admin
+  adminId       String?
   usedAt        DateTime     @default(now())
-  discountValue Int // actual discount amount applied
-  orderTotal    Int // total order amount when discount was applied
+  discountValue Int
+  orderTotal    Int
   createdAt     DateTime     @default(now())
+  appliedBy     Admin?       @relation("DiscountApplier", fields: [adminId], references: [id])
   discount      Discount     @relation(fields: [discountId], references: [id])
   transaction   Transaction? @relation(fields: [transactionId], references: [id])
   user          Users?       @relation(fields: [userId], references: [id])
-  appliedBy     Admin?       @relation("DiscountApplier", fields: [adminId], references: [id])
 
   @@index([discountId])
   @@index([transactionId])
@@ -368,14 +348,31 @@ model DiscountUsageHistory {
   @@index([usedAt])
 }
 
+enum OrderStatus {
+  waiting_payment
+  waiting_confirmation
+  on_process
+  shipped
+  completed
+  cancelled
+}
+
+enum StockMovement {
+  IN
+  OUT
+  ADJUSTMENT
+  TRANSFER
+  INITIAL
+}
+
 enum DiscountType {
-  MANUAL // Can be applied manually by admin
-  MINIMUM_PURCHASE // Requires minimum transaction value
-  BOGO // Buy One Get One
-  REGULAR // Regular discount, automatically applied when conditions are met
+  MANUAL
+  MINIMUM_PURCHASE
+  BOGO
+  REGULAR
 }
 
 enum DiscountValueType {
-  PERCENTAGE // Discount in percentage (1-100)
-  NOMINAL // Fixed amount discount
+  PERCENTAGE
+  NOMINAL
 }

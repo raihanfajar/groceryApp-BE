@@ -354,21 +354,18 @@ export class CartService {
 		const storeIdStr = String(storeId);
 		const productIdStr = String(productId);
 
-		const cart = await prisma.cart.findFirst({
+		const cart = await prisma.cart.upsert({
 			where: { userId },
-			select: { id: true },
+			update: {},
+			create: { userId },
 		});
-
-		if (!cart) {
-			throw new ApiError(400, "User cart not found");
-		}
 
 		const stock = await prisma.storeProduct.findFirst({
 			where: { productId: productIdStr, storeId: storeIdStr },
 			select: { stock: true },
 		});
 		if (!stock) {
-			throw new ApiError(400, "Product is not found");
+			throw new ApiError(400, "Product is not found in this store");
 		}
 		if (stock.stock <= 0) {
 			throw new ApiError(400, "Product is out of stock");
@@ -384,10 +381,14 @@ export class CartService {
 				select: { id: true, quantity: true },
 			});
 
+			if (existing && existing.quantity >= stock.stock) {
+				throw new ApiError(400, "Cannot add more, stock limit reached");
+			}
+
 			if (existing) {
 				const updated = await tx.cartProduct.update({
 					where: { id: existing.id },
-					data: { quantity: existing.quantity + 1 },
+					data: { quantity: { increment: 1 } },
 				});
 				return updated;
 			}

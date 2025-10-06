@@ -242,20 +242,29 @@ export class InventoryService {
 				where: whereClause,
 				include: {
 					storeProduct: {
-						include: {
+						select: {
 							product: {
 								select: {
 									id: true,
 									name: true,
 									picture1: true,
+									category: {
+										select: {
+											id: true,
+											name: true,
+										},
+									},
 								},
 							},
 							store: {
 								select: {
 									id: true,
 									name: true,
+									city: true,
+									province: true,
 								},
 							},
+							minStock: true,
 						},
 					},
 					admin: {
@@ -297,17 +306,24 @@ export class InventoryService {
 	/**
 	 * Get inventory summary for a store
 	 */
-	static async getInventorySummary(storeId: string): Promise<InventoryReport> {
-		// Total products with stock in this store
-		const storeProducts = await prisma.storeProduct.findMany({
-			where: {
-				storeId,
+	static async getInventorySummary(storeId?: string): Promise<InventoryReport> {
+		// Build where clause for storeProducts
+		const whereClause: any = {
+			deletedAt: null,
+			product: {
 				deletedAt: null,
-				product: {
-					deletedAt: null,
-					isActive: true,
-				},
+				isActive: true,
 			},
+		};
+
+		// Add storeId filter only if provided
+		if (storeId) {
+			whereClause.storeId = storeId;
+		}
+
+		// Total products with stock in this store (or all stores)
+		const storeProducts = await prisma.storeProduct.findMany({
+			where: whereClause,
 			include: {
 				product: {
 					include: {
@@ -335,13 +351,19 @@ export class InventoryService {
 		const sevenDaysAgo = new Date();
 		sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
-		const recentMovements = await prisma.stockJournal.count({
-			where: {
-				storeId,
-				createdAt: {
-					gte: sevenDaysAgo,
-				},
+		const recentMovementsWhere: any = {
+			createdAt: {
+				gte: sevenDaysAgo,
 			},
+		};
+
+		// Add storeId filter only if provided
+		if (storeId) {
+			recentMovementsWhere.storeId = storeId;
+		}
+
+		const recentMovements = await prisma.stockJournal.count({
+			where: recentMovementsWhere,
 		});
 
 		// Stock by category
@@ -389,16 +411,22 @@ export class InventoryService {
 	/**
 	 * Get low stock alerts for a store
 	 */
-	static async getLowStockAlerts(storeId: string) {
-		const lowStockProducts = await prisma.storeProduct.findMany({
-			where: {
-				storeId,
+	static async getLowStockAlerts(storeId?: string) {
+		const whereClause: any = {
+			deletedAt: null,
+			product: {
 				deletedAt: null,
-				product: {
-					deletedAt: null,
-					isActive: true,
-				},
+				isActive: true,
 			},
+		};
+
+		// Add storeId filter only if provided
+		if (storeId) {
+			whereClause.storeId = storeId;
+		}
+
+		const lowStockProducts = await prisma.storeProduct.findMany({
+			where: whereClause,
 			include: {
 				product: {
 					include: {
@@ -408,6 +436,13 @@ export class InventoryService {
 								name: true,
 							},
 						},
+					},
+				},
+				store: {
+					select: {
+						id: true,
+						name: true,
+						city: true,
 					},
 				},
 			},
@@ -449,13 +484,28 @@ export class InventoryService {
 				);
 			}
 
+			// Fetch store names for better notes
+			const [fromStoreData, toStoreData] = await Promise.all([
+				tx.store.findUnique({
+					where: { id: fromStoreId },
+					select: { name: true },
+				}),
+				tx.store.findUnique({
+					where: { id: toStoreId },
+					select: { name: true },
+				}),
+			]);
+
+			const fromStoreName = fromStoreData?.name || fromStoreId;
+			const toStoreName = toStoreData?.name || toStoreId;
+
 			// Update source store (reduce stock)
 			const fromStore = await this.updateStock({
 				productId,
 				storeId: fromStoreId,
 				quantity: -quantity,
 				type: 'TRANSFER',
-				notes: `Transfer OUT to store ${toStoreId}: ${notes || ''}`,
+				notes: `Transfer OUT to ${toStoreName}${notes ? `: ${notes}` : ''}`,
 				adminId,
 			});
 
@@ -465,7 +515,7 @@ export class InventoryService {
 				storeId: toStoreId,
 				quantity: quantity,
 				type: 'TRANSFER',
-				notes: `Transfer IN from store ${fromStoreId}: ${notes || ''}`,
+				notes: `Transfer IN from ${fromStoreName}${notes ? `: ${notes}` : ''}`,
 				adminId,
 			});
 

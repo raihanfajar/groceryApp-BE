@@ -180,18 +180,15 @@ export class InventoryController {
 			const { storeId } = req.query;
 
 			// For store admins, use their assigned store
-			let targetStoreId: string;
+			let targetStoreId: string | undefined;
 			if (!req.user!.isSuper) {
 				if (!req.user!.storeId) {
 					throw new ApiError(403, 'Store admin must be assigned to a store');
 				}
 				targetStoreId = req.user!.storeId;
 			} else {
-				// Super Admin must provide storeId
-				if (!storeId) {
-					throw new ApiError(400, 'Store ID is required for Super Admin');
-				}
-				targetStoreId = storeId as string;
+				// Super Admin can provide storeId or omit it for all stores
+				targetStoreId = storeId as string | undefined;
 			}
 
 			const summary = await InventoryService.getInventorySummary(targetStoreId);
@@ -212,18 +209,15 @@ export class InventoryController {
 			const { storeId } = req.query;
 
 			// For store admins, use their assigned store
-			let targetStoreId: string;
+			let targetStoreId: string | undefined;
 			if (!req.user!.isSuper) {
 				if (!req.user!.storeId) {
 					throw new ApiError(403, 'Store admin must be assigned to a store');
 				}
 				targetStoreId = req.user!.storeId;
 			} else {
-				// Super Admin must provide storeId
-				if (!storeId) {
-					throw new ApiError(400, 'Store ID is required for Super Admin');
-				}
-				targetStoreId = storeId as string;
+				// Super Admin can provide storeId or omit it for all stores
+				targetStoreId = storeId as string | undefined;
 			}
 
 			const alerts = await InventoryService.getLowStockAlerts(targetStoreId);
