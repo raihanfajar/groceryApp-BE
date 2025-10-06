@@ -24,4 +24,4 @@ export type AuthenticatedRequest = Request & {
 };
 
 // Export commonly used types
-export { Request, Response, NextFunction } from 'express';
+export type { Request, Response, NextFunction } from 'express';

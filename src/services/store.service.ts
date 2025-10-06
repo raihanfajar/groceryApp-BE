@@ -1,5 +1,7 @@
 import prisma from "../config";
+import { Store } from "../generated/prisma";
 import { ApiError } from "../utils/ApiError";
+import { rgcService } from "./geocoding.service";
 
 export const getStoreProductsService = async (storeId: string) => {
     const storeExists = await prisma.store.findUnique({ where: { id: storeId } });
@@ -69,4 +71,52 @@ export const getStoreProductsService = async (storeId: string) => {
                 : null,
         };
     });
+};
+
+export const addStoreService = async (body: Omit<Store, "id" | "createdAt" | "updatedAt" | "deletedAt" | "radiusKm" | "address">) => {
+    const { name, lat, lng, province, provinceId, city, cityId, district, districtId } = body;
+
+    const existingStore = await prisma.store.findFirst({ where: { name: name.toUpperCase() } });
+    if (existingStore) throw new ApiError(409, "Store name already in use");
+
+    const rgcResponse = await rgcService(String(lat), String(lng)) as { display_name: string };
+    console.log(rgcResponse);
+
+    const newStore = await prisma.store.create({
+        data: {
+            name: name.toUpperCase(),
+            lat: Number(lat),
+            lng: Number(lng),
+            province,
+            provinceId: Number(provinceId),
+            city,
+            cityId: Number(cityId),
+            district,
+            districtId: Number(districtId),
+            radiusKm: 20,
+            address: rgcResponse.display_name || "Fallback address",
+        },
+    });
+
+    // !Return
+    return newStore;
+};
+
+export const updateStoreService = async (storeId: string, body: Omit<Store, "id" | "createdAt" | "updatedAt" | "deletedAt" | "radiusKm" | "address">) => {
+    const { name, lat, lng, province, provinceId, city, cityId, district, districtId } = body;
+    const updatedStore = await prisma.store.update({
+        where: { id: storeId },
+        data: {
+            name: name.toUpperCase(),
+            lat: Number(lat),
+            lng: Number(lng),
+            province,
+            provinceId: Number(provinceId),
+            city,
+            cityId: Number(cityId),
+            district,
+            districtId: Number(districtId),
+        },
+    });
+    return updatedStore;
 };

@@ -71,12 +71,6 @@ transactionRouter.get(
 	verifyAdminRole,
 	transactionController.getStoreTransaction
 );
-transactionRouter.get(
-	"/admin-detail",
-	verifyToken,
-	verifyAdminRole,
-	transactionController.getUserTransactionDetailAdmin
-);
 transactionRouter.put(
 	"/admin/confirm",
 	verifyToken,
@@ -101,15 +95,11 @@ transactionRouter.put(
 	verifyAdminRole,
 	transactionController.cancelStoreTransaction
 );
-
-// --- Super Admin only routes ---
-// This route requires super admin verification
 transactionRouter.get(
-	"/admin/all",
+	"/store",
 	verifyToken,
-	verifyAdminRole,
 	verifySuperAdmin,
-	transactionController.getAllTransactions
-);
+	transactionController.getAllStoreList
+)
 
 export default transactionRouter;

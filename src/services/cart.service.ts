@@ -2,7 +2,6 @@ import { prisma } from "../lib/prisma";
 import { ApiError } from "../utils/ApiError";
 
 type CartWithPromoItem = {
-	// basic cart product fields
 	id: string;
 	cartId: string;
 	productId: string;
@@ -11,9 +10,7 @@ type CartWithPromoItem = {
 	createdAt: Date;
 	updatedAt: Date;
 	deletedAt?: Date | null;
-	// product included as from prisma
 	product: any;
-	// extras computed
 	appliedDiscount?: {
 		id: string;
 		name: string;
@@ -22,8 +19,8 @@ type CartWithPromoItem = {
 		value: number;
 		maxDiscountAmount?: number | null;
 	} | null;
-	discountAmount?: number; // per unit
-	activePrice?: number; // per unit after discount
+	discountAmount?: number;
+	activePrice?: number;
 	isDiscountActive?: boolean;
 	bogo?: {
 		buyQuantity: number;
@@ -157,20 +154,20 @@ export class CartService {
 		const cartWithComputed = await prisma.$transaction(async (tx) => {
 			type Key = string;
 
-			const pairs = new Set<Key>();
 			const storeIdsSet = new Set<string>();
 			const productIdsSet = new Set<string>();
+			const productQuantityMap = new Map<string, number>();
 
 			for (const item of cart.items) {
-				pairs.add(`${item.storeId}:${item.productId}`);
 				storeIdsSet.add(item.storeId);
 				productIdsSet.add(item.productId);
+				const currentQty = productQuantityMap.get(item.productId) || 0;
+				productQuantityMap.set(item.productId, currentQty + item.quantity);
 			}
 
 			const storeIds = Array.from(storeIdsSet);
 			const productIds = Array.from(productIdsSet);
 
-			// Cari semua storeProduct yang match salah satu pasangan
 			const storeProducts = await tx.storeProduct.findMany({
 				where: {
 					storeId: { in: storeIds },
@@ -184,34 +181,60 @@ export class CartService {
 				storeProductMap.set(`${sp.storeId}:${sp.productId}`, sp.stock ?? 0);
 			}
 
-			// --- AMBIL SEMUA discount yang relevan SEKALI ---
 			const discounts = await tx.discount.findMany({
 				where: {
-					storeId: { in: storeIds },
 					isActive: true,
 					startDate: { lte: now },
 					endDate: { gte: now },
-					products: {
-						some: {
-							productId: { in: productIds },
-						},
-					},
+					OR: [{ storeId: { in: storeIds } }, { storeId: null }],
 				},
 				include: {
 					bogoConfig: true,
-					products: {
-						select: { productId: true },
-					},
+					products: { select: { productId: true } },
 				},
 			});
 
 			const discountIndex = new Map<string, any[]>();
 			for (const d of discounts) {
-				for (const p of d.products || []) {
-					const key = `${d.storeId}:${p.productId}`;
-					const arr = discountIndex.get(key) ?? [];
-					arr.push(d);
-					discountIndex.set(key, arr);
+				if (d.storeId === null) {
+					if (d.products.length === 0) {
+						for (const item of cart.items) {
+							const key = `${item.storeId}:${item.productId}`;
+							const arr = discountIndex.get(key) ?? [];
+							arr.push(d);
+							discountIndex.set(key, arr);
+						}
+					} else {
+						const discountedProductIds = new Set(
+							d.products.map((p) => p.productId)
+						);
+						for (const item of cart.items) {
+							if (discountedProductIds.has(item.productId)) {
+								const key = `${item.storeId}:${item.productId}`;
+								const arr = discountIndex.get(key) ?? [];
+								arr.push(d);
+								discountIndex.set(key, arr);
+							}
+						}
+					}
+				} else {
+					if (d.products.length === 0) {
+						for (const item of cart.items) {
+							if (item.storeId === d.storeId) {
+								const key = `${d.storeId}:${item.productId}`;
+								const arr = discountIndex.get(key) ?? [];
+								arr.push(d);
+								discountIndex.set(key, arr);
+							}
+						}
+					} else {
+						for (const p of d.products) {
+							const key = `${d.storeId}:${p.productId}`;
+							const arr = discountIndex.get(key) ?? [];
+							arr.push(d);
+							discountIndex.set(key, arr);
+						}
+					}
 				}
 			}
 
@@ -220,79 +243,64 @@ export class CartService {
 			for (const item of cart.items) {
 				const product = item.product;
 				const basePrice: number = product.price;
-
 				const key = `${item.storeId}:${product.id}`;
 				const currentStock = storeProductMap.get(key) ?? null;
 
-				// availability rules:
-				// - jika storeProduct tidak ada -> kategori "not_avaible" (tetap jangan hapus)
-				// - jika ada tapi stock < quantity -> "OUT_OF_STOCK"
-				// - jika ada dan stock >= quantity -> "AVAILABLE"
-				let availabilityStatus: ComputedCartItem["availability"];
-				if (currentStock === null) {
-					availabilityStatus = {
-						status: "NOT_AVAILABLE",
-						currentStock: 0,
-					};
-				} else {
-					const numericStock = currentStock ?? 0;
-					availabilityStatus = {
-						status:
-							numericStock >= item.quantity ? "AVAILABLE" : "OUT_OF_STOCK",
-						currentStock: numericStock,
-					};
-				}
+				const availabilityStatus: ComputedCartItem["availability"] = {
+					status:
+						currentStock === null
+							? "NOT_AVAILABLE"
+							: currentStock >= item.quantity
+								? "AVAILABLE"
+								: "OUT_OF_STOCK",
+					currentStock: currentStock ?? 0,
+				};
 
-				// ambil discounts relevan dari index (jika ada)
 				const candidateDiscounts = discountIndex.get(key) ?? [];
-
-				// pilih best discount (maksimal nominal potongan) seperti sebelumnya
 				let bestDiscount: any = null;
-				let bestDiscountAmount = 0;
+				let bestDiscountPerUnit = 0;
+
 				for (const d of candidateDiscounts) {
-					let discountAmount = 0;
+					let currentDiscountPerUnit = 0;
 
 					if (d.type === "BOGO" && d.bogoConfig) {
-						// Calculate BOGO discount
+						const totalQuantityForProduct =
+							productQuantityMap.get(item.productId) || 0;
 						const { buyQuantity, getQuantity, maxBogoSets } = d.bogoConfig;
 						const totalRequiredItems = buyQuantity + getQuantity;
-						const maxPossibleSets = Math.floor(
-							item.quantity / totalRequiredItems
-						);
-						const actualSets = maxBogoSets
-							? Math.min(maxPossibleSets, maxBogoSets)
-							: maxPossibleSets;
-						const freeItems = actualSets * getQuantity;
 
-						if (d.valueType === "PERCENTAGE") {
-							// For BOGO, percentage is usually 100% (free items)
-							discountAmount = Math.floor(
-								(basePrice * d.value * freeItems) / 100
+						if (totalQuantityForProduct >= totalRequiredItems) {
+							const maxPossibleSets = Math.floor(
+								totalQuantityForProduct / totalRequiredItems
 							);
-						} else if (d.valueType === "NOMINAL") {
-							discountAmount = d.value * freeItems;
+							const actualSets = maxBogoSets
+								? Math.min(maxPossibleSets, maxBogoSets)
+								: maxPossibleSets;
+							const totalFreeItems = actualSets * getQuantity;
+							const totalDiscountValue = totalFreeItems * basePrice;
+							// Average the discount across all units of this product in the cart
+							currentDiscountPerUnit =
+								totalDiscountValue / totalQuantityForProduct;
 						}
-					} else {
-						// Regular discount calculation for REGULAR and MINIMUM_PURCHASE
+					} else if (d.type !== "BOGO") {
 						if (d.valueType === "PERCENTAGE") {
-							discountAmount = Math.floor((basePrice * d.value) / 100);
+							let amount = Math.floor((basePrice * d.value) / 100);
 							if (d.maxDiscountAmount) {
-								discountAmount = Math.min(discountAmount, d.maxDiscountAmount);
+								amount = Math.min(amount, d.maxDiscountAmount);
 							}
+							currentDiscountPerUnit = amount;
 						} else if (d.valueType === "NOMINAL") {
-							discountAmount = d.value;
+							currentDiscountPerUnit = d.value;
 						}
 					}
 
-					if (discountAmount > bestDiscountAmount) {
-						bestDiscountAmount = discountAmount;
+					if (currentDiscountPerUnit > bestDiscountPerUnit) {
+						bestDiscountPerUnit = currentDiscountPerUnit;
 						bestDiscount = d;
 					}
 				}
 
-				const activePrice = Math.max(0, basePrice - bestDiscountAmount);
-				const bogo =
-					candidateDiscounts.find((d) => d.bogoConfig)?.bogoConfig ?? null;
+				const finalActivePrice = Math.max(0, basePrice - bestDiscountPerUnit);
 
 				mappedItems.push({
 					id: item.id,
@@ -314,15 +322,15 @@ export class CartService {
 								maxDiscountAmount: bestDiscount.maxDiscountAmount ?? null,
 							}
 						: null,
-					discountAmount: bestDiscountAmount,
-					activePrice,
+					discountAmount: bestDiscountPerUnit,
+					activePrice: finalActivePrice,
 					isDiscountActive: !!bestDiscount,
-					bogo: bogo
+					bogo: bestDiscount?.bogoConfig
 						? {
-								buyQuantity: bogo.buyQuantity,
-								getQuantity: bogo.getQuantity,
-								applyToSameProduct: bogo.applyToSameProduct,
-								maxBogoSets: bogo.maxBogoSets ?? null,
+								buyQuantity: bestDiscount.bogoConfig.buyQuantity,
+								getQuantity: bestDiscount.bogoConfig.getQuantity,
+								applyToSameProduct: bestDiscount.bogoConfig.applyToSameProduct,
+								maxBogoSets: bestDiscount.bogoConfig.maxBogoSets ?? null,
 							}
 						: null,
 					availability: availabilityStatus,
@@ -404,7 +412,7 @@ export class CartService {
 		storeId: string,
 		productId: string,
 		quantity: number
-	) {
+	): Promise<{ message: string }> {
 		const cart = await prisma.cart.findFirst({
 			where: { userId },
 			select: { id: true },
@@ -414,12 +422,12 @@ export class CartService {
 			throw new ApiError(400, "User is not Found");
 		}
 		if (quantity === 0) {
-			const cartProduct = await prisma.cartProduct.delete({
+			await prisma.cartProduct.delete({
 				where: {
 					cartId_productId_storeId: { cartId: cart.id, productId, storeId },
 				},
 			});
-			return cartProduct;
+			return { message: "Product removed from cart" };
 		} else {
 			await prisma.$transaction(async (tx) => {
 				const stock = await tx.storeProduct.findFirst({
@@ -437,7 +445,7 @@ export class CartService {
 				if (stock && stock.stock < quantity) {
 					throw new ApiError(400, "Not enough stock");
 				}
-				const cartProduct = await tx.cartProduct.update({
+				await tx.cartProduct.update({
 					where: {
 						cartId_productId_storeId: { cartId: cart.id, productId, storeId },
 					},
@@ -445,8 +453,8 @@ export class CartService {
 						quantity,
 					},
 				});
-				return cartProduct;
 			});
+			return { message: "Cart quantity updated" };
 		}
 	}
 
@@ -457,13 +465,12 @@ export class CartService {
 		storeId?: string
 	) {
 		return await prisma.$transaction(async (tx) => {
-			// Verify discount exists and is MANUAL type
 			const discount = await tx.discount.findFirst({
 				where: {
 					id: discountId,
 					type: "MANUAL",
 					isActive: true,
-					...(storeId && { storeId }), // For store admin, restrict to their store
+					...(storeId && { storeId }),
 				},
 				include: {
 					products: {

@@ -1,22 +1,20 @@
-import { addDays, addHours } from 'date-fns';
-import { Prisma, OrderStatus } from '../generated/prisma';
-import { prisma } from '../lib/prisma';
-import { ApiError } from '../utils/ApiError';
-import { cloudinaryUpload } from '../utils/cloudinary';
-import { CartProductWithDetails } from '../types/cartProduct';
-import { coreApi, snap } from '../lib/midtrans';
+import { addDays, addHours, format } from "date-fns";
+import { Prisma, OrderStatus } from "../generated/prisma";
+import { prisma } from "../lib/prisma";
+import { ApiError } from "../utils/ApiError";
+import { cloudinaryUpload } from "../utils/cloudinary";
+import { CartProductWithDetails } from "../types/cartProduct";
+import { coreApi, snap } from "../lib/midtrans";
 import {
-	MidtransCoreApi,
 	MidtransFraudStatus,
 	MidtransNotificationPayload,
 	MidtransTransactionStatus,
-} from '../types/midTrans';
-import { computeMidtransSignature } from '../utils/computeMidtransSignature';
+} from "../types/midTrans";
 import {
 	sendOrderConfirmationEmail,
 	sendOrderShippedEmail,
 	sendPaymentConfirmedEmail,
-} from '../lib/transactionMailer';
+} from "../lib/transactionMailer";
 
 type CalculatedProductDetail = {
 	cartProductId: string;
@@ -37,7 +35,7 @@ export class TransactionService {
 		const address = await prisma.userAddress.findMany({
 			where: { userId: userId },
 		});
-		if (!address) throw new ApiError(404, 'User Address not found');
+		if (!address) throw new ApiError(404, "User Address not found");
 		return address;
 	}
 
@@ -52,19 +50,19 @@ export class TransactionService {
 			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
 		]);
 
-		if (!cart) throw new ApiError(404, 'Cart not found');
-		if (!store) throw new ApiError(404, 'Store not found');
-		if (!userAddress) throw new ApiError(404, 'User address not found');
+		if (!cart) throw new ApiError(404, "Cart not found");
+		if (!store) throw new ApiError(404, "Store not found");
+		if (!userAddress) throw new ApiError(404, "User address not found");
 
 		const cartItems = await prisma.cartProduct.findMany({
 			where: { cartId: cart.id },
 			include: { product: true },
 		});
-		if (cartItems.length === 0) throw new ApiError(400, 'Cart is empty');
+		if (cartItems.length === 0) throw new ApiError(400, "Cart is empty");
 
 		const { inStockItems } = await this._filterStock(cartItems, storeId);
 		if (inStockItems.length === 0) {
-			throw new ApiError(400, 'All products in the cart are out of stock.');
+			throw new ApiError(400, "All products in the cart are out of stock.");
 		}
 
 		let totalWeight = 0;
@@ -76,23 +74,20 @@ export class TransactionService {
 			return { price: 10000 };
 		}
 
-		// ---- Bagian API Call (Diperbaiki Sesuai Screenshot) ----
 		const params = new URLSearchParams({
 			origin: userAddress.districtId.toString(),
 			destination: store.districtId.toString(),
 			weight: totalWeight.toString(),
-			courier: 'jne:sicepat:jnt',
+			courier: "jne:sicepat:jnt",
 		});
 
-		console.log(totalWeight);
-
 		const response = await fetch(
-			'https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost',
+			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
 			{
-				method: 'POST',
+				method: "POST",
 				headers: {
 					key: process.env.RAJAONGKIR_API_KEY!,
-					'content-type': 'application/x-www-form-urlencoded',
+					"content-type": "application/x-www-form-urlencoded",
 				},
 				body: params,
 			}
@@ -102,19 +97,22 @@ export class TransactionService {
 			throw new ApiError(500, `RajaOngkir API request failed`);
 		}
 
-		const jsonResponse = await response.json();
+		const jsonResponse = await response.json() as {
+            meta?: { status: string; message?: string };
+            data?: { cost: number }[];
+        };
 
-		if (jsonResponse.meta?.status !== 'success') {
+		if (jsonResponse.meta?.status !== "success") {
 			throw new ApiError(
 				400,
-				jsonResponse.meta?.message || 'RajaOngkir returned an error.'
+				jsonResponse.meta?.message || "RajaOngkir returned an error."
 			);
 		}
 
 		const shippingOptions = jsonResponse.data;
 
 		if (!shippingOptions || shippingOptions.length === 0) {
-			throw new ApiError(404, 'No shipping options found.');
+			throw new ApiError(404, "No shipping options found.");
 		}
 
 		let lowestPrice = Infinity;
@@ -125,7 +123,7 @@ export class TransactionService {
 		}
 
 		if (lowestPrice === Infinity) {
-			throw new ApiError(404, 'Shipping cost could not be determined.');
+			throw new ApiError(404, "Shipping cost could not be determined.");
 		}
 
 		return { price: lowestPrice };
@@ -136,7 +134,7 @@ export class TransactionService {
 		userAddressId: string,
 		storeId: string,
 		shippingPrice: number,
-		paymentMethod: 'manual_transfer' | 'midtrans',
+		paymentMethod: "manual_transfer" | "midtrans",
 		codeVoucherProduct?: string,
 		codeVoucherDelivery?: string
 	) {
@@ -145,15 +143,15 @@ export class TransactionService {
 			prisma.users.findUnique({ where: { id: userId } }),
 			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
 		]);
-		if (!cart) throw new ApiError(404, 'Cart not found');
-		if (!user) throw new ApiError(404, 'User not found');
-		if (!userAddress) throw new ApiError(404, 'User address not found');
+		if (!cart) throw new ApiError(404, "Cart not found");
+		if (!user) throw new ApiError(404, "User not found");
+		if (!userAddress) throw new ApiError(404, "User address not found");
 
 		const cartProducts = await prisma.cartProduct.findMany({
 			where: { cartId: cart.id },
 			include: { product: true },
 		});
-		if (cartProducts.length === 0) throw new ApiError(400, 'Cart is empty');
+		if (cartProducts.length === 0) throw new ApiError(400, "Cart is empty");
 
 		let validVoucherProduct = null;
 		if (codeVoucherProduct) {
@@ -165,10 +163,10 @@ export class TransactionService {
 				validVoucherProduct.quota <= 0 ||
 				new Date() > validVoucherProduct.expiredDate
 			) {
-				throw new ApiError(400, 'Product voucher is not valid.');
+				throw new ApiError(400, "Product voucher is not valid.");
 			}
 		}
-		if (!paymentMethod) throw new ApiError(400, 'Payment method is required.');
+		if (!paymentMethod) throw new ApiError(400, "Payment method is required.");
 		let validVoucherDelivery = null;
 		if (codeVoucherDelivery) {
 			validVoucherDelivery = await prisma.voucherDelivery.findUnique({
@@ -179,7 +177,7 @@ export class TransactionService {
 				validVoucherDelivery.quota <= 0 ||
 				new Date() > validVoucherDelivery.expiredDate
 			) {
-				throw new ApiError(400, 'Delivery voucher is not valid.');
+				throw new ApiError(400, "Delivery voucher is not valid.");
 			}
 		}
 
@@ -188,7 +186,7 @@ export class TransactionService {
 			storeId
 		);
 		if (inStockItems.length === 0) {
-			throw new ApiError(400, 'All products in the cart are out of stock.');
+			throw new ApiError(400, "All products in the cart are out of stock.");
 		}
 
 		const transactionResult = await prisma.$transaction(async (tx) => {
@@ -242,26 +240,35 @@ export class TransactionService {
 					district: userAddress.district,
 					districtId: userAddress.districtId,
 					addressLabel: userAddress.addressLabel,
-					status: 'waiting_payment',
-					expiryAt:
-						paymentMethod === 'manual_transfer'
-							? addHours(new Date(), 2)
-							: null,
+					status: "waiting_payment",
+					expiryAt: addHours(new Date(), 2),
 					codeVoucherProduct,
 					codeVoucherDelivery,
 				},
 			});
 
-			if (paymentMethod === 'midtrans') {
+			if (paymentMethod === "midtrans") {
+				const startTime = format(new Date(), "yyyy-MM-dd HH:mm:ss Z");
+
+				const finishRedirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transaction/${newTransaction.id}`;
+
 				const parameters = {
 					transaction_details: {
 						order_id: newTransaction.id,
 						gross_amount: grandTotalPrice,
 					},
 					customer_details: {
-						first_name: user.name,
-						email: user.email,
-						phone: userAddress.receiverPhoneNumber,
+						first_name: user!.name,
+						email: user!.email,
+						phone: userAddress!.receiverPhoneNumber,
+					},
+					expiry: {
+						start_time: startTime,
+						unit: "hours",
+						duration: 2,
+					},
+					callbacks: {
+						finish: finishRedirectUrl,
 					},
 				};
 				const snapToken = await snap.createTransaction(parameters);
@@ -358,25 +365,32 @@ export class TransactionService {
 		userId: string,
 		tx: Prisma.TransactionClient
 	): Promise<PriceCalculationResult> {
-		const productIds = cartProducts.map((p) => p.productId);
+		const now = new Date();
+		const storeIds = [...new Set(cartProducts.map((p) => p.storeId))];
 		const subTotal = cartProducts.reduce(
 			(sum, p) => sum + p.product.price * p.quantity,
 			0
 		);
 
+		const productQuantityMap = new Map<string, number>();
+		for (const item of cartProducts) {
+			const currentQty = productQuantityMap.get(item.productId) || 0;
+			productQuantityMap.set(item.productId, currentQty + item.quantity);
+		}
+
 		const potentialDiscounts = await tx.discount.findMany({
 			where: {
 				isActive: true,
-				startDate: { lte: new Date() },
-				endDate: { gte: new Date() },
-				products: { some: { productId: { in: productIds } } },
+				startDate: { lte: now },
+				endDate: { gte: now },
+				OR: [{ storeId: { in: storeIds } }, { storeId: null }],
 			},
-			include: { products: true },
+			include: { products: true, bogoConfig: true },
 		});
 
 		const discountIds = potentialDiscounts.map((d) => d.id);
 		const userUsageCounts = await tx.discountUsageHistory.groupBy({
-			by: ['discountId'],
+			by: ["discountId"],
 			where: { userId: userId, discountId: { in: discountIds } },
 			_count: { id: true },
 		});
@@ -389,13 +403,25 @@ export class TransactionService {
 		const productDetails: CalculatedProductDetail[] = [];
 
 		for (const item of cartProducts) {
-			let itemPrice = item.product.price;
-			let appliedDiscount = 0;
-			const discountForProduct = potentialDiscounts.find((d) =>
-				d.products.some((p) => p.productId === item.productId)
-			);
+			const itemPrice = item.product.price;
+			let bestDiscountAmount = 0;
 
-			if (discountForProduct) {
+			const candidateDiscounts = potentialDiscounts.filter((d) => {
+				if (d.storeId === null) {
+					return (
+						d.products.length === 0 ||
+						d.products.some((p) => p.productId === item.productId)
+					);
+				} else if (d.storeId === item.storeId) {
+					return (
+						d.products.length === 0 ||
+						d.products.some((p) => p.productId === item.productId)
+					);
+				}
+				return false;
+			});
+
+			for (const discountForProduct of candidateDiscounts) {
 				const isMinimumPurchaseMet =
 					!discountForProduct.minTransactionValue ||
 					subTotal >= discountForProduct.minTransactionValue;
@@ -404,30 +430,58 @@ export class TransactionService {
 					!discountForProduct.maxUsagePerCustomer ||
 					usageCount < discountForProduct.maxUsagePerCustomer;
 
+				let currentDiscountAmount = 0;
 				if (isMinimumPurchaseMet && isUsageLimitOk) {
-					if (discountForProduct.valueType === 'PERCENTAGE') {
-						appliedDiscount = Math.floor(
+					if (
+						discountForProduct.type === "BOGO" &&
+						discountForProduct.bogoConfig
+					) {
+						const totalQuantityForProduct =
+							productQuantityMap.get(item.productId) || 0;
+						const { buyQuantity, getQuantity, maxBogoSets } =
+							discountForProduct.bogoConfig;
+						const totalRequiredItems = buyQuantity + getQuantity;
+
+						if (totalQuantityForProduct >= totalRequiredItems) {
+							const maxPossibleSets = Math.floor(
+								totalQuantityForProduct / totalRequiredItems
+							);
+							const actualSets = maxBogoSets
+								? Math.min(maxPossibleSets, maxBogoSets)
+								: maxPossibleSets;
+							const freeItemsCount = actualSets * getQuantity;
+
+							const discountPerUnit =
+								(itemPrice * freeItemsCount) / totalQuantityForProduct;
+							currentDiscountAmount = discountPerUnit * item.quantity;
+						}
+					} else if (discountForProduct.valueType === "PERCENTAGE") {
+						currentDiscountAmount = Math.floor(
 							itemPrice * (discountForProduct.value / 100)
 						);
 						if (discountForProduct.maxDiscountAmount) {
-							appliedDiscount = Math.min(
-								appliedDiscount,
+							currentDiscountAmount = Math.min(
+								currentDiscountAmount,
 								discountForProduct.maxDiscountAmount
 							);
 						}
-					} else if (discountForProduct.valueType === 'NOMINAL') {
-						appliedDiscount = discountForProduct.value;
+					} else if (discountForProduct.valueType === "NOMINAL") {
+						currentDiscountAmount = discountForProduct.value;
 					}
+				}
+
+				if (currentDiscountAmount > bestDiscountAmount) {
+					bestDiscountAmount = currentDiscountAmount;
 				}
 			}
 
-			const finalItemPrice = itemPrice - appliedDiscount;
+			const finalItemPrice = itemPrice - bestDiscountAmount;
 			productDetails.push({
 				cartProductId: item.id,
 				productId: item.productId,
 				quantity: item.quantity,
 				originalPrice: itemPrice,
-				appliedDiscount,
+				appliedDiscount: bestDiscountAmount,
 				priceAfterDiscount: finalItemPrice,
 			});
 			totalPriceAfterDiscount += finalItemPrice * item.quantity;
@@ -438,35 +492,8 @@ export class TransactionService {
 
 	async handleMidtransNotification(notification: MidtransNotificationPayload) {
 		try {
-			const typedCoreApi = coreApi as unknown as MidtransCoreApi;
-
-			// 0. cek MIDTRANS_SERVER_KEY
-			const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY ?? '';
-			if (!MIDTRANS_SERVER_KEY) {
-				throw new Error('MIDTRANS_SERVER_KEY not configured');
-			}
-
-			// 1. validasi signature_key dari payload (segera tolak jika mismatch)
-			const incomingSignature = (notification.signature_key ?? '') as string;
-			const incomingOrderId = notification.order_id;
-			const incomingStatusCode = (notification.status_code ?? '') as string;
-			const incomingGrossAmount = notification.gross_amount ?? '';
-
-			const expectedSignature = computeMidtransSignature({
-				orderId: incomingOrderId,
-				statusCode: incomingStatusCode,
-				grossAmount: incomingGrossAmount,
-				serverKey: MIDTRANS_SERVER_KEY,
-			});
-
-			if (incomingSignature !== expectedSignature) {
-				// signature mismatch -> hentikan proses (caller webhook bisa return 4xx)
-				throw new Error('Invalid Midtrans signature_key');
-			}
-
-			// 2. verifikasi ke Core API Midtrans
-			const statusResponse = await typedCoreApi.transaction.notification(
-				notification as unknown
+			const statusResponse = await (coreApi as any).transaction.notification(
+				notification
 			);
 
 			const orderId = statusResponse.order_id as string;
@@ -475,97 +502,72 @@ export class TransactionService {
 			const fraudStatus = (statusResponse.fraud_status ??
 				null) as MidtransFraudStatus | null;
 			const grossAmount = Math.round(
-				parseFloat(statusResponse.gross_amount || '0')
+				parseFloat(statusResponse.gross_amount || "0")
 			);
 
-			// 3. ambil trx dari DB
 			const trx = await prisma.transaction.findUnique({
 				where: { id: orderId },
+				include: { user: true },
 			});
 
-			if (!trx) {
-				console.warn(`[Webhook] Transaction not found: ${orderId}`);
-				return;
-			}
-
-			// 4. jika sudah final, ignore
-			if (trx.status === 'completed' || trx.status === 'cancelled') {
-				return;
-			}
-
-			// 5. validasi jumlah
-			if (trx.totalPrice !== grossAmount) {
-				console.error(
-					`[Webhook] Invalid amount for ${orderId}. DB: ${trx.totalPrice}, Midtrans: ${grossAmount}`
-				);
-				return;
-			}
-
-			// 6. mapping status Midtrans -> internal
-			let newStatus: OrderStatus | null = null;
-
-			if (transactionStatus === 'capture') {
-				if (fraudStatus === 'accept') newStatus = OrderStatus.on_process;
-				else if (fraudStatus === 'challenge')
-					newStatus = OrderStatus.waiting_confirmation;
-				else if (fraudStatus === 'deny') newStatus = OrderStatus.cancelled;
-			} else if (transactionStatus === 'settlement') {
-				newStatus = OrderStatus.on_process;
-			} else if (transactionStatus === 'pending') {
-				newStatus = OrderStatus.waiting_payment;
-			} else if (
-				['deny', 'cancel', 'expire', 'failure'].includes(transactionStatus)
+			if (
+				!trx ||
+				trx.status === "completed" ||
+				trx.status === "cancelled" ||
+				trx.totalPrice !== grossAmount
 			) {
-				newStatus = OrderStatus.cancelled;
-			} else {
-				// refund / chargeback / partial_refund / partial_chargeback dll.
-				// sesuai permintaan: tidak melakukan DB action untuk kasus refund
-				newStatus = null;
+				return;
 			}
 
-			// 7. update DB jika diperlukan (set paidAt hanya saat benar-benar lunas)
-			if (newStatus) {
-				const updateData: Partial<{ status: OrderStatus; paidAt?: Date }> = {
+			let newStatus: OrderStatus | null = null;
+			switch (transactionStatus) {
+				case "capture":
+					if (fraudStatus === "accept") newStatus = OrderStatus.on_process;
+					else if (fraudStatus === "challenge")
+						newStatus = OrderStatus.waiting_confirmation;
+					else if (fraudStatus === "deny") newStatus = OrderStatus.cancelled;
+					break;
+				case "settlement":
+					newStatus = OrderStatus.on_process;
+					break;
+				case "pending":
+					newStatus = OrderStatus.waiting_payment;
+					break;
+				case "deny":
+				case "cancel":
+				case "expire":
+				case "failure":
+					newStatus = OrderStatus.cancelled;
+					break;
+			}
+
+			if (newStatus && newStatus !== trx.status) {
+				const updateData: Prisma.TransactionUpdateInput = {
 					status: newStatus,
 				};
+
 				if (newStatus === OrderStatus.on_process) {
 					updateData.paidAt = new Date();
-				}
 
-				await prisma.transaction.update({
-					where: { id: orderId },
-					data: updateData,
-				});
-				// log tetap minimal: hanya saat berhasil update
-				console.info(
-					`[Webhook] Transaction ${orderId} updated -> ${newStatus}`
-				);
-			}
+					const updatedTransaction = await prisma.transaction.update({
+						where: { id: orderId },
+						data: updateData,
+					});
 
-			if (newStatus === OrderStatus.on_process) {
-				const updatedTransaction = await prisma.transaction.update({
-					where: { id: orderId },
-					data: { status: newStatus, paidAt: new Date() },
-				});
-
-				const transactionWithUser = await prisma.transaction.findUnique({
-					where: { id: orderId },
-					include: { user: true },
-				});
-				if (transactionWithUser) {
-					await sendPaymentConfirmedEmail(
-						transactionWithUser.user,
-						updatedTransaction
-					);
+					if (trx.user) {
+						await sendPaymentConfirmedEmail(trx.user, updatedTransaction);
+					}
+				} else {
+					await prisma.transaction.update({
+						where: { id: orderId },
+						data: updateData,
+					});
 				}
 			}
 
-			// selesai
 			return;
-		} catch (err) {
-			// tangani error agar caller (webhook route) bisa memberikan response 4xx/5xx sesuai kebijakan
-			console.error('[Webhook] Error processing Midtrans notification:', err);
-			throw err;
+		} catch (err: any) {
+			throw new ApiError(400, err.message || "Invalid Midtrans notification");
 		}
 	}
 
@@ -574,7 +576,6 @@ export class TransactionService {
 		file: Express.Multer.File,
 		transactionId: string
 	) {
-		console.log('udh masuk service');
 		prisma.$transaction(async (tx) => {
 			const transaction = await tx.transaction.findFirst({
 				where: {
@@ -582,22 +583,22 @@ export class TransactionService {
 					userId: userId,
 				},
 			});
-			if (!transaction) throw new ApiError(404, 'Transaction not found');
-			if (!transaction || transaction.status !== 'waiting_payment') {
+			if (!transaction) throw new ApiError(404, "Transaction not found");
+			if (!transaction || transaction.status !== "waiting_payment") {
 				throw new Error(
-					'Transaction must be ont waiting payment status to upload payment proof.'
+					"Transaction must be ont waiting payment status to upload payment proof."
 				);
 			}
 
 			const uploadedFile = await cloudinaryUpload(file.buffer);
 
 			if (!uploadedFile || !uploadedFile.secure_url) {
-				throw new Error('File upload to Cloudinary failed.');
+				throw new Error("File upload to Cloudinary failed.");
 			}
 			const updatedTransaction = await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'waiting_confirmation',
+					status: "waiting_confirmation",
 					paymentProof: uploadedFile.url,
 					expiryAt: addDays(new Date(), 2),
 				},
@@ -658,7 +659,7 @@ export class TransactionService {
 				include: {
 					products: { include: { product: true } },
 				},
-				orderBy: { createdAt: 'desc' },
+				orderBy: { createdAt: "desc" },
 				skip,
 				take: safePageSize,
 			}),
@@ -693,7 +694,7 @@ export class TransactionService {
 				},
 			},
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		return transaction;
 	}
 
@@ -704,16 +705,16 @@ export class TransactionService {
 				userId: userId,
 			},
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
-		if (transaction.status !== 'shipped')
+		if (!transaction) throw new ApiError(404, "Transaction not found");
+		if (transaction.status !== "shipped")
 			throw new ApiError(
 				400,
-				'Transaction can only be completed if is in waiting confirmation status'
+				"Transaction can only be completed if is in waiting confirmation status"
 			);
 		const completedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'completed',
+				status: "completed",
 				expiryAt: null,
 			},
 		});
@@ -727,20 +728,20 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		if (transaction.userId !== userId) {
 			throw new ApiError(
 				403,
-				'You are not authorized to cancel this transaction'
+				"You are not authorized to cancel this transaction"
 			);
 		}
 
-		if (transaction.status !== 'waiting_payment') {
+		if (transaction.status !== "waiting_payment") {
 			throw new ApiError(
 				400,
-				'Transaction can only be canceled if is not in waiting payment status'
+				"Transaction can only be canceled if is not in waiting payment status"
 			);
 		}
 
@@ -763,7 +764,7 @@ export class TransactionService {
 			await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'cancelled',
+					status: "cancelled",
 					expiryAt: null,
 				},
 			});
@@ -778,28 +779,13 @@ export class TransactionService {
 		opts?: {
 			status?: OrderStatus;
 			orderId?: string;
-			storeId?: string;
 			startDate?: Date;
 			endDate?: Date;
 			page?: number;
 			pageSize?: number;
+			storeId?: string;
 		}
 	) {
-		const admin = await prisma.admin.findFirst({
-			where: { id: adminId },
-		});
-
-		if (!admin) {
-			throw new ApiError(404, 'Admin not found');
-		}
-
-		// For Super Admin: use storeId from opts (query parameter)
-		// For Store Admin: use admin.storeId from database
-		const storeId = admin.isSuper ? opts?.storeId : admin.storeId;
-		if (!storeId) {
-			throw new ApiError(404, 'Admin has no store assigned');
-		}
-
 		const {
 			status,
 			orderId,
@@ -807,35 +793,52 @@ export class TransactionService {
 			endDate,
 			page = 1,
 			pageSize = 5,
+			storeId: filterStoreId,
 		} = opts ?? {};
+
+		let resolvedStoreId = filterStoreId;
+
+		if (!resolvedStoreId) {
+			const admin = await prisma.admin.findUnique({
+				where: { id: adminId },
+				select: { storeId: true, isSuper: true },
+			});
+
+			if (!admin) {
+				throw new ApiError(404, "Admin not found");
+			}
+
+			if (!admin.isSuper) {
+				if (!admin.storeId) {
+					throw new ApiError(404, "Admin has no store assigned");
+				}
+				resolvedStoreId = admin.storeId;
+			}
+		}
 
 		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
 		const safePage = Math.max(page, 1);
 		const skip = (safePage - 1) * safePageSize;
 
-		const whereCondition: Prisma.TransactionWhereInput = {
-			storeId,
-		};
+		const whereCondition: Prisma.TransactionWhereInput = {};
 
+		if (resolvedStoreId) {
+			whereCondition.storeId = resolvedStoreId;
+		}
 		if (status) whereCondition.status = status;
 		if (orderId) whereCondition.id = orderId;
 
 		if (startDate || endDate) {
+			whereCondition.createdAt = {};
 			if (startDate) {
 				const s = new Date(startDate);
 				s.setHours(0, 0, 0, 0);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					gte: s,
-				};
+				whereCondition.createdAt.gte = s;
 			}
 			if (endDate) {
 				const e = new Date(endDate);
 				e.setHours(23, 59, 59, 999);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					lte: e,
-				};
+				whereCondition.createdAt.lte = e;
 			}
 		}
 
@@ -843,33 +846,13 @@ export class TransactionService {
 			prisma.transaction.findMany({
 				where: whereCondition,
 				include: {
-					user: {
-						select: {
-							id: true,
-							name: true,
-							email: true,
-							profilePicture: true,
-						},
-					},
-					store: {
-						select: {
-							id: true,
-							name: true,
-						},
-					},
 					products: {
 						include: {
-							product: {
-								select: {
-									id: true,
-									name: true,
-									picture1: true,
-								},
-							},
+							product: true,
 						},
 					},
 				},
-				orderBy: { createdAt: 'desc' },
+				orderBy: { createdAt: "desc" },
 				skip,
 				take: safePageSize,
 			}),
@@ -890,62 +873,23 @@ export class TransactionService {
 		};
 	}
 
-	async getUserTransactionDetailAdmin(adminId: string, transactionId: string) {
-		const admin = await prisma.admin.findFirst({
-			where: { id: adminId },
-		});
-
-		if (!admin) {
-			throw new ApiError(404, 'Admin not found');
-		}
-
-		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId },
-			include: {
-				products: {
-					include: {
-						product: true,
-					},
-				},
-			},
-		});
-
-		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
-		}
-
-		if (!admin.isSuper) {
-			if (!admin.storeId) {
-				throw new ApiError(403, 'Admin has no store assigned');
-			}
-			if (transaction.storeId !== admin.storeId) {
-				throw new ApiError(
-					403,
-					"Forbidden: you don't have access to this transaction"
-				);
-			}
-		}
-
-		return transaction;
-	}
-
 	// Confirming order transaction
 	async confirmingOrderTransaction(transactionId: string) {
 		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId, status: 'waiting_confirmation' },
+			where: { id: transactionId, status: "waiting_confirmation" },
 			include: { products: true },
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		const confirm = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'on_process',
+				status: "on_process",
 			},
 		});
 
 		const updatedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
-			data: { status: 'on_process', paidAt: new Date() },
+			data: { status: "on_process", paidAt: new Date() },
 		});
 
 		const transactionWithUser = await prisma.transaction.findUnique({
@@ -964,14 +908,14 @@ export class TransactionService {
 	// Cancel order Payment
 	async cancelOrderPayment(transactionId: string) {
 		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId, status: 'waiting_confirmation' },
+			where: { id: transactionId, status: "waiting_confirmation" },
 			include: { products: true },
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		const cancel = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'waiting_payment',
+				status: "waiting_payment",
 				expiryAt: addDays(new Date(), 7),
 			},
 		});
@@ -985,13 +929,13 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		const shippedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'shipped',
+				status: "shipped",
 				expiryAt: addDays(new Date(), 7),
 			},
 		});
@@ -1015,7 +959,7 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		const canceledTransaction = await prisma.$transaction(async (tx) => {
@@ -1037,7 +981,7 @@ export class TransactionService {
 			await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'cancelled',
+					status: "cancelled",
 					expiryAt: null,
 				},
 			});
@@ -1046,117 +990,23 @@ export class TransactionService {
 		return canceledTransaction;
 	}
 
-	// Suped Admin Actions
-	async getAllTransactions(
-		adminId: string,
-		opts?: {
-			storeId?: string;
-			status?: OrderStatus;
-			orderId?: string;
-			startDate?: Date;
-			endDate?: Date;
-			page?: number;
-			pageSize?: number;
-		}
-	) {
+	// Get all store list
+	async getAllStoreList(userId: string) {
 		const admin = await prisma.admin.findFirst({
-			where: {
-				id: adminId,
-				isSuper: true,
+			where: { id: userId },
+		});
+		if (!admin?.isSuper) {
+			throw new ApiError(403, "Only super admin can access this route");
+		}
+
+		const stores = await prisma.store.findMany({
+			where: { deletedAt: null },
+			select: {
+				id: true,
+				name: true,
 			},
 		});
 
-		if (!admin) {
-			throw new ApiError(404, 'Admin not found / not super admin');
-		}
-
-		const {
-			storeId,
-			status,
-			orderId,
-			startDate,
-			endDate,
-			page = 1,
-			pageSize = 5,
-		} = opts ?? {};
-
-		const safePageSize = Math.min(Math.max(pageSize, 1), 100);
-		const safePage = Math.max(page, 1);
-		const skip = (safePage - 1) * safePageSize;
-
-		const whereCondition: Prisma.TransactionWhereInput = {};
-
-		if (storeId) whereCondition.storeId = storeId;
-		if (status) whereCondition.status = status;
-		if (orderId) whereCondition.id = orderId;
-
-		if (startDate || endDate) {
-			if (startDate) {
-				const s = new Date(startDate);
-				s.setHours(0, 0, 0, 0);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					gte: s,
-				};
-			}
-			if (endDate) {
-				const e = new Date(endDate);
-				e.setHours(23, 59, 59, 999);
-				whereCondition.createdAt = {
-					...(whereCondition.createdAt as any),
-					lte: e,
-				};
-			}
-		}
-
-		const [transactions, total] = await Promise.all([
-			prisma.transaction.findMany({
-				where: whereCondition,
-				include: {
-					user: {
-						select: {
-							id: true,
-							name: true,
-							email: true,
-							profilePicture: true,
-						},
-					},
-					store: {
-						select: {
-							id: true,
-							name: true,
-						},
-					},
-					products: {
-						include: {
-							product: {
-								select: {
-									id: true,
-									name: true,
-									picture1: true,
-								},
-							},
-						},
-					},
-				},
-				orderBy: { createdAt: 'desc' }, // transaksi terbaru di atas
-				skip,
-				take: safePageSize,
-			}),
-			prisma.transaction.count({ where: whereCondition }),
-		]);
-
-		const totalPages = Math.ceil(total / safePageSize);
-
-		return {
-			data: transactions,
-			meta: {
-				total,
-				page: safePage,
-				pageSize: safePageSize,
-				totalPages,
-				hasNext: safePage < totalPages,
-			},
-		};
+		return stores;
 	}
 }
