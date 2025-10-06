@@ -139,8 +139,8 @@ export class ReportService {
 						COUNT(t.id)::integer as transaction_count,
 						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
 					FROM "FreshNear"."Transaction" t
-					WHERE t."createdAt" >= ${startDate}
-						AND t."createdAt" <= ${endDate}
+					WHERE t."createdAt" >= CURRENT_DATE - INTERVAL '7 days'
+						AND t."createdAt" < CURRENT_DATE + INTERVAL '1 day'
 						AND t.status IN ('completed', 'shipped')
 						AND t."storeId" = ${validatedStoreId}
 					GROUP BY DATE(t."createdAt")
@@ -152,8 +152,8 @@ export class ReportService {
 						COUNT(t.id)::integer as transaction_count,
 						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
 					FROM "FreshNear"."Transaction" t
-					WHERE t."createdAt" >= ${startDate}
-						AND t."createdAt" <= ${endDate}
+					WHERE t."createdAt" >= CURRENT_DATE - INTERVAL '7 days'
+						AND t."createdAt" < CURRENT_DATE + INTERVAL '1 day'
 						AND t.status IN ('completed', 'shipped')
 					GROUP BY DATE(t."createdAt")
 					ORDER BY date ASC

@@ -235,6 +235,7 @@ export class ReportController {
 						period: salesReport.period,
 						summary: salesReport.summary,
 						topProducts: salesReport.topProducts.slice(0, 5), // Top 5 only
+						dailySales: salesReport.dailySales, // Include daily sales for graph
 					},
 					stock: {
 						period: {
