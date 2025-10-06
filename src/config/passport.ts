@@ -1,8 +1,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
-const callbackURL = `${process.env.BACKEND_URL}/user/google-auth/callback`;
-
+const callbackURL = `${process.env.BACKEND_URL || "http://localhost:8000"}/user/google-auth/callback`;
 passport.use(
 	new GoogleStrategy(
 		{
