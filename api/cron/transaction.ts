@@ -2,7 +2,6 @@ import { shippingTransaction } from '../../src/jobs/transactionJobs/shippingJobs
 import { confirmingOrderTransaction } from '../../src/jobs/transactionJobs/confirmingOrderJobs';
 
 export const config = {
-    runtime: 'edge',
     schedule: '0 0 * * *' // runs once per day at midnight UTC
 };
 
