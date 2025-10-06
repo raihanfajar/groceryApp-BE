@@ -158,7 +158,6 @@ export const getAllStoreService = async (userId: string) => {
     // !Get all store
     const stores = await prisma.store.findMany({
         where: { deletedAt: null },
-        orderBy: { createdAt: 'asc' },
     });
 
     // !Return

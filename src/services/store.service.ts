@@ -120,3 +120,18 @@ export const updateStoreService = async (storeId: string, body: Omit<Store, "id"
     });
     return updatedStore;
 };
+
+export const deleteStoreService = async (storeId: string) => {
+    // !Check if there is still store admin assigned to this store
+    const storeAdmin = await prisma.admin.findFirst({ where: { storeId, deletedAt: null } });
+    if (storeAdmin) throw new ApiError(409, "This store still has store admin assigned to it");
+
+    // !Soft Delete
+    await prisma.store.update({
+        where: { id: storeId },
+        data: { deletedAt: new Date() },
+    });
+
+    // !Return
+    return;
+};
