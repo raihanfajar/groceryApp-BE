@@ -521,8 +521,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.3
-   * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -2469,15 +2469,15 @@ export namespace Prisma {
    */
 
   export type UsersCountOutputType = {
+    discountUsage: number
     transactions: number
     addresses: number
-    discountUsage: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    discountUsage?: boolean | UsersCountOutputTypeCountDiscountUsageArgs
     transactions?: boolean | UsersCountOutputTypeCountTransactionsArgs
     addresses?: boolean | UsersCountOutputTypeCountAddressesArgs
-    discountUsage?: boolean | UsersCountOutputTypeCountDiscountUsageArgs
   }
 
   // Custom InputTypes
@@ -2494,6 +2494,13 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
+  export type UsersCountOutputTypeCountDiscountUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscountUsageHistoryWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
   export type UsersCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
   }
@@ -2505,13 +2512,6 @@ export namespace Prisma {
     where?: UserAddressWhereInput
   }
 
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountDiscountUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscountUsageHistoryWhereInput
-  }
-
 
   /**
    * Count Type StoreCountOutputType
@@ -2520,16 +2520,16 @@ export namespace Prisma {
   export type StoreCountOutputType = {
     admins: number
     cartItems: number
-    storeStock: number
     discounts: number
+    storeStock: number
     Transaction: number
   }
 
   export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admins?: boolean | StoreCountOutputTypeCountAdminsArgs
     cartItems?: boolean | StoreCountOutputTypeCountCartItemsArgs
-    storeStock?: boolean | StoreCountOutputTypeCountStoreStockArgs
     discounts?: boolean | StoreCountOutputTypeCountDiscountsArgs
+    storeStock?: boolean | StoreCountOutputTypeCountStoreStockArgs
     Transaction?: boolean | StoreCountOutputTypeCountTransactionArgs
   }
 
@@ -2561,15 +2561,15 @@ export namespace Prisma {
   /**
    * StoreCountOutputType without action
    */
-  export type StoreCountOutputTypeCountStoreStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StoreProductWhereInput
+  export type StoreCountOutputTypeCountDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscountWhereInput
   }
 
   /**
    * StoreCountOutputType without action
    */
-  export type StoreCountOutputTypeCountDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscountWhereInput
+  export type StoreCountOutputTypeCountStoreStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoreProductWhereInput
   }
 
   /**
@@ -2585,15 +2585,15 @@ export namespace Prisma {
    */
 
   export type AdminCountOutputType = {
-    stockJournal: number
     createdDiscounts: number
     appliedDiscounts: number
+    stockJournal: number
   }
 
   export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    stockJournal?: boolean | AdminCountOutputTypeCountStockJournalArgs
     createdDiscounts?: boolean | AdminCountOutputTypeCountCreatedDiscountsArgs
     appliedDiscounts?: boolean | AdminCountOutputTypeCountAppliedDiscountsArgs
+    stockJournal?: boolean | AdminCountOutputTypeCountStockJournalArgs
   }
 
   // Custom InputTypes
@@ -2610,13 +2610,6 @@ export namespace Prisma {
   /**
    * AdminCountOutputType without action
    */
-  export type AdminCountOutputTypeCountStockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StockJournalWhereInput
-  }
-
-  /**
-   * AdminCountOutputType without action
-   */
   export type AdminCountOutputTypeCountCreatedDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiscountWhereInput
   }
@@ -2626,6 +2619,13 @@ export namespace Prisma {
    */
   export type AdminCountOutputTypeCountAppliedDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiscountUsageHistoryWhereInput
+  }
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountStockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockJournalWhereInput
   }
 
 
@@ -2666,16 +2666,16 @@ export namespace Prisma {
 
   export type ProductCountOutputType = {
     cartItems: number
+    discountProducts: number
     storeStock: number
     trxProducts: number
-    discountProducts: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cartItems?: boolean | ProductCountOutputTypeCountCartItemsArgs
+    discountProducts?: boolean | ProductCountOutputTypeCountDiscountProductsArgs
     storeStock?: boolean | ProductCountOutputTypeCountStoreStockArgs
     trxProducts?: boolean | ProductCountOutputTypeCountTrxProductsArgs
-    discountProducts?: boolean | ProductCountOutputTypeCountDiscountProductsArgs
   }
 
   // Custom InputTypes
@@ -2699,6 +2699,13 @@ export namespace Prisma {
   /**
    * ProductCountOutputType without action
    */
+  export type ProductCountOutputTypeCountDiscountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscountProductWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
   export type ProductCountOutputTypeCountStoreStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StoreProductWhereInput
   }
@@ -2708,13 +2715,6 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountTrxProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionProductWhereInput
-  }
-
-  /**
-   * ProductCountOutputType without action
-   */
-  export type ProductCountOutputTypeCountDiscountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscountProductWhereInput
   }
 
 
@@ -2847,15 +2847,15 @@ export namespace Prisma {
    */
 
   export type TransactionCountOutputType = {
-    products: number
-    stockJournal: number
     discountUsageHistory: number
+    stockJournal: number
+    products: number
   }
 
   export type TransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    products?: boolean | TransactionCountOutputTypeCountProductsArgs
-    stockJournal?: boolean | TransactionCountOutputTypeCountStockJournalArgs
     discountUsageHistory?: boolean | TransactionCountOutputTypeCountDiscountUsageHistoryArgs
+    stockJournal?: boolean | TransactionCountOutputTypeCountStockJournalArgs
+    products?: boolean | TransactionCountOutputTypeCountProductsArgs
   }
 
   // Custom InputTypes
@@ -2872,8 +2872,8 @@ export namespace Prisma {
   /**
    * TransactionCountOutputType without action
    */
-  export type TransactionCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionProductWhereInput
+  export type TransactionCountOutputTypeCountDiscountUsageHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscountUsageHistoryWhereInput
   }
 
   /**
@@ -2886,8 +2886,8 @@ export namespace Prisma {
   /**
    * TransactionCountOutputType without action
    */
-  export type TransactionCountOutputTypeCountDiscountUsageHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscountUsageHistoryWhereInput
+  export type TransactionCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionProductWhereInput
   }
 
 
@@ -2950,13 +2950,14 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
-    provider: string | null
-    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    provider: string | null
+    providerId: string | null
+    profilePicture: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -2964,13 +2965,14 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
-    provider: string | null
-    providerId: string | null
     password: string | null
     isVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    provider: string | null
+    providerId: string | null
+    profilePicture: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -2978,13 +2980,14 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
-    provider: number
-    providerId: number
     password: number
     isVerified: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    provider: number
+    providerId: number
+    profilePicture: number
     _all: number
   }
 
@@ -2994,13 +2997,14 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    provider?: true
-    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    provider?: true
+    providerId?: true
+    profilePicture?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -3008,13 +3012,14 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    provider?: true
-    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    provider?: true
+    providerId?: true
+    profilePicture?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -3022,13 +3027,14 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
-    provider?: true
-    providerId?: true
     password?: true
     isVerified?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    provider?: true
+    providerId?: true
+    profilePicture?: true
     _all?: true
   }
 
@@ -3109,13 +3115,14 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string | null
-    provider: string | null
-    providerId: string | null
     password: string | null
     isVerified: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    provider: string | null
+    providerId: string | null
+    profilePicture: string | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -3140,17 +3147,18 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    provider?: boolean
-    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profilePicture?: boolean
     carts?: boolean | Users$cartsArgs<ExtArgs>
+    discountUsage?: boolean | Users$discountUsageArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
     addresses?: boolean | Users$addressesArgs<ExtArgs>
-    discountUsage?: boolean | Users$discountUsageArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -3159,13 +3167,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    provider?: boolean
-    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profilePicture?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3173,13 +3182,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    provider?: boolean
-    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profilePicture?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectScalar = {
@@ -3187,21 +3197,22 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
-    provider?: boolean
-    providerId?: boolean
     password?: boolean
     isVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    provider?: boolean
+    providerId?: boolean
+    profilePicture?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "provider" | "providerId" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phoneNumber" | "password" | "isVerified" | "createdAt" | "updatedAt" | "deletedAt" | "provider" | "providerId" | "profilePicture", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     carts?: boolean | Users$cartsArgs<ExtArgs>
+    discountUsage?: boolean | Users$discountUsageArgs<ExtArgs>
     transactions?: boolean | Users$transactionsArgs<ExtArgs>
     addresses?: boolean | Users$addressesArgs<ExtArgs>
-    discountUsage?: boolean | Users$discountUsageArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3211,22 +3222,23 @@ export namespace Prisma {
     name: "Users"
     objects: {
       carts: Prisma.$CartPayload<ExtArgs> | null
+      discountUsage: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
       addresses: Prisma.$UserAddressPayload<ExtArgs>[]
-      discountUsage: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
       phoneNumber: string | null
-      provider: string | null
-      providerId: string | null
       password: string | null
       isVerified: boolean
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      provider: string | null
+      providerId: string | null
+      profilePicture: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -3622,9 +3634,9 @@ export namespace Prisma {
   export interface Prisma__UsersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     carts<T extends Users$cartsArgs<ExtArgs> = {}>(args?: Subset<T, Users$cartsArgs<ExtArgs>>): Prisma__CartClient<$Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    discountUsage<T extends Users$discountUsageArgs<ExtArgs> = {}>(args?: Subset<T, Users$discountUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends Users$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Users$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     addresses<T extends Users$addressesArgs<ExtArgs> = {}>(args?: Subset<T, Users$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discountUsage<T extends Users$discountUsageArgs<ExtArgs> = {}>(args?: Subset<T, Users$discountUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3658,13 +3670,14 @@ export namespace Prisma {
     readonly name: FieldRef<"Users", 'String'>
     readonly email: FieldRef<"Users", 'String'>
     readonly phoneNumber: FieldRef<"Users", 'String'>
-    readonly provider: FieldRef<"Users", 'String'>
-    readonly providerId: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly isVerified: FieldRef<"Users", 'Boolean'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
     readonly updatedAt: FieldRef<"Users", 'DateTime'>
     readonly deletedAt: FieldRef<"Users", 'DateTime'>
+    readonly provider: FieldRef<"Users", 'String'>
+    readonly providerId: FieldRef<"Users", 'String'>
+    readonly profilePicture: FieldRef<"Users", 'String'>
   }
     
 
@@ -4072,6 +4085,30 @@ export namespace Prisma {
   }
 
   /**
+   * Users.discountUsage
+   */
+  export type Users$discountUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiscountUsageHistory
+     */
+    select?: DiscountUsageHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DiscountUsageHistory
+     */
+    omit?: DiscountUsageHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountUsageHistoryInclude<ExtArgs> | null
+    where?: DiscountUsageHistoryWhereInput
+    orderBy?: DiscountUsageHistoryOrderByWithRelationInput | DiscountUsageHistoryOrderByWithRelationInput[]
+    cursor?: DiscountUsageHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiscountUsageHistoryScalarFieldEnum | DiscountUsageHistoryScalarFieldEnum[]
+  }
+
+  /**
    * Users.transactions
    */
   export type Users$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4120,30 +4157,6 @@ export namespace Prisma {
   }
 
   /**
-   * Users.discountUsage
-   */
-  export type Users$discountUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DiscountUsageHistory
-     */
-    select?: DiscountUsageHistorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DiscountUsageHistory
-     */
-    omit?: DiscountUsageHistoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DiscountUsageHistoryInclude<ExtArgs> | null
-    where?: DiscountUsageHistoryWhereInput
-    orderBy?: DiscountUsageHistoryOrderByWithRelationInput | DiscountUsageHistoryOrderByWithRelationInput[]
-    cursor?: DiscountUsageHistoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DiscountUsageHistoryScalarFieldEnum | DiscountUsageHistoryScalarFieldEnum[]
-  }
-
-  /**
    * Users without action
    */
   export type UsersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4176,168 +4189,168 @@ export namespace Prisma {
 
   export type UserAddressAvgAggregateOutputType = {
     lat: Decimal | null
-    lon: Decimal | null
-    provinceId: number | null
     cityId: number | null
+    provinceId: number | null
+    lon: Decimal | null
     districtId: number | null
   }
 
   export type UserAddressSumAggregateOutputType = {
     lat: Decimal | null
-    lon: Decimal | null
-    provinceId: number | null
     cityId: number | null
+    provinceId: number | null
+    lon: Decimal | null
     districtId: number | null
   }
 
   export type UserAddressMinAggregateOutputType = {
     id: string | null
-    addressLabel: string | null
     userId: string | null
-    receiverName: string | null
-    receiverPhoneNumber: string | null
-    addressDisplayName: string | null
-    addressDetails: string | null
-    lat: Decimal | null
-    lon: Decimal | null
-    isDefault: boolean | null
-    provinceId: number | null
     province: string | null
-    cityId: number | null
     city: string | null
-    district: string | null
-    districtId: number | null
+    lat: Decimal | null
+    isDefault: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    cityId: number | null
+    provinceId: number | null
+    addressDetails: string | null
+    addressDisplayName: string | null
+    addressLabel: string | null
+    lon: Decimal | null
+    receiverName: string | null
+    receiverPhoneNumber: string | null
+    district: string | null
+    districtId: number | null
   }
 
   export type UserAddressMaxAggregateOutputType = {
     id: string | null
-    addressLabel: string | null
     userId: string | null
-    receiverName: string | null
-    receiverPhoneNumber: string | null
-    addressDisplayName: string | null
-    addressDetails: string | null
-    lat: Decimal | null
-    lon: Decimal | null
-    isDefault: boolean | null
-    provinceId: number | null
     province: string | null
-    cityId: number | null
     city: string | null
-    district: string | null
-    districtId: number | null
+    lat: Decimal | null
+    isDefault: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    cityId: number | null
+    provinceId: number | null
+    addressDetails: string | null
+    addressDisplayName: string | null
+    addressLabel: string | null
+    lon: Decimal | null
+    receiverName: string | null
+    receiverPhoneNumber: string | null
+    district: string | null
+    districtId: number | null
   }
 
   export type UserAddressCountAggregateOutputType = {
     id: number
-    addressLabel: number
     userId: number
-    receiverName: number
-    receiverPhoneNumber: number
-    addressDisplayName: number
-    addressDetails: number
-    lat: number
-    lon: number
-    isDefault: number
-    provinceId: number
     province: number
-    cityId: number
     city: number
-    district: number
-    districtId: number
+    lat: number
+    isDefault: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    cityId: number
+    provinceId: number
+    addressDetails: number
+    addressDisplayName: number
+    addressLabel: number
+    lon: number
+    receiverName: number
+    receiverPhoneNumber: number
+    district: number
+    districtId: number
     _all: number
   }
 
 
   export type UserAddressAvgAggregateInputType = {
     lat?: true
-    lon?: true
-    provinceId?: true
     cityId?: true
+    provinceId?: true
+    lon?: true
     districtId?: true
   }
 
   export type UserAddressSumAggregateInputType = {
     lat?: true
-    lon?: true
-    provinceId?: true
     cityId?: true
+    provinceId?: true
+    lon?: true
     districtId?: true
   }
 
   export type UserAddressMinAggregateInputType = {
     id?: true
-    addressLabel?: true
     userId?: true
-    receiverName?: true
-    receiverPhoneNumber?: true
-    addressDisplayName?: true
-    addressDetails?: true
-    lat?: true
-    lon?: true
-    isDefault?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
+    lat?: true
+    isDefault?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    addressDetails?: true
+    addressDisplayName?: true
+    addressLabel?: true
+    lon?: true
+    receiverName?: true
+    receiverPhoneNumber?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressMaxAggregateInputType = {
     id?: true
-    addressLabel?: true
     userId?: true
-    receiverName?: true
-    receiverPhoneNumber?: true
-    addressDisplayName?: true
-    addressDetails?: true
-    lat?: true
-    lon?: true
-    isDefault?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
+    lat?: true
+    isDefault?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    addressDetails?: true
+    addressDisplayName?: true
+    addressLabel?: true
+    lon?: true
+    receiverName?: true
+    receiverPhoneNumber?: true
+    district?: true
+    districtId?: true
   }
 
   export type UserAddressCountAggregateInputType = {
     id?: true
-    addressLabel?: true
     userId?: true
-    receiverName?: true
-    receiverPhoneNumber?: true
-    addressDisplayName?: true
-    addressDetails?: true
-    lat?: true
-    lon?: true
-    isDefault?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
+    lat?: true
+    isDefault?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    addressDetails?: true
+    addressDisplayName?: true
+    addressLabel?: true
+    lon?: true
+    receiverName?: true
+    receiverPhoneNumber?: true
+    district?: true
+    districtId?: true
     _all?: true
   }
 
@@ -4429,24 +4442,24 @@ export namespace Prisma {
 
   export type UserAddressGroupByOutputType = {
     id: string
-    addressLabel: string
     userId: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal
-    lon: Decimal
-    isDefault: boolean
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
+    lat: Decimal
+    isDefault: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
     _count: UserAddressCountAggregateOutputType | null
     _avg: UserAddressAvgAggregateOutputType | null
     _sum: UserAddressSumAggregateOutputType | null
@@ -4470,96 +4483,96 @@ export namespace Prisma {
 
   export type UserAddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    addressLabel?: boolean
     userId?: boolean
-    receiverName?: boolean
-    receiverPhoneNumber?: boolean
-    addressDisplayName?: boolean
-    addressDetails?: boolean
-    lat?: boolean
-    lon?: boolean
-    isDefault?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
+    lat?: boolean
+    isDefault?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    addressDetails?: boolean
+    addressDisplayName?: boolean
+    addressLabel?: boolean
+    lon?: boolean
+    receiverName?: boolean
+    receiverPhoneNumber?: boolean
+    district?: boolean
+    districtId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userAddress"]>
 
   export type UserAddressSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    addressLabel?: boolean
     userId?: boolean
-    receiverName?: boolean
-    receiverPhoneNumber?: boolean
-    addressDisplayName?: boolean
-    addressDetails?: boolean
-    lat?: boolean
-    lon?: boolean
-    isDefault?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
+    lat?: boolean
+    isDefault?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    addressDetails?: boolean
+    addressDisplayName?: boolean
+    addressLabel?: boolean
+    lon?: boolean
+    receiverName?: boolean
+    receiverPhoneNumber?: boolean
+    district?: boolean
+    districtId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userAddress"]>
 
   export type UserAddressSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    addressLabel?: boolean
     userId?: boolean
-    receiverName?: boolean
-    receiverPhoneNumber?: boolean
-    addressDisplayName?: boolean
-    addressDetails?: boolean
-    lat?: boolean
-    lon?: boolean
-    isDefault?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
+    lat?: boolean
+    isDefault?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    addressDetails?: boolean
+    addressDisplayName?: boolean
+    addressLabel?: boolean
+    lon?: boolean
+    receiverName?: boolean
+    receiverPhoneNumber?: boolean
+    district?: boolean
+    districtId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userAddress"]>
 
   export type UserAddressSelectScalar = {
     id?: boolean
-    addressLabel?: boolean
     userId?: boolean
-    receiverName?: boolean
-    receiverPhoneNumber?: boolean
-    addressDisplayName?: boolean
-    addressDetails?: boolean
-    lat?: boolean
-    lon?: boolean
-    isDefault?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
+    lat?: boolean
+    isDefault?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    addressDetails?: boolean
+    addressDisplayName?: boolean
+    addressLabel?: boolean
+    lon?: boolean
+    receiverName?: boolean
+    receiverPhoneNumber?: boolean
+    district?: boolean
+    districtId?: boolean
   }
 
-  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "addressLabel" | "userId" | "receiverName" | "receiverPhoneNumber" | "addressDisplayName" | "addressDetails" | "lat" | "lon" | "isDefault" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["userAddress"]>
+  export type UserAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "province" | "city" | "lat" | "isDefault" | "createdAt" | "updatedAt" | "deletedAt" | "cityId" | "provinceId" | "addressDetails" | "addressDisplayName" | "addressLabel" | "lon" | "receiverName" | "receiverPhoneNumber" | "district" | "districtId", ExtArgs["result"]["userAddress"]>
   export type UserAddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
@@ -4577,24 +4590,24 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      addressLabel: string
       userId: string
-      receiverName: string
-      receiverPhoneNumber: string
-      addressDisplayName: string
-      addressDetails: string
-      lat: Prisma.Decimal
-      lon: Prisma.Decimal
-      isDefault: boolean
-      provinceId: number
       province: string
-      cityId: number
       city: string
-      district: string
-      districtId: number
+      lat: Prisma.Decimal
+      isDefault: boolean
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      cityId: number
+      provinceId: number
+      addressDetails: string
+      addressDisplayName: string
+      addressLabel: string
+      lon: Prisma.Decimal
+      receiverName: string
+      receiverPhoneNumber: string
+      district: string
+      districtId: number
     }, ExtArgs["result"]["userAddress"]>
     composites: {}
   }
@@ -5020,24 +5033,24 @@ export namespace Prisma {
    */
   interface UserAddressFieldRefs {
     readonly id: FieldRef<"UserAddress", 'String'>
-    readonly addressLabel: FieldRef<"UserAddress", 'String'>
     readonly userId: FieldRef<"UserAddress", 'String'>
-    readonly receiverName: FieldRef<"UserAddress", 'String'>
-    readonly receiverPhoneNumber: FieldRef<"UserAddress", 'String'>
-    readonly addressDisplayName: FieldRef<"UserAddress", 'String'>
-    readonly addressDetails: FieldRef<"UserAddress", 'String'>
-    readonly lat: FieldRef<"UserAddress", 'Decimal'>
-    readonly lon: FieldRef<"UserAddress", 'Decimal'>
-    readonly isDefault: FieldRef<"UserAddress", 'Boolean'>
-    readonly provinceId: FieldRef<"UserAddress", 'Int'>
     readonly province: FieldRef<"UserAddress", 'String'>
-    readonly cityId: FieldRef<"UserAddress", 'Int'>
     readonly city: FieldRef<"UserAddress", 'String'>
-    readonly district: FieldRef<"UserAddress", 'String'>
-    readonly districtId: FieldRef<"UserAddress", 'Int'>
+    readonly lat: FieldRef<"UserAddress", 'Decimal'>
+    readonly isDefault: FieldRef<"UserAddress", 'Boolean'>
     readonly createdAt: FieldRef<"UserAddress", 'DateTime'>
     readonly updatedAt: FieldRef<"UserAddress", 'DateTime'>
     readonly deletedAt: FieldRef<"UserAddress", 'DateTime'>
+    readonly cityId: FieldRef<"UserAddress", 'Int'>
+    readonly provinceId: FieldRef<"UserAddress", 'Int'>
+    readonly addressDetails: FieldRef<"UserAddress", 'String'>
+    readonly addressDisplayName: FieldRef<"UserAddress", 'String'>
+    readonly addressLabel: FieldRef<"UserAddress", 'String'>
+    readonly lon: FieldRef<"UserAddress", 'Decimal'>
+    readonly receiverName: FieldRef<"UserAddress", 'String'>
+    readonly receiverPhoneNumber: FieldRef<"UserAddress", 'String'>
+    readonly district: FieldRef<"UserAddress", 'String'>
+    readonly districtId: FieldRef<"UserAddress", 'Int'>
   }
     
 
@@ -5465,31 +5478,27 @@ export namespace Prisma {
   }
 
   export type StoreAvgAggregateOutputType = {
-    provinceId: number | null
-    cityId: number | null
-    districtId: number | null
     lat: Decimal | null
     lng: Decimal | null
     radiusKm: Decimal | null
+    cityId: number | null
+    provinceId: number | null
+    districtId: number | null
   }
 
   export type StoreSumAggregateOutputType = {
-    provinceId: number | null
-    cityId: number | null
-    districtId: number | null
     lat: Decimal | null
     lng: Decimal | null
     radiusKm: Decimal | null
+    cityId: number | null
+    provinceId: number | null
+    districtId: number | null
   }
 
   export type StoreMinAggregateOutputType = {
     id: string | null
-    provinceId: number | null
     province: string | null
-    cityId: number | null
     city: string | null
-    district: string | null
-    districtId: number | null
     address: string | null
     name: string | null
     lat: Decimal | null
@@ -5498,16 +5507,16 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    cityId: number | null
+    provinceId: number | null
+    district: string | null
+    districtId: number | null
   }
 
   export type StoreMaxAggregateOutputType = {
     id: string | null
-    provinceId: number | null
     province: string | null
-    cityId: number | null
     city: string | null
-    district: string | null
-    districtId: number | null
     address: string | null
     name: string | null
     lat: Decimal | null
@@ -5516,16 +5525,16 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    cityId: number | null
+    provinceId: number | null
+    district: string | null
+    districtId: number | null
   }
 
   export type StoreCountAggregateOutputType = {
     id: number
-    provinceId: number
     province: number
-    cityId: number
     city: number
-    district: number
-    districtId: number
     address: number
     name: number
     lat: number
@@ -5534,36 +5543,36 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     deletedAt: number
+    cityId: number
+    provinceId: number
+    district: number
+    districtId: number
     _all: number
   }
 
 
   export type StoreAvgAggregateInputType = {
-    provinceId?: true
-    cityId?: true
-    districtId?: true
     lat?: true
     lng?: true
     radiusKm?: true
+    cityId?: true
+    provinceId?: true
+    districtId?: true
   }
 
   export type StoreSumAggregateInputType = {
-    provinceId?: true
-    cityId?: true
-    districtId?: true
     lat?: true
     lng?: true
     radiusKm?: true
+    cityId?: true
+    provinceId?: true
+    districtId?: true
   }
 
   export type StoreMinAggregateInputType = {
     id?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5572,16 +5581,16 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    district?: true
+    districtId?: true
   }
 
   export type StoreMaxAggregateInputType = {
     id?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5590,16 +5599,16 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    district?: true
+    districtId?: true
   }
 
   export type StoreCountAggregateInputType = {
     id?: true
-    provinceId?: true
     province?: true
-    cityId?: true
     city?: true
-    district?: true
-    districtId?: true
     address?: true
     name?: true
     lat?: true
@@ -5608,6 +5617,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    cityId?: true
+    provinceId?: true
+    district?: true
+    districtId?: true
     _all?: true
   }
 
@@ -5699,12 +5712,8 @@ export namespace Prisma {
 
   export type StoreGroupByOutputType = {
     id: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat: Decimal | null
@@ -5713,6 +5722,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     _count: StoreCountAggregateOutputType | null
     _avg: StoreAvgAggregateOutputType | null
     _sum: StoreSumAggregateOutputType | null
@@ -5736,12 +5749,8 @@ export namespace Prisma {
 
   export type StoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5750,22 +5759,22 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    district?: boolean
+    districtId?: boolean
     admins?: boolean | Store$adminsArgs<ExtArgs>
     cartItems?: boolean | Store$cartItemsArgs<ExtArgs>
-    storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     discounts?: boolean | Store$discountsArgs<ExtArgs>
+    storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     Transaction?: boolean | Store$TransactionArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5774,16 +5783,16 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    district?: boolean
+    districtId?: boolean
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5792,16 +5801,16 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    district?: boolean
+    districtId?: boolean
   }, ExtArgs["result"]["store"]>
 
   export type StoreSelectScalar = {
     id?: boolean
-    provinceId?: boolean
     province?: boolean
-    cityId?: boolean
     city?: boolean
-    district?: boolean
-    districtId?: boolean
     address?: boolean
     name?: boolean
     lat?: boolean
@@ -5810,14 +5819,18 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    cityId?: boolean
+    provinceId?: boolean
+    district?: boolean
+    districtId?: boolean
   }
 
-  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "address" | "name" | "lat" | "lng" | "radiusKm" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["store"]>
+  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "province" | "city" | "address" | "name" | "lat" | "lng" | "radiusKm" | "createdAt" | "updatedAt" | "deletedAt" | "cityId" | "provinceId" | "district" | "districtId", ExtArgs["result"]["store"]>
   export type StoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admins?: boolean | Store$adminsArgs<ExtArgs>
     cartItems?: boolean | Store$cartItemsArgs<ExtArgs>
-    storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     discounts?: boolean | Store$discountsArgs<ExtArgs>
+    storeStock?: boolean | Store$storeStockArgs<ExtArgs>
     Transaction?: boolean | Store$TransactionArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5829,18 +5842,14 @@ export namespace Prisma {
     objects: {
       admins: Prisma.$AdminPayload<ExtArgs>[]
       cartItems: Prisma.$CartProductPayload<ExtArgs>[]
-      storeStock: Prisma.$StoreProductPayload<ExtArgs>[]
       discounts: Prisma.$DiscountPayload<ExtArgs>[]
+      storeStock: Prisma.$StoreProductPayload<ExtArgs>[]
       Transaction: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      provinceId: number
       province: string
-      cityId: number
       city: string
-      district: string
-      districtId: number
       address: string
       name: string
       lat: Prisma.Decimal | null
@@ -5849,6 +5858,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      cityId: number
+      provinceId: number
+      district: string
+      districtId: number
     }, ExtArgs["result"]["store"]>
     composites: {}
   }
@@ -6245,8 +6258,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     admins<T extends Store$adminsArgs<ExtArgs> = {}>(args?: Subset<T, Store$adminsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cartItems<T extends Store$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Store$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    storeStock<T extends Store$storeStockArgs<ExtArgs> = {}>(args?: Subset<T, Store$storeStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoreProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discounts<T extends Store$discountsArgs<ExtArgs> = {}>(args?: Subset<T, Store$discountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    storeStock<T extends Store$storeStockArgs<ExtArgs> = {}>(args?: Subset<T, Store$storeStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoreProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Transaction<T extends Store$TransactionArgs<ExtArgs> = {}>(args?: Subset<T, Store$TransactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6278,12 +6291,8 @@ export namespace Prisma {
    */
   interface StoreFieldRefs {
     readonly id: FieldRef<"Store", 'String'>
-    readonly provinceId: FieldRef<"Store", 'Int'>
     readonly province: FieldRef<"Store", 'String'>
-    readonly cityId: FieldRef<"Store", 'Int'>
     readonly city: FieldRef<"Store", 'String'>
-    readonly district: FieldRef<"Store", 'String'>
-    readonly districtId: FieldRef<"Store", 'Int'>
     readonly address: FieldRef<"Store", 'String'>
     readonly name: FieldRef<"Store", 'String'>
     readonly lat: FieldRef<"Store", 'Decimal'>
@@ -6292,6 +6301,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Store", 'DateTime'>
     readonly updatedAt: FieldRef<"Store", 'DateTime'>
     readonly deletedAt: FieldRef<"Store", 'DateTime'>
+    readonly cityId: FieldRef<"Store", 'Int'>
+    readonly provinceId: FieldRef<"Store", 'Int'>
+    readonly district: FieldRef<"Store", 'String'>
+    readonly districtId: FieldRef<"Store", 'Int'>
   }
     
 
@@ -6728,30 +6741,6 @@ export namespace Prisma {
   }
 
   /**
-   * Store.storeStock
-   */
-  export type Store$storeStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StoreProduct
-     */
-    select?: StoreProductSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StoreProduct
-     */
-    omit?: StoreProductOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StoreProductInclude<ExtArgs> | null
-    where?: StoreProductWhereInput
-    orderBy?: StoreProductOrderByWithRelationInput | StoreProductOrderByWithRelationInput[]
-    cursor?: StoreProductWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StoreProductScalarFieldEnum | StoreProductScalarFieldEnum[]
-  }
-
-  /**
    * Store.discounts
    */
   export type Store$discountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6773,6 +6762,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiscountScalarFieldEnum | DiscountScalarFieldEnum[]
+  }
+
+  /**
+   * Store.storeStock
+   */
+  export type Store$storeStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoreProduct
+     */
+    select?: StoreProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StoreProduct
+     */
+    omit?: StoreProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreProductInclude<ExtArgs> | null
+    where?: StoreProductWhereInput
+    orderBy?: StoreProductOrderByWithRelationInput | StoreProductOrderByWithRelationInput[]
+    cursor?: StoreProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StoreProductScalarFieldEnum | StoreProductScalarFieldEnum[]
   }
 
   /**
@@ -7015,9 +7028,9 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     store?: boolean | Admin$storeArgs<ExtArgs>
-    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
     createdDiscounts?: boolean | Admin$createdDiscountsArgs<ExtArgs>
     appliedDiscounts?: boolean | Admin$appliedDiscountsArgs<ExtArgs>
+    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
@@ -7062,9 +7075,9 @@ export namespace Prisma {
   export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "email" | "password" | "isSuper" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["admin"]>
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | Admin$storeArgs<ExtArgs>
-    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
     createdDiscounts?: boolean | Admin$createdDiscountsArgs<ExtArgs>
     appliedDiscounts?: boolean | Admin$appliedDiscountsArgs<ExtArgs>
+    stockJournal?: boolean | Admin$stockJournalArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7078,9 +7091,9 @@ export namespace Prisma {
     name: "Admin"
     objects: {
       store: Prisma.$StorePayload<ExtArgs> | null
-      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
       createdDiscounts: Prisma.$DiscountPayload<ExtArgs>[]
       appliedDiscounts: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7487,9 +7500,9 @@ export namespace Prisma {
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     store<T extends Admin$storeArgs<ExtArgs> = {}>(args?: Subset<T, Admin$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    stockJournal<T extends Admin$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Admin$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdDiscounts<T extends Admin$createdDiscountsArgs<ExtArgs> = {}>(args?: Subset<T, Admin$createdDiscountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appliedDiscounts<T extends Admin$appliedDiscountsArgs<ExtArgs> = {}>(args?: Subset<T, Admin$appliedDiscountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stockJournal<T extends Admin$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Admin$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7943,30 +7956,6 @@ export namespace Prisma {
   }
 
   /**
-   * Admin.stockJournal
-   */
-  export type Admin$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StockJournal
-     */
-    select?: StockJournalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StockJournal
-     */
-    omit?: StockJournalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockJournalInclude<ExtArgs> | null
-    where?: StockJournalWhereInput
-    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
-    cursor?: StockJournalWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
-  }
-
-  /**
    * Admin.createdDiscounts
    */
   export type Admin$createdDiscountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8015,6 +8004,30 @@ export namespace Prisma {
   }
 
   /**
+   * Admin.stockJournal
+   */
+  export type Admin$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    cursor?: StockJournalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
    * Admin without action
    */
   export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8046,37 +8059,37 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateOutputType = {
     id: string | null
     name: string | null
-    slug: string | null
     description: string | null
-    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    icon: string | null
+    slug: string | null
   }
 
   export type ProductCategoryMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    slug: string | null
     description: string | null
-    icon: string | null
     isActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    icon: string | null
+    slug: string | null
   }
 
   export type ProductCategoryCountAggregateOutputType = {
     id: number
     name: number
-    slug: number
     description: number
-    icon: number
     isActive: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    icon: number
+    slug: number
     _all: number
   }
 
@@ -8084,37 +8097,37 @@ export namespace Prisma {
   export type ProductCategoryMinAggregateInputType = {
     id?: true
     name?: true
-    slug?: true
     description?: true
-    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    icon?: true
+    slug?: true
   }
 
   export type ProductCategoryMaxAggregateInputType = {
     id?: true
     name?: true
-    slug?: true
     description?: true
-    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    icon?: true
+    slug?: true
   }
 
   export type ProductCategoryCountAggregateInputType = {
     id?: true
     name?: true
-    slug?: true
     description?: true
-    icon?: true
     isActive?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    icon?: true
+    slug?: true
     _all?: true
   }
 
@@ -8193,13 +8206,13 @@ export namespace Prisma {
   export type ProductCategoryGroupByOutputType = {
     id: string
     name: string
-    slug: string
     description: string | null
-    icon: string | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    icon: string | null
+    slug: string
     _count: ProductCategoryCountAggregateOutputType | null
     _min: ProductCategoryMinAggregateOutputType | null
     _max: ProductCategoryMaxAggregateOutputType | null
@@ -8222,13 +8235,13 @@ export namespace Prisma {
   export type ProductCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    slug?: boolean
     description?: boolean
-    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    icon?: boolean
+    slug?: boolean
     products?: boolean | ProductCategory$productsArgs<ExtArgs>
     _count?: boolean | ProductCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productCategory"]>
@@ -8236,40 +8249,40 @@ export namespace Prisma {
   export type ProductCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    slug?: boolean
     description?: boolean
-    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    icon?: boolean
+    slug?: boolean
   }, ExtArgs["result"]["productCategory"]>
 
   export type ProductCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    slug?: boolean
     description?: boolean
-    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    icon?: boolean
+    slug?: boolean
   }, ExtArgs["result"]["productCategory"]>
 
   export type ProductCategorySelectScalar = {
     id?: boolean
     name?: boolean
-    slug?: boolean
     description?: boolean
-    icon?: boolean
     isActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    icon?: boolean
+    slug?: boolean
   }
 
-  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "description" | "icon" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["productCategory"]>
+  export type ProductCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "createdAt" | "updatedAt" | "deletedAt" | "icon" | "slug", ExtArgs["result"]["productCategory"]>
   export type ProductCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | ProductCategory$productsArgs<ExtArgs>
     _count?: boolean | ProductCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -8285,13 +8298,13 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      slug: string
       description: string | null
-      icon: string | null
       isActive: boolean
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      icon: string | null
+      slug: string
     }, ExtArgs["result"]["productCategory"]>
     composites: {}
   }
@@ -8718,13 +8731,13 @@ export namespace Prisma {
   interface ProductCategoryFieldRefs {
     readonly id: FieldRef<"ProductCategory", 'String'>
     readonly name: FieldRef<"ProductCategory", 'String'>
-    readonly slug: FieldRef<"ProductCategory", 'String'>
     readonly description: FieldRef<"ProductCategory", 'String'>
-    readonly icon: FieldRef<"ProductCategory", 'String'>
     readonly isActive: FieldRef<"ProductCategory", 'Boolean'>
     readonly createdAt: FieldRef<"ProductCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"ProductCategory", 'DateTime'>
     readonly deletedAt: FieldRef<"ProductCategory", 'DateTime'>
+    readonly icon: FieldRef<"ProductCategory", 'String'>
+    readonly slug: FieldRef<"ProductCategory", 'String'>
   }
     
 
@@ -9450,10 +9463,10 @@ export namespace Prisma {
     isActive?: boolean
     weight?: boolean
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
+    discountProducts?: boolean | Product$discountProductsArgs<ExtArgs>
     category?: boolean | ProductCategoryDefaultArgs<ExtArgs>
     storeStock?: boolean | Product$storeStockArgs<ExtArgs>
     trxProducts?: boolean | Product$trxProductsArgs<ExtArgs>
-    discountProducts?: boolean | Product$discountProductsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -9519,10 +9532,10 @@ export namespace Prisma {
   export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "slug" | "price" | "zIndex" | "picture1" | "picture2" | "picture3" | "picture4" | "createdAt" | "updatedAt" | "deletedAt" | "categoryId" | "isActive" | "weight", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
+    discountProducts?: boolean | Product$discountProductsArgs<ExtArgs>
     category?: boolean | ProductCategoryDefaultArgs<ExtArgs>
     storeStock?: boolean | Product$storeStockArgs<ExtArgs>
     trxProducts?: boolean | Product$trxProductsArgs<ExtArgs>
-    discountProducts?: boolean | Product$discountProductsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9536,10 +9549,10 @@ export namespace Prisma {
     name: "Product"
     objects: {
       cartItems: Prisma.$CartProductPayload<ExtArgs>[]
+      discountProducts: Prisma.$DiscountProductPayload<ExtArgs>[]
       category: Prisma.$ProductCategoryPayload<ExtArgs>
       storeStock: Prisma.$StoreProductPayload<ExtArgs>[]
       trxProducts: Prisma.$TransactionProductPayload<ExtArgs>[]
-      discountProducts: Prisma.$DiscountProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9953,10 +9966,10 @@ export namespace Prisma {
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     cartItems<T extends Product$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    discountProducts<T extends Product$discountProductsArgs<ExtArgs> = {}>(args?: Subset<T, Product$discountProductsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     category<T extends ProductCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductCategoryDefaultArgs<ExtArgs>>): Prisma__ProductCategoryClient<$Result.GetResult<Prisma.$ProductCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     storeStock<T extends Product$storeStockArgs<ExtArgs> = {}>(args?: Subset<T, Product$storeStockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StoreProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     trxProducts<T extends Product$trxProductsArgs<ExtArgs> = {}>(args?: Subset<T, Product$trxProductsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discountProducts<T extends Product$discountProductsArgs<ExtArgs> = {}>(args?: Subset<T, Product$discountProductsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10422,6 +10435,30 @@ export namespace Prisma {
   }
 
   /**
+   * Product.discountProducts
+   */
+  export type Product$discountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiscountProduct
+     */
+    select?: DiscountProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DiscountProduct
+     */
+    omit?: DiscountProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountProductInclude<ExtArgs> | null
+    where?: DiscountProductWhereInput
+    orderBy?: DiscountProductOrderByWithRelationInput | DiscountProductOrderByWithRelationInput[]
+    cursor?: DiscountProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiscountProductScalarFieldEnum | DiscountProductScalarFieldEnum[]
+  }
+
+  /**
    * Product.storeStock
    */
   export type Product$storeStockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10470,30 +10507,6 @@ export namespace Prisma {
   }
 
   /**
-   * Product.discountProducts
-   */
-  export type Product$discountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DiscountProduct
-     */
-    select?: DiscountProductSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DiscountProduct
-     */
-    omit?: DiscountProductOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DiscountProductInclude<ExtArgs> | null
-    where?: DiscountProductWhereInput
-    orderBy?: DiscountProductOrderByWithRelationInput | DiscountProductOrderByWithRelationInput[]
-    cursor?: DiscountProductWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DiscountProductScalarFieldEnum | DiscountProductScalarFieldEnum[]
-  }
-
-  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10538,30 +10551,30 @@ export namespace Prisma {
     storeId: string | null
     productId: string | null
     stock: number | null
-    minStock: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    minStock: number | null
   }
 
   export type StoreProductMaxAggregateOutputType = {
     storeId: string | null
     productId: string | null
     stock: number | null
-    minStock: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    minStock: number | null
   }
 
   export type StoreProductCountAggregateOutputType = {
     storeId: number
     productId: number
     stock: number
-    minStock: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    minStock: number
     _all: number
   }
 
@@ -10580,30 +10593,30 @@ export namespace Prisma {
     storeId?: true
     productId?: true
     stock?: true
-    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    minStock?: true
   }
 
   export type StoreProductMaxAggregateInputType = {
     storeId?: true
     productId?: true
     stock?: true
-    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    minStock?: true
   }
 
   export type StoreProductCountAggregateInputType = {
     storeId?: true
     productId?: true
     stock?: true
-    minStock?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    minStock?: true
     _all?: true
   }
 
@@ -10697,10 +10710,10 @@ export namespace Prisma {
     storeId: string
     productId: string
     stock: number
-    minStock: number | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    minStock: number | null
     _count: StoreProductCountAggregateOutputType | null
     _avg: StoreProductAvgAggregateOutputType | null
     _sum: StoreProductSumAggregateOutputType | null
@@ -10726,13 +10739,13 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
-    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    minStock?: boolean
+    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
-    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
     _count?: boolean | StoreProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storeProduct"]>
 
@@ -10740,10 +10753,10 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
-    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    minStock?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storeProduct"]>
@@ -10752,10 +10765,10 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
-    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    minStock?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["storeProduct"]>
@@ -10764,17 +10777,17 @@ export namespace Prisma {
     storeId?: boolean
     productId?: boolean
     stock?: boolean
-    minStock?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    minStock?: boolean
   }
 
-  export type StoreProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"storeId" | "productId" | "stock" | "minStock" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["storeProduct"]>
+  export type StoreProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"storeId" | "productId" | "stock" | "createdAt" | "updatedAt" | "deletedAt" | "minStock", ExtArgs["result"]["storeProduct"]>
   export type StoreProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
-    stockJournal?: boolean | StoreProduct$stockJournalArgs<ExtArgs>
     _count?: boolean | StoreProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StoreProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10789,18 +10802,18 @@ export namespace Prisma {
   export type $StoreProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "StoreProduct"
     objects: {
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
       product: Prisma.$ProductPayload<ExtArgs>
       store: Prisma.$StorePayload<ExtArgs>
-      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       storeId: string
       productId: string
       stock: number
-      minStock: number | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      minStock: number | null
     }, ExtArgs["result"]["storeProduct"]>
     composites: {}
   }
@@ -11195,9 +11208,9 @@ export namespace Prisma {
    */
   export interface Prisma__StoreProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    stockJournal<T extends StoreProduct$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, StoreProduct$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    stockJournal<T extends StoreProduct$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, StoreProduct$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11230,10 +11243,10 @@ export namespace Prisma {
     readonly storeId: FieldRef<"StoreProduct", 'String'>
     readonly productId: FieldRef<"StoreProduct", 'String'>
     readonly stock: FieldRef<"StoreProduct", 'Int'>
-    readonly minStock: FieldRef<"StoreProduct", 'Int'>
     readonly createdAt: FieldRef<"StoreProduct", 'DateTime'>
     readonly updatedAt: FieldRef<"StoreProduct", 'DateTime'>
     readonly deletedAt: FieldRef<"StoreProduct", 'DateTime'>
+    readonly minStock: FieldRef<"StoreProduct", 'Int'>
   }
     
 
@@ -17435,267 +17448,267 @@ export namespace Prisma {
   }
 
   export type TransactionAvgAggregateOutputType = {
-    totalProductPrice: number | null
-    discountedProductPrice: number | null
-    finalProductPrice: number | null
     shippingPrice: number | null
+    totalPrice: number | null
+    cityId: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
-    totalPrice: number | null
     provinceId: number | null
-    cityId: number | null
     districtId: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
+    totalProductPrice: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
-    totalProductPrice: number | null
-    discountedProductPrice: number | null
-    finalProductPrice: number | null
     shippingPrice: number | null
+    totalPrice: number | null
+    cityId: number | null
     discountedShipping: number | null
     finalShippingPrice: number | null
-    totalPrice: number | null
     provinceId: number | null
-    cityId: number | null
     districtId: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
+    totalProductPrice: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    storeId: string | null
     status: $Enums.OrderStatus | null
-    totalProductPrice: number | null
-    discountedProductPrice: number | null
-    finalProductPrice: number | null
     shippingPrice: number | null
-    discountedShipping: number | null
-    finalShippingPrice: number | null
     totalPrice: number | null
-    address: string | null
-    receiverName: string | null
     phoneNumber: string | null
-    provinceId: number | null
-    province: string | null
-    cityId: number | null
-    city: string | null
-    district: string | null
-    districtId: number | null
-    addressLabel: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
-    paymentMethod: string | null
-    snapToken: string | null
-    snapRedirectUrl: string | null
-    paidAt: Date | null
-    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    address: string | null
+    city: string | null
+    cityId: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
+    province: string | null
+    provinceId: number | null
+    storeId: string | null
+    expiryAt: Date | null
+    paidAt: Date | null
+    paymentMethod: string | null
+    snapRedirectUrl: string | null
+    snapToken: string | null
+    district: string | null
+    districtId: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
+    totalProductPrice: number | null
+    receiverName: string | null
+    addressLabel: string | null
   }
 
   export type TransactionMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    storeId: string | null
     status: $Enums.OrderStatus | null
-    totalProductPrice: number | null
-    discountedProductPrice: number | null
-    finalProductPrice: number | null
     shippingPrice: number | null
-    discountedShipping: number | null
-    finalShippingPrice: number | null
     totalPrice: number | null
-    address: string | null
-    receiverName: string | null
     phoneNumber: string | null
-    provinceId: number | null
-    province: string | null
-    cityId: number | null
-    city: string | null
-    district: string | null
-    districtId: number | null
-    addressLabel: string | null
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
-    paymentMethod: string | null
-    snapToken: string | null
-    snapRedirectUrl: string | null
-    paidAt: Date | null
-    expiryAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    address: string | null
+    city: string | null
+    cityId: number | null
+    discountedShipping: number | null
+    finalShippingPrice: number | null
+    province: string | null
+    provinceId: number | null
+    storeId: string | null
+    expiryAt: Date | null
+    paidAt: Date | null
+    paymentMethod: string | null
+    snapRedirectUrl: string | null
+    snapToken: string | null
+    district: string | null
+    districtId: number | null
+    discountedProductPrice: number | null
+    finalProductPrice: number | null
+    totalProductPrice: number | null
+    receiverName: string | null
+    addressLabel: string | null
   }
 
   export type TransactionCountAggregateOutputType = {
     id: number
     userId: number
-    storeId: number
     status: number
-    totalProductPrice: number
-    discountedProductPrice: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping: number
-    finalShippingPrice: number
     totalPrice: number
-    address: number
-    receiverName: number
     phoneNumber: number
-    provinceId: number
-    province: number
-    cityId: number
-    city: number
-    district: number
-    districtId: number
-    addressLabel: number
     codeVoucherProduct: number
     codeVoucherDelivery: number
     paymentProof: number
-    paymentMethod: number
-    snapToken: number
-    snapRedirectUrl: number
-    paidAt: number
-    expiryAt: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    address: number
+    city: number
+    cityId: number
+    discountedShipping: number
+    finalShippingPrice: number
+    province: number
+    provinceId: number
+    storeId: number
+    expiryAt: number
+    paidAt: number
+    paymentMethod: number
+    snapRedirectUrl: number
+    snapToken: number
+    district: number
+    districtId: number
+    discountedProductPrice: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: number
+    addressLabel: number
     _all: number
   }
 
 
   export type TransactionAvgAggregateInputType = {
-    totalProductPrice?: true
-    discountedProductPrice?: true
-    finalProductPrice?: true
     shippingPrice?: true
+    totalPrice?: true
+    cityId?: true
     discountedShipping?: true
     finalShippingPrice?: true
-    totalPrice?: true
     provinceId?: true
-    cityId?: true
     districtId?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
+    totalProductPrice?: true
   }
 
   export type TransactionSumAggregateInputType = {
-    totalProductPrice?: true
-    discountedProductPrice?: true
-    finalProductPrice?: true
     shippingPrice?: true
+    totalPrice?: true
+    cityId?: true
     discountedShipping?: true
     finalShippingPrice?: true
-    totalPrice?: true
     provinceId?: true
-    cityId?: true
     districtId?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
+    totalProductPrice?: true
   }
 
   export type TransactionMinAggregateInputType = {
     id?: true
     userId?: true
-    storeId?: true
     status?: true
-    totalProductPrice?: true
-    discountedProductPrice?: true
-    finalProductPrice?: true
     shippingPrice?: true
-    discountedShipping?: true
-    finalShippingPrice?: true
     totalPrice?: true
-    address?: true
-    receiverName?: true
     phoneNumber?: true
-    provinceId?: true
-    province?: true
-    cityId?: true
-    city?: true
-    district?: true
-    districtId?: true
-    addressLabel?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
-    paymentMethod?: true
-    snapToken?: true
-    snapRedirectUrl?: true
-    paidAt?: true
-    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    address?: true
+    city?: true
+    cityId?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
+    province?: true
+    provinceId?: true
+    storeId?: true
+    expiryAt?: true
+    paidAt?: true
+    paymentMethod?: true
+    snapRedirectUrl?: true
+    snapToken?: true
+    district?: true
+    districtId?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
+    totalProductPrice?: true
+    receiverName?: true
+    addressLabel?: true
   }
 
   export type TransactionMaxAggregateInputType = {
     id?: true
     userId?: true
-    storeId?: true
     status?: true
-    totalProductPrice?: true
-    discountedProductPrice?: true
-    finalProductPrice?: true
     shippingPrice?: true
-    discountedShipping?: true
-    finalShippingPrice?: true
     totalPrice?: true
-    address?: true
-    receiverName?: true
     phoneNumber?: true
-    provinceId?: true
-    province?: true
-    cityId?: true
-    city?: true
-    district?: true
-    districtId?: true
-    addressLabel?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
-    paymentMethod?: true
-    snapToken?: true
-    snapRedirectUrl?: true
-    paidAt?: true
-    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    address?: true
+    city?: true
+    cityId?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
+    province?: true
+    provinceId?: true
+    storeId?: true
+    expiryAt?: true
+    paidAt?: true
+    paymentMethod?: true
+    snapRedirectUrl?: true
+    snapToken?: true
+    district?: true
+    districtId?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
+    totalProductPrice?: true
+    receiverName?: true
+    addressLabel?: true
   }
 
   export type TransactionCountAggregateInputType = {
     id?: true
     userId?: true
-    storeId?: true
     status?: true
-    totalProductPrice?: true
-    discountedProductPrice?: true
-    finalProductPrice?: true
     shippingPrice?: true
-    discountedShipping?: true
-    finalShippingPrice?: true
     totalPrice?: true
-    address?: true
-    receiverName?: true
     phoneNumber?: true
-    provinceId?: true
-    province?: true
-    cityId?: true
-    city?: true
-    district?: true
-    districtId?: true
-    addressLabel?: true
     codeVoucherProduct?: true
     codeVoucherDelivery?: true
     paymentProof?: true
-    paymentMethod?: true
-    snapToken?: true
-    snapRedirectUrl?: true
-    paidAt?: true
-    expiryAt?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    address?: true
+    city?: true
+    cityId?: true
+    discountedShipping?: true
+    finalShippingPrice?: true
+    province?: true
+    provinceId?: true
+    storeId?: true
+    expiryAt?: true
+    paidAt?: true
+    paymentMethod?: true
+    snapRedirectUrl?: true
+    snapToken?: true
+    district?: true
+    districtId?: true
+    discountedProductPrice?: true
+    finalProductPrice?: true
+    totalProductPrice?: true
+    receiverName?: true
+    addressLabel?: true
     _all?: true
   }
 
@@ -17788,36 +17801,36 @@ export namespace Prisma {
   export type TransactionGroupByOutputType = {
     id: string
     userId: string
-    storeId: string
     status: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct: string | null
     codeVoucherDelivery: string | null
     paymentProof: string | null
-    paymentMethod: string | null
-    snapToken: string | null
-    snapRedirectUrl: string | null
-    paidAt: Date | null
-    expiryAt: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt: Date | null
+    paidAt: Date | null
+    paymentMethod: string | null
+    snapRedirectUrl: string | null
+    snapToken: string | null
+    district: string
+    districtId: number
+    discountedProductPrice: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     _count: TransactionCountAggregateOutputType | null
     _avg: TransactionAvgAggregateOutputType | null
     _sum: TransactionSumAggregateOutputType | null
@@ -17842,227 +17855,227 @@ export namespace Prisma {
   export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    storeId?: boolean
     status?: boolean
-    totalProductPrice?: boolean
-    discountedProductPrice?: boolean
-    finalProductPrice?: boolean
     shippingPrice?: boolean
-    discountedShipping?: boolean
-    finalShippingPrice?: boolean
     totalPrice?: boolean
-    address?: boolean
-    receiverName?: boolean
     phoneNumber?: boolean
-    provinceId?: boolean
-    province?: boolean
-    cityId?: boolean
-    city?: boolean
-    district?: boolean
-    districtId?: boolean
-    addressLabel?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
-    paymentMethod?: boolean
-    snapToken?: boolean
-    snapRedirectUrl?: boolean
-    paidAt?: boolean
-    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    address?: boolean
+    city?: boolean
+    cityId?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
+    province?: boolean
+    provinceId?: boolean
+    storeId?: boolean
+    expiryAt?: boolean
+    paidAt?: boolean
+    paymentMethod?: boolean
+    snapRedirectUrl?: boolean
+    snapToken?: boolean
+    district?: boolean
+    districtId?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
+    totalProductPrice?: boolean
+    receiverName?: boolean
+    addressLabel?: boolean
+    discountUsageHistory?: boolean | Transaction$discountUsageHistoryArgs<ExtArgs>
+    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     products?: boolean | Transaction$productsArgs<ExtArgs>
-    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
-    discountUsageHistory?: boolean | Transaction$discountUsageHistoryArgs<ExtArgs>
     _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    storeId?: boolean
     status?: boolean
-    totalProductPrice?: boolean
-    discountedProductPrice?: boolean
-    finalProductPrice?: boolean
     shippingPrice?: boolean
-    discountedShipping?: boolean
-    finalShippingPrice?: boolean
     totalPrice?: boolean
-    address?: boolean
-    receiverName?: boolean
     phoneNumber?: boolean
-    provinceId?: boolean
-    province?: boolean
-    cityId?: boolean
-    city?: boolean
-    district?: boolean
-    districtId?: boolean
-    addressLabel?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
-    paymentMethod?: boolean
-    snapToken?: boolean
-    snapRedirectUrl?: boolean
-    paidAt?: boolean
-    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    address?: boolean
+    city?: boolean
+    cityId?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
+    province?: boolean
+    provinceId?: boolean
+    storeId?: boolean
+    expiryAt?: boolean
+    paidAt?: boolean
+    paymentMethod?: boolean
+    snapRedirectUrl?: boolean
+    snapToken?: boolean
+    district?: boolean
+    districtId?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
+    totalProductPrice?: boolean
+    receiverName?: boolean
+    addressLabel?: boolean
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    storeId?: boolean
     status?: boolean
-    totalProductPrice?: boolean
-    discountedProductPrice?: boolean
-    finalProductPrice?: boolean
     shippingPrice?: boolean
-    discountedShipping?: boolean
-    finalShippingPrice?: boolean
     totalPrice?: boolean
-    address?: boolean
-    receiverName?: boolean
     phoneNumber?: boolean
-    provinceId?: boolean
-    province?: boolean
-    cityId?: boolean
-    city?: boolean
-    district?: boolean
-    districtId?: boolean
-    addressLabel?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
-    paymentMethod?: boolean
-    snapToken?: boolean
-    snapRedirectUrl?: boolean
-    paidAt?: boolean
-    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    address?: boolean
+    city?: boolean
+    cityId?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
+    province?: boolean
+    provinceId?: boolean
+    storeId?: boolean
+    expiryAt?: boolean
+    paidAt?: boolean
+    paymentMethod?: boolean
+    snapRedirectUrl?: boolean
+    snapToken?: boolean
+    district?: boolean
+    districtId?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
+    totalProductPrice?: boolean
+    receiverName?: boolean
+    addressLabel?: boolean
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
     id?: boolean
     userId?: boolean
-    storeId?: boolean
     status?: boolean
-    totalProductPrice?: boolean
-    discountedProductPrice?: boolean
-    finalProductPrice?: boolean
     shippingPrice?: boolean
-    discountedShipping?: boolean
-    finalShippingPrice?: boolean
     totalPrice?: boolean
-    address?: boolean
-    receiverName?: boolean
     phoneNumber?: boolean
-    provinceId?: boolean
-    province?: boolean
-    cityId?: boolean
-    city?: boolean
-    district?: boolean
-    districtId?: boolean
-    addressLabel?: boolean
     codeVoucherProduct?: boolean
     codeVoucherDelivery?: boolean
     paymentProof?: boolean
-    paymentMethod?: boolean
-    snapToken?: boolean
-    snapRedirectUrl?: boolean
-    paidAt?: boolean
-    expiryAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    address?: boolean
+    city?: boolean
+    cityId?: boolean
+    discountedShipping?: boolean
+    finalShippingPrice?: boolean
+    province?: boolean
+    provinceId?: boolean
+    storeId?: boolean
+    expiryAt?: boolean
+    paidAt?: boolean
+    paymentMethod?: boolean
+    snapRedirectUrl?: boolean
+    snapToken?: boolean
+    district?: boolean
+    districtId?: boolean
+    discountedProductPrice?: boolean
+    finalProductPrice?: boolean
+    totalProductPrice?: boolean
+    receiverName?: boolean
+    addressLabel?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "storeId" | "status" | "totalProductPrice" | "discountedProductPrice" | "finalProductPrice" | "shippingPrice" | "discountedShipping" | "finalShippingPrice" | "totalPrice" | "address" | "receiverName" | "phoneNumber" | "provinceId" | "province" | "cityId" | "city" | "district" | "districtId" | "addressLabel" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "paymentMethod" | "snapToken" | "snapRedirectUrl" | "paidAt" | "expiryAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "status" | "shippingPrice" | "totalPrice" | "phoneNumber" | "codeVoucherProduct" | "codeVoucherDelivery" | "paymentProof" | "createdAt" | "updatedAt" | "deletedAt" | "address" | "city" | "cityId" | "discountedShipping" | "finalShippingPrice" | "province" | "provinceId" | "storeId" | "expiryAt" | "paidAt" | "paymentMethod" | "snapRedirectUrl" | "snapToken" | "district" | "districtId" | "discountedProductPrice" | "finalProductPrice" | "totalProductPrice" | "receiverName" | "addressLabel", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
+    discountUsageHistory?: boolean | Transaction$discountUsageHistoryArgs<ExtArgs>
+    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     products?: boolean | Transaction$productsArgs<ExtArgs>
-    stockJournal?: boolean | Transaction$stockJournalArgs<ExtArgs>
-    discountUsageHistory?: boolean | Transaction$discountUsageHistoryArgs<ExtArgs>
     _count?: boolean | TransactionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | StoreDefaultArgs<ExtArgs>
     voucherDelivery?: boolean | Transaction$voucherDeliveryArgs<ExtArgs>
     voucherProduct?: boolean | Transaction$voucherProductArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
-      store: Prisma.$StorePayload<ExtArgs>
+      discountUsageHistory: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
+      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
       voucherDelivery: Prisma.$VoucherDeliveryPayload<ExtArgs> | null
       voucherProduct: Prisma.$VoucherProductPayload<ExtArgs> | null
+      store: Prisma.$StorePayload<ExtArgs>
       user: Prisma.$UsersPayload<ExtArgs>
       products: Prisma.$TransactionProductPayload<ExtArgs>[]
-      stockJournal: Prisma.$StockJournalPayload<ExtArgs>[]
-      discountUsageHistory: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      storeId: string
       status: $Enums.OrderStatus
-      totalProductPrice: number
-      discountedProductPrice: number
-      finalProductPrice: number
       shippingPrice: number
-      discountedShipping: number
-      finalShippingPrice: number
       totalPrice: number
-      address: string
-      receiverName: string
       phoneNumber: string
-      provinceId: number
-      province: string
-      cityId: number
-      city: string
-      district: string
-      districtId: number
-      addressLabel: string
       codeVoucherProduct: string | null
       codeVoucherDelivery: string | null
       paymentProof: string | null
-      paymentMethod: string | null
-      snapToken: string | null
-      snapRedirectUrl: string | null
-      paidAt: Date | null
-      expiryAt: Date | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      address: string
+      city: string
+      cityId: number
+      discountedShipping: number
+      finalShippingPrice: number
+      province: string
+      provinceId: number
+      storeId: string
+      expiryAt: Date | null
+      paidAt: Date | null
+      paymentMethod: string | null
+      snapRedirectUrl: string | null
+      snapToken: string | null
+      district: string
+      districtId: number
+      discountedProductPrice: number
+      finalProductPrice: number
+      totalProductPrice: number
+      receiverName: string
+      addressLabel: string
     }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
@@ -18457,13 +18470,13 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    discountUsageHistory<T extends Transaction$discountUsageHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$discountUsageHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stockJournal<T extends Transaction$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     voucherDelivery<T extends Transaction$voucherDeliveryArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$voucherDeliveryArgs<ExtArgs>>): Prisma__VoucherDeliveryClient<$Result.GetResult<Prisma.$VoucherDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     voucherProduct<T extends Transaction$voucherProductArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$voucherProductArgs<ExtArgs>>): Prisma__VoucherProductClient<$Result.GetResult<Prisma.$VoucherProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     products<T extends Transaction$productsArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    stockJournal<T extends Transaction$stockJournalArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$stockJournalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockJournalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discountUsageHistory<T extends Transaction$discountUsageHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$discountUsageHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18495,36 +18508,36 @@ export namespace Prisma {
   interface TransactionFieldRefs {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
-    readonly storeId: FieldRef<"Transaction", 'String'>
     readonly status: FieldRef<"Transaction", 'OrderStatus'>
-    readonly totalProductPrice: FieldRef<"Transaction", 'Int'>
-    readonly discountedProductPrice: FieldRef<"Transaction", 'Int'>
-    readonly finalProductPrice: FieldRef<"Transaction", 'Int'>
     readonly shippingPrice: FieldRef<"Transaction", 'Int'>
-    readonly discountedShipping: FieldRef<"Transaction", 'Int'>
-    readonly finalShippingPrice: FieldRef<"Transaction", 'Int'>
     readonly totalPrice: FieldRef<"Transaction", 'Int'>
-    readonly address: FieldRef<"Transaction", 'String'>
-    readonly receiverName: FieldRef<"Transaction", 'String'>
     readonly phoneNumber: FieldRef<"Transaction", 'String'>
-    readonly provinceId: FieldRef<"Transaction", 'Int'>
-    readonly province: FieldRef<"Transaction", 'String'>
-    readonly cityId: FieldRef<"Transaction", 'Int'>
-    readonly city: FieldRef<"Transaction", 'String'>
-    readonly district: FieldRef<"Transaction", 'String'>
-    readonly districtId: FieldRef<"Transaction", 'Int'>
-    readonly addressLabel: FieldRef<"Transaction", 'String'>
     readonly codeVoucherProduct: FieldRef<"Transaction", 'String'>
     readonly codeVoucherDelivery: FieldRef<"Transaction", 'String'>
     readonly paymentProof: FieldRef<"Transaction", 'String'>
-    readonly paymentMethod: FieldRef<"Transaction", 'String'>
-    readonly snapToken: FieldRef<"Transaction", 'String'>
-    readonly snapRedirectUrl: FieldRef<"Transaction", 'String'>
-    readonly paidAt: FieldRef<"Transaction", 'DateTime'>
-    readonly expiryAt: FieldRef<"Transaction", 'DateTime'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
     readonly deletedAt: FieldRef<"Transaction", 'DateTime'>
+    readonly address: FieldRef<"Transaction", 'String'>
+    readonly city: FieldRef<"Transaction", 'String'>
+    readonly cityId: FieldRef<"Transaction", 'Int'>
+    readonly discountedShipping: FieldRef<"Transaction", 'Int'>
+    readonly finalShippingPrice: FieldRef<"Transaction", 'Int'>
+    readonly province: FieldRef<"Transaction", 'String'>
+    readonly provinceId: FieldRef<"Transaction", 'Int'>
+    readonly storeId: FieldRef<"Transaction", 'String'>
+    readonly expiryAt: FieldRef<"Transaction", 'DateTime'>
+    readonly paidAt: FieldRef<"Transaction", 'DateTime'>
+    readonly paymentMethod: FieldRef<"Transaction", 'String'>
+    readonly snapRedirectUrl: FieldRef<"Transaction", 'String'>
+    readonly snapToken: FieldRef<"Transaction", 'String'>
+    readonly district: FieldRef<"Transaction", 'String'>
+    readonly districtId: FieldRef<"Transaction", 'Int'>
+    readonly discountedProductPrice: FieldRef<"Transaction", 'Int'>
+    readonly finalProductPrice: FieldRef<"Transaction", 'Int'>
+    readonly totalProductPrice: FieldRef<"Transaction", 'Int'>
+    readonly receiverName: FieldRef<"Transaction", 'String'>
+    readonly addressLabel: FieldRef<"Transaction", 'String'>
   }
     
 
@@ -18921,6 +18934,54 @@ export namespace Prisma {
   }
 
   /**
+   * Transaction.discountUsageHistory
+   */
+  export type Transaction$discountUsageHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiscountUsageHistory
+     */
+    select?: DiscountUsageHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DiscountUsageHistory
+     */
+    omit?: DiscountUsageHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscountUsageHistoryInclude<ExtArgs> | null
+    where?: DiscountUsageHistoryWhereInput
+    orderBy?: DiscountUsageHistoryOrderByWithRelationInput | DiscountUsageHistoryOrderByWithRelationInput[]
+    cursor?: DiscountUsageHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiscountUsageHistoryScalarFieldEnum | DiscountUsageHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Transaction.stockJournal
+   */
+  export type Transaction$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockJournal
+     */
+    select?: StockJournalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockJournal
+     */
+    omit?: StockJournalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockJournalInclude<ExtArgs> | null
+    where?: StockJournalWhereInput
+    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
+    cursor?: StockJournalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
+  }
+
+  /**
    * Transaction.voucherDelivery
    */
   export type Transaction$voucherDeliveryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18983,54 +19044,6 @@ export namespace Prisma {
   }
 
   /**
-   * Transaction.stockJournal
-   */
-  export type Transaction$stockJournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StockJournal
-     */
-    select?: StockJournalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StockJournal
-     */
-    omit?: StockJournalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StockJournalInclude<ExtArgs> | null
-    where?: StockJournalWhereInput
-    orderBy?: StockJournalOrderByWithRelationInput | StockJournalOrderByWithRelationInput[]
-    cursor?: StockJournalWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StockJournalScalarFieldEnum | StockJournalScalarFieldEnum[]
-  }
-
-  /**
-   * Transaction.discountUsageHistory
-   */
-  export type Transaction$discountUsageHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DiscountUsageHistory
-     */
-    select?: DiscountUsageHistorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DiscountUsageHistory
-     */
-    omit?: DiscountUsageHistoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DiscountUsageHistoryInclude<ExtArgs> | null
-    where?: DiscountUsageHistoryWhereInput
-    orderBy?: DiscountUsageHistoryOrderByWithRelationInput | DiscountUsageHistoryOrderByWithRelationInput[]
-    cursor?: DiscountUsageHistoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DiscountUsageHistoryScalarFieldEnum | DiscountUsageHistoryScalarFieldEnum[]
-  }
-
-  /**
    * Transaction without action
    */
   export type TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19081,11 +19094,11 @@ export namespace Prisma {
     productId: string | null
     quantity: number | null
     price: number | null
-    discount: number | null
-    finalPrice: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    discount: number | null
+    finalPrice: number | null
   }
 
   export type TransactionProductMaxAggregateOutputType = {
@@ -19094,11 +19107,11 @@ export namespace Prisma {
     productId: string | null
     quantity: number | null
     price: number | null
-    discount: number | null
-    finalPrice: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
+    discount: number | null
+    finalPrice: number | null
   }
 
   export type TransactionProductCountAggregateOutputType = {
@@ -19107,11 +19120,11 @@ export namespace Prisma {
     productId: number
     quantity: number
     price: number
-    discount: number
-    finalPrice: number
     createdAt: number
     updatedAt: number
     deletedAt: number
+    discount: number
+    finalPrice: number
     _all: number
   }
 
@@ -19136,11 +19149,11 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
-    discount?: true
-    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    discount?: true
+    finalPrice?: true
   }
 
   export type TransactionProductMaxAggregateInputType = {
@@ -19149,11 +19162,11 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
-    discount?: true
-    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    discount?: true
+    finalPrice?: true
   }
 
   export type TransactionProductCountAggregateInputType = {
@@ -19162,11 +19175,11 @@ export namespace Prisma {
     productId?: true
     quantity?: true
     price?: true
-    discount?: true
-    finalPrice?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
+    discount?: true
+    finalPrice?: true
     _all?: true
   }
 
@@ -19262,11 +19275,11 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
-    discount: number
-    finalPrice: number
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    discount: number
+    finalPrice: number
     _count: TransactionProductCountAggregateOutputType | null
     _avg: TransactionProductAvgAggregateOutputType | null
     _sum: TransactionProductSumAggregateOutputType | null
@@ -19294,11 +19307,11 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
-    discount?: boolean
-    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     transaction?: boolean | TransactionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transactionProduct"]>
@@ -19309,11 +19322,11 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
-    discount?: boolean
-    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     transaction?: boolean | TransactionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transactionProduct"]>
@@ -19324,11 +19337,11 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
-    discount?: boolean
-    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    discount?: boolean
+    finalPrice?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     transaction?: boolean | TransactionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transactionProduct"]>
@@ -19339,14 +19352,14 @@ export namespace Prisma {
     productId?: boolean
     quantity?: boolean
     price?: boolean
-    discount?: boolean
-    finalPrice?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
+    discount?: boolean
+    finalPrice?: boolean
   }
 
-  export type TransactionProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "productId" | "quantity" | "price" | "discount" | "finalPrice" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["transactionProduct"]>
+  export type TransactionProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "productId" | "quantity" | "price" | "createdAt" | "updatedAt" | "deletedAt" | "discount" | "finalPrice", ExtArgs["result"]["transactionProduct"]>
   export type TransactionProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     transaction?: boolean | TransactionDefaultArgs<ExtArgs>
@@ -19372,11 +19385,11 @@ export namespace Prisma {
       productId: string
       quantity: number
       price: number
-      discount: number
-      finalPrice: number
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
+      discount: number
+      finalPrice: number
     }, ExtArgs["result"]["transactionProduct"]>
     composites: {}
   }
@@ -19807,11 +19820,11 @@ export namespace Prisma {
     readonly productId: FieldRef<"TransactionProduct", 'String'>
     readonly quantity: FieldRef<"TransactionProduct", 'Int'>
     readonly price: FieldRef<"TransactionProduct", 'Int'>
-    readonly discount: FieldRef<"TransactionProduct", 'Int'>
-    readonly finalPrice: FieldRef<"TransactionProduct", 'Int'>
     readonly createdAt: FieldRef<"TransactionProduct", 'DateTime'>
     readonly updatedAt: FieldRef<"TransactionProduct", 'DateTime'>
     readonly deletedAt: FieldRef<"TransactionProduct", 'DateTime'>
+    readonly discount: FieldRef<"TransactionProduct", 'Int'>
+    readonly finalPrice: FieldRef<"TransactionProduct", 'Int'>
   }
     
 
@@ -20556,11 +20569,11 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | Discount$storeArgs<ExtArgs>
+    bogoConfig?: boolean | Discount$bogoConfigArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     products?: boolean | Discount$productsArgs<ExtArgs>
     usageHistory?: boolean | Discount$usageHistoryArgs<ExtArgs>
-    bogoConfig?: boolean | Discount$bogoConfigArgs<ExtArgs>
     _count?: boolean | DiscountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discount"]>
 
@@ -20584,8 +20597,8 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
   }, ExtArgs["result"]["discount"]>
 
   export type DiscountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20608,8 +20621,8 @@ export namespace Prisma {
     updatedAt?: boolean
     deletedAt?: boolean
     adminId?: boolean
-    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
   }, ExtArgs["result"]["discount"]>
 
   export type DiscountSelectScalar = {
@@ -20636,30 +20649,30 @@ export namespace Prisma {
 
   export type DiscountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "description" | "type" | "valueType" | "value" | "maxDiscountAmount" | "minTransactionValue" | "maxUsagePerCustomer" | "totalUsageLimit" | "currentUsageCount" | "isActive" | "startDate" | "endDate" | "createdAt" | "updatedAt" | "deletedAt" | "adminId", ExtArgs["result"]["discount"]>
   export type DiscountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | Discount$storeArgs<ExtArgs>
+    bogoConfig?: boolean | Discount$bogoConfigArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
     products?: boolean | Discount$productsArgs<ExtArgs>
     usageHistory?: boolean | Discount$usageHistoryArgs<ExtArgs>
-    bogoConfig?: boolean | Discount$bogoConfigArgs<ExtArgs>
     _count?: boolean | DiscountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DiscountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
   }
   export type DiscountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    store?: boolean | Discount$storeArgs<ExtArgs>
     admin?: boolean | AdminDefaultArgs<ExtArgs>
+    store?: boolean | Discount$storeArgs<ExtArgs>
   }
 
   export type $DiscountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Discount"
     objects: {
-      store: Prisma.$StorePayload<ExtArgs> | null
+      bogoConfig: Prisma.$BogoDiscountPayload<ExtArgs> | null
       admin: Prisma.$AdminPayload<ExtArgs>
+      store: Prisma.$StorePayload<ExtArgs> | null
       products: Prisma.$DiscountProductPayload<ExtArgs>[]
       usageHistory: Prisma.$DiscountUsageHistoryPayload<ExtArgs>[]
-      bogoConfig: Prisma.$BogoDiscountPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -21075,11 +21088,11 @@ export namespace Prisma {
    */
   export interface Prisma__DiscountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    store<T extends Discount$storeArgs<ExtArgs> = {}>(args?: Subset<T, Discount$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    bogoConfig<T extends Discount$bogoConfigArgs<ExtArgs> = {}>(args?: Subset<T, Discount$bogoConfigArgs<ExtArgs>>): Prisma__BogoDiscountClient<$Result.GetResult<Prisma.$BogoDiscountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    store<T extends Discount$storeArgs<ExtArgs> = {}>(args?: Subset<T, Discount$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     products<T extends Discount$productsArgs<ExtArgs> = {}>(args?: Subset<T, Discount$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usageHistory<T extends Discount$usageHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Discount$usageHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscountUsageHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    bogoConfig<T extends Discount$bogoConfigArgs<ExtArgs> = {}>(args?: Subset<T, Discount$bogoConfigArgs<ExtArgs>>): Prisma__BogoDiscountClient<$Result.GetResult<Prisma.$BogoDiscountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21524,6 +21537,25 @@ export namespace Prisma {
   }
 
   /**
+   * Discount.bogoConfig
+   */
+  export type Discount$bogoConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BogoDiscount
+     */
+    select?: BogoDiscountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BogoDiscount
+     */
+    omit?: BogoDiscountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BogoDiscountInclude<ExtArgs> | null
+    where?: BogoDiscountWhereInput
+  }
+
+  /**
    * Discount.store
    */
   export type Discount$storeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21588,25 +21620,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiscountUsageHistoryScalarFieldEnum | DiscountUsageHistoryScalarFieldEnum[]
-  }
-
-  /**
-   * Discount.bogoConfig
-   */
-  export type Discount$bogoConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BogoDiscount
-     */
-    select?: BogoDiscountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BogoDiscount
-     */
-    omit?: BogoDiscountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BogoDiscountInclude<ExtArgs> | null
-    where?: BogoDiscountWhereInput
   }
 
   /**
@@ -24054,10 +24067,10 @@ export namespace Prisma {
     discountValue?: boolean
     orderTotal?: boolean
     createdAt?: boolean
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }, ExtArgs["result"]["discountUsageHistory"]>
 
   export type DiscountUsageHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24070,10 +24083,10 @@ export namespace Prisma {
     discountValue?: boolean
     orderTotal?: boolean
     createdAt?: boolean
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }, ExtArgs["result"]["discountUsageHistory"]>
 
   export type DiscountUsageHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -24086,10 +24099,10 @@ export namespace Prisma {
     discountValue?: boolean
     orderTotal?: boolean
     createdAt?: boolean
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }, ExtArgs["result"]["discountUsageHistory"]>
 
   export type DiscountUsageHistorySelectScalar = {
@@ -24106,31 +24119,31 @@ export namespace Prisma {
 
   export type DiscountUsageHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "discountId" | "transactionId" | "userId" | "adminId" | "usedAt" | "discountValue" | "orderTotal" | "createdAt", ExtArgs["result"]["discountUsageHistory"]>
   export type DiscountUsageHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }
   export type DiscountUsageHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }
   export type DiscountUsageHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
     discount?: boolean | DiscountDefaultArgs<ExtArgs>
     transaction?: boolean | DiscountUsageHistory$transactionArgs<ExtArgs>
     user?: boolean | DiscountUsageHistory$userArgs<ExtArgs>
-    appliedBy?: boolean | DiscountUsageHistory$appliedByArgs<ExtArgs>
   }
 
   export type $DiscountUsageHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DiscountUsageHistory"
     objects: {
+      appliedBy: Prisma.$AdminPayload<ExtArgs> | null
       discount: Prisma.$DiscountPayload<ExtArgs>
       transaction: Prisma.$TransactionPayload<ExtArgs> | null
       user: Prisma.$UsersPayload<ExtArgs> | null
-      appliedBy: Prisma.$AdminPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -24536,10 +24549,10 @@ export namespace Prisma {
    */
   export interface Prisma__DiscountUsageHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    appliedBy<T extends DiscountUsageHistory$appliedByArgs<ExtArgs> = {}>(args?: Subset<T, DiscountUsageHistory$appliedByArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     discount<T extends DiscountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DiscountDefaultArgs<ExtArgs>>): Prisma__DiscountClient<$Result.GetResult<Prisma.$DiscountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     transaction<T extends DiscountUsageHistory$transactionArgs<ExtArgs> = {}>(args?: Subset<T, DiscountUsageHistory$transactionArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends DiscountUsageHistory$userArgs<ExtArgs> = {}>(args?: Subset<T, DiscountUsageHistory$userArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    appliedBy<T extends DiscountUsageHistory$appliedByArgs<ExtArgs> = {}>(args?: Subset<T, DiscountUsageHistory$appliedByArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24974,6 +24987,25 @@ export namespace Prisma {
   }
 
   /**
+   * DiscountUsageHistory.appliedBy
+   */
+  export type DiscountUsageHistory$appliedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+  }
+
+  /**
    * DiscountUsageHistory.transaction
    */
   export type DiscountUsageHistory$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25009,25 +25041,6 @@ export namespace Prisma {
      */
     include?: UsersInclude<ExtArgs> | null
     where?: UsersWhereInput
-  }
-
-  /**
-   * DiscountUsageHistory.appliedBy
-   */
-  export type DiscountUsageHistory$appliedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Admin
-     */
-    select?: AdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Admin
-     */
-    omit?: AdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AdminInclude<ExtArgs> | null
-    where?: AdminWhereInput
   }
 
   /**
@@ -25068,13 +25081,14 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     phoneNumber: 'phoneNumber',
-    provider: 'provider',
-    providerId: 'providerId',
     password: 'password',
     isVerified: 'isVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    provider: 'provider',
+    providerId: 'providerId',
+    profilePicture: 'profilePicture'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -25082,24 +25096,24 @@ export namespace Prisma {
 
   export const UserAddressScalarFieldEnum: {
     id: 'id',
-    addressLabel: 'addressLabel',
     userId: 'userId',
-    receiverName: 'receiverName',
-    receiverPhoneNumber: 'receiverPhoneNumber',
-    addressDisplayName: 'addressDisplayName',
-    addressDetails: 'addressDetails',
-    lat: 'lat',
-    lon: 'lon',
-    isDefault: 'isDefault',
-    provinceId: 'provinceId',
     province: 'province',
-    cityId: 'cityId',
     city: 'city',
-    district: 'district',
-    districtId: 'districtId',
+    lat: 'lat',
+    isDefault: 'isDefault',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    cityId: 'cityId',
+    provinceId: 'provinceId',
+    addressDetails: 'addressDetails',
+    addressDisplayName: 'addressDisplayName',
+    addressLabel: 'addressLabel',
+    lon: 'lon',
+    receiverName: 'receiverName',
+    receiverPhoneNumber: 'receiverPhoneNumber',
+    district: 'district',
+    districtId: 'districtId'
   };
 
   export type UserAddressScalarFieldEnum = (typeof UserAddressScalarFieldEnum)[keyof typeof UserAddressScalarFieldEnum]
@@ -25107,12 +25121,8 @@ export namespace Prisma {
 
   export const StoreScalarFieldEnum: {
     id: 'id',
-    provinceId: 'provinceId',
     province: 'province',
-    cityId: 'cityId',
     city: 'city',
-    district: 'district',
-    districtId: 'districtId',
     address: 'address',
     name: 'name',
     lat: 'lat',
@@ -25120,7 +25130,11 @@ export namespace Prisma {
     radiusKm: 'radiusKm',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    cityId: 'cityId',
+    provinceId: 'provinceId',
+    district: 'district',
+    districtId: 'districtId'
   };
 
   export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
@@ -25144,13 +25158,13 @@ export namespace Prisma {
   export const ProductCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    slug: 'slug',
     description: 'description',
-    icon: 'icon',
     isActive: 'isActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    icon: 'icon',
+    slug: 'slug'
   };
 
   export type ProductCategoryScalarFieldEnum = (typeof ProductCategoryScalarFieldEnum)[keyof typeof ProductCategoryScalarFieldEnum]
@@ -25182,10 +25196,10 @@ export namespace Prisma {
     storeId: 'storeId',
     productId: 'productId',
     stock: 'stock',
-    minStock: 'minStock',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    minStock: 'minStock'
   };
 
   export type StoreProductScalarFieldEnum = (typeof StoreProductScalarFieldEnum)[keyof typeof StoreProductScalarFieldEnum]
@@ -25264,36 +25278,36 @@ export namespace Prisma {
   export const TransactionScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    storeId: 'storeId',
     status: 'status',
-    totalProductPrice: 'totalProductPrice',
-    discountedProductPrice: 'discountedProductPrice',
-    finalProductPrice: 'finalProductPrice',
     shippingPrice: 'shippingPrice',
-    discountedShipping: 'discountedShipping',
-    finalShippingPrice: 'finalShippingPrice',
     totalPrice: 'totalPrice',
-    address: 'address',
-    receiverName: 'receiverName',
     phoneNumber: 'phoneNumber',
-    provinceId: 'provinceId',
-    province: 'province',
-    cityId: 'cityId',
-    city: 'city',
-    district: 'district',
-    districtId: 'districtId',
-    addressLabel: 'addressLabel',
     codeVoucherProduct: 'codeVoucherProduct',
     codeVoucherDelivery: 'codeVoucherDelivery',
     paymentProof: 'paymentProof',
-    paymentMethod: 'paymentMethod',
-    snapToken: 'snapToken',
-    snapRedirectUrl: 'snapRedirectUrl',
-    paidAt: 'paidAt',
-    expiryAt: 'expiryAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    address: 'address',
+    city: 'city',
+    cityId: 'cityId',
+    discountedShipping: 'discountedShipping',
+    finalShippingPrice: 'finalShippingPrice',
+    province: 'province',
+    provinceId: 'provinceId',
+    storeId: 'storeId',
+    expiryAt: 'expiryAt',
+    paidAt: 'paidAt',
+    paymentMethod: 'paymentMethod',
+    snapRedirectUrl: 'snapRedirectUrl',
+    snapToken: 'snapToken',
+    district: 'district',
+    districtId: 'districtId',
+    discountedProductPrice: 'discountedProductPrice',
+    finalProductPrice: 'finalProductPrice',
+    totalProductPrice: 'totalProductPrice',
+    receiverName: 'receiverName',
+    addressLabel: 'addressLabel'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -25305,11 +25319,11 @@ export namespace Prisma {
     productId: 'productId',
     quantity: 'quantity',
     price: 'price',
-    discount: 'discount',
-    finalPrice: 'finalPrice',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt'
+    deletedAt: 'deletedAt',
+    discount: 'discount',
+    finalPrice: 'finalPrice'
   };
 
   export type TransactionProductScalarFieldEnum = (typeof TransactionProductScalarFieldEnum)[keyof typeof TransactionProductScalarFieldEnum]
@@ -25552,17 +25566,18 @@ export namespace Prisma {
     name?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     phoneNumber?: StringNullableFilter<"Users"> | string | null
-    provider?: StringNullableFilter<"Users"> | string | null
-    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
+    profilePicture?: StringNullableFilter<"Users"> | string | null
     carts?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
+    discountUsage?: DiscountUsageHistoryListRelationFilter
     transactions?: TransactionListRelationFilter
     addresses?: UserAddressListRelationFilter
-    discountUsage?: DiscountUsageHistoryListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -25570,17 +25585,18 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    provider?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
+    profilePicture?: SortOrderInput | SortOrder
     carts?: CartOrderByWithRelationInput
+    discountUsage?: DiscountUsageHistoryOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
     addresses?: UserAddressOrderByRelationAggregateInput
-    discountUsage?: DiscountUsageHistoryOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -25592,17 +25608,18 @@ export namespace Prisma {
     OR?: UsersWhereInput[]
     NOT?: UsersWhereInput | UsersWhereInput[]
     name?: StringFilter<"Users"> | string
-    provider?: StringNullableFilter<"Users"> | string | null
-    providerId?: StringNullableFilter<"Users"> | string | null
     password?: StringNullableFilter<"Users"> | string | null
     isVerified?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
     updatedAt?: DateTimeFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Users"> | Date | string | null
+    provider?: StringNullableFilter<"Users"> | string | null
+    providerId?: StringNullableFilter<"Users"> | string | null
+    profilePicture?: StringNullableFilter<"Users"> | string | null
     carts?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
+    discountUsage?: DiscountUsageHistoryListRelationFilter
     transactions?: TransactionListRelationFilter
     addresses?: UserAddressListRelationFilter
-    discountUsage?: DiscountUsageHistoryListRelationFilter
   }, "id" | "email" | "phoneNumber" | "provider_providerId">
 
   export type UsersOrderByWithAggregationInput = {
@@ -25610,13 +25627,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
-    provider?: SortOrderInput | SortOrder
-    providerId?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    provider?: SortOrderInput | SortOrder
+    providerId?: SortOrderInput | SortOrder
+    profilePicture?: SortOrderInput | SortOrder
     _count?: UsersCountOrderByAggregateInput
     _max?: UsersMaxOrderByAggregateInput
     _min?: UsersMinOrderByAggregateInput
@@ -25630,13 +25648,14 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Users"> | string
     email?: StringWithAggregatesFilter<"Users"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"Users"> | string | null
-    provider?: StringNullableWithAggregatesFilter<"Users"> | string | null
-    providerId?: StringNullableWithAggregatesFilter<"Users"> | string | null
     password?: StringNullableWithAggregatesFilter<"Users"> | string | null
     isVerified?: BoolWithAggregatesFilter<"Users"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Users"> | Date | string | null
+    provider?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    providerId?: StringNullableWithAggregatesFilter<"Users"> | string | null
+    profilePicture?: StringNullableWithAggregatesFilter<"Users"> | string | null
   }
 
   export type UserAddressWhereInput = {
@@ -25644,47 +25663,47 @@ export namespace Prisma {
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
     id?: StringFilter<"UserAddress"> | string
-    addressLabel?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
-    receiverName?: StringFilter<"UserAddress"> | string
-    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
-    addressDisplayName?: StringFilter<"UserAddress"> | string
-    addressDetails?: StringFilter<"UserAddress"> | string
-    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntFilter<"UserAddress"> | number
     province?: StringFilter<"UserAddress"> | string
-    cityId?: IntFilter<"UserAddress"> | number
     city?: StringFilter<"UserAddress"> | string
-    district?: StringFilter<"UserAddress"> | string
-    districtId?: IntFilter<"UserAddress"> | number
+    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFilter<"UserAddress"> | boolean
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
+    cityId?: IntFilter<"UserAddress"> | number
+    provinceId?: IntFilter<"UserAddress"> | number
+    addressDetails?: StringFilter<"UserAddress"> | string
+    addressDisplayName?: StringFilter<"UserAddress"> | string
+    addressLabel?: StringFilter<"UserAddress"> | string
+    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFilter<"UserAddress"> | string
+    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
+    district?: StringFilter<"UserAddress"> | string
+    districtId?: IntFilter<"UserAddress"> | number
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }
 
   export type UserAddressOrderByWithRelationInput = {
     id?: SortOrder
-    addressLabel?: SortOrder
     userId?: SortOrder
-    receiverName?: SortOrder
-    receiverPhoneNumber?: SortOrder
-    addressDisplayName?: SortOrder
-    addressDetails?: SortOrder
-    lat?: SortOrder
-    lon?: SortOrder
-    isDefault?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
+    lat?: SortOrder
+    isDefault?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    addressDetails?: SortOrder
+    addressDisplayName?: SortOrder
+    addressLabel?: SortOrder
+    lon?: SortOrder
+    receiverName?: SortOrder
+    receiverPhoneNumber?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     user?: UsersOrderByWithRelationInput
   }
 
@@ -25693,47 +25712,47 @@ export namespace Prisma {
     AND?: UserAddressWhereInput | UserAddressWhereInput[]
     OR?: UserAddressWhereInput[]
     NOT?: UserAddressWhereInput | UserAddressWhereInput[]
-    addressLabel?: StringFilter<"UserAddress"> | string
     userId?: StringFilter<"UserAddress"> | string
-    receiverName?: StringFilter<"UserAddress"> | string
-    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
-    addressDisplayName?: StringFilter<"UserAddress"> | string
-    addressDetails?: StringFilter<"UserAddress"> | string
-    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntFilter<"UserAddress"> | number
     province?: StringFilter<"UserAddress"> | string
-    cityId?: IntFilter<"UserAddress"> | number
     city?: StringFilter<"UserAddress"> | string
-    district?: StringFilter<"UserAddress"> | string
-    districtId?: IntFilter<"UserAddress"> | number
+    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFilter<"UserAddress"> | boolean
     createdAt?: DateTimeFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
+    cityId?: IntFilter<"UserAddress"> | number
+    provinceId?: IntFilter<"UserAddress"> | number
+    addressDetails?: StringFilter<"UserAddress"> | string
+    addressDisplayName?: StringFilter<"UserAddress"> | string
+    addressLabel?: StringFilter<"UserAddress"> | string
+    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFilter<"UserAddress"> | string
+    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
+    district?: StringFilter<"UserAddress"> | string
+    districtId?: IntFilter<"UserAddress"> | number
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
   }, "id">
 
   export type UserAddressOrderByWithAggregationInput = {
     id?: SortOrder
-    addressLabel?: SortOrder
     userId?: SortOrder
-    receiverName?: SortOrder
-    receiverPhoneNumber?: SortOrder
-    addressDisplayName?: SortOrder
-    addressDetails?: SortOrder
-    lat?: SortOrder
-    lon?: SortOrder
-    isDefault?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
+    lat?: SortOrder
+    isDefault?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    addressDetails?: SortOrder
+    addressDisplayName?: SortOrder
+    addressLabel?: SortOrder
+    lon?: SortOrder
+    receiverName?: SortOrder
+    receiverPhoneNumber?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     _count?: UserAddressCountOrderByAggregateInput
     _avg?: UserAddressAvgOrderByAggregateInput
     _max?: UserAddressMaxOrderByAggregateInput
@@ -25746,24 +25765,24 @@ export namespace Prisma {
     OR?: UserAddressScalarWhereWithAggregatesInput[]
     NOT?: UserAddressScalarWhereWithAggregatesInput | UserAddressScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserAddress"> | string
-    addressLabel?: StringWithAggregatesFilter<"UserAddress"> | string
     userId?: StringWithAggregatesFilter<"UserAddress"> | string
-    receiverName?: StringWithAggregatesFilter<"UserAddress"> | string
-    receiverPhoneNumber?: StringWithAggregatesFilter<"UserAddress"> | string
-    addressDisplayName?: StringWithAggregatesFilter<"UserAddress"> | string
-    addressDetails?: StringWithAggregatesFilter<"UserAddress"> | string
-    lat?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    lon?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolWithAggregatesFilter<"UserAddress"> | boolean
-    provinceId?: IntWithAggregatesFilter<"UserAddress"> | number
     province?: StringWithAggregatesFilter<"UserAddress"> | string
-    cityId?: IntWithAggregatesFilter<"UserAddress"> | number
     city?: StringWithAggregatesFilter<"UserAddress"> | string
-    district?: StringWithAggregatesFilter<"UserAddress"> | string
-    districtId?: IntWithAggregatesFilter<"UserAddress"> | number
+    lat?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolWithAggregatesFilter<"UserAddress"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserAddress"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"UserAddress"> | Date | string | null
+    cityId?: IntWithAggregatesFilter<"UserAddress"> | number
+    provinceId?: IntWithAggregatesFilter<"UserAddress"> | number
+    addressDetails?: StringWithAggregatesFilter<"UserAddress"> | string
+    addressDisplayName?: StringWithAggregatesFilter<"UserAddress"> | string
+    addressLabel?: StringWithAggregatesFilter<"UserAddress"> | string
+    lon?: DecimalWithAggregatesFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    receiverName?: StringWithAggregatesFilter<"UserAddress"> | string
+    receiverPhoneNumber?: StringWithAggregatesFilter<"UserAddress"> | string
+    district?: StringWithAggregatesFilter<"UserAddress"> | string
+    districtId?: IntWithAggregatesFilter<"UserAddress"> | number
   }
 
   export type StoreWhereInput = {
@@ -25771,12 +25790,8 @@ export namespace Prisma {
     OR?: StoreWhereInput[]
     NOT?: StoreWhereInput | StoreWhereInput[]
     id?: StringFilter<"Store"> | string
-    provinceId?: IntFilter<"Store"> | number
     province?: StringFilter<"Store"> | string
-    cityId?: IntFilter<"Store"> | number
     city?: StringFilter<"Store"> | string
-    district?: StringFilter<"Store"> | string
-    districtId?: IntFilter<"Store"> | number
     address?: StringFilter<"Store"> | string
     name?: StringFilter<"Store"> | string
     lat?: DecimalNullableFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -25785,21 +25800,21 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Store"> | Date | string
     updatedAt?: DateTimeFilter<"Store"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Store"> | Date | string | null
+    cityId?: IntFilter<"Store"> | number
+    provinceId?: IntFilter<"Store"> | number
+    district?: StringFilter<"Store"> | string
+    districtId?: IntFilter<"Store"> | number
     admins?: AdminListRelationFilter
     cartItems?: CartProductListRelationFilter
-    storeStock?: StoreProductListRelationFilter
     discounts?: DiscountListRelationFilter
+    storeStock?: StoreProductListRelationFilter
     Transaction?: TransactionListRelationFilter
   }
 
   export type StoreOrderByWithRelationInput = {
     id?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrderInput | SortOrder
@@ -25808,10 +25823,14 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     admins?: AdminOrderByRelationAggregateInput
     cartItems?: CartProductOrderByRelationAggregateInput
-    storeStock?: StoreProductOrderByRelationAggregateInput
     discounts?: DiscountOrderByRelationAggregateInput
+    storeStock?: StoreProductOrderByRelationAggregateInput
     Transaction?: TransactionOrderByRelationAggregateInput
   }
 
@@ -25820,12 +25839,8 @@ export namespace Prisma {
     AND?: StoreWhereInput | StoreWhereInput[]
     OR?: StoreWhereInput[]
     NOT?: StoreWhereInput | StoreWhereInput[]
-    provinceId?: IntFilter<"Store"> | number
     province?: StringFilter<"Store"> | string
-    cityId?: IntFilter<"Store"> | number
     city?: StringFilter<"Store"> | string
-    district?: StringFilter<"Store"> | string
-    districtId?: IntFilter<"Store"> | number
     address?: StringFilter<"Store"> | string
     name?: StringFilter<"Store"> | string
     lat?: DecimalNullableFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -25834,21 +25849,21 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Store"> | Date | string
     updatedAt?: DateTimeFilter<"Store"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Store"> | Date | string | null
+    cityId?: IntFilter<"Store"> | number
+    provinceId?: IntFilter<"Store"> | number
+    district?: StringFilter<"Store"> | string
+    districtId?: IntFilter<"Store"> | number
     admins?: AdminListRelationFilter
     cartItems?: CartProductListRelationFilter
-    storeStock?: StoreProductListRelationFilter
     discounts?: DiscountListRelationFilter
+    storeStock?: StoreProductListRelationFilter
     Transaction?: TransactionListRelationFilter
   }, "id">
 
   export type StoreOrderByWithAggregationInput = {
     id?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrderInput | SortOrder
@@ -25857,6 +25872,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
     _count?: StoreCountOrderByAggregateInput
     _avg?: StoreAvgOrderByAggregateInput
     _max?: StoreMaxOrderByAggregateInput
@@ -25869,12 +25888,8 @@ export namespace Prisma {
     OR?: StoreScalarWhereWithAggregatesInput[]
     NOT?: StoreScalarWhereWithAggregatesInput | StoreScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Store"> | string
-    provinceId?: IntWithAggregatesFilter<"Store"> | number
     province?: StringWithAggregatesFilter<"Store"> | string
-    cityId?: IntWithAggregatesFilter<"Store"> | number
     city?: StringWithAggregatesFilter<"Store"> | string
-    district?: StringWithAggregatesFilter<"Store"> | string
-    districtId?: IntWithAggregatesFilter<"Store"> | number
     address?: StringWithAggregatesFilter<"Store"> | string
     name?: StringWithAggregatesFilter<"Store"> | string
     lat?: DecimalNullableWithAggregatesFilter<"Store"> | Decimal | DecimalJsLike | number | string | null
@@ -25883,6 +25898,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Store"> | Date | string | null
+    cityId?: IntWithAggregatesFilter<"Store"> | number
+    provinceId?: IntWithAggregatesFilter<"Store"> | number
+    district?: StringWithAggregatesFilter<"Store"> | string
+    districtId?: IntWithAggregatesFilter<"Store"> | number
   }
 
   export type AdminWhereInput = {
@@ -25899,9 +25918,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Admin"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
-    stockJournal?: StockJournalListRelationFilter
     createdDiscounts?: DiscountListRelationFilter
     appliedDiscounts?: DiscountUsageHistoryListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -25915,9 +25934,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     store?: StoreOrderByWithRelationInput
-    stockJournal?: StockJournalOrderByRelationAggregateInput
     createdDiscounts?: DiscountOrderByRelationAggregateInput
     appliedDiscounts?: DiscountUsageHistoryOrderByRelationAggregateInput
+    stockJournal?: StockJournalOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -25934,9 +25953,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Admin"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Admin"> | Date | string | null
     store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
-    stockJournal?: StockJournalListRelationFilter
     createdDiscounts?: DiscountListRelationFilter
     appliedDiscounts?: DiscountUsageHistoryListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
   }, "id" | "email">
 
   export type AdminOrderByWithAggregationInput = {
@@ -25975,26 +25994,26 @@ export namespace Prisma {
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     id?: StringFilter<"ProductCategory"> | string
     name?: StringFilter<"ProductCategory"> | string
-    slug?: StringFilter<"ProductCategory"> | string
     description?: StringNullableFilter<"ProductCategory"> | string | null
-    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"ProductCategory"> | Date | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
+    slug?: StringFilter<"ProductCategory"> | string
     products?: ProductListRelationFilter
   }
 
   export type ProductCategoryOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrder
     description?: SortOrderInput | SortOrder
-    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
+    slug?: SortOrder
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -26006,24 +26025,24 @@ export namespace Prisma {
     OR?: ProductCategoryWhereInput[]
     NOT?: ProductCategoryWhereInput | ProductCategoryWhereInput[]
     description?: StringNullableFilter<"ProductCategory"> | string | null
-    icon?: StringNullableFilter<"ProductCategory"> | string | null
     isActive?: BoolFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeFilter<"ProductCategory"> | Date | string
     deletedAt?: DateTimeNullableFilter<"ProductCategory"> | Date | string | null
+    icon?: StringNullableFilter<"ProductCategory"> | string | null
     products?: ProductListRelationFilter
   }, "id" | "name" | "slug">
 
   export type ProductCategoryOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrder
     description?: SortOrderInput | SortOrder
-    icon?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
+    slug?: SortOrder
     _count?: ProductCategoryCountOrderByAggregateInput
     _max?: ProductCategoryMaxOrderByAggregateInput
     _min?: ProductCategoryMinOrderByAggregateInput
@@ -26035,13 +26054,13 @@ export namespace Prisma {
     NOT?: ProductCategoryScalarWhereWithAggregatesInput | ProductCategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProductCategory"> | string
     name?: StringWithAggregatesFilter<"ProductCategory"> | string
-    slug?: StringWithAggregatesFilter<"ProductCategory"> | string
     description?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
-    icon?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
     isActive?: BoolWithAggregatesFilter<"ProductCategory"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProductCategory"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"ProductCategory"> | Date | string | null
+    icon?: StringNullableWithAggregatesFilter<"ProductCategory"> | string | null
+    slug?: StringWithAggregatesFilter<"ProductCategory"> | string
   }
 
   export type ProductWhereInput = {
@@ -26065,10 +26084,10 @@ export namespace Prisma {
     isActive?: BoolFilter<"Product"> | boolean
     weight?: FloatFilter<"Product"> | number
     cartItems?: CartProductListRelationFilter
+    discountProducts?: DiscountProductListRelationFilter
     category?: XOR<ProductCategoryScalarRelationFilter, ProductCategoryWhereInput>
     storeStock?: StoreProductListRelationFilter
     trxProducts?: TransactionProductListRelationFilter
-    discountProducts?: DiscountProductListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -26089,10 +26108,10 @@ export namespace Prisma {
     isActive?: SortOrder
     weight?: SortOrder
     cartItems?: CartProductOrderByRelationAggregateInput
+    discountProducts?: DiscountProductOrderByRelationAggregateInput
     category?: ProductCategoryOrderByWithRelationInput
     storeStock?: StoreProductOrderByRelationAggregateInput
     trxProducts?: TransactionProductOrderByRelationAggregateInput
-    discountProducts?: DiscountProductOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -26116,10 +26135,10 @@ export namespace Prisma {
     isActive?: BoolFilter<"Product"> | boolean
     weight?: FloatFilter<"Product"> | number
     cartItems?: CartProductListRelationFilter
+    discountProducts?: DiscountProductListRelationFilter
     category?: XOR<ProductCategoryScalarRelationFilter, ProductCategoryWhereInput>
     storeStock?: StoreProductListRelationFilter
     trxProducts?: TransactionProductListRelationFilter
-    discountProducts?: DiscountProductListRelationFilter
   }, "id" | "slug">
 
   export type ProductOrderByWithAggregationInput = {
@@ -26175,26 +26194,26 @@ export namespace Prisma {
     storeId?: StringFilter<"StoreProduct"> | string
     productId?: StringFilter<"StoreProduct"> | string
     stock?: IntFilter<"StoreProduct"> | number
-    minStock?: IntNullableFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
+    stockJournal?: StockJournalListRelationFilter
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
-    stockJournal?: StockJournalListRelationFilter
   }
 
   export type StoreProductOrderByWithRelationInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
-    minStock?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    minStock?: SortOrderInput | SortOrder
+    stockJournal?: StockJournalOrderByRelationAggregateInput
     product?: ProductOrderByWithRelationInput
     store?: StoreOrderByWithRelationInput
-    stockJournal?: StockJournalOrderByRelationAggregateInput
   }
 
   export type StoreProductWhereUniqueInput = Prisma.AtLeast<{
@@ -26205,23 +26224,23 @@ export namespace Prisma {
     storeId?: StringFilter<"StoreProduct"> | string
     productId?: StringFilter<"StoreProduct"> | string
     stock?: IntFilter<"StoreProduct"> | number
-    minStock?: IntNullableFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
+    stockJournal?: StockJournalListRelationFilter
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
-    stockJournal?: StockJournalListRelationFilter
   }, "storeId_productId">
 
   export type StoreProductOrderByWithAggregationInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
-    minStock?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    minStock?: SortOrderInput | SortOrder
     _count?: StoreProductCountOrderByAggregateInput
     _avg?: StoreProductAvgOrderByAggregateInput
     _max?: StoreProductMaxOrderByAggregateInput
@@ -26236,10 +26255,10 @@ export namespace Prisma {
     storeId?: StringWithAggregatesFilter<"StoreProduct"> | string
     productId?: StringWithAggregatesFilter<"StoreProduct"> | string
     stock?: IntWithAggregatesFilter<"StoreProduct"> | number
-    minStock?: IntNullableWithAggregatesFilter<"StoreProduct"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"StoreProduct"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"StoreProduct"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"StoreProduct"> | Date | string | null
+    minStock?: IntNullableWithAggregatesFilter<"StoreProduct"> | number | null
   }
 
   export type StockJournalWhereInput = {
@@ -26622,85 +26641,85 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
-    storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
-    totalProductPrice?: IntFilter<"Transaction"> | number
-    discountedProductPrice?: IntFilter<"Transaction"> | number
-    finalProductPrice?: IntFilter<"Transaction"> | number
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
-    finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
-    address?: StringFilter<"Transaction"> | string
-    receiverName?: StringFilter<"Transaction"> | string
     phoneNumber?: StringFilter<"Transaction"> | string
-    provinceId?: IntFilter<"Transaction"> | number
-    province?: StringFilter<"Transaction"> | string
-    cityId?: IntFilter<"Transaction"> | number
-    city?: StringFilter<"Transaction"> | string
-    district?: StringFilter<"Transaction"> | string
-    districtId?: IntFilter<"Transaction"> | number
-    addressLabel?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
-    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
-    snapToken?: StringNullableFilter<"Transaction"> | string | null
-    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
-    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    address?: StringFilter<"Transaction"> | string
+    city?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    storeId?: StringFilter<"Transaction"> | string
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    district?: StringFilter<"Transaction"> | string
+    districtId?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    receiverName?: StringFilter<"Transaction"> | string
+    addressLabel?: StringFilter<"Transaction"> | string
+    discountUsageHistory?: DiscountUsageHistoryListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
     voucherDelivery?: XOR<VoucherDeliveryNullableScalarRelationFilter, VoucherDeliveryWhereInput> | null
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     products?: TransactionProductListRelationFilter
-    stockJournal?: StockJournalListRelationFilter
-    discountUsageHistory?: DiscountUsageHistoryListRelationFilter
   }
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    storeId?: SortOrder
     status?: SortOrder
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
-    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    address?: SortOrder
-    receiverName?: SortOrder
     phoneNumber?: SortOrder
-    provinceId?: SortOrder
-    province?: SortOrder
-    cityId?: SortOrder
-    city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
-    addressLabel?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
-    paymentMethod?: SortOrderInput | SortOrder
-    snapToken?: SortOrderInput | SortOrder
-    snapRedirectUrl?: SortOrderInput | SortOrder
-    paidAt?: SortOrderInput | SortOrder
-    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
-    store?: StoreOrderByWithRelationInput
+    address?: SortOrder
+    city?: SortOrder
+    cityId?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
+    province?: SortOrder
+    provinceId?: SortOrder
+    storeId?: SortOrder
+    expiryAt?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
+    receiverName?: SortOrder
+    addressLabel?: SortOrder
+    discountUsageHistory?: DiscountUsageHistoryOrderByRelationAggregateInput
+    stockJournal?: StockJournalOrderByRelationAggregateInput
     voucherDelivery?: VoucherDeliveryOrderByWithRelationInput
     voucherProduct?: VoucherProductOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
     user?: UsersOrderByWithRelationInput
     products?: TransactionProductOrderByRelationAggregateInput
-    stockJournal?: StockJournalOrderByRelationAggregateInput
-    discountUsageHistory?: DiscountUsageHistoryOrderByRelationAggregateInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -26709,78 +26728,78 @@ export namespace Prisma {
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
-    storeId?: StringFilter<"Transaction"> | string
     status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
-    totalProductPrice?: IntFilter<"Transaction"> | number
-    discountedProductPrice?: IntFilter<"Transaction"> | number
-    finalProductPrice?: IntFilter<"Transaction"> | number
     shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
-    finalShippingPrice?: IntFilter<"Transaction"> | number
     totalPrice?: IntFilter<"Transaction"> | number
-    address?: StringFilter<"Transaction"> | string
-    receiverName?: StringFilter<"Transaction"> | string
     phoneNumber?: StringFilter<"Transaction"> | string
-    provinceId?: IntFilter<"Transaction"> | number
-    province?: StringFilter<"Transaction"> | string
-    cityId?: IntFilter<"Transaction"> | number
-    city?: StringFilter<"Transaction"> | string
-    district?: StringFilter<"Transaction"> | string
-    districtId?: IntFilter<"Transaction"> | number
-    addressLabel?: StringFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
     paymentProof?: StringNullableFilter<"Transaction"> | string | null
-    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
-    snapToken?: StringNullableFilter<"Transaction"> | string | null
-    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
-    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    address?: StringFilter<"Transaction"> | string
+    city?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    storeId?: StringFilter<"Transaction"> | string
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    district?: StringFilter<"Transaction"> | string
+    districtId?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    receiverName?: StringFilter<"Transaction"> | string
+    addressLabel?: StringFilter<"Transaction"> | string
+    discountUsageHistory?: DiscountUsageHistoryListRelationFilter
+    stockJournal?: StockJournalListRelationFilter
     voucherDelivery?: XOR<VoucherDeliveryNullableScalarRelationFilter, VoucherDeliveryWhereInput> | null
     voucherProduct?: XOR<VoucherProductNullableScalarRelationFilter, VoucherProductWhereInput> | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     products?: TransactionProductListRelationFilter
-    stockJournal?: StockJournalListRelationFilter
-    discountUsageHistory?: DiscountUsageHistoryListRelationFilter
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    storeId?: SortOrder
     status?: SortOrder
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
-    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    address?: SortOrder
-    receiverName?: SortOrder
     phoneNumber?: SortOrder
-    provinceId?: SortOrder
-    province?: SortOrder
-    cityId?: SortOrder
-    city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
-    addressLabel?: SortOrder
     codeVoucherProduct?: SortOrderInput | SortOrder
     codeVoucherDelivery?: SortOrderInput | SortOrder
     paymentProof?: SortOrderInput | SortOrder
-    paymentMethod?: SortOrderInput | SortOrder
-    snapToken?: SortOrderInput | SortOrder
-    snapRedirectUrl?: SortOrderInput | SortOrder
-    paidAt?: SortOrderInput | SortOrder
-    expiryAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    cityId?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
+    province?: SortOrder
+    provinceId?: SortOrder
+    storeId?: SortOrder
+    expiryAt?: SortOrderInput | SortOrder
+    paidAt?: SortOrderInput | SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    snapRedirectUrl?: SortOrderInput | SortOrder
+    snapToken?: SortOrderInput | SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
+    receiverName?: SortOrder
+    addressLabel?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
     _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
@@ -26794,36 +26813,36 @@ export namespace Prisma {
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
-    storeId?: StringWithAggregatesFilter<"Transaction"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Transaction"> | $Enums.OrderStatus
-    totalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    discountedProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    finalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
     shippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
-    finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
-    address?: StringWithAggregatesFilter<"Transaction"> | string
-    receiverName?: StringWithAggregatesFilter<"Transaction"> | string
     phoneNumber?: StringWithAggregatesFilter<"Transaction"> | string
-    provinceId?: IntWithAggregatesFilter<"Transaction"> | number
-    province?: StringWithAggregatesFilter<"Transaction"> | string
-    cityId?: IntWithAggregatesFilter<"Transaction"> | number
-    city?: StringWithAggregatesFilter<"Transaction"> | string
-    district?: StringWithAggregatesFilter<"Transaction"> | string
-    districtId?: IntWithAggregatesFilter<"Transaction"> | number
-    addressLabel?: StringWithAggregatesFilter<"Transaction"> | string
     codeVoucherProduct?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     codeVoucherDelivery?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     paymentProof?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    paymentMethod?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    snapToken?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    snapRedirectUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    paidAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
-    expiryAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    address?: StringWithAggregatesFilter<"Transaction"> | string
+    city?: StringWithAggregatesFilter<"Transaction"> | string
+    cityId?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedShipping?: IntWithAggregatesFilter<"Transaction"> | number
+    finalShippingPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    province?: StringWithAggregatesFilter<"Transaction"> | string
+    provinceId?: IntWithAggregatesFilter<"Transaction"> | number
+    storeId?: StringWithAggregatesFilter<"Transaction"> | string
+    expiryAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    paidAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    paymentMethod?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    snapToken?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    district?: StringWithAggregatesFilter<"Transaction"> | string
+    districtId?: IntWithAggregatesFilter<"Transaction"> | number
+    discountedProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    finalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    totalProductPrice?: IntWithAggregatesFilter<"Transaction"> | number
+    receiverName?: StringWithAggregatesFilter<"Transaction"> | string
+    addressLabel?: StringWithAggregatesFilter<"Transaction"> | string
   }
 
   export type TransactionProductWhereInput = {
@@ -26835,11 +26854,11 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
-    discount?: IntFilter<"TransactionProduct"> | number
-    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     transaction?: XOR<TransactionScalarRelationFilter, TransactionWhereInput>
   }
@@ -26850,11 +26869,11 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
-    discount?: SortOrder
-    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     product?: ProductOrderByWithRelationInput
     transaction?: TransactionOrderByWithRelationInput
   }
@@ -26868,11 +26887,11 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
-    discount?: IntFilter<"TransactionProduct"> | number
-    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     transaction?: XOR<TransactionScalarRelationFilter, TransactionWhereInput>
   }, "id">
@@ -26883,11 +26902,11 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
-    discount?: SortOrder
-    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
     _count?: TransactionProductCountOrderByAggregateInput
     _avg?: TransactionProductAvgOrderByAggregateInput
     _max?: TransactionProductMaxOrderByAggregateInput
@@ -26904,11 +26923,11 @@ export namespace Prisma {
     productId?: StringWithAggregatesFilter<"TransactionProduct"> | string
     quantity?: IntWithAggregatesFilter<"TransactionProduct"> | number
     price?: IntWithAggregatesFilter<"TransactionProduct"> | number
-    discount?: IntWithAggregatesFilter<"TransactionProduct"> | number
-    finalPrice?: IntWithAggregatesFilter<"TransactionProduct"> | number
     createdAt?: DateTimeWithAggregatesFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"TransactionProduct"> | Date | string | null
+    discount?: IntWithAggregatesFilter<"TransactionProduct"> | number
+    finalPrice?: IntWithAggregatesFilter<"TransactionProduct"> | number
   }
 
   export type DiscountWhereInput = {
@@ -26934,11 +26953,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Discount"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Discount"> | Date | string | null
     adminId?: StringFilter<"Discount"> | string
-    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
+    bogoConfig?: XOR<BogoDiscountNullableScalarRelationFilter, BogoDiscountWhereInput> | null
     admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
     products?: DiscountProductListRelationFilter
     usageHistory?: DiscountUsageHistoryListRelationFilter
-    bogoConfig?: XOR<BogoDiscountNullableScalarRelationFilter, BogoDiscountWhereInput> | null
   }
 
   export type DiscountOrderByWithRelationInput = {
@@ -26961,11 +26980,11 @@ export namespace Prisma {
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     adminId?: SortOrder
-    store?: StoreOrderByWithRelationInput
+    bogoConfig?: BogoDiscountOrderByWithRelationInput
     admin?: AdminOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
     products?: DiscountProductOrderByRelationAggregateInput
     usageHistory?: DiscountUsageHistoryOrderByRelationAggregateInput
-    bogoConfig?: BogoDiscountOrderByWithRelationInput
   }
 
   export type DiscountWhereUniqueInput = Prisma.AtLeast<{
@@ -26991,11 +27010,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Discount"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Discount"> | Date | string | null
     adminId?: StringFilter<"Discount"> | string
-    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
+    bogoConfig?: XOR<BogoDiscountNullableScalarRelationFilter, BogoDiscountWhereInput> | null
     admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
     products?: DiscountProductListRelationFilter
     usageHistory?: DiscountUsageHistoryListRelationFilter
-    bogoConfig?: XOR<BogoDiscountNullableScalarRelationFilter, BogoDiscountWhereInput> | null
   }, "id">
 
   export type DiscountOrderByWithAggregationInput = {
@@ -27189,10 +27208,10 @@ export namespace Prisma {
     discountValue?: IntFilter<"DiscountUsageHistory"> | number
     orderTotal?: IntFilter<"DiscountUsageHistory"> | number
     createdAt?: DateTimeFilter<"DiscountUsageHistory"> | Date | string
+    appliedBy?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
     discount?: XOR<DiscountScalarRelationFilter, DiscountWhereInput>
     transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
     user?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
-    appliedBy?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
   }
 
   export type DiscountUsageHistoryOrderByWithRelationInput = {
@@ -27205,10 +27224,10 @@ export namespace Prisma {
     discountValue?: SortOrder
     orderTotal?: SortOrder
     createdAt?: SortOrder
+    appliedBy?: AdminOrderByWithRelationInput
     discount?: DiscountOrderByWithRelationInput
     transaction?: TransactionOrderByWithRelationInput
     user?: UsersOrderByWithRelationInput
-    appliedBy?: AdminOrderByWithRelationInput
   }
 
   export type DiscountUsageHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -27224,10 +27243,10 @@ export namespace Prisma {
     discountValue?: IntFilter<"DiscountUsageHistory"> | number
     orderTotal?: IntFilter<"DiscountUsageHistory"> | number
     createdAt?: DateTimeFilter<"DiscountUsageHistory"> | Date | string
+    appliedBy?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
     discount?: XOR<DiscountScalarRelationFilter, DiscountWhereInput>
     transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
     user?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
-    appliedBy?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
   }, "id">
 
   export type DiscountUsageHistoryOrderByWithAggregationInput = {
@@ -27267,17 +27286,18 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
+    discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
-    discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -27285,17 +27305,18 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
+    discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
-    discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -27303,17 +27324,18 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
+    discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
-    discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -27321,17 +27343,18 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
+    discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
-    discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -27339,13 +27362,14 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
   }
 
   export type UsersUpdateManyMutationInput = {
@@ -27353,13 +27377,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UsersUncheckedUpdateManyInput = {
@@ -27367,176 +27392,173 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserAddressCreateInput = {
     id?: string
-    addressLabel: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
     user: UsersCreateNestedOneWithoutAddressesInput
   }
 
   export type UserAddressUncheckedCreateInput = {
     id?: string
-    addressLabel: string
     userId: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
   }
 
   export type UserAddressUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     user?: UsersUpdateOneRequiredWithoutAddressesNestedInput
   }
 
   export type UserAddressUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserAddressCreateManyInput = {
     id?: string
-    addressLabel: string
     userId: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
   }
 
   export type UserAddressUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserAddressUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
   }
 
   export type StoreCreateInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27545,21 +27567,21 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     admins?: AdminCreateNestedManyWithoutStoreInput
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27568,21 +27590,21 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27591,21 +27613,21 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27614,21 +27636,21 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateManyInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -27637,16 +27659,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
   }
 
   export type StoreUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27655,16 +27677,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
   }
 
   export type StoreUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -27673,6 +27695,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AdminCreateInput = {
@@ -27685,9 +27711,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     store?: StoreCreateNestedOneWithoutAdminsInput
-    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
     createdDiscounts?: DiscountCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -27700,9 +27726,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
     createdDiscounts?: DiscountUncheckedCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -27715,9 +27741,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     store?: StoreUpdateOneWithoutAdminsNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
     createdDiscounts?: DiscountUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -27730,9 +27756,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
     createdDiscounts?: DiscountUncheckedUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -27773,89 +27799,89 @@ export namespace Prisma {
   export type ProductCategoryCreateInput = {
     id?: string
     name: string
-    slug: string
     description?: string | null
-    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    icon?: string | null
+    slug: string
     products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
   export type ProductCategoryUncheckedCreateInput = {
     id?: string
     name: string
-    slug: string
     description?: string | null
-    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    icon?: string | null
+    slug: string
     products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type ProductCategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
   export type ProductCategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type ProductCategoryCreateManyInput = {
     id?: string
     name: string
-    slug: string
     description?: string | null
-    icon?: string | null
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    icon?: string | null
+    slug: string
   }
 
   export type ProductCategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductCategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductCreateInput = {
@@ -27875,10 +27901,10 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -27899,9 +27925,9 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -27921,10 +27947,10 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -27945,9 +27971,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -28008,45 +28034,45 @@ export namespace Prisma {
 
   export type StoreProductCreateInput = {
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
     product: ProductCreateNestedOneWithoutStoreStockInput
     store: StoreCreateNestedOneWithoutStoreStockInput
-    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUncheckedCreateInput = {
     storeId: string
     productId: string
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
     stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
   }
 
   export type StoreProductUpdateInput = {
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
     product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
     store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
   }
 
   export type StoreProductUncheckedUpdateInput = {
     storeId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
   }
 
@@ -28054,28 +28080,28 @@ export namespace Prisma {
     storeId: string
     productId: string
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
   }
 
   export type StoreProductUpdateManyMutationInput = {
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StoreProductUncheckedUpdateManyInput = {
     storeId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type StockJournalCreateInput = {
@@ -28468,265 +28494,265 @@ export namespace Prisma {
   export type TransactionCreateInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionCreateManyInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
   }
 
   export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionProductCreateInput = {
     id?: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
     product: ProductCreateNestedOneWithoutTrxProductsInput
     transaction: TransactionCreateNestedOneWithoutProductsInput
   }
@@ -28737,22 +28763,22 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
   }
 
   export type TransactionProductUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
     product?: ProductUpdateOneRequiredWithoutTrxProductsNestedInput
     transaction?: TransactionUpdateOneRequiredWithoutProductsNestedInput
   }
@@ -28763,11 +28789,11 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type TransactionProductCreateManyInput = {
@@ -28776,22 +28802,22 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
   }
 
   export type TransactionProductUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type TransactionProductUncheckedUpdateManyInput = {
@@ -28800,11 +28826,11 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type DiscountCreateInput = {
@@ -28825,11 +28851,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store?: StoreCreateNestedOneWithoutDiscountsInput
+    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountUncheckedCreateInput = {
@@ -28852,9 +28878,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     adminId: string
+    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
     products?: DiscountProductUncheckedCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountUpdateInput = {
@@ -28875,11 +28901,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneWithoutDiscountsNestedInput
+    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateInput = {
@@ -28902,9 +28928,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     adminId?: StringFieldUpdateOperationsInput | string
+    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
     products?: DiscountProductUncheckedUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountCreateManyInput = {
@@ -29100,10 +29126,10 @@ export namespace Prisma {
     discountValue: number
     orderTotal: number
     createdAt?: Date | string
+    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
     discount: DiscountCreateNestedOneWithoutUsageHistoryInput
     transaction?: TransactionCreateNestedOneWithoutDiscountUsageHistoryInput
     user?: UsersCreateNestedOneWithoutDiscountUsageInput
-    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
   }
 
   export type DiscountUsageHistoryUncheckedCreateInput = {
@@ -29124,10 +29150,10 @@ export namespace Prisma {
     discountValue?: IntFieldUpdateOperationsInput | number
     orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
     discount?: DiscountUpdateOneRequiredWithoutUsageHistoryNestedInput
     transaction?: TransactionUpdateOneWithoutDiscountUsageHistoryNestedInput
     user?: UsersUpdateOneWithoutDiscountUsageNestedInput
-    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
   }
 
   export type DiscountUsageHistoryUncheckedUpdateInput = {
@@ -29236,6 +29262,12 @@ export namespace Prisma {
     isNot?: CartWhereInput | null
   }
 
+  export type DiscountUsageHistoryListRelationFilter = {
+    every?: DiscountUsageHistoryWhereInput
+    some?: DiscountUsageHistoryWhereInput
+    none?: DiscountUsageHistoryWhereInput
+  }
+
   export type TransactionListRelationFilter = {
     every?: TransactionWhereInput
     some?: TransactionWhereInput
@@ -29248,15 +29280,13 @@ export namespace Prisma {
     none?: UserAddressWhereInput
   }
 
-  export type DiscountUsageHistoryListRelationFilter = {
-    every?: DiscountUsageHistoryWhereInput
-    some?: DiscountUsageHistoryWhereInput
-    none?: DiscountUsageHistoryWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type DiscountUsageHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TransactionOrderByRelationAggregateInput = {
@@ -29264,10 +29294,6 @@ export namespace Prisma {
   }
 
   export type UserAddressOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type DiscountUsageHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29281,13 +29307,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profilePicture?: SortOrder
   }
 
   export type UsersMaxOrderByAggregateInput = {
@@ -29295,13 +29322,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profilePicture?: SortOrder
   }
 
   export type UsersMinOrderByAggregateInput = {
@@ -29309,13 +29337,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    provider?: SortOrder
-    providerId?: SortOrder
     password?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    provider?: SortOrder
+    providerId?: SortOrder
+    profilePicture?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -29419,83 +29448,83 @@ export namespace Prisma {
 
   export type UserAddressCountOrderByAggregateInput = {
     id?: SortOrder
-    addressLabel?: SortOrder
     userId?: SortOrder
-    receiverName?: SortOrder
-    receiverPhoneNumber?: SortOrder
-    addressDisplayName?: SortOrder
-    addressDetails?: SortOrder
-    lat?: SortOrder
-    lon?: SortOrder
-    isDefault?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
+    lat?: SortOrder
+    isDefault?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    addressDetails?: SortOrder
+    addressDisplayName?: SortOrder
+    addressLabel?: SortOrder
+    lon?: SortOrder
+    receiverName?: SortOrder
+    receiverPhoneNumber?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type UserAddressAvgOrderByAggregateInput = {
     lat?: SortOrder
-    lon?: SortOrder
-    provinceId?: SortOrder
     cityId?: SortOrder
+    provinceId?: SortOrder
+    lon?: SortOrder
     districtId?: SortOrder
   }
 
   export type UserAddressMaxOrderByAggregateInput = {
     id?: SortOrder
-    addressLabel?: SortOrder
     userId?: SortOrder
-    receiverName?: SortOrder
-    receiverPhoneNumber?: SortOrder
-    addressDisplayName?: SortOrder
-    addressDetails?: SortOrder
-    lat?: SortOrder
-    lon?: SortOrder
-    isDefault?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
+    lat?: SortOrder
+    isDefault?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    addressDetails?: SortOrder
+    addressDisplayName?: SortOrder
+    addressLabel?: SortOrder
+    lon?: SortOrder
+    receiverName?: SortOrder
+    receiverPhoneNumber?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type UserAddressMinOrderByAggregateInput = {
     id?: SortOrder
-    addressLabel?: SortOrder
     userId?: SortOrder
-    receiverName?: SortOrder
-    receiverPhoneNumber?: SortOrder
-    addressDisplayName?: SortOrder
-    addressDetails?: SortOrder
-    lat?: SortOrder
-    lon?: SortOrder
-    isDefault?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
+    lat?: SortOrder
+    isDefault?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    addressDetails?: SortOrder
+    addressDisplayName?: SortOrder
+    addressLabel?: SortOrder
+    lon?: SortOrder
+    receiverName?: SortOrder
+    receiverPhoneNumber?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type UserAddressSumOrderByAggregateInput = {
     lat?: SortOrder
-    lon?: SortOrder
-    provinceId?: SortOrder
     cityId?: SortOrder
+    provinceId?: SortOrder
+    lon?: SortOrder
     districtId?: SortOrder
   }
 
@@ -29554,16 +29583,16 @@ export namespace Prisma {
     none?: CartProductWhereInput
   }
 
-  export type StoreProductListRelationFilter = {
-    every?: StoreProductWhereInput
-    some?: StoreProductWhereInput
-    none?: StoreProductWhereInput
-  }
-
   export type DiscountListRelationFilter = {
     every?: DiscountWhereInput
     some?: DiscountWhereInput
     none?: DiscountWhereInput
+  }
+
+  export type StoreProductListRelationFilter = {
+    every?: StoreProductWhereInput
+    some?: StoreProductWhereInput
+    none?: StoreProductWhereInput
   }
 
   export type AdminOrderByRelationAggregateInput = {
@@ -29574,22 +29603,18 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type StoreProductOrderByRelationAggregateInput = {
+  export type DiscountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type DiscountOrderByRelationAggregateInput = {
+  export type StoreProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type StoreCountOrderByAggregateInput = {
     id?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29598,25 +29623,25 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type StoreAvgOrderByAggregateInput = {
-    provinceId?: SortOrder
-    cityId?: SortOrder
-    districtId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
     radiusKm?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    districtId?: SortOrder
   }
 
   export type StoreMaxOrderByAggregateInput = {
     id?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29625,16 +29650,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type StoreMinOrderByAggregateInput = {
     id?: SortOrder
-    provinceId?: SortOrder
     province?: SortOrder
-    cityId?: SortOrder
     city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
     address?: SortOrder
     name?: SortOrder
     lat?: SortOrder
@@ -29643,15 +29668,19 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
   }
 
   export type StoreSumOrderByAggregateInput = {
-    provinceId?: SortOrder
-    cityId?: SortOrder
-    districtId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
     radiusKm?: SortOrder
+    cityId?: SortOrder
+    provinceId?: SortOrder
+    districtId?: SortOrder
   }
 
   export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -29734,37 +29763,37 @@ export namespace Prisma {
   export type ProductCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
-    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    icon?: SortOrder
+    slug?: SortOrder
   }
 
   export type ProductCategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
-    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    icon?: SortOrder
+    slug?: SortOrder
   }
 
   export type ProductCategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrder
     description?: SortOrder
-    icon?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    icon?: SortOrder
+    slug?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -29789,6 +29818,12 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type DiscountProductListRelationFilter = {
+    every?: DiscountProductWhereInput
+    some?: DiscountProductWhereInput
+    none?: DiscountProductWhereInput
+  }
+
   export type ProductCategoryScalarRelationFilter = {
     is?: ProductCategoryWhereInput
     isNot?: ProductCategoryWhereInput
@@ -29800,17 +29835,11 @@ export namespace Prisma {
     none?: TransactionProductWhereInput
   }
 
-  export type DiscountProductListRelationFilter = {
-    every?: DiscountProductWhereInput
-    some?: DiscountProductWhereInput
-    none?: DiscountProductWhereInput
-  }
-
-  export type TransactionProductOrderByRelationAggregateInput = {
+  export type DiscountProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type DiscountProductOrderByRelationAggregateInput = {
+  export type TransactionProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29934,10 +29963,10 @@ export namespace Prisma {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
-    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    minStock?: SortOrder
   }
 
   export type StoreProductAvgOrderByAggregateInput = {
@@ -29949,20 +29978,20 @@ export namespace Prisma {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
-    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    minStock?: SortOrder
   }
 
   export type StoreProductMinOrderByAggregateInput = {
     storeId?: SortOrder
     productId?: SortOrder
     stock?: SortOrder
-    minStock?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    minStock?: SortOrder
   }
 
   export type StoreProductSumOrderByAggregateInput = {
@@ -30242,132 +30271,132 @@ export namespace Prisma {
   export type TransactionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    storeId?: SortOrder
     status?: SortOrder
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
-    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    address?: SortOrder
-    receiverName?: SortOrder
     phoneNumber?: SortOrder
-    provinceId?: SortOrder
-    province?: SortOrder
-    cityId?: SortOrder
-    city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
-    addressLabel?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
-    paymentMethod?: SortOrder
-    snapToken?: SortOrder
-    snapRedirectUrl?: SortOrder
-    paidAt?: SortOrder
-    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    cityId?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
+    province?: SortOrder
+    provinceId?: SortOrder
+    storeId?: SortOrder
+    expiryAt?: SortOrder
+    paidAt?: SortOrder
+    paymentMethod?: SortOrder
+    snapRedirectUrl?: SortOrder
+    snapToken?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
+    receiverName?: SortOrder
+    addressLabel?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
+    totalPrice?: SortOrder
+    cityId?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
-    totalPrice?: SortOrder
     provinceId?: SortOrder
-    cityId?: SortOrder
     districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    storeId?: SortOrder
     status?: SortOrder
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
-    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    address?: SortOrder
-    receiverName?: SortOrder
     phoneNumber?: SortOrder
-    provinceId?: SortOrder
-    province?: SortOrder
-    cityId?: SortOrder
-    city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
-    addressLabel?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
-    paymentMethod?: SortOrder
-    snapToken?: SortOrder
-    snapRedirectUrl?: SortOrder
-    paidAt?: SortOrder
-    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    cityId?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
+    province?: SortOrder
+    provinceId?: SortOrder
+    storeId?: SortOrder
+    expiryAt?: SortOrder
+    paidAt?: SortOrder
+    paymentMethod?: SortOrder
+    snapRedirectUrl?: SortOrder
+    snapToken?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
+    receiverName?: SortOrder
+    addressLabel?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    storeId?: SortOrder
     status?: SortOrder
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
-    discountedShipping?: SortOrder
-    finalShippingPrice?: SortOrder
     totalPrice?: SortOrder
-    address?: SortOrder
-    receiverName?: SortOrder
     phoneNumber?: SortOrder
-    provinceId?: SortOrder
-    province?: SortOrder
-    cityId?: SortOrder
-    city?: SortOrder
-    district?: SortOrder
-    districtId?: SortOrder
-    addressLabel?: SortOrder
     codeVoucherProduct?: SortOrder
     codeVoucherDelivery?: SortOrder
     paymentProof?: SortOrder
-    paymentMethod?: SortOrder
-    snapToken?: SortOrder
-    snapRedirectUrl?: SortOrder
-    paidAt?: SortOrder
-    expiryAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    cityId?: SortOrder
+    discountedShipping?: SortOrder
+    finalShippingPrice?: SortOrder
+    province?: SortOrder
+    provinceId?: SortOrder
+    storeId?: SortOrder
+    expiryAt?: SortOrder
+    paidAt?: SortOrder
+    paymentMethod?: SortOrder
+    snapRedirectUrl?: SortOrder
+    snapToken?: SortOrder
+    district?: SortOrder
+    districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
+    receiverName?: SortOrder
+    addressLabel?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {
-    totalProductPrice?: SortOrder
-    discountedProductPrice?: SortOrder
-    finalProductPrice?: SortOrder
     shippingPrice?: SortOrder
+    totalPrice?: SortOrder
+    cityId?: SortOrder
     discountedShipping?: SortOrder
     finalShippingPrice?: SortOrder
-    totalPrice?: SortOrder
     provinceId?: SortOrder
-    cityId?: SortOrder
     districtId?: SortOrder
+    discountedProductPrice?: SortOrder
+    finalProductPrice?: SortOrder
+    totalProductPrice?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -30391,11 +30420,11 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
-    discount?: SortOrder
-    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
   }
 
   export type TransactionProductAvgOrderByAggregateInput = {
@@ -30411,11 +30440,11 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
-    discount?: SortOrder
-    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
   }
 
   export type TransactionProductMinOrderByAggregateInput = {
@@ -30424,11 +30453,11 @@ export namespace Prisma {
     productId?: SortOrder
     quantity?: SortOrder
     price?: SortOrder
-    discount?: SortOrder
-    finalPrice?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
+    discount?: SortOrder
+    finalPrice?: SortOrder
   }
 
   export type TransactionProductSumOrderByAggregateInput = {
@@ -30637,14 +30666,14 @@ export namespace Prisma {
     maxBogoSets?: SortOrder
   }
 
-  export type UsersNullableScalarRelationFilter = {
-    is?: UsersWhereInput | null
-    isNot?: UsersWhereInput | null
-  }
-
   export type AdminNullableScalarRelationFilter = {
     is?: AdminWhereInput | null
     isNot?: AdminWhereInput | null
+  }
+
+  export type UsersNullableScalarRelationFilter = {
+    is?: UsersWhereInput | null
+    isNot?: UsersWhereInput | null
   }
 
   export type DiscountUsageHistoryCountOrderByAggregateInput = {
@@ -30699,6 +30728,13 @@ export namespace Prisma {
     connect?: CartWhereUniqueInput
   }
 
+  export type DiscountUsageHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
+    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+  }
+
   export type TransactionCreateNestedManyWithoutUserInput = {
     create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
@@ -30713,17 +30749,17 @@ export namespace Prisma {
     connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[]
   }
 
-  export type DiscountUsageHistoryCreateNestedManyWithoutUserInput = {
-    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
-    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
-    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-  }
-
   export type CartUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
     connectOrCreate?: CartCreateOrConnectWithoutUserInput
     connect?: CartWhereUniqueInput
+  }
+
+  export type DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
+    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
   export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
@@ -30738,13 +30774,6 @@ export namespace Prisma {
     connectOrCreate?: UserAddressCreateOrConnectWithoutUserInput | UserAddressCreateOrConnectWithoutUserInput[]
     createMany?: UserAddressCreateManyUserInputEnvelope
     connect?: UserAddressWhereUniqueInput | UserAddressWhereUniqueInput[]
-  }
-
-  export type DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
-    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
-    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -30777,6 +30806,20 @@ export namespace Prisma {
     update?: XOR<XOR<CartUpdateToOneWithWhereWithoutUserInput, CartUpdateWithoutUserInput>, CartUncheckedUpdateWithoutUserInput>
   }
 
+  export type DiscountUsageHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
+    set?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    disconnect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    delete?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput | DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
+  }
+
   export type TransactionUpdateManyWithoutUserNestedInput = {
     create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
@@ -30805,7 +30848,17 @@ export namespace Prisma {
     deleteMany?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
   }
 
-  export type DiscountUsageHistoryUpdateManyWithoutUserNestedInput = {
+  export type CartUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
+    connectOrCreate?: CartCreateOrConnectWithoutUserInput
+    upsert?: CartUpsertWithoutUserInput
+    disconnect?: CartWhereInput | boolean
+    delete?: CartWhereInput | boolean
+    connect?: CartWhereUniqueInput
+    update?: XOR<XOR<CartUpdateToOneWithWhereWithoutUserInput, CartUpdateWithoutUserInput>, CartUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
     upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput[]
@@ -30817,16 +30870,6 @@ export namespace Prisma {
     update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput | DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
-  }
-
-  export type CartUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
-    connectOrCreate?: CartCreateOrConnectWithoutUserInput
-    upsert?: CartUpsertWithoutUserInput
-    disconnect?: CartWhereInput | boolean
-    delete?: CartWhereInput | boolean
-    connect?: CartWhereUniqueInput
-    update?: XOR<XOR<CartUpdateToOneWithWhereWithoutUserInput, CartUpdateWithoutUserInput>, CartUncheckedUpdateWithoutUserInput>
   }
 
   export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -30855,20 +30898,6 @@ export namespace Prisma {
     update?: UserAddressUpdateWithWhereUniqueWithoutUserInput | UserAddressUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserAddressUpdateManyWithWhereWithoutUserInput | UserAddressUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-  }
-
-  export type DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DiscountUsageHistoryCreateWithoutUserInput, DiscountUsageHistoryUncheckedCreateWithoutUserInput> | DiscountUsageHistoryCreateWithoutUserInput[] | DiscountUsageHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutUserInput | DiscountUsageHistoryCreateOrConnectWithoutUserInput[]
-    upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DiscountUsageHistoryCreateManyUserInputEnvelope
-    set?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    disconnect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    delete?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput | DiscountUsageHistoryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
   }
 
   export type UsersCreateNestedOneWithoutAddressesInput = {
@@ -30915,18 +30944,18 @@ export namespace Prisma {
     connect?: CartProductWhereUniqueInput | CartProductWhereUniqueInput[]
   }
 
-  export type StoreProductCreateNestedManyWithoutStoreInput = {
-    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
-    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
-    createMany?: StoreProductCreateManyStoreInputEnvelope
-    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-  }
-
   export type DiscountCreateNestedManyWithoutStoreInput = {
     create?: XOR<DiscountCreateWithoutStoreInput, DiscountUncheckedCreateWithoutStoreInput> | DiscountCreateWithoutStoreInput[] | DiscountUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: DiscountCreateOrConnectWithoutStoreInput | DiscountCreateOrConnectWithoutStoreInput[]
     createMany?: DiscountCreateManyStoreInputEnvelope
     connect?: DiscountWhereUniqueInput | DiscountWhereUniqueInput[]
+  }
+
+  export type StoreProductCreateNestedManyWithoutStoreInput = {
+    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
+    createMany?: StoreProductCreateManyStoreInputEnvelope
+    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
   }
 
   export type TransactionCreateNestedManyWithoutStoreInput = {
@@ -30950,18 +30979,18 @@ export namespace Prisma {
     connect?: CartProductWhereUniqueInput | CartProductWhereUniqueInput[]
   }
 
-  export type StoreProductUncheckedCreateNestedManyWithoutStoreInput = {
-    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
-    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
-    createMany?: StoreProductCreateManyStoreInputEnvelope
-    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-  }
-
   export type DiscountUncheckedCreateNestedManyWithoutStoreInput = {
     create?: XOR<DiscountCreateWithoutStoreInput, DiscountUncheckedCreateWithoutStoreInput> | DiscountCreateWithoutStoreInput[] | DiscountUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: DiscountCreateOrConnectWithoutStoreInput | DiscountCreateOrConnectWithoutStoreInput[]
     createMany?: DiscountCreateManyStoreInputEnvelope
     connect?: DiscountWhereUniqueInput | DiscountWhereUniqueInput[]
+  }
+
+  export type StoreProductUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
+    createMany?: StoreProductCreateManyStoreInputEnvelope
+    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
   }
 
   export type TransactionUncheckedCreateNestedManyWithoutStoreInput = {
@@ -31007,20 +31036,6 @@ export namespace Prisma {
     deleteMany?: CartProductScalarWhereInput | CartProductScalarWhereInput[]
   }
 
-  export type StoreProductUpdateManyWithoutStoreNestedInput = {
-    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
-    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
-    upsert?: StoreProductUpsertWithWhereUniqueWithoutStoreInput | StoreProductUpsertWithWhereUniqueWithoutStoreInput[]
-    createMany?: StoreProductCreateManyStoreInputEnvelope
-    set?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    disconnect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    delete?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    update?: StoreProductUpdateWithWhereUniqueWithoutStoreInput | StoreProductUpdateWithWhereUniqueWithoutStoreInput[]
-    updateMany?: StoreProductUpdateManyWithWhereWithoutStoreInput | StoreProductUpdateManyWithWhereWithoutStoreInput[]
-    deleteMany?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
-  }
-
   export type DiscountUpdateManyWithoutStoreNestedInput = {
     create?: XOR<DiscountCreateWithoutStoreInput, DiscountUncheckedCreateWithoutStoreInput> | DiscountCreateWithoutStoreInput[] | DiscountUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: DiscountCreateOrConnectWithoutStoreInput | DiscountCreateOrConnectWithoutStoreInput[]
@@ -31033,6 +31048,20 @@ export namespace Prisma {
     update?: DiscountUpdateWithWhereUniqueWithoutStoreInput | DiscountUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: DiscountUpdateManyWithWhereWithoutStoreInput | DiscountUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: DiscountScalarWhereInput | DiscountScalarWhereInput[]
+  }
+
+  export type StoreProductUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
+    upsert?: StoreProductUpsertWithWhereUniqueWithoutStoreInput | StoreProductUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: StoreProductCreateManyStoreInputEnvelope
+    set?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    disconnect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    delete?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    update?: StoreProductUpdateWithWhereUniqueWithoutStoreInput | StoreProductUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: StoreProductUpdateManyWithWhereWithoutStoreInput | StoreProductUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
   }
 
   export type TransactionUpdateManyWithoutStoreNestedInput = {
@@ -31077,20 +31106,6 @@ export namespace Prisma {
     deleteMany?: CartProductScalarWhereInput | CartProductScalarWhereInput[]
   }
 
-  export type StoreProductUncheckedUpdateManyWithoutStoreNestedInput = {
-    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
-    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
-    upsert?: StoreProductUpsertWithWhereUniqueWithoutStoreInput | StoreProductUpsertWithWhereUniqueWithoutStoreInput[]
-    createMany?: StoreProductCreateManyStoreInputEnvelope
-    set?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    disconnect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    delete?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
-    update?: StoreProductUpdateWithWhereUniqueWithoutStoreInput | StoreProductUpdateWithWhereUniqueWithoutStoreInput[]
-    updateMany?: StoreProductUpdateManyWithWhereWithoutStoreInput | StoreProductUpdateManyWithWhereWithoutStoreInput[]
-    deleteMany?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
-  }
-
   export type DiscountUncheckedUpdateManyWithoutStoreNestedInput = {
     create?: XOR<DiscountCreateWithoutStoreInput, DiscountUncheckedCreateWithoutStoreInput> | DiscountCreateWithoutStoreInput[] | DiscountUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: DiscountCreateOrConnectWithoutStoreInput | DiscountCreateOrConnectWithoutStoreInput[]
@@ -31103,6 +31118,20 @@ export namespace Prisma {
     update?: DiscountUpdateWithWhereUniqueWithoutStoreInput | DiscountUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: DiscountUpdateManyWithWhereWithoutStoreInput | DiscountUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: DiscountScalarWhereInput | DiscountScalarWhereInput[]
+  }
+
+  export type StoreProductUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput> | StoreProductCreateWithoutStoreInput[] | StoreProductUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: StoreProductCreateOrConnectWithoutStoreInput | StoreProductCreateOrConnectWithoutStoreInput[]
+    upsert?: StoreProductUpsertWithWhereUniqueWithoutStoreInput | StoreProductUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: StoreProductCreateManyStoreInputEnvelope
+    set?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    disconnect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    delete?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    connect?: StoreProductWhereUniqueInput | StoreProductWhereUniqueInput[]
+    update?: StoreProductUpdateWithWhereUniqueWithoutStoreInput | StoreProductUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: StoreProductUpdateManyWithWhereWithoutStoreInput | StoreProductUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
   }
 
   export type TransactionUncheckedUpdateManyWithoutStoreNestedInput = {
@@ -31125,13 +31154,6 @@ export namespace Prisma {
     connect?: StoreWhereUniqueInput
   }
 
-  export type StockJournalCreateNestedManyWithoutAdminInput = {
-    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
-    createMany?: StockJournalCreateManyAdminInputEnvelope
-    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-  }
-
   export type DiscountCreateNestedManyWithoutAdminInput = {
     create?: XOR<DiscountCreateWithoutAdminInput, DiscountUncheckedCreateWithoutAdminInput> | DiscountCreateWithoutAdminInput[] | DiscountUncheckedCreateWithoutAdminInput[]
     connectOrCreate?: DiscountCreateOrConnectWithoutAdminInput | DiscountCreateOrConnectWithoutAdminInput[]
@@ -31146,7 +31168,7 @@ export namespace Prisma {
     connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
-  export type StockJournalUncheckedCreateNestedManyWithoutAdminInput = {
+  export type StockJournalCreateNestedManyWithoutAdminInput = {
     create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
     connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
     createMany?: StockJournalCreateManyAdminInputEnvelope
@@ -31167,6 +31189,13 @@ export namespace Prisma {
     connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
+  export type StockJournalUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+  }
+
   export type StoreUpdateOneWithoutAdminsNestedInput = {
     create?: XOR<StoreCreateWithoutAdminsInput, StoreUncheckedCreateWithoutAdminsInput>
     connectOrCreate?: StoreCreateOrConnectWithoutAdminsInput
@@ -31175,20 +31204,6 @@ export namespace Prisma {
     delete?: StoreWhereInput | boolean
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutAdminsInput, StoreUpdateWithoutAdminsInput>, StoreUncheckedUpdateWithoutAdminsInput>
-  }
-
-  export type StockJournalUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
-    upsert?: StockJournalUpsertWithWhereUniqueWithoutAdminInput | StockJournalUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: StockJournalCreateManyAdminInputEnvelope
-    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    update?: StockJournalUpdateWithWhereUniqueWithoutAdminInput | StockJournalUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: StockJournalUpdateManyWithWhereWithoutAdminInput | StockJournalUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type DiscountUpdateManyWithoutAdminNestedInput = {
@@ -31219,7 +31234,7 @@ export namespace Prisma {
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
   }
 
-  export type StockJournalUncheckedUpdateManyWithoutAdminNestedInput = {
+  export type StockJournalUpdateManyWithoutAdminNestedInput = {
     create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
     connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
     upsert?: StockJournalUpsertWithWhereUniqueWithoutAdminInput | StockJournalUpsertWithWhereUniqueWithoutAdminInput[]
@@ -31259,6 +31274,20 @@ export namespace Prisma {
     update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutAppliedByInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutAppliedByInput[]
     updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutAppliedByInput | DiscountUsageHistoryUpdateManyWithWhereWithoutAppliedByInput[]
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput> | StockJournalCreateWithoutAdminInput[] | StockJournalUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutAdminInput | StockJournalCreateOrConnectWithoutAdminInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutAdminInput | StockJournalUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: StockJournalCreateManyAdminInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutAdminInput | StockJournalUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutAdminInput | StockJournalUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -31310,6 +31339,13 @@ export namespace Prisma {
     connect?: CartProductWhereUniqueInput | CartProductWhereUniqueInput[]
   }
 
+  export type DiscountProductCreateNestedManyWithoutProductInput = {
+    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
+    createMany?: DiscountProductCreateManyProductInputEnvelope
+    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+  }
+
   export type ProductCategoryCreateNestedOneWithoutProductsInput = {
     create?: XOR<ProductCategoryCreateWithoutProductsInput, ProductCategoryUncheckedCreateWithoutProductsInput>
     connectOrCreate?: ProductCategoryCreateOrConnectWithoutProductsInput
@@ -31330,18 +31366,18 @@ export namespace Prisma {
     connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
   }
 
-  export type DiscountProductCreateNestedManyWithoutProductInput = {
-    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
-    createMany?: DiscountProductCreateManyProductInputEnvelope
-    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-  }
-
   export type CartProductUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<CartProductCreateWithoutProductInput, CartProductUncheckedCreateWithoutProductInput> | CartProductCreateWithoutProductInput[] | CartProductUncheckedCreateWithoutProductInput[]
     connectOrCreate?: CartProductCreateOrConnectWithoutProductInput | CartProductCreateOrConnectWithoutProductInput[]
     createMany?: CartProductCreateManyProductInputEnvelope
     connect?: CartProductWhereUniqueInput | CartProductWhereUniqueInput[]
+  }
+
+  export type DiscountProductUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
+    createMany?: DiscountProductCreateManyProductInputEnvelope
+    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
   }
 
   export type StoreProductUncheckedCreateNestedManyWithoutProductInput = {
@@ -31356,13 +31392,6 @@ export namespace Prisma {
     connectOrCreate?: TransactionProductCreateOrConnectWithoutProductInput | TransactionProductCreateOrConnectWithoutProductInput[]
     createMany?: TransactionProductCreateManyProductInputEnvelope
     connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
-  }
-
-  export type DiscountProductUncheckedCreateNestedManyWithoutProductInput = {
-    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
-    createMany?: DiscountProductCreateManyProductInputEnvelope
-    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -31393,6 +31422,20 @@ export namespace Prisma {
     update?: CartProductUpdateWithWhereUniqueWithoutProductInput | CartProductUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: CartProductUpdateManyWithWhereWithoutProductInput | CartProductUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: CartProductScalarWhereInput | CartProductScalarWhereInput[]
+  }
+
+  export type DiscountProductUpdateManyWithoutProductNestedInput = {
+    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
+    upsert?: DiscountProductUpsertWithWhereUniqueWithoutProductInput | DiscountProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: DiscountProductCreateManyProductInputEnvelope
+    set?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    disconnect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    delete?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    update?: DiscountProductUpdateWithWhereUniqueWithoutProductInput | DiscountProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: DiscountProductUpdateManyWithWhereWithoutProductInput | DiscountProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
   }
 
   export type ProductCategoryUpdateOneRequiredWithoutProductsNestedInput = {
@@ -31431,20 +31474,6 @@ export namespace Prisma {
     deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
-  export type DiscountProductUpdateManyWithoutProductNestedInput = {
-    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
-    upsert?: DiscountProductUpsertWithWhereUniqueWithoutProductInput | DiscountProductUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: DiscountProductCreateManyProductInputEnvelope
-    set?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    disconnect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    delete?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    update?: DiscountProductUpdateWithWhereUniqueWithoutProductInput | DiscountProductUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: DiscountProductUpdateManyWithWhereWithoutProductInput | DiscountProductUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
-  }
-
   export type CartProductUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<CartProductCreateWithoutProductInput, CartProductUncheckedCreateWithoutProductInput> | CartProductCreateWithoutProductInput[] | CartProductUncheckedCreateWithoutProductInput[]
     connectOrCreate?: CartProductCreateOrConnectWithoutProductInput | CartProductCreateOrConnectWithoutProductInput[]
@@ -31457,6 +31486,20 @@ export namespace Prisma {
     update?: CartProductUpdateWithWhereUniqueWithoutProductInput | CartProductUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: CartProductUpdateManyWithWhereWithoutProductInput | CartProductUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: CartProductScalarWhereInput | CartProductScalarWhereInput[]
+  }
+
+  export type DiscountProductUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
+    upsert?: DiscountProductUpsertWithWhereUniqueWithoutProductInput | DiscountProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: DiscountProductCreateManyProductInputEnvelope
+    set?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    disconnect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    delete?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
+    update?: DiscountProductUpdateWithWhereUniqueWithoutProductInput | DiscountProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: DiscountProductUpdateManyWithWhereWithoutProductInput | DiscountProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
   }
 
   export type StoreProductUncheckedUpdateManyWithoutProductNestedInput = {
@@ -31487,18 +31530,11 @@ export namespace Prisma {
     deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
-  export type DiscountProductUncheckedUpdateManyWithoutProductNestedInput = {
-    create?: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput> | DiscountProductCreateWithoutProductInput[] | DiscountProductUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: DiscountProductCreateOrConnectWithoutProductInput | DiscountProductCreateOrConnectWithoutProductInput[]
-    upsert?: DiscountProductUpsertWithWhereUniqueWithoutProductInput | DiscountProductUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: DiscountProductCreateManyProductInputEnvelope
-    set?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    disconnect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    delete?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    connect?: DiscountProductWhereUniqueInput | DiscountProductWhereUniqueInput[]
-    update?: DiscountProductUpdateWithWhereUniqueWithoutProductInput | DiscountProductUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: DiscountProductUpdateManyWithWhereWithoutProductInput | DiscountProductUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
+  export type StockJournalCreateNestedManyWithoutStoreProductInput = {
+    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
   }
 
   export type ProductCreateNestedOneWithoutStoreStockInput = {
@@ -31513,18 +31549,25 @@ export namespace Prisma {
     connect?: StoreWhereUniqueInput
   }
 
-  export type StockJournalCreateNestedManyWithoutStoreProductInput = {
+  export type StockJournalUncheckedCreateNestedManyWithoutStoreProductInput = {
     create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
     connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
     createMany?: StockJournalCreateManyStoreProductInputEnvelope
     connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
   }
 
-  export type StockJournalUncheckedCreateNestedManyWithoutStoreProductInput = {
+  export type StockJournalUpdateManyWithoutStoreProductNestedInput = {
     create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
     connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutStoreProductInput | StockJournalUpsertWithWhereUniqueWithoutStoreProductInput[]
     createMany?: StockJournalCreateManyStoreProductInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
     connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutStoreProductInput | StockJournalUpdateWithWhereUniqueWithoutStoreProductInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutStoreProductInput | StockJournalUpdateManyWithWhereWithoutStoreProductInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type ProductUpdateOneRequiredWithoutStoreStockNestedInput = {
@@ -31541,20 +31584,6 @@ export namespace Prisma {
     upsert?: StoreUpsertWithoutStoreStockInput
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutStoreStockInput, StoreUpdateWithoutStoreStockInput>, StoreUncheckedUpdateWithoutStoreStockInput>
-  }
-
-  export type StockJournalUpdateManyWithoutStoreProductNestedInput = {
-    create?: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput> | StockJournalCreateWithoutStoreProductInput[] | StockJournalUncheckedCreateWithoutStoreProductInput[]
-    connectOrCreate?: StockJournalCreateOrConnectWithoutStoreProductInput | StockJournalCreateOrConnectWithoutStoreProductInput[]
-    upsert?: StockJournalUpsertWithWhereUniqueWithoutStoreProductInput | StockJournalUpsertWithWhereUniqueWithoutStoreProductInput[]
-    createMany?: StockJournalCreateManyStoreProductInputEnvelope
-    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    update?: StockJournalUpdateWithWhereUniqueWithoutStoreProductInput | StockJournalUpdateWithWhereUniqueWithoutStoreProductInput[]
-    updateMany?: StockJournalUpdateManyWithWhereWithoutStoreProductInput | StockJournalUpdateManyWithWhereWithoutStoreProductInput[]
-    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput = {
@@ -31801,10 +31830,18 @@ export namespace Prisma {
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutCartItemsInput, StoreUpdateWithoutCartItemsInput>, StoreUncheckedUpdateWithoutCartItemsInput>
   }
 
-  export type StoreCreateNestedOneWithoutTransactionInput = {
-    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
-    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
-    connect?: StoreWhereUniqueInput
+  export type DiscountUsageHistoryCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
+    createMany?: DiscountUsageHistoryCreateManyTransactionInputEnvelope
+    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+  }
+
+  export type StockJournalCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
   }
 
   export type VoucherDeliveryCreateNestedOneWithoutTrxInput = {
@@ -31817,6 +31854,12 @@ export namespace Prisma {
     create?: XOR<VoucherProductCreateWithoutTrxInput, VoucherProductUncheckedCreateWithoutTrxInput>
     connectOrCreate?: VoucherProductCreateOrConnectWithoutTrxInput
     connect?: VoucherProductWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
+    connect?: StoreWhereUniqueInput
   }
 
   export type UsersCreateNestedOneWithoutTransactionsInput = {
@@ -31832,25 +31875,11 @@ export namespace Prisma {
     connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
   }
 
-  export type StockJournalCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
-    createMany?: StockJournalCreateManyTransactionInputEnvelope
-    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-  }
-
-  export type DiscountUsageHistoryCreateNestedManyWithoutTransactionInput = {
+  export type DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput = {
     create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
     connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
     createMany?: DiscountUsageHistoryCreateManyTransactionInputEnvelope
     connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-  }
-
-  export type TransactionProductUncheckedCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
-    createMany?: TransactionProductCreateManyTransactionInputEnvelope
-    connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
   }
 
   export type StockJournalUncheckedCreateNestedManyWithoutTransactionInput = {
@@ -31860,23 +31889,43 @@ export namespace Prisma {
     connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
   }
 
-  export type DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
-    createMany?: DiscountUsageHistoryCreateManyTransactionInputEnvelope
-    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+  export type TransactionProductUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
+    createMany?: TransactionProductCreateManyTransactionInputEnvelope
+    connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
   }
 
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
   }
 
-  export type StoreUpdateOneRequiredWithoutTransactionNestedInput = {
-    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
-    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
-    upsert?: StoreUpsertWithoutTransactionInput
-    connect?: StoreWhereUniqueInput
-    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutTransactionInput, StoreUpdateWithoutTransactionInput>, StoreUncheckedUpdateWithoutTransactionInput>
+  export type DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
+    upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: DiscountUsageHistoryCreateManyTransactionInputEnvelope
+    set?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    disconnect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    delete?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
+    update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput | DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
+  }
+
+  export type StockJournalUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
+    upsert?: StockJournalUpsertWithWhereUniqueWithoutTransactionInput | StockJournalUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: StockJournalCreateManyTransactionInputEnvelope
+    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
+    update?: StockJournalUpdateWithWhereUniqueWithoutTransactionInput | StockJournalUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: StockJournalUpdateManyWithWhereWithoutTransactionInput | StockJournalUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
   export type VoucherDeliveryUpdateOneWithoutTrxNestedInput = {
@@ -31897,6 +31946,14 @@ export namespace Prisma {
     delete?: VoucherProductWhereInput | boolean
     connect?: VoucherProductWhereUniqueInput
     update?: XOR<XOR<VoucherProductUpdateToOneWithWhereWithoutTrxInput, VoucherProductUpdateWithoutTrxInput>, VoucherProductUncheckedUpdateWithoutTrxInput>
+  }
+
+  export type StoreUpdateOneRequiredWithoutTransactionNestedInput = {
+    create?: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutTransactionInput
+    upsert?: StoreUpsertWithoutTransactionInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutTransactionInput, StoreUpdateWithoutTransactionInput>, StoreUncheckedUpdateWithoutTransactionInput>
   }
 
   export type UsersUpdateOneRequiredWithoutTransactionsNestedInput = {
@@ -31921,21 +31978,7 @@ export namespace Prisma {
     deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
-  export type StockJournalUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput> | StockJournalCreateWithoutTransactionInput[] | StockJournalUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: StockJournalCreateOrConnectWithoutTransactionInput | StockJournalCreateOrConnectWithoutTransactionInput[]
-    upsert?: StockJournalUpsertWithWhereUniqueWithoutTransactionInput | StockJournalUpsertWithWhereUniqueWithoutTransactionInput[]
-    createMany?: StockJournalCreateManyTransactionInputEnvelope
-    set?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    disconnect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    delete?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    connect?: StockJournalWhereUniqueInput | StockJournalWhereUniqueInput[]
-    update?: StockJournalUpdateWithWhereUniqueWithoutTransactionInput | StockJournalUpdateWithWhereUniqueWithoutTransactionInput[]
-    updateMany?: StockJournalUpdateManyWithWhereWithoutTransactionInput | StockJournalUpdateManyWithWhereWithoutTransactionInput[]
-    deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
-  }
-
-  export type DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput = {
+  export type DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput = {
     create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
     connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
     upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput[]
@@ -31947,20 +31990,6 @@ export namespace Prisma {
     update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput[]
     updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput | DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput[]
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
-  }
-
-  export type TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
-    upsert?: TransactionProductUpsertWithWhereUniqueWithoutTransactionInput | TransactionProductUpsertWithWhereUniqueWithoutTransactionInput[]
-    createMany?: TransactionProductCreateManyTransactionInputEnvelope
-    set?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
-    disconnect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
-    delete?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
-    connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
-    update?: TransactionProductUpdateWithWhereUniqueWithoutTransactionInput | TransactionProductUpdateWithWhereUniqueWithoutTransactionInput[]
-    updateMany?: TransactionProductUpdateManyWithWhereWithoutTransactionInput | TransactionProductUpdateManyWithWhereWithoutTransactionInput[]
-    deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
   export type StockJournalUncheckedUpdateManyWithoutTransactionNestedInput = {
@@ -31977,18 +32006,18 @@ export namespace Prisma {
     deleteMany?: StockJournalScalarWhereInput | StockJournalScalarWhereInput[]
   }
 
-  export type DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput> | DiscountUsageHistoryCreateWithoutTransactionInput[] | DiscountUsageHistoryUncheckedCreateWithoutTransactionInput[]
-    connectOrCreate?: DiscountUsageHistoryCreateOrConnectWithoutTransactionInput | DiscountUsageHistoryCreateOrConnectWithoutTransactionInput[]
-    upsert?: DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput[]
-    createMany?: DiscountUsageHistoryCreateManyTransactionInputEnvelope
-    set?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    disconnect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    delete?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
-    update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput[]
-    updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput | DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput[]
-    deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
+  export type TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<TransactionProductCreateWithoutTransactionInput, TransactionProductUncheckedCreateWithoutTransactionInput> | TransactionProductCreateWithoutTransactionInput[] | TransactionProductUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: TransactionProductCreateOrConnectWithoutTransactionInput | TransactionProductCreateOrConnectWithoutTransactionInput[]
+    upsert?: TransactionProductUpsertWithWhereUniqueWithoutTransactionInput | TransactionProductUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: TransactionProductCreateManyTransactionInputEnvelope
+    set?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
+    disconnect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
+    delete?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
+    connect?: TransactionProductWhereUniqueInput | TransactionProductWhereUniqueInput[]
+    update?: TransactionProductUpdateWithWhereUniqueWithoutTransactionInput | TransactionProductUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: TransactionProductUpdateManyWithWhereWithoutTransactionInput | TransactionProductUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: TransactionProductScalarWhereInput | TransactionProductScalarWhereInput[]
   }
 
   export type ProductCreateNestedOneWithoutTrxProductsInput = {
@@ -32019,16 +32048,22 @@ export namespace Prisma {
     update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutProductsInput, TransactionUpdateWithoutProductsInput>, TransactionUncheckedUpdateWithoutProductsInput>
   }
 
-  export type StoreCreateNestedOneWithoutDiscountsInput = {
-    create?: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
-    connectOrCreate?: StoreCreateOrConnectWithoutDiscountsInput
-    connect?: StoreWhereUniqueInput
+  export type BogoDiscountCreateNestedOneWithoutDiscountInput = {
+    create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
+    connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
+    connect?: BogoDiscountWhereUniqueInput
   }
 
   export type AdminCreateNestedOneWithoutCreatedDiscountsInput = {
     create?: XOR<AdminCreateWithoutCreatedDiscountsInput, AdminUncheckedCreateWithoutCreatedDiscountsInput>
     connectOrCreate?: AdminCreateOrConnectWithoutCreatedDiscountsInput
     connect?: AdminWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutDiscountsInput = {
+    create?: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutDiscountsInput
+    connect?: StoreWhereUniqueInput
   }
 
   export type DiscountProductCreateNestedManyWithoutDiscountInput = {
@@ -32045,7 +32080,7 @@ export namespace Prisma {
     connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
-  export type BogoDiscountCreateNestedOneWithoutDiscountInput = {
+  export type BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput = {
     create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
     connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
     connect?: BogoDiscountWhereUniqueInput
@@ -32065,18 +32100,30 @@ export namespace Prisma {
     connect?: DiscountUsageHistoryWhereUniqueInput | DiscountUsageHistoryWhereUniqueInput[]
   }
 
-  export type BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput = {
-    create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
-    connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
-    connect?: BogoDiscountWhereUniqueInput
-  }
-
   export type EnumDiscountTypeFieldUpdateOperationsInput = {
     set?: $Enums.DiscountType
   }
 
   export type EnumDiscountValueTypeFieldUpdateOperationsInput = {
     set?: $Enums.DiscountValueType
+  }
+
+  export type BogoDiscountUpdateOneWithoutDiscountNestedInput = {
+    create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
+    connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
+    upsert?: BogoDiscountUpsertWithoutDiscountInput
+    disconnect?: BogoDiscountWhereInput | boolean
+    delete?: BogoDiscountWhereInput | boolean
+    connect?: BogoDiscountWhereUniqueInput
+    update?: XOR<XOR<BogoDiscountUpdateToOneWithWhereWithoutDiscountInput, BogoDiscountUpdateWithoutDiscountInput>, BogoDiscountUncheckedUpdateWithoutDiscountInput>
+  }
+
+  export type AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput = {
+    create?: XOR<AdminCreateWithoutCreatedDiscountsInput, AdminUncheckedCreateWithoutCreatedDiscountsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCreatedDiscountsInput
+    upsert?: AdminUpsertWithoutCreatedDiscountsInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCreatedDiscountsInput, AdminUpdateWithoutCreatedDiscountsInput>, AdminUncheckedUpdateWithoutCreatedDiscountsInput>
   }
 
   export type StoreUpdateOneWithoutDiscountsNestedInput = {
@@ -32087,14 +32134,6 @@ export namespace Prisma {
     delete?: StoreWhereInput | boolean
     connect?: StoreWhereUniqueInput
     update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutDiscountsInput, StoreUpdateWithoutDiscountsInput>, StoreUncheckedUpdateWithoutDiscountsInput>
-  }
-
-  export type AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput = {
-    create?: XOR<AdminCreateWithoutCreatedDiscountsInput, AdminUncheckedCreateWithoutCreatedDiscountsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutCreatedDiscountsInput
-    upsert?: AdminUpsertWithoutCreatedDiscountsInput
-    connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutCreatedDiscountsInput, AdminUpdateWithoutCreatedDiscountsInput>, AdminUncheckedUpdateWithoutCreatedDiscountsInput>
   }
 
   export type DiscountProductUpdateManyWithoutDiscountNestedInput = {
@@ -32125,7 +32164,7 @@ export namespace Prisma {
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
   }
 
-  export type BogoDiscountUpdateOneWithoutDiscountNestedInput = {
+  export type BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput = {
     create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
     connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
     upsert?: BogoDiscountUpsertWithoutDiscountInput
@@ -32161,16 +32200,6 @@ export namespace Prisma {
     update?: DiscountUsageHistoryUpdateWithWhereUniqueWithoutDiscountInput | DiscountUsageHistoryUpdateWithWhereUniqueWithoutDiscountInput[]
     updateMany?: DiscountUsageHistoryUpdateManyWithWhereWithoutDiscountInput | DiscountUsageHistoryUpdateManyWithWhereWithoutDiscountInput[]
     deleteMany?: DiscountUsageHistoryScalarWhereInput | DiscountUsageHistoryScalarWhereInput[]
-  }
-
-  export type BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput = {
-    create?: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
-    connectOrCreate?: BogoDiscountCreateOrConnectWithoutDiscountInput
-    upsert?: BogoDiscountUpsertWithoutDiscountInput
-    disconnect?: BogoDiscountWhereInput | boolean
-    delete?: BogoDiscountWhereInput | boolean
-    connect?: BogoDiscountWhereUniqueInput
-    update?: XOR<XOR<BogoDiscountUpdateToOneWithWhereWithoutDiscountInput, BogoDiscountUpdateWithoutDiscountInput>, BogoDiscountUncheckedUpdateWithoutDiscountInput>
   }
 
   export type DiscountCreateNestedOneWithoutProductsInput = {
@@ -32215,6 +32244,12 @@ export namespace Prisma {
     update?: XOR<XOR<DiscountUpdateToOneWithWhereWithoutBogoConfigInput, DiscountUpdateWithoutBogoConfigInput>, DiscountUncheckedUpdateWithoutBogoConfigInput>
   }
 
+  export type AdminCreateNestedOneWithoutAppliedDiscountsInput = {
+    create?: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAppliedDiscountsInput
+    connect?: AdminWhereUniqueInput
+  }
+
   export type DiscountCreateNestedOneWithoutUsageHistoryInput = {
     create?: XOR<DiscountCreateWithoutUsageHistoryInput, DiscountUncheckedCreateWithoutUsageHistoryInput>
     connectOrCreate?: DiscountCreateOrConnectWithoutUsageHistoryInput
@@ -32233,10 +32268,14 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput
   }
 
-  export type AdminCreateNestedOneWithoutAppliedDiscountsInput = {
+  export type AdminUpdateOneWithoutAppliedDiscountsNestedInput = {
     create?: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
     connectOrCreate?: AdminCreateOrConnectWithoutAppliedDiscountsInput
+    upsert?: AdminUpsertWithoutAppliedDiscountsInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
     connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutAppliedDiscountsInput, AdminUpdateWithoutAppliedDiscountsInput>, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
   }
 
   export type DiscountUpdateOneRequiredWithoutUsageHistoryNestedInput = {
@@ -32265,16 +32304,6 @@ export namespace Prisma {
     delete?: UsersWhereInput | boolean
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutDiscountUsageInput, UsersUpdateWithoutDiscountUsageInput>, UsersUncheckedUpdateWithoutDiscountUsageInput>
-  }
-
-  export type AdminUpdateOneWithoutAppliedDiscountsNestedInput = {
-    create?: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutAppliedDiscountsInput
-    upsert?: AdminUpsertWithoutAppliedDiscountsInput
-    disconnect?: AdminWhereInput | boolean
-    delete?: AdminWhereInput | boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutAppliedDiscountsInput, AdminUpdateWithoutAppliedDiscountsInput>, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -32637,151 +32666,15 @@ export namespace Prisma {
     create: XOR<CartCreateWithoutUserInput, CartUncheckedCreateWithoutUserInput>
   }
 
-  export type TransactionCreateWithoutUserInput = {
-    id?: string
-    status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
-    shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
-    totalPrice: number
-    address: string
-    receiverName: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
-    paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
-    voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
-    voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
-    products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
-  }
-
-  export type TransactionUncheckedCreateWithoutUserInput = {
-    id?: string
-    storeId: string
-    status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
-    shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
-    totalPrice: number
-    address: string
-    receiverName: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
-    codeVoucherProduct?: string | null
-    codeVoucherDelivery?: string | null
-    paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
-  }
-
-  export type TransactionCreateOrConnectWithoutUserInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
-  }
-
-  export type TransactionCreateManyUserInputEnvelope = {
-    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserAddressCreateWithoutUserInput = {
-    id?: string
-    addressLabel: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type UserAddressUncheckedCreateWithoutUserInput = {
-    id?: string
-    addressLabel: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type UserAddressCreateOrConnectWithoutUserInput = {
-    where: UserAddressWhereUniqueInput
-    create: XOR<UserAddressCreateWithoutUserInput, UserAddressUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserAddressCreateManyUserInputEnvelope = {
-    data: UserAddressCreateManyUserInput | UserAddressCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type DiscountUsageHistoryCreateWithoutUserInput = {
     id?: string
     usedAt?: Date | string
     discountValue: number
     orderTotal: number
     createdAt?: Date | string
+    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
     discount: DiscountCreateNestedOneWithoutUsageHistoryInput
     transaction?: TransactionCreateNestedOneWithoutDiscountUsageHistoryInput
-    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
   }
 
   export type DiscountUsageHistoryUncheckedCreateWithoutUserInput = {
@@ -32802,6 +32695,142 @@ export namespace Prisma {
 
   export type DiscountUsageHistoryCreateManyUserInputEnvelope = {
     data: DiscountUsageHistoryCreateManyUserInput | DiscountUsageHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    phoneNumber: string
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
+    voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
+    voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
+    products?: TransactionProductCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    phoneNumber: string
+    codeVoucherProduct?: string | null
+    codeVoucherDelivery?: string | null
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionCreateManyUserInputEnvelope = {
+    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserAddressCreateWithoutUserInput = {
+    id?: string
+    province: string
+    city: string
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
+  }
+
+  export type UserAddressUncheckedCreateWithoutUserInput = {
+    id?: string
+    province: string
+    city: string
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
+  }
+
+  export type UserAddressCreateOrConnectWithoutUserInput = {
+    where: UserAddressWhereUniqueInput
+    create: XOR<UserAddressCreateWithoutUserInput, UserAddressUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAddressCreateManyUserInputEnvelope = {
+    data: UserAddressCreateManyUserInput | UserAddressCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -32830,101 +32859,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: CartProductUncheckedUpdateManyWithoutCartNestedInput
-  }
-
-  export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
-    where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
-    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
-  }
-
-  export type TransactionUpdateWithWhereUniqueWithoutUserInput = {
-    where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type TransactionUpdateManyWithWhereWithoutUserInput = {
-    where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type TransactionScalarWhereInput = {
-    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    OR?: TransactionScalarWhereInput[]
-    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    id?: StringFilter<"Transaction"> | string
-    userId?: StringFilter<"Transaction"> | string
-    storeId?: StringFilter<"Transaction"> | string
-    status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
-    totalProductPrice?: IntFilter<"Transaction"> | number
-    discountedProductPrice?: IntFilter<"Transaction"> | number
-    finalProductPrice?: IntFilter<"Transaction"> | number
-    shippingPrice?: IntFilter<"Transaction"> | number
-    discountedShipping?: IntFilter<"Transaction"> | number
-    finalShippingPrice?: IntFilter<"Transaction"> | number
-    totalPrice?: IntFilter<"Transaction"> | number
-    address?: StringFilter<"Transaction"> | string
-    receiverName?: StringFilter<"Transaction"> | string
-    phoneNumber?: StringFilter<"Transaction"> | string
-    provinceId?: IntFilter<"Transaction"> | number
-    province?: StringFilter<"Transaction"> | string
-    cityId?: IntFilter<"Transaction"> | number
-    city?: StringFilter<"Transaction"> | string
-    district?: StringFilter<"Transaction"> | string
-    districtId?: IntFilter<"Transaction"> | number
-    addressLabel?: StringFilter<"Transaction"> | string
-    codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
-    codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
-    paymentProof?: StringNullableFilter<"Transaction"> | string | null
-    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
-    snapToken?: StringNullableFilter<"Transaction"> | string | null
-    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
-    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-    createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
-  }
-
-  export type UserAddressUpsertWithWhereUniqueWithoutUserInput = {
-    where: UserAddressWhereUniqueInput
-    update: XOR<UserAddressUpdateWithoutUserInput, UserAddressUncheckedUpdateWithoutUserInput>
-    create: XOR<UserAddressCreateWithoutUserInput, UserAddressUncheckedCreateWithoutUserInput>
-  }
-
-  export type UserAddressUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserAddressWhereUniqueInput
-    data: XOR<UserAddressUpdateWithoutUserInput, UserAddressUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserAddressUpdateManyWithWhereWithoutUserInput = {
-    where: UserAddressScalarWhereInput
-    data: XOR<UserAddressUpdateManyMutationInput, UserAddressUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type UserAddressScalarWhereInput = {
-    AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-    OR?: UserAddressScalarWhereInput[]
-    NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
-    id?: StringFilter<"UserAddress"> | string
-    addressLabel?: StringFilter<"UserAddress"> | string
-    userId?: StringFilter<"UserAddress"> | string
-    receiverName?: StringFilter<"UserAddress"> | string
-    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
-    addressDisplayName?: StringFilter<"UserAddress"> | string
-    addressDetails?: StringFilter<"UserAddress"> | string
-    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFilter<"UserAddress"> | boolean
-    provinceId?: IntFilter<"UserAddress"> | number
-    province?: StringFilter<"UserAddress"> | string
-    cityId?: IntFilter<"UserAddress"> | number
-    city?: StringFilter<"UserAddress"> | string
-    district?: StringFilter<"UserAddress"> | string
-    districtId?: IntFilter<"UserAddress"> | number
-    createdAt?: DateTimeFilter<"UserAddress"> | Date | string
-    updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
   }
 
   export type DiscountUsageHistoryUpsertWithWhereUniqueWithoutUserInput = {
@@ -32958,21 +32892,117 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"DiscountUsageHistory"> | Date | string
   }
 
+  export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutUserInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TransactionScalarWhereInput = {
+    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    OR?: TransactionScalarWhereInput[]
+    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    status?: EnumOrderStatusFilter<"Transaction"> | $Enums.OrderStatus
+    shippingPrice?: IntFilter<"Transaction"> | number
+    totalPrice?: IntFilter<"Transaction"> | number
+    phoneNumber?: StringFilter<"Transaction"> | string
+    codeVoucherProduct?: StringNullableFilter<"Transaction"> | string | null
+    codeVoucherDelivery?: StringNullableFilter<"Transaction"> | string | null
+    paymentProof?: StringNullableFilter<"Transaction"> | string | null
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    address?: StringFilter<"Transaction"> | string
+    city?: StringFilter<"Transaction"> | string
+    cityId?: IntFilter<"Transaction"> | number
+    discountedShipping?: IntFilter<"Transaction"> | number
+    finalShippingPrice?: IntFilter<"Transaction"> | number
+    province?: StringFilter<"Transaction"> | string
+    provinceId?: IntFilter<"Transaction"> | number
+    storeId?: StringFilter<"Transaction"> | string
+    expiryAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paidAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    paymentMethod?: StringNullableFilter<"Transaction"> | string | null
+    snapRedirectUrl?: StringNullableFilter<"Transaction"> | string | null
+    snapToken?: StringNullableFilter<"Transaction"> | string | null
+    district?: StringFilter<"Transaction"> | string
+    districtId?: IntFilter<"Transaction"> | number
+    discountedProductPrice?: IntFilter<"Transaction"> | number
+    finalProductPrice?: IntFilter<"Transaction"> | number
+    totalProductPrice?: IntFilter<"Transaction"> | number
+    receiverName?: StringFilter<"Transaction"> | string
+    addressLabel?: StringFilter<"Transaction"> | string
+  }
+
+  export type UserAddressUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserAddressWhereUniqueInput
+    update: XOR<UserAddressUpdateWithoutUserInput, UserAddressUncheckedUpdateWithoutUserInput>
+    create: XOR<UserAddressCreateWithoutUserInput, UserAddressUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserAddressUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserAddressWhereUniqueInput
+    data: XOR<UserAddressUpdateWithoutUserInput, UserAddressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserAddressUpdateManyWithWhereWithoutUserInput = {
+    where: UserAddressScalarWhereInput
+    data: XOR<UserAddressUpdateManyMutationInput, UserAddressUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserAddressScalarWhereInput = {
+    AND?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
+    OR?: UserAddressScalarWhereInput[]
+    NOT?: UserAddressScalarWhereInput | UserAddressScalarWhereInput[]
+    id?: StringFilter<"UserAddress"> | string
+    userId?: StringFilter<"UserAddress"> | string
+    province?: StringFilter<"UserAddress"> | string
+    city?: StringFilter<"UserAddress"> | string
+    lat?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFilter<"UserAddress"> | boolean
+    createdAt?: DateTimeFilter<"UserAddress"> | Date | string
+    updatedAt?: DateTimeFilter<"UserAddress"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserAddress"> | Date | string | null
+    cityId?: IntFilter<"UserAddress"> | number
+    provinceId?: IntFilter<"UserAddress"> | number
+    addressDetails?: StringFilter<"UserAddress"> | string
+    addressDisplayName?: StringFilter<"UserAddress"> | string
+    addressLabel?: StringFilter<"UserAddress"> | string
+    lon?: DecimalFilter<"UserAddress"> | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFilter<"UserAddress"> | string
+    receiverPhoneNumber?: StringFilter<"UserAddress"> | string
+    district?: StringFilter<"UserAddress"> | string
+    districtId?: IntFilter<"UserAddress"> | number
+  }
+
   export type UsersCreateWithoutAddressesInput = {
     id?: string
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutAddressesInput = {
@@ -32980,16 +33010,17 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutAddressesInput = {
@@ -33013,16 +33044,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutAddressesInput = {
@@ -33030,16 +33062,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AdminCreateWithoutStoreInput = {
@@ -33051,9 +33084,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
     createdDiscounts?: DiscountCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutStoreInput = {
@@ -33065,9 +33098,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
     createdDiscounts?: DiscountUncheckedCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutStoreInput = {
@@ -33110,36 +33143,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type StoreProductCreateWithoutStoreInput = {
-    stock: number
-    minStock?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    product: ProductCreateNestedOneWithoutStoreStockInput
-    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
-  }
-
-  export type StoreProductUncheckedCreateWithoutStoreInput = {
-    productId: string
-    stock: number
-    minStock?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
-  }
-
-  export type StoreProductCreateOrConnectWithoutStoreInput = {
-    where: StoreProductWhereUniqueInput
-    create: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput>
-  }
-
-  export type StoreProductCreateManyStoreInputEnvelope = {
-    data: StoreProductCreateManyStoreInput | StoreProductCreateManyStoreInput[]
-    skipDuplicates?: boolean
-  }
-
   export type DiscountCreateWithoutStoreInput = {
     id?: string
     name: string
@@ -33158,10 +33161,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountUncheckedCreateWithoutStoreInput = {
@@ -33183,9 +33186,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     adminId: string
+    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
     products?: DiscountProductUncheckedCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountCreateOrConnectWithoutStoreInput = {
@@ -33198,78 +33201,108 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TransactionCreateWithoutStoreInput = {
-    id?: string
-    status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
-    shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
-    totalPrice: number
-    address: string
-    receiverName: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
-    paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
+  export type StoreProductCreateWithoutStoreInput = {
+    stock: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
+    product: ProductCreateNestedOneWithoutStoreStockInput
+  }
+
+  export type StoreProductUncheckedCreateWithoutStoreInput = {
+    productId: string
+    stock: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    minStock?: number | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
+  }
+
+  export type StoreProductCreateOrConnectWithoutStoreInput = {
+    where: StoreProductWhereUniqueInput
+    create: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput>
+  }
+
+  export type StoreProductCreateManyStoreInputEnvelope = {
+    data: StoreProductCreateManyStoreInput | StoreProductCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutStoreInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    phoneNumber: string
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutStoreInput = {
     id?: string
     userId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutStoreInput = {
@@ -33343,35 +33376,6 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"CartProduct"> | Date | string | null
   }
 
-  export type StoreProductUpsertWithWhereUniqueWithoutStoreInput = {
-    where: StoreProductWhereUniqueInput
-    update: XOR<StoreProductUpdateWithoutStoreInput, StoreProductUncheckedUpdateWithoutStoreInput>
-    create: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput>
-  }
-
-  export type StoreProductUpdateWithWhereUniqueWithoutStoreInput = {
-    where: StoreProductWhereUniqueInput
-    data: XOR<StoreProductUpdateWithoutStoreInput, StoreProductUncheckedUpdateWithoutStoreInput>
-  }
-
-  export type StoreProductUpdateManyWithWhereWithoutStoreInput = {
-    where: StoreProductScalarWhereInput
-    data: XOR<StoreProductUpdateManyMutationInput, StoreProductUncheckedUpdateManyWithoutStoreInput>
-  }
-
-  export type StoreProductScalarWhereInput = {
-    AND?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
-    OR?: StoreProductScalarWhereInput[]
-    NOT?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
-    storeId?: StringFilter<"StoreProduct"> | string
-    productId?: StringFilter<"StoreProduct"> | string
-    stock?: IntFilter<"StoreProduct"> | number
-    minStock?: IntNullableFilter<"StoreProduct"> | number | null
-    createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
-    updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
-  }
-
   export type DiscountUpsertWithWhereUniqueWithoutStoreInput = {
     where: DiscountWhereUniqueInput
     update: XOR<DiscountUpdateWithoutStoreInput, DiscountUncheckedUpdateWithoutStoreInput>
@@ -33413,6 +33417,35 @@ export namespace Prisma {
     adminId?: StringFilter<"Discount"> | string
   }
 
+  export type StoreProductUpsertWithWhereUniqueWithoutStoreInput = {
+    where: StoreProductWhereUniqueInput
+    update: XOR<StoreProductUpdateWithoutStoreInput, StoreProductUncheckedUpdateWithoutStoreInput>
+    create: XOR<StoreProductCreateWithoutStoreInput, StoreProductUncheckedCreateWithoutStoreInput>
+  }
+
+  export type StoreProductUpdateWithWhereUniqueWithoutStoreInput = {
+    where: StoreProductWhereUniqueInput
+    data: XOR<StoreProductUpdateWithoutStoreInput, StoreProductUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type StoreProductUpdateManyWithWhereWithoutStoreInput = {
+    where: StoreProductScalarWhereInput
+    data: XOR<StoreProductUpdateManyMutationInput, StoreProductUncheckedUpdateManyWithoutStoreInput>
+  }
+
+  export type StoreProductScalarWhereInput = {
+    AND?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
+    OR?: StoreProductScalarWhereInput[]
+    NOT?: StoreProductScalarWhereInput | StoreProductScalarWhereInput[]
+    storeId?: StringFilter<"StoreProduct"> | string
+    productId?: StringFilter<"StoreProduct"> | string
+    stock?: IntFilter<"StoreProduct"> | number
+    createdAt?: DateTimeFilter<"StoreProduct"> | Date | string
+    updatedAt?: DateTimeFilter<"StoreProduct"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"StoreProduct"> | Date | string | null
+    minStock?: IntNullableFilter<"StoreProduct"> | number | null
+  }
+
   export type TransactionUpsertWithWhereUniqueWithoutStoreInput = {
     where: TransactionWhereUniqueInput
     update: XOR<TransactionUpdateWithoutStoreInput, TransactionUncheckedUpdateWithoutStoreInput>
@@ -33431,12 +33464,8 @@ export namespace Prisma {
 
   export type StoreCreateWithoutAdminsInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -33445,20 +33474,20 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     cartItems?: CartProductCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutAdminsInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -33467,50 +33496,19 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutAdminsInput = {
     where: StoreWhereUniqueInput
     create: XOR<StoreCreateWithoutAdminsInput, StoreUncheckedCreateWithoutAdminsInput>
-  }
-
-  export type StockJournalCreateWithoutAdminInput = {
-    id?: string
-    type: $Enums.StockMovement
-    quantity: number
-    beforeStock: number
-    afterStock: number
-    notes?: string | null
-    createdAt?: Date | string
-    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
-    transaction?: TransactionCreateNestedOneWithoutStockJournalInput
-  }
-
-  export type StockJournalUncheckedCreateWithoutAdminInput = {
-    id?: string
-    storeId: string
-    productId: string
-    transactionId?: string | null
-    type: $Enums.StockMovement
-    quantity: number
-    beforeStock: number
-    afterStock: number
-    notes?: string | null
-    createdAt?: Date | string
-  }
-
-  export type StockJournalCreateOrConnectWithoutAdminInput = {
-    where: StockJournalWhereUniqueInput
-    create: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput>
-  }
-
-  export type StockJournalCreateManyAdminInputEnvelope = {
-    data: StockJournalCreateManyAdminInput | StockJournalCreateManyAdminInput[]
-    skipDuplicates?: boolean
   }
 
   export type DiscountCreateWithoutAdminInput = {
@@ -33531,10 +33529,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
     store?: StoreCreateNestedOneWithoutDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountUncheckedCreateWithoutAdminInput = {
@@ -33556,9 +33554,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
     products?: DiscountProductUncheckedCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutDiscountInput
-    bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
   }
 
   export type DiscountCreateOrConnectWithoutAdminInput = {
@@ -33603,6 +33601,41 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StockJournalCreateWithoutAdminInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
+    transaction?: TransactionCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateWithoutAdminInput = {
+    id?: string
+    storeId: string
+    productId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalCreateOrConnectWithoutAdminInput = {
+    where: StockJournalWhereUniqueInput
+    create: XOR<StockJournalCreateWithoutAdminInput, StockJournalUncheckedCreateWithoutAdminInput>
+  }
+
+  export type StockJournalCreateManyAdminInputEnvelope = {
+    data: StockJournalCreateManyAdminInput | StockJournalCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
   export type StoreUpsertWithoutAdminsInput = {
     update: XOR<StoreUpdateWithoutAdminsInput, StoreUncheckedUpdateWithoutAdminsInput>
     create: XOR<StoreCreateWithoutAdminsInput, StoreUncheckedCreateWithoutAdminsInput>
@@ -33616,12 +33649,8 @@ export namespace Prisma {
 
   export type StoreUpdateWithoutAdminsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -33630,20 +33659,20 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutAdminsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -33652,10 +33681,46 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type DiscountUpsertWithWhereUniqueWithoutAdminInput = {
+    where: DiscountWhereUniqueInput
+    update: XOR<DiscountUpdateWithoutAdminInput, DiscountUncheckedUpdateWithoutAdminInput>
+    create: XOR<DiscountCreateWithoutAdminInput, DiscountUncheckedCreateWithoutAdminInput>
+  }
+
+  export type DiscountUpdateWithWhereUniqueWithoutAdminInput = {
+    where: DiscountWhereUniqueInput
+    data: XOR<DiscountUpdateWithoutAdminInput, DiscountUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type DiscountUpdateManyWithWhereWithoutAdminInput = {
+    where: DiscountScalarWhereInput
+    data: XOR<DiscountUpdateManyMutationInput, DiscountUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type DiscountUsageHistoryUpsertWithWhereUniqueWithoutAppliedByInput = {
+    where: DiscountUsageHistoryWhereUniqueInput
+    update: XOR<DiscountUsageHistoryUpdateWithoutAppliedByInput, DiscountUsageHistoryUncheckedUpdateWithoutAppliedByInput>
+    create: XOR<DiscountUsageHistoryCreateWithoutAppliedByInput, DiscountUsageHistoryUncheckedCreateWithoutAppliedByInput>
+  }
+
+  export type DiscountUsageHistoryUpdateWithWhereUniqueWithoutAppliedByInput = {
+    where: DiscountUsageHistoryWhereUniqueInput
+    data: XOR<DiscountUsageHistoryUpdateWithoutAppliedByInput, DiscountUsageHistoryUncheckedUpdateWithoutAppliedByInput>
+  }
+
+  export type DiscountUsageHistoryUpdateManyWithWhereWithoutAppliedByInput = {
+    where: DiscountUsageHistoryScalarWhereInput
+    data: XOR<DiscountUsageHistoryUpdateManyMutationInput, DiscountUsageHistoryUncheckedUpdateManyWithoutAppliedByInput>
   }
 
   export type StockJournalUpsertWithWhereUniqueWithoutAdminInput = {
@@ -33691,38 +33756,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"StockJournal"> | Date | string
   }
 
-  export type DiscountUpsertWithWhereUniqueWithoutAdminInput = {
-    where: DiscountWhereUniqueInput
-    update: XOR<DiscountUpdateWithoutAdminInput, DiscountUncheckedUpdateWithoutAdminInput>
-    create: XOR<DiscountCreateWithoutAdminInput, DiscountUncheckedCreateWithoutAdminInput>
-  }
-
-  export type DiscountUpdateWithWhereUniqueWithoutAdminInput = {
-    where: DiscountWhereUniqueInput
-    data: XOR<DiscountUpdateWithoutAdminInput, DiscountUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type DiscountUpdateManyWithWhereWithoutAdminInput = {
-    where: DiscountScalarWhereInput
-    data: XOR<DiscountUpdateManyMutationInput, DiscountUncheckedUpdateManyWithoutAdminInput>
-  }
-
-  export type DiscountUsageHistoryUpsertWithWhereUniqueWithoutAppliedByInput = {
-    where: DiscountUsageHistoryWhereUniqueInput
-    update: XOR<DiscountUsageHistoryUpdateWithoutAppliedByInput, DiscountUsageHistoryUncheckedUpdateWithoutAppliedByInput>
-    create: XOR<DiscountUsageHistoryCreateWithoutAppliedByInput, DiscountUsageHistoryUncheckedCreateWithoutAppliedByInput>
-  }
-
-  export type DiscountUsageHistoryUpdateWithWhereUniqueWithoutAppliedByInput = {
-    where: DiscountUsageHistoryWhereUniqueInput
-    data: XOR<DiscountUsageHistoryUpdateWithoutAppliedByInput, DiscountUsageHistoryUncheckedUpdateWithoutAppliedByInput>
-  }
-
-  export type DiscountUsageHistoryUpdateManyWithWhereWithoutAppliedByInput = {
-    where: DiscountUsageHistoryScalarWhereInput
-    data: XOR<DiscountUsageHistoryUpdateManyMutationInput, DiscountUsageHistoryUncheckedUpdateManyWithoutAppliedByInput>
-  }
-
   export type ProductCreateWithoutCategoryInput = {
     id?: string
     name: string
@@ -33740,9 +33773,9 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCategoryInput = {
@@ -33762,9 +33795,9 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -33845,99 +33878,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProductCategoryCreateWithoutProductsInput = {
-    id?: string
-    name: string
-    slug: string
-    description?: string | null
-    icon?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type ProductCategoryUncheckedCreateWithoutProductsInput = {
-    id?: string
-    name: string
-    slug: string
-    description?: string | null
-    icon?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type ProductCategoryCreateOrConnectWithoutProductsInput = {
-    where: ProductCategoryWhereUniqueInput
-    create: XOR<ProductCategoryCreateWithoutProductsInput, ProductCategoryUncheckedCreateWithoutProductsInput>
-  }
-
-  export type StoreProductCreateWithoutProductInput = {
-    stock: number
-    minStock?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutStoreStockInput
-    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
-  }
-
-  export type StoreProductUncheckedCreateWithoutProductInput = {
-    storeId: string
-    stock: number
-    minStock?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
-  }
-
-  export type StoreProductCreateOrConnectWithoutProductInput = {
-    where: StoreProductWhereUniqueInput
-    create: XOR<StoreProductCreateWithoutProductInput, StoreProductUncheckedCreateWithoutProductInput>
-  }
-
-  export type StoreProductCreateManyProductInputEnvelope = {
-    data: StoreProductCreateManyProductInput | StoreProductCreateManyProductInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TransactionProductCreateWithoutProductInput = {
-    id?: string
-    quantity: number
-    price: number
-    discount?: number
-    finalPrice: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    transaction: TransactionCreateNestedOneWithoutProductsInput
-  }
-
-  export type TransactionProductUncheckedCreateWithoutProductInput = {
-    id?: string
-    transactionId: string
-    quantity: number
-    price: number
-    discount?: number
-    finalPrice: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type TransactionProductCreateOrConnectWithoutProductInput = {
-    where: TransactionProductWhereUniqueInput
-    create: XOR<TransactionProductCreateWithoutProductInput, TransactionProductUncheckedCreateWithoutProductInput>
-  }
-
-  export type TransactionProductCreateManyProductInputEnvelope = {
-    data: TransactionProductCreateManyProductInput | TransactionProductCreateManyProductInput[]
-    skipDuplicates?: boolean
-  }
-
   export type DiscountProductCreateWithoutProductInput = {
     id?: string
     createdAt?: Date | string
@@ -33960,6 +33900,99 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProductCategoryCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    icon?: string | null
+    slug: string
+  }
+
+  export type ProductCategoryUncheckedCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    icon?: string | null
+    slug: string
+  }
+
+  export type ProductCategoryCreateOrConnectWithoutProductsInput = {
+    where: ProductCategoryWhereUniqueInput
+    create: XOR<ProductCategoryCreateWithoutProductsInput, ProductCategoryUncheckedCreateWithoutProductsInput>
+  }
+
+  export type StoreProductCreateWithoutProductInput = {
+    stock: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    minStock?: number | null
+    stockJournal?: StockJournalCreateNestedManyWithoutStoreProductInput
+    store: StoreCreateNestedOneWithoutStoreStockInput
+  }
+
+  export type StoreProductUncheckedCreateWithoutProductInput = {
+    storeId: string
+    stock: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    minStock?: number | null
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutStoreProductInput
+  }
+
+  export type StoreProductCreateOrConnectWithoutProductInput = {
+    where: StoreProductWhereUniqueInput
+    create: XOR<StoreProductCreateWithoutProductInput, StoreProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type StoreProductCreateManyProductInputEnvelope = {
+    data: StoreProductCreateManyProductInput | StoreProductCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionProductCreateWithoutProductInput = {
+    id?: string
+    quantity: number
+    price: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
+    transaction: TransactionCreateNestedOneWithoutProductsInput
+  }
+
+  export type TransactionProductUncheckedCreateWithoutProductInput = {
+    id?: string
+    transactionId: string
+    quantity: number
+    price: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
+  }
+
+  export type TransactionProductCreateOrConnectWithoutProductInput = {
+    where: TransactionProductWhereUniqueInput
+    create: XOR<TransactionProductCreateWithoutProductInput, TransactionProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type TransactionProductCreateManyProductInputEnvelope = {
+    data: TransactionProductCreateManyProductInput | TransactionProductCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CartProductUpsertWithWhereUniqueWithoutProductInput = {
     where: CartProductWhereUniqueInput
     update: XOR<CartProductUpdateWithoutProductInput, CartProductUncheckedUpdateWithoutProductInput>
@@ -33976,6 +34009,32 @@ export namespace Prisma {
     data: XOR<CartProductUpdateManyMutationInput, CartProductUncheckedUpdateManyWithoutProductInput>
   }
 
+  export type DiscountProductUpsertWithWhereUniqueWithoutProductInput = {
+    where: DiscountProductWhereUniqueInput
+    update: XOR<DiscountProductUpdateWithoutProductInput, DiscountProductUncheckedUpdateWithoutProductInput>
+    create: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type DiscountProductUpdateWithWhereUniqueWithoutProductInput = {
+    where: DiscountProductWhereUniqueInput
+    data: XOR<DiscountProductUpdateWithoutProductInput, DiscountProductUncheckedUpdateWithoutProductInput>
+  }
+
+  export type DiscountProductUpdateManyWithWhereWithoutProductInput = {
+    where: DiscountProductScalarWhereInput
+    data: XOR<DiscountProductUpdateManyMutationInput, DiscountProductUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type DiscountProductScalarWhereInput = {
+    AND?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
+    OR?: DiscountProductScalarWhereInput[]
+    NOT?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
+    id?: StringFilter<"DiscountProduct"> | string
+    discountId?: StringFilter<"DiscountProduct"> | string
+    productId?: StringFilter<"DiscountProduct"> | string
+    createdAt?: DateTimeFilter<"DiscountProduct"> | Date | string
+  }
+
   export type ProductCategoryUpsertWithoutProductsInput = {
     update: XOR<ProductCategoryUpdateWithoutProductsInput, ProductCategoryUncheckedUpdateWithoutProductsInput>
     create: XOR<ProductCategoryCreateWithoutProductsInput, ProductCategoryUncheckedCreateWithoutProductsInput>
@@ -33990,25 +34049,25 @@ export namespace Prisma {
   export type ProductCategoryUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductCategoryUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type StoreProductUpsertWithWhereUniqueWithoutProductInput = {
@@ -34052,135 +34111,11 @@ export namespace Prisma {
     productId?: StringFilter<"TransactionProduct"> | string
     quantity?: IntFilter<"TransactionProduct"> | number
     price?: IntFilter<"TransactionProduct"> | number
-    discount?: IntFilter<"TransactionProduct"> | number
-    finalPrice?: IntFilter<"TransactionProduct"> | number
     createdAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     updatedAt?: DateTimeFilter<"TransactionProduct"> | Date | string
     deletedAt?: DateTimeNullableFilter<"TransactionProduct"> | Date | string | null
-  }
-
-  export type DiscountProductUpsertWithWhereUniqueWithoutProductInput = {
-    where: DiscountProductWhereUniqueInput
-    update: XOR<DiscountProductUpdateWithoutProductInput, DiscountProductUncheckedUpdateWithoutProductInput>
-    create: XOR<DiscountProductCreateWithoutProductInput, DiscountProductUncheckedCreateWithoutProductInput>
-  }
-
-  export type DiscountProductUpdateWithWhereUniqueWithoutProductInput = {
-    where: DiscountProductWhereUniqueInput
-    data: XOR<DiscountProductUpdateWithoutProductInput, DiscountProductUncheckedUpdateWithoutProductInput>
-  }
-
-  export type DiscountProductUpdateManyWithWhereWithoutProductInput = {
-    where: DiscountProductScalarWhereInput
-    data: XOR<DiscountProductUpdateManyMutationInput, DiscountProductUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type DiscountProductScalarWhereInput = {
-    AND?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
-    OR?: DiscountProductScalarWhereInput[]
-    NOT?: DiscountProductScalarWhereInput | DiscountProductScalarWhereInput[]
-    id?: StringFilter<"DiscountProduct"> | string
-    discountId?: StringFilter<"DiscountProduct"> | string
-    productId?: StringFilter<"DiscountProduct"> | string
-    createdAt?: DateTimeFilter<"DiscountProduct"> | Date | string
-  }
-
-  export type ProductCreateWithoutStoreStockInput = {
-    id?: string
-    name: string
-    description: string
-    slug: string
-    price: number
-    zIndex?: number | null
-    picture1: string
-    picture2?: string | null
-    picture3?: string | null
-    picture4?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    isActive?: boolean
-    weight: number
-    cartItems?: CartProductCreateNestedManyWithoutProductInput
-    category: ProductCategoryCreateNestedOneWithoutProductsInput
-    trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductUncheckedCreateWithoutStoreStockInput = {
-    id?: string
-    name: string
-    description: string
-    slug: string
-    price: number
-    zIndex?: number | null
-    picture1: string
-    picture2?: string | null
-    picture3?: string | null
-    picture4?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    categoryId: string
-    isActive?: boolean
-    weight: number
-    cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
-    trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductCreateOrConnectWithoutStoreStockInput = {
-    where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutStoreStockInput, ProductUncheckedCreateWithoutStoreStockInput>
-  }
-
-  export type StoreCreateWithoutStoreStockInput = {
-    id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductCreateNestedManyWithoutStoreInput
-    discounts?: DiscountCreateNestedManyWithoutStoreInput
-    Transaction?: TransactionCreateNestedManyWithoutStoreInput
-  }
-
-  export type StoreUncheckedCreateWithoutStoreStockInput = {
-    id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
-    discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
-    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
-  }
-
-  export type StoreCreateOrConnectWithoutStoreStockInput = {
-    where: StoreWhereUniqueInput
-    create: XOR<StoreCreateWithoutStoreStockInput, StoreUncheckedCreateWithoutStoreStockInput>
+    discount?: IntFilter<"TransactionProduct"> | number
+    finalPrice?: IntFilter<"TransactionProduct"> | number
   }
 
   export type StockJournalCreateWithoutStoreProductInput = {
@@ -34217,6 +34152,120 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProductCreateWithoutStoreStockInput = {
+    id?: string
+    name: string
+    description: string
+    slug: string
+    price: number
+    zIndex?: number | null
+    picture1: string
+    picture2?: string | null
+    picture3?: string | null
+    picture4?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    isActive?: boolean
+    weight: number
+    cartItems?: CartProductCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
+    category: ProductCategoryCreateNestedOneWithoutProductsInput
+    trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutStoreStockInput = {
+    id?: string
+    name: string
+    description: string
+    slug: string
+    price: number
+    zIndex?: number | null
+    picture1: string
+    picture2?: string | null
+    picture3?: string | null
+    picture4?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    categoryId: string
+    isActive?: boolean
+    weight: number
+    cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
+    trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutStoreStockInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutStoreStockInput, ProductUncheckedCreateWithoutStoreStockInput>
+  }
+
+  export type StoreCreateWithoutStoreStockInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductCreateNestedManyWithoutStoreInput
+    discounts?: DiscountCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutStoreStockInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutStoreStockInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutStoreStockInput, StoreUncheckedCreateWithoutStoreStockInput>
+  }
+
+  export type StockJournalUpsertWithWhereUniqueWithoutStoreProductInput = {
+    where: StockJournalWhereUniqueInput
+    update: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
+    create: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput>
+  }
+
+  export type StockJournalUpdateWithWhereUniqueWithoutStoreProductInput = {
+    where: StockJournalWhereUniqueInput
+    data: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
+  }
+
+  export type StockJournalUpdateManyWithWhereWithoutStoreProductInput = {
+    where: StockJournalScalarWhereInput
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutStoreProductInput>
+  }
+
   export type ProductUpsertWithoutStoreStockInput = {
     update: XOR<ProductUpdateWithoutStoreStockInput, ProductUncheckedUpdateWithoutStoreStockInput>
     create: XOR<ProductCreateWithoutStoreStockInput, ProductUncheckedCreateWithoutStoreStockInput>
@@ -34245,9 +34294,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStoreStockInput = {
@@ -34268,8 +34317,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
-    trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
     discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
+    trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type StoreUpsertWithoutStoreStockInput = {
@@ -34285,12 +34334,8 @@ export namespace Prisma {
 
   export type StoreUpdateWithoutStoreStockInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34299,6 +34344,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
@@ -34307,12 +34356,8 @@ export namespace Prisma {
 
   export type StoreUncheckedUpdateWithoutStoreStockInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -34321,26 +34366,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
     cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
-  }
-
-  export type StockJournalUpsertWithWhereUniqueWithoutStoreProductInput = {
-    where: StockJournalWhereUniqueInput
-    update: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
-    create: XOR<StockJournalCreateWithoutStoreProductInput, StockJournalUncheckedCreateWithoutStoreProductInput>
-  }
-
-  export type StockJournalUpdateWithWhereUniqueWithoutStoreProductInput = {
-    where: StockJournalWhereUniqueInput
-    data: XOR<StockJournalUpdateWithoutStoreProductInput, StockJournalUncheckedUpdateWithoutStoreProductInput>
-  }
-
-  export type StockJournalUpdateManyWithWhereWithoutStoreProductInput = {
-    where: StockJournalScalarWhereInput
-    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutStoreProductInput>
   }
 
   export type AdminCreateWithoutStockJournalInput = {
@@ -34378,10 +34411,10 @@ export namespace Prisma {
 
   export type StoreProductCreateWithoutStockJournalInput = {
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
     product: ProductCreateNestedOneWithoutStoreStockInput
     store: StoreCreateNestedOneWithoutStoreStockInput
   }
@@ -34390,10 +34423,10 @@ export namespace Prisma {
     storeId: string
     productId: string
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
   }
 
   export type StoreProductCreateOrConnectWithoutStockJournalInput = {
@@ -34404,75 +34437,75 @@ export namespace Prisma {
   export type TransactionCreateWithoutStockJournalInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutStockJournalInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutStockJournalInput = {
@@ -34532,10 +34565,10 @@ export namespace Prisma {
 
   export type StoreProductUpdateWithoutStockJournalInput = {
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
     store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
   }
@@ -34544,10 +34577,10 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TransactionUpsertWithoutStockJournalInput = {
@@ -34564,149 +34597,149 @@ export namespace Prisma {
   export type TransactionUpdateWithoutStockJournalInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutStockJournalInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionCreateWithoutVoucherProductInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutVoucherProductInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutVoucherProductInput = {
@@ -34738,75 +34771,75 @@ export namespace Prisma {
   export type TransactionCreateWithoutVoucherDeliveryInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutVoucherDeliveryInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutVoucherDeliveryInput = {
@@ -34840,16 +34873,17 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
+    discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
-    discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutCartsInput = {
@@ -34857,16 +34891,17 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
+    discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
-    discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutCartsInput = {
@@ -34920,16 +34955,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
-    discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutCartsInput = {
@@ -34937,16 +34973,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
-    discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CartProductUpsertWithWhereUniqueWithoutCartInput = {
@@ -35002,10 +35039,10 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     isActive?: boolean
     weight: number
+    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCartItemsInput = {
@@ -35025,9 +35062,9 @@ export namespace Prisma {
     categoryId: string
     isActive?: boolean
     weight: number
+    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
     storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     trxProducts?: TransactionProductUncheckedCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCartItemsInput = {
@@ -35037,12 +35074,8 @@ export namespace Prisma {
 
   export type StoreCreateWithoutCartItemsInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -35051,20 +35084,20 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     admins?: AdminCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     discounts?: DiscountCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
     Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutCartItemsInput = {
     id?: string
-    provinceId: number
     province: string
-    cityId: number
     city: string
-    district: string
-    districtId: number
     address: string
     name: string
     lat?: Decimal | DecimalJsLike | number | string | null
@@ -35073,9 +35106,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
     admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
     Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
@@ -35138,10 +35175,10 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
+    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCartItemsInput = {
@@ -35161,9 +35198,9 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
+    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type StoreUpsertWithoutCartItemsInput = {
@@ -35179,12 +35216,8 @@ export namespace Prisma {
 
   export type StoreUpdateWithoutCartItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -35193,20 +35226,20 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutCartItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
     province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
     city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -35215,59 +35248,81 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
     admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
     Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
-  export type StoreCreateWithoutTransactionInput = {
+  export type DiscountUsageHistoryCreateWithoutTransactionInput = {
     id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
+    usedAt?: Date | string
+    discountValue: number
+    orderTotal: number
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
-    discounts?: DiscountCreateNestedManyWithoutStoreInput
+    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
+    discount: DiscountCreateNestedOneWithoutUsageHistoryInput
+    user?: UsersCreateNestedOneWithoutDiscountUsageInput
   }
 
-  export type StoreUncheckedCreateWithoutTransactionInput = {
+  export type DiscountUsageHistoryUncheckedCreateWithoutTransactionInput = {
     id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
+    discountId: string
+    userId?: string | null
+    adminId?: string | null
+    usedAt?: Date | string
+    discountValue: number
+    orderTotal: number
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
-    discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
   }
 
-  export type StoreCreateOrConnectWithoutTransactionInput = {
-    where: StoreWhereUniqueInput
-    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+  export type DiscountUsageHistoryCreateOrConnectWithoutTransactionInput = {
+    where: DiscountUsageHistoryWhereUniqueInput
+    create: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type DiscountUsageHistoryCreateManyTransactionInputEnvelope = {
+    data: DiscountUsageHistoryCreateManyTransactionInput | DiscountUsageHistoryCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StockJournalCreateWithoutTransactionInput = {
+    id?: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+    admin: AdminCreateNestedOneWithoutStockJournalInput
+    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
+  }
+
+  export type StockJournalUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    storeId: string
+    productId: string
+    adminId: string
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type StockJournalCreateOrConnectWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type StockJournalCreateManyTransactionInputEnvelope = {
+    data: StockJournalCreateManyTransactionInput | StockJournalCreateManyTransactionInput[]
+    skipDuplicates?: boolean
   }
 
   export type VoucherDeliveryCreateWithoutTrxInput = {
@@ -35324,21 +35379,71 @@ export namespace Prisma {
     create: XOR<VoucherProductCreateWithoutTrxInput, VoucherProductUncheckedCreateWithoutTrxInput>
   }
 
+  export type StoreCreateWithoutTransactionInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductCreateNestedManyWithoutStoreInput
+    discounts?: DiscountCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
+    discounts?: DiscountUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutTransactionInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+  }
+
   export type UsersCreateWithoutTransactionsInput = {
     id?: string
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
-    addresses?: UserAddressCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryCreateNestedManyWithoutUserInput
+    addresses?: UserAddressCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutTransactionsInput = {
@@ -35346,16 +35451,17 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
-    addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
     discountUsage?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutUserInput
+    addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutTransactionsInput = {
@@ -35367,11 +35473,11 @@ export namespace Prisma {
     id?: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
     product: ProductCreateNestedOneWithoutTrxProductsInput
   }
 
@@ -35380,11 +35486,11 @@ export namespace Prisma {
     productId: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
   }
 
   export type TransactionProductCreateOrConnectWithoutTransactionInput = {
@@ -35397,126 +35503,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type StockJournalCreateWithoutTransactionInput = {
-    id?: string
-    type: $Enums.StockMovement
-    quantity: number
-    beforeStock: number
-    afterStock: number
-    notes?: string | null
-    createdAt?: Date | string
-    admin: AdminCreateNestedOneWithoutStockJournalInput
-    storeProduct: StoreProductCreateNestedOneWithoutStockJournalInput
-  }
-
-  export type StockJournalUncheckedCreateWithoutTransactionInput = {
-    id?: string
-    storeId: string
-    productId: string
-    adminId: string
-    type: $Enums.StockMovement
-    quantity: number
-    beforeStock: number
-    afterStock: number
-    notes?: string | null
-    createdAt?: Date | string
-  }
-
-  export type StockJournalCreateOrConnectWithoutTransactionInput = {
-    where: StockJournalWhereUniqueInput
-    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
-  }
-
-  export type StockJournalCreateManyTransactionInputEnvelope = {
-    data: StockJournalCreateManyTransactionInput | StockJournalCreateManyTransactionInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DiscountUsageHistoryCreateWithoutTransactionInput = {
-    id?: string
-    usedAt?: Date | string
-    discountValue: number
-    orderTotal: number
-    createdAt?: Date | string
-    discount: DiscountCreateNestedOneWithoutUsageHistoryInput
-    user?: UsersCreateNestedOneWithoutDiscountUsageInput
-    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
-  }
-
-  export type DiscountUsageHistoryUncheckedCreateWithoutTransactionInput = {
-    id?: string
-    discountId: string
-    userId?: string | null
-    adminId?: string | null
-    usedAt?: Date | string
-    discountValue: number
-    orderTotal: number
-    createdAt?: Date | string
-  }
-
-  export type DiscountUsageHistoryCreateOrConnectWithoutTransactionInput = {
+  export type DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput = {
     where: DiscountUsageHistoryWhereUniqueInput
+    update: XOR<DiscountUsageHistoryUpdateWithoutTransactionInput, DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput>
     create: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput>
   }
 
-  export type DiscountUsageHistoryCreateManyTransactionInputEnvelope = {
-    data: DiscountUsageHistoryCreateManyTransactionInput | DiscountUsageHistoryCreateManyTransactionInput[]
-    skipDuplicates?: boolean
+  export type DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: DiscountUsageHistoryWhereUniqueInput
+    data: XOR<DiscountUsageHistoryUpdateWithoutTransactionInput, DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput>
   }
 
-  export type StoreUpsertWithoutTransactionInput = {
-    update: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
-    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
-    where?: StoreWhereInput
+  export type DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput = {
+    where: DiscountUsageHistoryScalarWhereInput
+    data: XOR<DiscountUsageHistoryUpdateManyMutationInput, DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionInput>
   }
 
-  export type StoreUpdateToOneWithWhereWithoutTransactionInput = {
-    where?: StoreWhereInput
-    data: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
+  export type StockJournalUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    update: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
+    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
   }
 
-  export type StoreUpdateWithoutTransactionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    admins?: AdminUpdateManyWithoutStoreNestedInput
-    cartItems?: CartProductUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
-    discounts?: DiscountUpdateManyWithoutStoreNestedInput
+  export type StockJournalUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: StockJournalWhereUniqueInput
+    data: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
   }
 
-  export type StoreUncheckedUpdateWithoutTransactionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
-    cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
-    discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+  export type StockJournalUpdateManyWithWhereWithoutTransactionInput = {
+    where: StockJournalScalarWhereInput
+    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutTransactionInput>
   }
 
   export type VoucherDeliveryUpsertWithoutTrxInput = {
@@ -35585,6 +35601,61 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type StoreUpsertWithoutTransactionInput = {
+    update: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
+    create: XOR<StoreCreateWithoutTransactionInput, StoreUncheckedCreateWithoutTransactionInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutTransactionInput, StoreUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type StoreUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    admins?: AdminUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUpdateManyWithoutStoreNestedInput
+    discounts?: DiscountUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
+    discounts?: DiscountUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
   export type UsersUpsertWithoutTransactionsInput = {
     update: XOR<UsersUpdateWithoutTransactionsInput, UsersUncheckedUpdateWithoutTransactionsInput>
     create: XOR<UsersCreateWithoutTransactionsInput, UsersUncheckedCreateWithoutTransactionsInput>
@@ -35601,16 +35672,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
-    addresses?: UserAddressUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUpdateManyWithoutUserNestedInput
+    addresses?: UserAddressUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutTransactionsInput = {
@@ -35618,16 +35690,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
-    addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
     discountUsage?: DiscountUsageHistoryUncheckedUpdateManyWithoutUserNestedInput
+    addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TransactionProductUpsertWithWhereUniqueWithoutTransactionInput = {
@@ -35644,38 +35717,6 @@ export namespace Prisma {
   export type TransactionProductUpdateManyWithWhereWithoutTransactionInput = {
     where: TransactionProductScalarWhereInput
     data: XOR<TransactionProductUpdateManyMutationInput, TransactionProductUncheckedUpdateManyWithoutTransactionInput>
-  }
-
-  export type StockJournalUpsertWithWhereUniqueWithoutTransactionInput = {
-    where: StockJournalWhereUniqueInput
-    update: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
-    create: XOR<StockJournalCreateWithoutTransactionInput, StockJournalUncheckedCreateWithoutTransactionInput>
-  }
-
-  export type StockJournalUpdateWithWhereUniqueWithoutTransactionInput = {
-    where: StockJournalWhereUniqueInput
-    data: XOR<StockJournalUpdateWithoutTransactionInput, StockJournalUncheckedUpdateWithoutTransactionInput>
-  }
-
-  export type StockJournalUpdateManyWithWhereWithoutTransactionInput = {
-    where: StockJournalScalarWhereInput
-    data: XOR<StockJournalUpdateManyMutationInput, StockJournalUncheckedUpdateManyWithoutTransactionInput>
-  }
-
-  export type DiscountUsageHistoryUpsertWithWhereUniqueWithoutTransactionInput = {
-    where: DiscountUsageHistoryWhereUniqueInput
-    update: XOR<DiscountUsageHistoryUpdateWithoutTransactionInput, DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput>
-    create: XOR<DiscountUsageHistoryCreateWithoutTransactionInput, DiscountUsageHistoryUncheckedCreateWithoutTransactionInput>
-  }
-
-  export type DiscountUsageHistoryUpdateWithWhereUniqueWithoutTransactionInput = {
-    where: DiscountUsageHistoryWhereUniqueInput
-    data: XOR<DiscountUsageHistoryUpdateWithoutTransactionInput, DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput>
-  }
-
-  export type DiscountUsageHistoryUpdateManyWithWhereWithoutTransactionInput = {
-    where: DiscountUsageHistoryScalarWhereInput
-    data: XOR<DiscountUsageHistoryUpdateManyMutationInput, DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionInput>
   }
 
   export type ProductCreateWithoutTrxProductsInput = {
@@ -35695,9 +35736,9 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductCreateNestedManyWithoutProductInput
+    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
     category: ProductCategoryCreateNestedOneWithoutProductsInput
     storeStock?: StoreProductCreateNestedManyWithoutProductInput
-    discountProducts?: DiscountProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutTrxProductsInput = {
@@ -35718,8 +35759,8 @@ export namespace Prisma {
     isActive?: boolean
     weight: number
     cartItems?: CartProductUncheckedCreateNestedManyWithoutProductInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
     discountProducts?: DiscountProductUncheckedCreateNestedManyWithoutProductInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutTrxProductsInput = {
@@ -35730,75 +35771,75 @@ export namespace Prisma {
   export type TransactionCreateWithoutProductsInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
-    discountUsageHistory?: DiscountUsageHistoryCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutProductsInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     discountUsageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutTransactionInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutProductsInput = {
@@ -35834,9 +35875,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
     category?: ProductCategoryUpdateOneRequiredWithoutProductsNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutTrxProductsInput = {
@@ -35857,8 +35898,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type TransactionUpsertWithoutProductsInput = {
@@ -35875,124 +35916,100 @@ export namespace Prisma {
   export type TransactionUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
-  export type StoreCreateWithoutDiscountsInput = {
+  export type BogoDiscountCreateWithoutDiscountInput = {
     id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
+    buyQuantity: number
+    getQuantity: number
+    applyToSameProduct?: boolean
+    maxBogoSets?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
-    Transaction?: TransactionCreateNestedManyWithoutStoreInput
   }
 
-  export type StoreUncheckedCreateWithoutDiscountsInput = {
+  export type BogoDiscountUncheckedCreateWithoutDiscountInput = {
     id?: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    address: string
-    name: string
-    lat?: Decimal | DecimalJsLike | number | string | null
-    lng?: Decimal | DecimalJsLike | number | string | null
-    radiusKm: Decimal | DecimalJsLike | number | string
+    buyQuantity: number
+    getQuantity: number
+    applyToSameProduct?: boolean
+    maxBogoSets?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
-    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
-    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
-    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
   }
 
-  export type StoreCreateOrConnectWithoutDiscountsInput = {
-    where: StoreWhereUniqueInput
-    create: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
+  export type BogoDiscountCreateOrConnectWithoutDiscountInput = {
+    where: BogoDiscountWhereUniqueInput
+    create: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
   }
 
   export type AdminCreateWithoutCreatedDiscountsInput = {
@@ -36005,8 +36022,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     store?: StoreCreateNestedOneWithoutAdminsInput
-    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutCreatedDiscountsInput = {
@@ -36019,13 +36036,62 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutAppliedByInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutCreatedDiscountsInput = {
     where: AdminWhereUniqueInput
     create: XOR<AdminCreateWithoutCreatedDiscountsInput, AdminUncheckedCreateWithoutCreatedDiscountsInput>
+  }
+
+  export type StoreCreateWithoutDiscountsInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutDiscountsInput = {
+    id?: string
+    province: string
+    city: string
+    address: string
+    name: string
+    lat?: Decimal | DecimalJsLike | number | string | null
+    lng?: Decimal | DecimalJsLike | number | string | null
+    radiusKm: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    district: string
+    districtId: number
+    admins?: AdminUncheckedCreateNestedManyWithoutStoreInput
+    cartItems?: CartProductUncheckedCreateNestedManyWithoutStoreInput
+    storeStock?: StoreProductUncheckedCreateNestedManyWithoutStoreInput
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutDiscountsInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
   }
 
   export type DiscountProductCreateWithoutDiscountInput = {
@@ -36056,9 +36122,9 @@ export namespace Prisma {
     discountValue: number
     orderTotal: number
     createdAt?: Date | string
+    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
     transaction?: TransactionCreateNestedOneWithoutDiscountUsageHistoryInput
     user?: UsersCreateNestedOneWithoutDiscountUsageInput
-    appliedBy?: AdminCreateNestedOneWithoutAppliedDiscountsInput
   }
 
   export type DiscountUsageHistoryUncheckedCreateWithoutDiscountInput = {
@@ -36082,84 +36148,35 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BogoDiscountCreateWithoutDiscountInput = {
-    id?: string
-    buyQuantity: number
-    getQuantity: number
-    applyToSameProduct?: boolean
-    maxBogoSets?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BogoDiscountUncheckedCreateWithoutDiscountInput = {
-    id?: string
-    buyQuantity: number
-    getQuantity: number
-    applyToSameProduct?: boolean
-    maxBogoSets?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BogoDiscountCreateOrConnectWithoutDiscountInput = {
-    where: BogoDiscountWhereUniqueInput
+  export type BogoDiscountUpsertWithoutDiscountInput = {
+    update: XOR<BogoDiscountUpdateWithoutDiscountInput, BogoDiscountUncheckedUpdateWithoutDiscountInput>
     create: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
+    where?: BogoDiscountWhereInput
   }
 
-  export type StoreUpsertWithoutDiscountsInput = {
-    update: XOR<StoreUpdateWithoutDiscountsInput, StoreUncheckedUpdateWithoutDiscountsInput>
-    create: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
-    where?: StoreWhereInput
+  export type BogoDiscountUpdateToOneWithWhereWithoutDiscountInput = {
+    where?: BogoDiscountWhereInput
+    data: XOR<BogoDiscountUpdateWithoutDiscountInput, BogoDiscountUncheckedUpdateWithoutDiscountInput>
   }
 
-  export type StoreUpdateToOneWithWhereWithoutDiscountsInput = {
-    where?: StoreWhereInput
-    data: XOR<StoreUpdateWithoutDiscountsInput, StoreUncheckedUpdateWithoutDiscountsInput>
-  }
-
-  export type StoreUpdateWithoutDiscountsInput = {
+  export type BogoDiscountUpdateWithoutDiscountInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    getQuantity?: IntFieldUpdateOperationsInput | number
+    applyToSameProduct?: BoolFieldUpdateOperationsInput | boolean
+    maxBogoSets?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    admins?: AdminUpdateManyWithoutStoreNestedInput
-    cartItems?: CartProductUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
-    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
   }
 
-  export type StoreUncheckedUpdateWithoutDiscountsInput = {
+  export type BogoDiscountUncheckedUpdateWithoutDiscountInput = {
     id?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    getQuantity?: IntFieldUpdateOperationsInput | number
+    applyToSameProduct?: BoolFieldUpdateOperationsInput | boolean
+    maxBogoSets?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
-    cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
-    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
-    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type AdminUpsertWithoutCreatedDiscountsInput = {
@@ -36183,8 +36200,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     store?: StoreUpdateOneWithoutAdminsNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutCreatedDiscountsInput = {
@@ -36197,8 +36214,63 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type StoreUpsertWithoutDiscountsInput = {
+    update: XOR<StoreUpdateWithoutDiscountsInput, StoreUncheckedUpdateWithoutDiscountsInput>
+    create: XOR<StoreCreateWithoutDiscountsInput, StoreUncheckedCreateWithoutDiscountsInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutDiscountsInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutDiscountsInput, StoreUncheckedUpdateWithoutDiscountsInput>
+  }
+
+  export type StoreUpdateWithoutDiscountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    admins?: AdminUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutDiscountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    lat?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    lng?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    radiusKm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    admins?: AdminUncheckedUpdateManyWithoutStoreNestedInput
+    cartItems?: CartProductUncheckedUpdateManyWithoutStoreNestedInput
+    storeStock?: StoreProductUncheckedUpdateManyWithoutStoreNestedInput
+    Transaction?: TransactionUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type DiscountProductUpsertWithWhereUniqueWithoutDiscountInput = {
@@ -36233,37 +36305,6 @@ export namespace Prisma {
     data: XOR<DiscountUsageHistoryUpdateManyMutationInput, DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountInput>
   }
 
-  export type BogoDiscountUpsertWithoutDiscountInput = {
-    update: XOR<BogoDiscountUpdateWithoutDiscountInput, BogoDiscountUncheckedUpdateWithoutDiscountInput>
-    create: XOR<BogoDiscountCreateWithoutDiscountInput, BogoDiscountUncheckedCreateWithoutDiscountInput>
-    where?: BogoDiscountWhereInput
-  }
-
-  export type BogoDiscountUpdateToOneWithWhereWithoutDiscountInput = {
-    where?: BogoDiscountWhereInput
-    data: XOR<BogoDiscountUpdateWithoutDiscountInput, BogoDiscountUncheckedUpdateWithoutDiscountInput>
-  }
-
-  export type BogoDiscountUpdateWithoutDiscountInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    getQuantity?: IntFieldUpdateOperationsInput | number
-    applyToSameProduct?: BoolFieldUpdateOperationsInput | boolean
-    maxBogoSets?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BogoDiscountUncheckedUpdateWithoutDiscountInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    getQuantity?: IntFieldUpdateOperationsInput | number
-    applyToSameProduct?: BoolFieldUpdateOperationsInput | boolean
-    maxBogoSets?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type DiscountCreateWithoutProductsInput = {
     id?: string
     name: string
@@ -36282,10 +36323,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store?: StoreCreateNestedOneWithoutDiscountsInput
-    admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
-    usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
+    admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
+    usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
   }
 
   export type DiscountUncheckedCreateWithoutProductsInput = {
@@ -36308,8 +36349,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     adminId: string
-    usageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
+    usageHistory?: DiscountUsageHistoryUncheckedCreateNestedManyWithoutDiscountInput
   }
 
   export type DiscountCreateOrConnectWithoutProductsInput = {
@@ -36395,10 +36436,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneWithoutDiscountsNestedInput
-    admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
-    usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
+    admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
+    usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateWithoutProductsInput = {
@@ -36421,8 +36462,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     adminId?: StringFieldUpdateOperationsInput | string
-    usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
+    usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
   }
 
   export type ProductUpsertWithoutDiscountProductsInput = {
@@ -36498,8 +36539,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store?: StoreCreateNestedOneWithoutDiscountsInput
     admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
     products?: DiscountProductCreateNestedManyWithoutDiscountInput
     usageHistory?: DiscountUsageHistoryCreateNestedManyWithoutDiscountInput
   }
@@ -36562,8 +36603,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneWithoutDiscountsNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
   }
@@ -36592,6 +36633,39 @@ export namespace Prisma {
     usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
   }
 
+  export type AdminCreateWithoutAppliedDiscountsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    isSuper?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    store?: StoreCreateNestedOneWithoutAdminsInput
+    createdDiscounts?: DiscountCreateNestedManyWithoutAdminInput
+    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUncheckedCreateWithoutAppliedDiscountsInput = {
+    id?: string
+    storeId?: string | null
+    name: string
+    email: string
+    password: string
+    isSuper?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    createdDiscounts?: DiscountUncheckedCreateNestedManyWithoutAdminInput
+    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminCreateOrConnectWithoutAppliedDiscountsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
+  }
+
   export type DiscountCreateWithoutUsageHistoryInput = {
     id?: string
     name: string
@@ -36610,10 +36684,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store?: StoreCreateNestedOneWithoutDiscountsInput
-    admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
-    products?: DiscountProductCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountCreateNestedOneWithoutDiscountInput
+    admin: AdminCreateNestedOneWithoutCreatedDiscountsInput
+    store?: StoreCreateNestedOneWithoutDiscountsInput
+    products?: DiscountProductCreateNestedManyWithoutDiscountInput
   }
 
   export type DiscountUncheckedCreateWithoutUsageHistoryInput = {
@@ -36636,8 +36710,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     adminId: string
-    products?: DiscountProductUncheckedCreateNestedManyWithoutDiscountInput
     bogoConfig?: BogoDiscountUncheckedCreateNestedOneWithoutDiscountInput
+    products?: DiscountProductUncheckedCreateNestedManyWithoutDiscountInput
   }
 
   export type DiscountCreateOrConnectWithoutUsageHistoryInput = {
@@ -36648,75 +36722,75 @@ export namespace Prisma {
   export type TransactionCreateWithoutDiscountUsageHistoryInput = {
     id?: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    store: StoreCreateNestedOneWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
+    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
     voucherDelivery?: VoucherDeliveryCreateNestedOneWithoutTrxInput
     voucherProduct?: VoucherProductCreateNestedOneWithoutTrxInput
+    store: StoreCreateNestedOneWithoutTransactionInput
     user: UsersCreateNestedOneWithoutTransactionsInput
     products?: TransactionProductCreateNestedManyWithoutTransactionInput
-    stockJournal?: StockJournalCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionUncheckedCreateWithoutDiscountUsageHistoryInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
     stockJournal?: StockJournalUncheckedCreateNestedManyWithoutTransactionInput
+    products?: TransactionProductUncheckedCreateNestedManyWithoutTransactionInput
   }
 
   export type TransactionCreateOrConnectWithoutDiscountUsageHistoryInput = {
@@ -36729,13 +36803,14 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartCreateNestedOneWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
     addresses?: UserAddressCreateNestedManyWithoutUserInput
@@ -36746,13 +36821,14 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber?: string | null
-    provider?: string | null
-    providerId?: string | null
     password?: string | null
     isVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    provider?: string | null
+    providerId?: string | null
+    profilePicture?: string | null
     carts?: CartUncheckedCreateNestedOneWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
     addresses?: UserAddressUncheckedCreateNestedManyWithoutUserInput
@@ -36763,37 +36839,43 @@ export namespace Prisma {
     create: XOR<UsersCreateWithoutDiscountUsageInput, UsersUncheckedCreateWithoutDiscountUsageInput>
   }
 
-  export type AdminCreateWithoutAppliedDiscountsInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    isSuper?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    store?: StoreCreateNestedOneWithoutAdminsInput
-    stockJournal?: StockJournalCreateNestedManyWithoutAdminInput
-    createdDiscounts?: DiscountCreateNestedManyWithoutAdminInput
-  }
-
-  export type AdminUncheckedCreateWithoutAppliedDiscountsInput = {
-    id?: string
-    storeId?: string | null
-    name: string
-    email: string
-    password: string
-    isSuper?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-    stockJournal?: StockJournalUncheckedCreateNestedManyWithoutAdminInput
-    createdDiscounts?: DiscountUncheckedCreateNestedManyWithoutAdminInput
-  }
-
-  export type AdminCreateOrConnectWithoutAppliedDiscountsInput = {
-    where: AdminWhereUniqueInput
+  export type AdminUpsertWithoutAppliedDiscountsInput = {
+    update: XOR<AdminUpdateWithoutAppliedDiscountsInput, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
     create: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutAppliedDiscountsInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutAppliedDiscountsInput, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
+  }
+
+  export type AdminUpdateWithoutAppliedDiscountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    isSuper?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneWithoutAdminsNestedInput
+    createdDiscounts?: DiscountUpdateManyWithoutAdminNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminUncheckedUpdateWithoutAppliedDiscountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    isSuper?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdDiscounts?: DiscountUncheckedUpdateManyWithoutAdminNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type DiscountUpsertWithoutUsageHistoryInput = {
@@ -36825,10 +36907,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneWithoutDiscountsNestedInput
-    admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
-    products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
+    admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
+    store?: StoreUpdateOneWithoutDiscountsNestedInput
+    products?: DiscountProductUpdateManyWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateWithoutUsageHistoryInput = {
@@ -36851,8 +36933,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     adminId?: StringFieldUpdateOperationsInput | string
-    products?: DiscountProductUncheckedUpdateManyWithoutDiscountNestedInput
     bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
+    products?: DiscountProductUncheckedUpdateManyWithoutDiscountNestedInput
   }
 
   export type TransactionUpsertWithoutDiscountUsageHistoryInput = {
@@ -36869,75 +36951,75 @@ export namespace Prisma {
   export type TransactionUpdateWithoutDiscountUsageHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutDiscountUsageHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type UsersUpsertWithoutDiscountUsageInput = {
@@ -36956,13 +37038,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUpdateOneWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUpdateManyWithoutUserNestedInput
@@ -36973,110 +37056,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    provider?: NullableStringFieldUpdateOperationsInput | string | null
-    providerId?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     carts?: CartUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     addresses?: UserAddressUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type AdminUpsertWithoutAppliedDiscountsInput = {
-    update: XOR<AdminUpdateWithoutAppliedDiscountsInput, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
-    create: XOR<AdminCreateWithoutAppliedDiscountsInput, AdminUncheckedCreateWithoutAppliedDiscountsInput>
-    where?: AdminWhereInput
-  }
-
-  export type AdminUpdateToOneWithWhereWithoutAppliedDiscountsInput = {
-    where?: AdminWhereInput
-    data: XOR<AdminUpdateWithoutAppliedDiscountsInput, AdminUncheckedUpdateWithoutAppliedDiscountsInput>
-  }
-
-  export type AdminUpdateWithoutAppliedDiscountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    isSuper?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneWithoutAdminsNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
-    createdDiscounts?: DiscountUpdateManyWithoutAdminNestedInput
-  }
-
-  export type AdminUncheckedUpdateWithoutAppliedDiscountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    storeId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    isSuper?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
-    createdDiscounts?: DiscountUncheckedUpdateManyWithoutAdminNestedInput
-  }
-
-  export type TransactionCreateManyUserInput = {
-    id?: string
-    storeId: string
-    status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
-    shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
-    totalPrice: number
-    address: string
-    receiverName: string
-    phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
-    codeVoucherProduct?: string | null
-    codeVoucherDelivery?: string | null
-    paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type UserAddressCreateManyUserInput = {
-    id?: string
-    addressLabel: string
-    receiverName: string
-    receiverPhoneNumber: string
-    addressDisplayName: string
-    addressDetails: string
-    lat: Decimal | DecimalJsLike | number | string
-    lon: Decimal | DecimalJsLike | number | string
-    isDefault?: boolean
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
   }
 
   export type DiscountUsageHistoryCreateManyUserInput = {
@@ -37090,175 +37080,59 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type TransactionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
-    shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
-    voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
-    voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
-    products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+  export type TransactionCreateManyUserInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    shippingPrice: number
+    totalPrice: number
+    phoneNumber: string
+    codeVoucherProduct?: string | null
+    codeVoucherDelivery?: string | null
+    paymentProof?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
   }
 
-  export type TransactionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
-    shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
-    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
-  }
-
-  export type TransactionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
-    shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
-    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type UserAddressUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type UserAddressUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type UserAddressUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
-    addressDisplayName?: StringFieldUpdateOperationsInput | string
-    addressDetails?: StringFieldUpdateOperationsInput | string
-    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type UserAddressCreateManyUserInput = {
+    id?: string
+    province: string
+    city: string
+    lat: Decimal | DecimalJsLike | number | string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    cityId: number
+    provinceId: number
+    addressDetails: string
+    addressDisplayName: string
+    addressLabel: string
+    lon: Decimal | DecimalJsLike | number | string
+    receiverName: string
+    receiverPhoneNumber: string
+    district: string
+    districtId: number
   }
 
   export type DiscountUsageHistoryUpdateWithoutUserInput = {
@@ -37267,9 +37141,9 @@ export namespace Prisma {
     discountValue?: IntFieldUpdateOperationsInput | number
     orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
     discount?: DiscountUpdateOneRequiredWithoutUsageHistoryNestedInput
     transaction?: TransactionUpdateOneWithoutDiscountUsageHistoryNestedInput
-    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
   }
 
   export type DiscountUsageHistoryUncheckedUpdateWithoutUserInput = {
@@ -37294,6 +37168,177 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
+    voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
+    voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    products?: TransactionProductUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
+    codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserAddressUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserAddressUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UserAddressUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    province?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    lat?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cityId?: IntFieldUpdateOperationsInput | number
+    provinceId?: IntFieldUpdateOperationsInput | number
+    addressDetails?: StringFieldUpdateOperationsInput | string
+    addressDisplayName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    lon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receiverName?: StringFieldUpdateOperationsInput | string
+    receiverPhoneNumber?: StringFieldUpdateOperationsInput | string
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type AdminCreateManyStoreInput = {
     id?: string
     name: string
@@ -37310,15 +37355,6 @@ export namespace Prisma {
     cartId: string
     productId: string
     quantity: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
-  }
-
-  export type StoreProductCreateManyStoreInput = {
-    productId: string
-    stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -37345,38 +37381,47 @@ export namespace Prisma {
     adminId: string
   }
 
+  export type StoreProductCreateManyStoreInput = {
+    productId: string
+    stock: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    minStock?: number | null
+  }
+
   export type TransactionCreateManyStoreInput = {
     id?: string
     userId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
   }
 
   export type AdminUpdateWithoutStoreInput = {
@@ -37388,9 +37433,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
     createdDiscounts?: DiscountUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutStoreInput = {
@@ -37402,9 +37447,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
     createdDiscounts?: DiscountUncheckedUpdateManyWithoutAdminNestedInput
     appliedDiscounts?: DiscountUsageHistoryUncheckedUpdateManyWithoutAppliedByNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateManyWithoutStoreInput = {
@@ -37448,35 +37493,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type StoreProductUpdateWithoutStoreInput = {
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
-  }
-
-  export type StoreProductUncheckedUpdateWithoutStoreInput = {
-    productId?: StringFieldUpdateOperationsInput | string
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
-  }
-
-  export type StoreProductUncheckedUpdateManyWithoutStoreInput = {
-    productId?: StringFieldUpdateOperationsInput | string
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type DiscountUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -37495,10 +37511,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
     admin?: AdminUpdateOneRequiredWithoutCreatedDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateWithoutStoreInput = {
@@ -37520,9 +37536,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     adminId?: StringFieldUpdateOperationsInput | string
+    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
     products?: DiscountProductUncheckedUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateManyWithoutStoreInput = {
@@ -37546,125 +37562,141 @@ export namespace Prisma {
     adminId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TransactionUpdateWithoutStoreInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
-    shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
-    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type StoreProductUpdateWithoutStoreInput = {
+    stock?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
+    product?: ProductUpdateOneRequiredWithoutStoreStockNestedInput
+  }
+
+  export type StoreProductUncheckedUpdateWithoutStoreInput = {
+    productId?: StringFieldUpdateOperationsInput | string
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
+  }
+
+  export type StoreProductUncheckedUpdateManyWithoutStoreInput = {
+    productId?: StringFieldUpdateOperationsInput | string
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type TransactionUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    shippingPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type StockJournalCreateManyAdminInput = {
-    id?: string
-    storeId: string
-    productId: string
-    transactionId?: string | null
-    type: $Enums.StockMovement
-    quantity: number
-    beforeStock: number
-    afterStock: number
-    notes?: string | null
-    createdAt?: Date | string
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
   }
 
   export type DiscountCreateManyAdminInput = {
@@ -37699,42 +37731,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type StockJournalUpdateWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
-    quantity?: IntFieldUpdateOperationsInput | number
-    beforeStock?: IntFieldUpdateOperationsInput | number
-    afterStock?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    storeProduct?: StoreProductUpdateOneRequiredWithoutStockJournalNestedInput
-    transaction?: TransactionUpdateOneWithoutStockJournalNestedInput
-  }
-
-  export type StockJournalUncheckedUpdateWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
-    quantity?: IntFieldUpdateOperationsInput | number
-    beforeStock?: IntFieldUpdateOperationsInput | number
-    afterStock?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type StockJournalUncheckedUpdateManyWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
-    quantity?: IntFieldUpdateOperationsInput | number
-    beforeStock?: IntFieldUpdateOperationsInput | number
-    afterStock?: IntFieldUpdateOperationsInput | number
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type StockJournalCreateManyAdminInput = {
+    id?: string
+    storeId: string
+    productId: string
+    transactionId?: string | null
+    type: $Enums.StockMovement
+    quantity: number
+    beforeStock: number
+    afterStock: number
+    notes?: string | null
+    createdAt?: Date | string
   }
 
   export type DiscountUpdateWithoutAdminInput = {
@@ -37755,10 +37762,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
     store?: StoreUpdateOneWithoutDiscountsNestedInput
     products?: DiscountProductUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateWithoutAdminInput = {
@@ -37780,9 +37787,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
     products?: DiscountProductUncheckedUpdateManyWithoutDiscountNestedInput
     usageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutDiscountNestedInput
-    bogoConfig?: BogoDiscountUncheckedUpdateOneWithoutDiscountNestedInput
   }
 
   export type DiscountUncheckedUpdateManyWithoutAdminInput = {
@@ -37839,6 +37846,44 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StockJournalUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    storeProduct?: StoreProductUpdateOneRequiredWithoutStockJournalNestedInput
+    transaction?: TransactionUpdateOneWithoutStockJournalNestedInput
+  }
+
+  export type StockJournalUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockJournalUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumStockMovementFieldUpdateOperationsInput | $Enums.StockMovement
+    quantity?: IntFieldUpdateOperationsInput | number
+    beforeStock?: IntFieldUpdateOperationsInput | number
+    afterStock?: IntFieldUpdateOperationsInput | number
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProductCreateManyCategoryInput = {
     id?: string
     name: string
@@ -37874,9 +37919,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCategoryInput = {
@@ -37896,9 +37941,9 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     weight?: FloatFieldUpdateOperationsInput | number
     cartItems?: CartProductUncheckedUpdateManyWithoutProductNestedInput
+    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
     storeStock?: StoreProductUncheckedUpdateManyWithoutProductNestedInput
     trxProducts?: TransactionProductUncheckedUpdateManyWithoutProductNestedInput
-    discountProducts?: DiscountProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -37929,13 +37974,19 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
+  export type DiscountProductCreateManyProductInput = {
+    id?: string
+    discountId: string
+    createdAt?: Date | string
+  }
+
   export type StoreProductCreateManyProductInput = {
     storeId: string
     stock: number
-    minStock?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    minStock?: number | null
   }
 
   export type TransactionProductCreateManyProductInput = {
@@ -37943,17 +37994,11 @@ export namespace Prisma {
     transactionId: string
     quantity: number
     price: number
-    discount?: number
-    finalPrice: number
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
-  }
-
-  export type DiscountProductCreateManyProductInput = {
-    id?: string
-    discountId: string
-    createdAt?: Date | string
+    discount?: number
+    finalPrice: number
   }
 
   export type CartProductUpdateWithoutProductInput = {
@@ -37986,71 +38031,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type StoreProductUpdateWithoutProductInput = {
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
-  }
-
-  export type StoreProductUncheckedUpdateWithoutProductInput = {
-    storeId?: StringFieldUpdateOperationsInput | string
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
-  }
-
-  export type StoreProductUncheckedUpdateManyWithoutProductInput = {
-    storeId?: StringFieldUpdateOperationsInput | string
-    stock?: IntFieldUpdateOperationsInput | number
-    minStock?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type TransactionProductUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    transaction?: TransactionUpdateOneRequiredWithoutProductsNestedInput
-  }
-
-  export type TransactionProductUncheckedUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type TransactionProductUncheckedUpdateManyWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type DiscountProductUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38067,6 +38047,71 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     discountId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoreProductUpdateWithoutProductInput = {
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    stockJournal?: StockJournalUpdateManyWithoutStoreProductNestedInput
+    store?: StoreUpdateOneRequiredWithoutStoreStockNestedInput
+  }
+
+  export type StoreProductUncheckedUpdateWithoutProductInput = {
+    storeId?: StringFieldUpdateOperationsInput | string
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutStoreProductNestedInput
+  }
+
+  export type StoreProductUncheckedUpdateManyWithoutProductInput = {
+    storeId?: StringFieldUpdateOperationsInput | string
+    stock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    minStock?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type TransactionProductUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
+    transaction?: TransactionUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type TransactionProductUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TransactionProductUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type StockJournalCreateManyStoreProductInput = {
@@ -38120,285 +38165,285 @@ export namespace Prisma {
   export type TransactionCreateManyVoucherProductInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherDelivery?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
   }
 
   export type TransactionUpdateWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherDelivery?: VoucherDeliveryUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutVoucherProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherDelivery?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionCreateManyVoucherDeliveryInput = {
     id?: string
     userId: string
-    storeId: string
     status?: $Enums.OrderStatus
-    totalProductPrice: number
-    discountedProductPrice?: number
-    finalProductPrice: number
     shippingPrice: number
-    discountedShipping?: number
-    finalShippingPrice: number
     totalPrice: number
-    address: string
-    receiverName: string
     phoneNumber: string
-    provinceId: number
-    province: string
-    cityId: number
-    city: string
-    district: string
-    districtId: number
-    addressLabel: string
     codeVoucherProduct?: string | null
     paymentProof?: string | null
-    paymentMethod?: string | null
-    snapToken?: string | null
-    snapRedirectUrl?: string | null
-    paidAt?: Date | string | null
-    expiryAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+    address: string
+    city: string
+    cityId: number
+    discountedShipping?: number
+    finalShippingPrice: number
+    province: string
+    provinceId: number
+    storeId: string
+    expiryAt?: Date | string | null
+    paidAt?: Date | string | null
+    paymentMethod?: string | null
+    snapRedirectUrl?: string | null
+    snapToken?: string | null
+    district: string
+    districtId: number
+    discountedProductPrice?: number
+    finalProductPrice: number
+    totalProductPrice: number
+    receiverName: string
+    addressLabel: string
   }
 
   export type TransactionUpdateWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
+    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
     voucherProduct?: VoucherProductUpdateOneWithoutTrxNestedInput
+    store?: StoreUpdateOneRequiredWithoutTransactionNestedInput
     user?: UsersUpdateOneRequiredWithoutTransactionsNestedInput
     products?: TransactionProductUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUpdateManyWithoutTransactionNestedInput
-    discountUsageHistory?: DiscountUsageHistoryUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
-    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
     discountUsageHistory?: DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionNestedInput
+    stockJournal?: StockJournalUncheckedUpdateManyWithoutTransactionNestedInput
+    products?: TransactionProductUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TransactionUncheckedUpdateManyWithoutVoucherDeliveryInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    storeId?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    totalProductPrice?: IntFieldUpdateOperationsInput | number
-    discountedProductPrice?: IntFieldUpdateOperationsInput | number
-    finalProductPrice?: IntFieldUpdateOperationsInput | number
     shippingPrice?: IntFieldUpdateOperationsInput | number
-    discountedShipping?: IntFieldUpdateOperationsInput | number
-    finalShippingPrice?: IntFieldUpdateOperationsInput | number
     totalPrice?: IntFieldUpdateOperationsInput | number
-    address?: StringFieldUpdateOperationsInput | string
-    receiverName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    provinceId?: IntFieldUpdateOperationsInput | number
-    province?: StringFieldUpdateOperationsInput | string
-    cityId?: IntFieldUpdateOperationsInput | number
-    city?: StringFieldUpdateOperationsInput | string
-    district?: StringFieldUpdateOperationsInput | string
-    districtId?: IntFieldUpdateOperationsInput | number
-    addressLabel?: StringFieldUpdateOperationsInput | string
     codeVoucherProduct?: NullableStringFieldUpdateOperationsInput | string | null
     paymentProof?: NullableStringFieldUpdateOperationsInput | string | null
-    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
-    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
-    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    cityId?: IntFieldUpdateOperationsInput | number
+    discountedShipping?: IntFieldUpdateOperationsInput | number
+    finalShippingPrice?: IntFieldUpdateOperationsInput | number
+    province?: StringFieldUpdateOperationsInput | string
+    provinceId?: IntFieldUpdateOperationsInput | number
+    storeId?: StringFieldUpdateOperationsInput | string
+    expiryAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paidAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    snapRedirectUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    snapToken?: NullableStringFieldUpdateOperationsInput | string | null
+    district?: StringFieldUpdateOperationsInput | string
+    districtId?: IntFieldUpdateOperationsInput | number
+    discountedProductPrice?: IntFieldUpdateOperationsInput | number
+    finalProductPrice?: IntFieldUpdateOperationsInput | number
+    totalProductPrice?: IntFieldUpdateOperationsInput | number
+    receiverName?: StringFieldUpdateOperationsInput | string
+    addressLabel?: StringFieldUpdateOperationsInput | string
   }
 
   export type CartProductCreateManyCartInput = {
@@ -38441,16 +38486,15 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type TransactionProductCreateManyTransactionInput = {
+  export type DiscountUsageHistoryCreateManyTransactionInput = {
     id?: string
-    productId: string
-    quantity: number
-    price: number
-    discount?: number
-    finalPrice: number
+    discountId: string
+    userId?: string | null
+    adminId?: string | null
+    usedAt?: Date | string
+    discountValue: number
+    orderTotal: number
     createdAt?: Date | string
-    updatedAt?: Date | string
-    deletedAt?: Date | string | null
   }
 
   export type StockJournalCreateManyTransactionInput = {
@@ -38466,51 +38510,49 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type DiscountUsageHistoryCreateManyTransactionInput = {
+  export type TransactionProductCreateManyTransactionInput = {
     id?: string
-    discountId: string
-    userId?: string | null
-    adminId?: string | null
-    usedAt?: Date | string
-    discountValue: number
-    orderTotal: number
+    productId: string
+    quantity: number
+    price: number
     createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    discount?: number
+    finalPrice: number
   }
 
-  export type TransactionProductUpdateWithoutTransactionInput = {
+  export type DiscountUsageHistoryUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discountValue?: IntFieldUpdateOperationsInput | number
+    orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    product?: ProductUpdateOneRequiredWithoutTrxProductsNestedInput
+    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
+    discount?: DiscountUpdateOneRequiredWithoutUsageHistoryNestedInput
+    user?: UsersUpdateOneWithoutDiscountUsageNestedInput
   }
 
-  export type TransactionProductUncheckedUpdateWithoutTransactionInput = {
+  export type DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
+    discountId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discountValue?: IntFieldUpdateOperationsInput | number
+    orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type TransactionProductUncheckedUpdateManyWithoutTransactionInput = {
+  export type DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    finalPrice?: IntFieldUpdateOperationsInput | number
+    discountId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
+    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    discountValue?: IntFieldUpdateOperationsInput | number
+    orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StockJournalUpdateWithoutTransactionInput = {
@@ -38551,37 +38593,40 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DiscountUsageHistoryUpdateWithoutTransactionInput = {
+  export type TransactionProductUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    discountValue?: IntFieldUpdateOperationsInput | number
-    orderTotal?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    discount?: DiscountUpdateOneRequiredWithoutUsageHistoryNestedInput
-    user?: UsersUpdateOneWithoutDiscountUsageNestedInput
-    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
+    product?: ProductUpdateOneRequiredWithoutTrxProductsNestedInput
   }
 
-  export type DiscountUsageHistoryUncheckedUpdateWithoutTransactionInput = {
+  export type TransactionProductUncheckedUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    discountId?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
-    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    discountValue?: IntFieldUpdateOperationsInput | number
-    orderTotal?: IntFieldUpdateOperationsInput | number
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
-  export type DiscountUsageHistoryUncheckedUpdateManyWithoutTransactionInput = {
+  export type TransactionProductUncheckedUpdateManyWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
-    discountId?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
-    usedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    discountValue?: IntFieldUpdateOperationsInput | number
-    orderTotal?: IntFieldUpdateOperationsInput | number
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    discount?: IntFieldUpdateOperationsInput | number
+    finalPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type DiscountProductCreateManyDiscountInput = {
@@ -38625,9 +38670,9 @@ export namespace Prisma {
     discountValue?: IntFieldUpdateOperationsInput | number
     orderTotal?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
     transaction?: TransactionUpdateOneWithoutDiscountUsageHistoryNestedInput
     user?: UsersUpdateOneWithoutDiscountUsageNestedInput
-    appliedBy?: AdminUpdateOneWithoutAppliedDiscountsNestedInput
   }
 
   export type DiscountUsageHistoryUncheckedUpdateWithoutDiscountInput = {

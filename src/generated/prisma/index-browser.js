@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.16.3
- * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
+ * Prisma Client JS version: 6.16.2
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.16.3",
-  engine: "bb420e667c1820a8c05a38023385f6cc7ef8e83a"
+  client: "6.16.2",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -125,45 +125,42 @@ exports.Prisma.UsersScalarFieldEnum = {
   name: 'name',
   email: 'email',
   phoneNumber: 'phoneNumber',
-  provider: 'provider',
-  providerId: 'providerId',
   password: 'password',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  provider: 'provider',
+  providerId: 'providerId',
+  profilePicture: 'profilePicture'
 };
 
 exports.Prisma.UserAddressScalarFieldEnum = {
   id: 'id',
-  addressLabel: 'addressLabel',
   userId: 'userId',
-  receiverName: 'receiverName',
-  receiverPhoneNumber: 'receiverPhoneNumber',
-  addressDisplayName: 'addressDisplayName',
-  addressDetails: 'addressDetails',
-  lat: 'lat',
-  lon: 'lon',
-  isDefault: 'isDefault',
-  provinceId: 'provinceId',
   province: 'province',
-  cityId: 'cityId',
   city: 'city',
-  district: 'district',
-  districtId: 'districtId',
+  lat: 'lat',
+  isDefault: 'isDefault',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  cityId: 'cityId',
+  provinceId: 'provinceId',
+  addressDetails: 'addressDetails',
+  addressDisplayName: 'addressDisplayName',
+  addressLabel: 'addressLabel',
+  lon: 'lon',
+  receiverName: 'receiverName',
+  receiverPhoneNumber: 'receiverPhoneNumber',
+  district: 'district',
+  districtId: 'districtId'
 };
 
 exports.Prisma.StoreScalarFieldEnum = {
   id: 'id',
-  provinceId: 'provinceId',
   province: 'province',
-  cityId: 'cityId',
   city: 'city',
-  district: 'district',
-  districtId: 'districtId',
   address: 'address',
   name: 'name',
   lat: 'lat',
@@ -171,7 +168,11 @@ exports.Prisma.StoreScalarFieldEnum = {
   radiusKm: 'radiusKm',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  cityId: 'cityId',
+  provinceId: 'provinceId',
+  district: 'district',
+  districtId: 'districtId'
 };
 
 exports.Prisma.AdminScalarFieldEnum = {
@@ -189,13 +190,13 @@ exports.Prisma.AdminScalarFieldEnum = {
 exports.Prisma.ProductCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  slug: 'slug',
   description: 'description',
-  icon: 'icon',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  icon: 'icon',
+  slug: 'slug'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -221,10 +222,10 @@ exports.Prisma.StoreProductScalarFieldEnum = {
   storeId: 'storeId',
   productId: 'productId',
   stock: 'stock',
-  minStock: 'minStock',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  minStock: 'minStock'
 };
 
 exports.Prisma.StockJournalScalarFieldEnum = {
@@ -285,36 +286,36 @@ exports.Prisma.CartProductScalarFieldEnum = {
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  storeId: 'storeId',
   status: 'status',
-  totalProductPrice: 'totalProductPrice',
-  discountedProductPrice: 'discountedProductPrice',
-  finalProductPrice: 'finalProductPrice',
   shippingPrice: 'shippingPrice',
-  discountedShipping: 'discountedShipping',
-  finalShippingPrice: 'finalShippingPrice',
   totalPrice: 'totalPrice',
-  address: 'address',
-  receiverName: 'receiverName',
   phoneNumber: 'phoneNumber',
-  provinceId: 'provinceId',
-  province: 'province',
-  cityId: 'cityId',
-  city: 'city',
-  district: 'district',
-  districtId: 'districtId',
-  addressLabel: 'addressLabel',
   codeVoucherProduct: 'codeVoucherProduct',
   codeVoucherDelivery: 'codeVoucherDelivery',
   paymentProof: 'paymentProof',
-  paymentMethod: 'paymentMethod',
-  snapToken: 'snapToken',
-  snapRedirectUrl: 'snapRedirectUrl',
-  paidAt: 'paidAt',
-  expiryAt: 'expiryAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  address: 'address',
+  city: 'city',
+  cityId: 'cityId',
+  discountedShipping: 'discountedShipping',
+  finalShippingPrice: 'finalShippingPrice',
+  province: 'province',
+  provinceId: 'provinceId',
+  storeId: 'storeId',
+  expiryAt: 'expiryAt',
+  paidAt: 'paidAt',
+  paymentMethod: 'paymentMethod',
+  snapRedirectUrl: 'snapRedirectUrl',
+  snapToken: 'snapToken',
+  district: 'district',
+  districtId: 'districtId',
+  discountedProductPrice: 'discountedProductPrice',
+  finalProductPrice: 'finalProductPrice',
+  totalProductPrice: 'totalProductPrice',
+  receiverName: 'receiverName',
+  addressLabel: 'addressLabel'
 };
 
 exports.Prisma.TransactionProductScalarFieldEnum = {
@@ -323,11 +324,11 @@ exports.Prisma.TransactionProductScalarFieldEnum = {
   productId: 'productId',
   quantity: 'quantity',
   price: 'price',
-  discount: 'discount',
-  finalPrice: 'finalPrice',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  discount: 'discount',
+  finalPrice: 'finalPrice'
 };
 
 exports.Prisma.DiscountScalarFieldEnum = {
