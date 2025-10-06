@@ -97,6 +97,13 @@ export class ReportService {
 			whereConditions.storeId = validatedStoreId;
 		}
 
+		console.log('📊 Sales Report Query:', {
+			storeId: validatedStoreId,
+			startDate: startDate.toISOString(),
+			endDate: endDate.toISOString(),
+			period,
+		});
+
 		// Get sales data
 		const [totalSales, totalTransactions, topProducts, dailySales] =
 			await prisma.$transaction([
@@ -135,30 +142,33 @@ export class ReportService {
 				validatedStoreId
 					? prisma.$queryRaw`
 					SELECT 
-						DATE(t."createdAt") as date,
-						COUNT(t.id)::integer as transaction_count,
-						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
+						TO_CHAR(DATE(t."createdAt"), 'YYYY-MM-DD') as date,
+						COUNT(t.id)::integer as "transactionCount",
+						COALESCE(SUM(t."totalPrice"), 0)::integer as "totalSales"
 					FROM "FreshNear"."Transaction" t
-					WHERE t."createdAt" >= CURRENT_DATE - INTERVAL '7 days'
-						AND t."createdAt" < CURRENT_DATE + INTERVAL '1 day'
+					WHERE t."createdAt" >= (CURRENT_DATE - INTERVAL '7 days')
+						AND t."createdAt" <= (CURRENT_DATE + INTERVAL '1 day')
 						AND t.status IN ('completed', 'shipped')
 						AND t."storeId" = ${validatedStoreId}
 					GROUP BY DATE(t."createdAt")
-					ORDER BY date ASC
+					ORDER BY DATE(t."createdAt") ASC
 				`
 					: prisma.$queryRaw`
 					SELECT 
-						DATE(t."createdAt") as date,
-						COUNT(t.id)::integer as transaction_count,
-						COALESCE(SUM(t."totalPrice"), 0)::integer as total_sales
+						TO_CHAR(DATE(t."createdAt"), 'YYYY-MM-DD') as date,
+						COUNT(t.id)::integer as "transactionCount",
+						COALESCE(SUM(t."totalPrice"), 0)::integer as "totalSales"
 					FROM "FreshNear"."Transaction" t
-					WHERE t."createdAt" >= CURRENT_DATE - INTERVAL '7 days'
-						AND t."createdAt" < CURRENT_DATE + INTERVAL '1 day'
+					WHERE t."createdAt" >= (CURRENT_DATE - INTERVAL '7 days')
+						AND t."createdAt" <= (CURRENT_DATE + INTERVAL '1 day')
 						AND t.status IN ('completed', 'shipped')
 					GROUP BY DATE(t."createdAt")
-					ORDER BY date ASC
+					ORDER BY DATE(t."createdAt") ASC
 				`,
 			]); // Get product details for top products
+
+		console.log('📈 Daily Sales Result:', dailySales);
+
 		const productIds = topProducts.map((p) => p.productId);
 		const productDetails = await prisma.product.findMany({
 			where: { id: { in: productIds } },
