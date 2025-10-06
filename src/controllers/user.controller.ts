@@ -60,7 +60,11 @@ export const googleAuthCallbackUserController = catchAsync(async (req, res) => {
     const result = await googleAuthCallbackUserService(googleProfile);
 
     // Redirect back to FE with token
+    const baseUrl = process.env.NODE_ENV === 'production'
+        ? 'https://freshnear.store'
+        : 'http://localhost:3000';
+        
     res.redirect(
-        `http://localhost:3000/login-success?token=${result.accessToken}&id=${result.id}&name=${encodeURIComponent(result.name)}&email=${encodeURIComponent(result.email)}`
+        `${baseUrl}/login-success?token=${result.accessToken}&id=${result.id}&name=${encodeURIComponent(result.name)}&email=${encodeURIComponent(result.email)}`
     );
 });

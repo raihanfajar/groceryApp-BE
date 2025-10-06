@@ -79,7 +79,7 @@ export const addStoreService = async (body: Omit<Store, "id" | "createdAt" | "up
     const existingStore = await prisma.store.findFirst({ where: { name: name.toUpperCase() } });
     if (existingStore) throw new ApiError(409, "Store name already in use");
 
-    const rgcResponse = await rgcService(String(lat), String(lng)).then((res) => res);
+    const rgcResponse = await rgcService(String(lat), String(lng)) as { display_name: string };
     console.log(rgcResponse);
 
     const newStore = await prisma.store.create({

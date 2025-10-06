@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 import fs from "fs";
 import Handlebars from "handlebars";
-import { Transaction, Users } from "../generated/prisma";
 
 export const transporter = nodemailer.createTransport({
 	service: "gmail",
@@ -25,7 +24,9 @@ export const getVerifyUserEmailTemplate = (
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
-		linkUrl: `${process.env.FRONTEND_VERIFY_EMAIL_USER_URL}/${verifyUserEmailToken}`,
+		linkUrl: `${process.env.NODE_ENV === 'production' 
+			? 'https://freshnear.store/verify-email'
+			: 'http://localhost:3000/verify-email'}/${verifyUserEmailToken}`,
 	});
 
 	return resultTemplateHtml;
@@ -42,7 +43,9 @@ export const getTemplateUser = (
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
-		linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_USER_URL}/${resetUserPasswordToken}`,
+		linkUrl: `${process.env.NODE_ENV === 'production'
+			? 'https://freshnear.store/reset-password'
+			: 'http://localhost:3000/reset-password'}/${resetUserPasswordToken}`,
 	});
 
 	return resultTemplateHtml;
@@ -60,7 +63,9 @@ export const getTemplateOrganizer = (
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name: userName,
-		linkUrl: `${process.env.FRONTEND_RESET_PASSWORD_ORGANIZER_URL}/${resetToken}`,
+		linkUrl: `${process.env.NODE_ENV === 'production'
+			? 'https://freshnear.store/organizer/reset-password'
+			: 'http://localhost:3000/organizer/reset-password'}/${resetToken}`,
 	});
 
 	return resultTemplateHtml;

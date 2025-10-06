@@ -46,7 +46,7 @@ interface IaddNewUserAddress {
 export const addNewUserAddressService = async (body: IaddNewUserAddress, userId: string) => {
     const { addressLabel, receiverName, receiverPhoneNumber, addressDetails, lat, lon, isDefault, provinceId, cityId, districtId, province, city, district } = body;
 
-    const rgcResponse = await rgcService(lat.toString(), lon.toString()).then((res) => res);
+    const rgcResponse = await rgcService(lat.toString(), lon.toString()) as { display_name: string };
 
     // !Extra validation
     const existingAddress = await prisma.userAddress.findFirst({ where: { userId, addressLabel: addressLabel.toUpperCase() } });
