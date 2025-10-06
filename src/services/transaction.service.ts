@@ -842,24 +842,42 @@ export class TransactionService {
 			}
 		}
 
-		const [transactions, total] = await Promise.all([
-			prisma.transaction.findMany({
-				where: whereCondition,
-				include: {
-					products: {
-						include: {
-							product: true,
+	const [transactions, total] = await Promise.all([
+		prisma.transaction.findMany({
+			where: whereCondition,
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						email: true,
+						profilePicture: true,
+					},
+				},
+				store: {
+					select: {
+						id: true,
+						name: true,
+					},
+				},
+				products: {
+					include: {
+						product: {
+							select: {
+								id: true,
+								name: true,
+								picture1: true,
+							},
 						},
 					},
 				},
-				orderBy: { createdAt: "desc" },
-				skip,
-				take: safePageSize,
-			}),
-			prisma.transaction.count({ where: whereCondition }),
-		]);
-
-		const totalPages = Math.ceil(total / safePageSize);
+			},
+			orderBy: { createdAt: "desc" },
+			skip,
+			take: safePageSize,
+		}),
+		prisma.transaction.count({ where: whereCondition }),
+	]);		const totalPages = Math.ceil(total / safePageSize);
 
 		return {
 			data: transactions,
