@@ -97,7 +97,10 @@ export class TransactionService {
 			throw new ApiError(500, `RajaOngkir API request failed`);
 		}
 
-		const jsonResponse = await response.json();
+		const jsonResponse = await response.json() as {
+            meta?: { status: string; message?: string };
+            data?: { cost: number }[];
+        };
 
 		if (jsonResponse.meta?.status !== "success") {
 			throw new ApiError(

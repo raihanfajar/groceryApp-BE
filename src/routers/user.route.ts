@@ -23,7 +23,12 @@ userRouter.get(
 
 userRouter.get(
     "/google-auth/callback",
-    passport.authenticate("google", { session: false, failureRedirect: "http://localhost:3000/user-login" }),
+    passport.authenticate("google", { 
+        session: false, 
+        failureRedirect: process.env.NODE_ENV === 'production' 
+            ? "https://freshnear.store/user-login" 
+            : "http://localhost:3000/user-login"
+    }),
     googleAuthCallbackUserController);
 
 export default userRouter;

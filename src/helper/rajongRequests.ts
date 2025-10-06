@@ -24,9 +24,9 @@ export const getProvinceIdFromRajaOngkir = async () => {
         },
     });
     if (!res.ok) throw new Error("Failed to fetch provinces");
-    const { data } = await res.json();
-    provincesCache = { ts: Date.now(), data };
-    return data;
+    const response = await res.json() as { data: any[] };
+    provincesCache = { ts: Date.now(), data: response.data };
+    return response.data;
 };
 
 export const getCityIdByProvinceIdFromRajaOngkir = async (provinceId: number) => {
@@ -40,9 +40,9 @@ export const getCityIdByProvinceIdFromRajaOngkir = async (provinceId: number) =>
         },
     });
     if (!res.ok) throw new Error("Failed to fetch cities");
-    const { data } = await res.json();
-    citiesCache.set(provinceId, { ts: Date.now(), data });
-    return data;
+    const response = await res.json() as { data: any[] };
+    citiesCache.set(provinceId, { ts: Date.now(), data: response.data });
+    return response.data;
 };
 
 export const getDistrictIdByCityIdFromRajaOngkir = async (cityId: number) => {
@@ -56,7 +56,7 @@ export const getDistrictIdByCityIdFromRajaOngkir = async (cityId: number) => {
         },
     });
     if (!res.ok) throw new Error("Failed to fetch districts");
-    const { data } = await res.json();
-    districtsCache.set(cityId, { ts: Date.now(), data });
-    return data;
+    const response = await res.json() as { data: any[] };
+    districtsCache.set(cityId, { ts: Date.now(), data: response.data });
+    return response.data;
 };
