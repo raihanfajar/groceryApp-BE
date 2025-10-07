@@ -136,6 +136,8 @@ export class InventoryController {
 				type,
 				dateFrom,
 				dateTo,
+				search,
+				categoryId,
 				page = 1,
 				limit = 20,
 			} = req.query;
@@ -147,6 +149,8 @@ export class InventoryController {
 			if (type) filters.type = type as StockMovement;
 			if (dateFrom) filters.dateFrom = new Date(dateFrom as string);
 			if (dateTo) filters.dateTo = new Date(dateTo as string);
+			if (search) filters.search = search as string;
+			if (categoryId) filters.categoryId = categoryId as string;
 
 			// For store admins, only show their store's journal
 			if (!req.user!.isSuper) {
