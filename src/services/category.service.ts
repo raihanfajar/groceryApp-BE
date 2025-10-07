@@ -19,6 +19,11 @@ export interface UpdateCategoryInput {
 	isActive?: boolean;
 }
 
+export interface CategoryFilters {
+	search?: string;
+	isActive?: boolean;
+}
+
 export class CategoryService {
 	/**
 	 * Get all active categories
@@ -52,12 +57,40 @@ export class CategoryService {
 
 	/**
 	 * Get all categories for admin (including inactive)
+	 * Supports filtering by search and isActive
 	 */
-	static async getAllCategoriesForAdmin(): Promise<ProductCategoryWithSlug[]> {
+	static async getAllCategoriesForAdmin(
+		filters?: CategoryFilters
+	): Promise<ProductCategoryWithSlug[]> {
+		const whereClause: any = {
+			deletedAt: null,
+		};
+
+		// Apply search filter
+		if (filters?.search && filters.search.trim() !== '') {
+			whereClause.OR = [
+				{
+					name: {
+						contains: filters.search,
+						mode: 'insensitive',
+					},
+				},
+				{
+					description: {
+						contains: filters.search,
+						mode: 'insensitive',
+					},
+				},
+			];
+		}
+
+		// Apply isActive filter
+		if (filters?.isActive !== undefined) {
+			whereClause.isActive = filters.isActive;
+		}
+
 		const categories = await prisma.productCategory.findMany({
-			where: {
-				deletedAt: null,
-			},
+			where: whereClause,
 			include: {
 				_count: {
 					select: {
