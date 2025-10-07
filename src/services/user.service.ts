@@ -5,6 +5,7 @@ import { comparePassword, hashPassword } from "../lib/bcrypt";
 import { generateToken } from "../lib/jwt";
 import { getTemplateUser, transporter } from "../lib/nodemailer";
 import { ApiError } from "../utils/ApiError";
+import CloudinaryService from "../utils/cloudinary";
 
 export const registerUserService = async (body: Pick<Users, "name" | "email" | "password" | "phoneNumber">) => {
     const { name, email, password, phoneNumber } = body;
@@ -188,6 +189,40 @@ export const updateUserProfileInfoService = async (
     // !Return safe user and the flag
     const { password: _, ...safe } = updatedUser;
     return { user: safe, emailChanged };
+};
+
+// src/services/user.service.ts
+export const uploadAvatarService = async (
+    userId: string,
+    file: Express.Multer.File
+): Promise<string> => {
+    // !Extra validation
+    const user = await prisma.users.findUnique({
+        where: { id: userId },
+        select: { profilePicture: true },
+    });
+    if (!user) throw new ApiError(404, 'User not found');
+
+    //! Upload new avatar
+    const { url, public_id } = await CloudinaryService.uploadImage(
+        file.buffer,
+        'avatars'
+    );
+
+    //! Delete old avatar (if any)
+    if (user.profilePicture) {
+        const oldId = CloudinaryService.extractPublicId(user.profilePicture);
+        if (oldId) await CloudinaryService.deleteImage(oldId);
+    }
+
+    //! Save new url
+    await prisma.users.update({
+        where: { id: userId },
+        data: { profilePicture: url },
+    });
+
+    // !Return
+    return url;
 };
 
 export const googleAuthUserService = () => {
