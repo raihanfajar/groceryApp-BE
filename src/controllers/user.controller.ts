@@ -58,7 +58,7 @@ export const uploadAvatarController = catchAsync(async (req: MainAuthenticatedRe
 })
 
 export const googleAuthUserController = catchAsync(async (_req, _res) => {
-    // mau apa ini
+    // i suppose this is no need yea? because masuk kesini aja nggak
 });
 
 export const googleAuthCallbackUserController = catchAsync(async (req, res) => {
