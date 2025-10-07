@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { changePasswordUserService, forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, verifyUserEmailService } from "../services/user.service";
+import { changePasswordUserService, forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, uploadAvatarService, verifyUserEmailService } from "../services/user.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const registerUserController = catchAsync(async (req: Request, res: Response) => {
@@ -51,6 +51,12 @@ export const updateUserProfileInfoController = catchAsync(async (req: MainAuthen
     res.status(200).json({ status: "success", message, data: result.user, emailChanged: result.emailChanged });
 })
 
+// !UPLOAD AVATAR HERE BRO
+export const uploadAvatarController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    const newUrl = await uploadAvatarService(req.payload!.userId, req.file!);
+    res.status(200).json({ status: "success", message: "Avatar uploaded successfully", data: newUrl });
+})
+
 export const googleAuthUserController = catchAsync(async (_req, _res) => {
     // mau apa ini
 });
@@ -63,7 +69,7 @@ export const googleAuthCallbackUserController = catchAsync(async (req, res) => {
     const baseUrl = process.env.NODE_ENV === 'production'
         ? 'https://freshnear.store'
         : 'http://localhost:3000';
-        
+
     res.redirect(
         `${baseUrl}/login-success?token=${result.accessToken}&id=${result.id}&name=${encodeURIComponent(result.name)}&email=${encodeURIComponent(result.email)}`
     );
