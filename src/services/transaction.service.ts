@@ -1,20 +1,20 @@
-import { addDays, addHours, format } from 'date-fns';
-import { Prisma, OrderStatus } from '../generated/prisma';
-import { prisma } from '../lib/prisma';
-import { ApiError } from '../utils/ApiError';
-import { cloudinaryUpload } from '../utils/cloudinary';
-import { CartProductWithDetails } from '../types/cartProduct';
-import { coreApi, snap } from '../lib/midtrans';
+import { addDays, addHours, format } from "date-fns";
+import { Prisma, OrderStatus } from "../generated/prisma";
+import { prisma } from "../lib/prisma";
+import { ApiError } from "../utils/ApiError";
+import { cloudinaryUpload } from "../utils/cloudinary";
+import { CartProductWithDetails } from "../types/cartProduct";
+import { coreApi, snap } from "../lib/midtrans";
 import {
 	MidtransFraudStatus,
 	MidtransNotificationPayload,
 	MidtransTransactionStatus,
-} from '../types/midTrans';
+} from "../types/midTrans";
 import {
 	sendOrderConfirmationEmail,
 	sendOrderShippedEmail,
 	sendPaymentConfirmedEmail,
-} from '../lib/transactionMailer';
+} from "../lib/transactionMailer";
 
 type CalculatedProductDetail = {
 	cartProductId: string;
@@ -35,7 +35,7 @@ export class TransactionService {
 		const address = await prisma.userAddress.findMany({
 			where: { userId: userId },
 		});
-		if (!address) throw new ApiError(404, 'User Address not found');
+		if (!address) throw new ApiError(404, "User Address not found");
 		return address;
 	}
 
@@ -50,19 +50,19 @@ export class TransactionService {
 			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
 		]);
 
-		if (!cart) throw new ApiError(404, 'Cart not found');
-		if (!store) throw new ApiError(404, 'Store not found');
-		if (!userAddress) throw new ApiError(404, 'User address not found');
+		if (!cart) throw new ApiError(404, "Cart not found");
+		if (!store) throw new ApiError(404, "Store not found");
+		if (!userAddress) throw new ApiError(404, "User address not found");
 
 		const cartItems = await prisma.cartProduct.findMany({
 			where: { cartId: cart.id },
 			include: { product: true },
 		});
-		if (cartItems.length === 0) throw new ApiError(400, 'Cart is empty');
+		if (cartItems.length === 0) throw new ApiError(400, "Cart is empty");
 
 		const { inStockItems } = await this._filterStock(cartItems, storeId);
 		if (inStockItems.length === 0) {
-			throw new ApiError(400, 'All products in the cart are out of stock.');
+			throw new ApiError(400, "All products in the cart are out of stock.");
 		}
 
 		let totalWeight = 0;
@@ -78,16 +78,16 @@ export class TransactionService {
 			origin: userAddress.districtId.toString(),
 			destination: store.districtId.toString(),
 			weight: totalWeight.toString(),
-			courier: 'jne:sicepat:jnt',
+			courier: "jne:sicepat:jnt",
 		});
 
 		const response = await fetch(
-			'https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost',
+			"https://rajaongkir.komerce.id/api/v1/calculate/district/domestic-cost",
 			{
-				method: 'POST',
+				method: "POST",
 				headers: {
 					key: process.env.RAJAONGKIR_API_KEY!,
-					'content-type': 'application/x-www-form-urlencoded',
+					"content-type": "application/x-www-form-urlencoded",
 				},
 				body: params,
 			}
@@ -102,17 +102,17 @@ export class TransactionService {
 			data?: { cost: number }[];
 		};
 
-		if (jsonResponse.meta?.status !== 'success') {
+		if (jsonResponse.meta?.status !== "success") {
 			throw new ApiError(
 				400,
-				jsonResponse.meta?.message || 'RajaOngkir returned an error.'
+				jsonResponse.meta?.message || "RajaOngkir returned an error."
 			);
 		}
 
 		const shippingOptions = jsonResponse.data;
 
 		if (!shippingOptions || shippingOptions.length === 0) {
-			throw new ApiError(404, 'No shipping options found.');
+			throw new ApiError(404, "No shipping options found.");
 		}
 
 		let lowestPrice = Infinity;
@@ -123,7 +123,7 @@ export class TransactionService {
 		}
 
 		if (lowestPrice === Infinity) {
-			throw new ApiError(404, 'Shipping cost could not be determined.');
+			throw new ApiError(404, "Shipping cost could not be determined.");
 		}
 
 		return { price: lowestPrice };
@@ -134,7 +134,7 @@ export class TransactionService {
 		userAddressId: string,
 		storeId: string,
 		shippingPrice: number,
-		paymentMethod: 'manual_transfer' | 'midtrans',
+		paymentMethod: "manual_transfer" | "midtrans",
 		codeVoucherProduct?: string,
 		codeVoucherDelivery?: string
 	) {
@@ -143,15 +143,15 @@ export class TransactionService {
 			prisma.users.findUnique({ where: { id: userId } }),
 			prisma.userAddress.findUnique({ where: { id: userAddressId } }),
 		]);
-		if (!cart) throw new ApiError(404, 'Cart not found');
-		if (!user) throw new ApiError(404, 'User not found');
-		if (!userAddress) throw new ApiError(404, 'User address not found');
+		if (!cart) throw new ApiError(404, "Cart not found");
+		if (!user) throw new ApiError(404, "User not found");
+		if (!userAddress) throw new ApiError(404, "User address not found");
 
 		const cartProducts = await prisma.cartProduct.findMany({
 			where: { cartId: cart.id },
 			include: { product: true },
 		});
-		if (cartProducts.length === 0) throw new ApiError(400, 'Cart is empty');
+		if (cartProducts.length === 0) throw new ApiError(400, "Cart is empty");
 
 		let validVoucherProduct = null;
 		if (codeVoucherProduct) {
@@ -163,10 +163,10 @@ export class TransactionService {
 				validVoucherProduct.quota <= 0 ||
 				new Date() > validVoucherProduct.expiredDate
 			) {
-				throw new ApiError(400, 'Product voucher is not valid.');
+				throw new ApiError(400, "Product voucher is not valid.");
 			}
 		}
-		if (!paymentMethod) throw new ApiError(400, 'Payment method is required.');
+		if (!paymentMethod) throw new ApiError(400, "Payment method is required.");
 		let validVoucherDelivery = null;
 		if (codeVoucherDelivery) {
 			validVoucherDelivery = await prisma.voucherDelivery.findUnique({
@@ -177,7 +177,7 @@ export class TransactionService {
 				validVoucherDelivery.quota <= 0 ||
 				new Date() > validVoucherDelivery.expiredDate
 			) {
-				throw new ApiError(400, 'Delivery voucher is not valid.');
+				throw new ApiError(400, "Delivery voucher is not valid.");
 			}
 		}
 
@@ -186,7 +186,7 @@ export class TransactionService {
 			storeId
 		);
 		if (inStockItems.length === 0) {
-			throw new ApiError(400, 'All products in the cart are out of stock.');
+			throw new ApiError(400, "All products in the cart are out of stock.");
 		}
 
 		const transactionResult = await prisma.$transaction(async (tx) => {
@@ -240,15 +240,15 @@ export class TransactionService {
 					district: userAddress.district,
 					districtId: userAddress.districtId,
 					addressLabel: userAddress.addressLabel,
-					status: 'waiting_payment',
+					status: "waiting_payment",
 					expiryAt: addHours(new Date(), 2),
 					codeVoucherProduct,
 					codeVoucherDelivery,
 				},
 			});
 
-			if (paymentMethod === 'midtrans') {
-				const startTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss Z');
+			if (paymentMethod === "midtrans") {
+				const startTime = format(new Date(), "yyyy-MM-dd HH:mm:ss xx");
 
 				const finishRedirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transaction/${newTransaction.id}`;
 
@@ -264,7 +264,7 @@ export class TransactionService {
 					},
 					expiry: {
 						start_time: startTime,
-						unit: 'hours',
+						unit: "hours",
 						duration: 2,
 					},
 					callbacks: {
@@ -390,7 +390,7 @@ export class TransactionService {
 
 		const discountIds = potentialDiscounts.map((d) => d.id);
 		const userUsageCounts = await tx.discountUsageHistory.groupBy({
-			by: ['discountId'],
+			by: ["discountId"],
 			where: { userId: userId, discountId: { in: discountIds } },
 			_count: { id: true },
 		});
@@ -433,7 +433,7 @@ export class TransactionService {
 				let currentDiscountAmount = 0;
 				if (isMinimumPurchaseMet && isUsageLimitOk) {
 					if (
-						discountForProduct.type === 'BOGO' &&
+						discountForProduct.type === "BOGO" &&
 						discountForProduct.bogoConfig
 					) {
 						const totalQuantityForProduct =
@@ -455,7 +455,7 @@ export class TransactionService {
 								(itemPrice * freeItemsCount) / totalQuantityForProduct;
 							currentDiscountAmount = discountPerUnit * item.quantity;
 						}
-					} else if (discountForProduct.valueType === 'PERCENTAGE') {
+					} else if (discountForProduct.valueType === "PERCENTAGE") {
 						currentDiscountAmount = Math.floor(
 							itemPrice * (discountForProduct.value / 100)
 						);
@@ -465,7 +465,7 @@ export class TransactionService {
 								discountForProduct.maxDiscountAmount
 							);
 						}
-					} else if (discountForProduct.valueType === 'NOMINAL') {
+					} else if (discountForProduct.valueType === "NOMINAL") {
 						currentDiscountAmount = discountForProduct.value;
 					}
 				}
@@ -502,7 +502,7 @@ export class TransactionService {
 			const fraudStatus = (statusResponse.fraud_status ??
 				null) as MidtransFraudStatus | null;
 			const grossAmount = Math.round(
-				parseFloat(statusResponse.gross_amount || '0')
+				parseFloat(statusResponse.gross_amount || "0")
 			);
 
 			const trx = await prisma.transaction.findUnique({
@@ -512,8 +512,8 @@ export class TransactionService {
 
 			if (
 				!trx ||
-				trx.status === 'completed' ||
-				trx.status === 'cancelled' ||
+				trx.status === "completed" ||
+				trx.status === "cancelled" ||
 				trx.totalPrice !== grossAmount
 			) {
 				return;
@@ -521,22 +521,22 @@ export class TransactionService {
 
 			let newStatus: OrderStatus | null = null;
 			switch (transactionStatus) {
-				case 'capture':
-					if (fraudStatus === 'accept') newStatus = OrderStatus.on_process;
-					else if (fraudStatus === 'challenge')
+				case "capture":
+					if (fraudStatus === "accept") newStatus = OrderStatus.on_process;
+					else if (fraudStatus === "challenge")
 						newStatus = OrderStatus.waiting_confirmation;
-					else if (fraudStatus === 'deny') newStatus = OrderStatus.cancelled;
+					else if (fraudStatus === "deny") newStatus = OrderStatus.cancelled;
 					break;
-				case 'settlement':
+				case "settlement":
 					newStatus = OrderStatus.on_process;
 					break;
-				case 'pending':
+				case "pending":
 					newStatus = OrderStatus.waiting_payment;
 					break;
-				case 'deny':
-				case 'cancel':
-				case 'expire':
-				case 'failure':
+				case "deny":
+				case "cancel":
+				case "expire":
+				case "failure":
 					newStatus = OrderStatus.cancelled;
 					break;
 			}
@@ -567,7 +567,7 @@ export class TransactionService {
 
 			return;
 		} catch (err: any) {
-			throw new ApiError(400, err.message || 'Invalid Midtrans notification');
+			throw new ApiError(400, err.message || "Invalid Midtrans notification");
 		}
 	}
 
@@ -583,22 +583,22 @@ export class TransactionService {
 					userId: userId,
 				},
 			});
-			if (!transaction) throw new ApiError(404, 'Transaction not found');
-			if (!transaction || transaction.status !== 'waiting_payment') {
+			if (!transaction) throw new ApiError(404, "Transaction not found");
+			if (!transaction || transaction.status !== "waiting_payment") {
 				throw new Error(
-					'Transaction must be ont waiting payment status to upload payment proof.'
+					"Transaction must be ont waiting payment status to upload payment proof."
 				);
 			}
 
 			const uploadedFile = await cloudinaryUpload(file.buffer);
 
 			if (!uploadedFile || !uploadedFile.secure_url) {
-				throw new Error('File upload to Cloudinary failed.');
+				throw new Error("File upload to Cloudinary failed.");
 			}
 			const updatedTransaction = await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'waiting_confirmation',
+					status: "waiting_confirmation",
 					paymentProof: uploadedFile.url,
 					expiryAt: addDays(new Date(), 2),
 				},
@@ -659,7 +659,7 @@ export class TransactionService {
 				include: {
 					products: { include: { product: true } },
 				},
-				orderBy: { createdAt: 'desc' },
+				orderBy: { createdAt: "desc" },
 				skip,
 				take: safePageSize,
 			}),
@@ -694,7 +694,7 @@ export class TransactionService {
 				},
 			},
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		return transaction;
 	}
 
@@ -705,16 +705,16 @@ export class TransactionService {
 				userId: userId,
 			},
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
-		if (transaction.status !== 'shipped')
+		if (!transaction) throw new ApiError(404, "Transaction not found");
+		if (transaction.status !== "shipped")
 			throw new ApiError(
 				400,
-				'Transaction can only be completed if is in waiting confirmation status'
+				"Transaction can only be completed if is in waiting confirmation status"
 			);
 		const completedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'completed',
+				status: "completed",
 				expiryAt: null,
 			},
 		});
@@ -728,20 +728,20 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		if (transaction.userId !== userId) {
 			throw new ApiError(
 				403,
-				'You are not authorized to cancel this transaction'
+				"You are not authorized to cancel this transaction"
 			);
 		}
 
-		if (transaction.status !== 'waiting_payment') {
+		if (transaction.status !== "waiting_payment") {
 			throw new ApiError(
 				400,
-				'Transaction can only be canceled if is not in waiting payment status'
+				"Transaction can only be canceled if is not in waiting payment status"
 			);
 		}
 
@@ -764,7 +764,7 @@ export class TransactionService {
 			await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'cancelled',
+					status: "cancelled",
 					expiryAt: null,
 				},
 			});
@@ -805,12 +805,12 @@ export class TransactionService {
 			});
 
 			if (!admin) {
-				throw new ApiError(404, 'Admin not found');
+				throw new ApiError(404, "Admin not found");
 			}
 
 			if (!admin.isSuper) {
 				if (!admin.storeId) {
-					throw new ApiError(404, 'Admin has no store assigned');
+					throw new ApiError(404, "Admin has no store assigned");
 				}
 				resolvedStoreId = admin.storeId;
 			}
@@ -872,7 +872,7 @@ export class TransactionService {
 						},
 					},
 				},
-				orderBy: { createdAt: 'desc' },
+				orderBy: { createdAt: "desc" },
 				skip,
 				take: safePageSize,
 			}),
@@ -895,20 +895,20 @@ export class TransactionService {
 	// Confirming order transaction
 	async confirmingOrderTransaction(transactionId: string) {
 		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId, status: 'waiting_confirmation' },
+			where: { id: transactionId, status: "waiting_confirmation" },
 			include: { products: true },
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		const confirm = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'on_process',
+				status: "on_process",
 			},
 		});
 
 		const updatedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
-			data: { status: 'on_process', paidAt: new Date() },
+			data: { status: "on_process", paidAt: new Date() },
 		});
 
 		const transactionWithUser = await prisma.transaction.findUnique({
@@ -927,14 +927,14 @@ export class TransactionService {
 	// Cancel order Payment
 	async cancelOrderPayment(transactionId: string) {
 		const transaction = await prisma.transaction.findFirst({
-			where: { id: transactionId, status: 'waiting_confirmation' },
+			where: { id: transactionId, status: "waiting_confirmation" },
 			include: { products: true },
 		});
-		if (!transaction) throw new ApiError(404, 'Transaction not found');
+		if (!transaction) throw new ApiError(404, "Transaction not found");
 		const cancel = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'waiting_payment',
+				status: "waiting_payment",
 				expiryAt: addDays(new Date(), 7),
 			},
 		});
@@ -948,13 +948,13 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		const shippedTransaction = await prisma.transaction.update({
 			where: { id: transactionId },
 			data: {
-				status: 'shipped',
+				status: "shipped",
 				expiryAt: addDays(new Date(), 7),
 			},
 		});
@@ -978,7 +978,7 @@ export class TransactionService {
 		});
 
 		if (!transaction) {
-			throw new ApiError(404, 'Transaction not found');
+			throw new ApiError(404, "Transaction not found");
 		}
 
 		const canceledTransaction = await prisma.$transaction(async (tx) => {
@@ -1000,7 +1000,7 @@ export class TransactionService {
 			await tx.transaction.update({
 				where: { id: transactionId },
 				data: {
-					status: 'cancelled',
+					status: "cancelled",
 					expiryAt: null,
 				},
 			});
@@ -1015,7 +1015,7 @@ export class TransactionService {
 			where: { id: userId },
 		});
 		if (!admin?.isSuper) {
-			throw new ApiError(403, 'Only super admin can access this route');
+			throw new ApiError(403, "Only super admin can access this route");
 		}
 
 		const stores = await prisma.store.findMany({
