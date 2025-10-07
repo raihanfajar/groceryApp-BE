@@ -30,6 +30,8 @@ export interface StockJournalFilters {
 	type?: StockMovement;
 	dateFrom?: Date;
 	dateTo?: Date;
+	search?: string;
+	categoryId?: string;
 }
 
 export interface InventoryReport {
@@ -220,12 +222,20 @@ export class InventoryService {
 		page: number = 1,
 		limit: number = 20
 	) {
-		const { storeId, productId, adminId, type, dateFrom, dateTo } = filters;
+		const {
+			storeId,
+			productId,
+			adminId,
+			type,
+			dateFrom,
+			dateTo,
+			search,
+			categoryId,
+		} = filters;
 
 		const whereClause: any = {};
 
 		if (storeId) whereClause.storeId = storeId;
-		if (productId) whereClause.productId = productId;
 		if (adminId) whereClause.adminId = adminId;
 		if (type) whereClause.type = type;
 
@@ -233,6 +243,34 @@ export class InventoryService {
 			whereClause.createdAt = {};
 			if (dateFrom) whereClause.createdAt.gte = dateFrom;
 			if (dateTo) whereClause.createdAt.lte = dateTo;
+		}
+
+		// Handle product filters (productId, search, and category)
+		// These all filter through the storeProduct.product relation
+		if (productId || (search && search.trim() !== '') || categoryId) {
+			const productFilters: any = {};
+
+			// Add productId filter
+			if (productId) {
+				productFilters.id = productId;
+			}
+
+			// Add search filter
+			if (search && search.trim() !== '') {
+				productFilters.name = {
+					contains: search.trim(),
+					mode: 'insensitive',
+				};
+			}
+
+			// Add category filter
+			if (categoryId) {
+				productFilters.categoryId = categoryId;
+			}
+
+			whereClause.storeProduct = {
+				product: productFilters,
+			};
 		}
 
 		const skip = (page - 1) * limit;

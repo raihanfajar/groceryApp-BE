@@ -239,10 +239,7 @@ export class ReportService {
 			WHERE t."createdAt" >= ${startDate}
 				AND t."createdAt" <= ${endDate}
 				AND t.status IN ('completed', 'shipped')
-				AND EXISTS (
-					SELECT 1 FROM "FreshNear"."StoreProduct" sp 
-					WHERE sp."productId" = p.id AND sp."storeId" = ${validatedStoreId}
-				)
+				AND t."storeId" = ${validatedStoreId}
 			GROUP BY c.id, c.name
 			ORDER BY total_revenue DESC
 		`
@@ -529,12 +526,13 @@ export class ReportService {
 			storeName = storeProducts[0].store.name;
 		}
 
-		// Get top restocked products (products with most IN movements in this period)
-		const inMovements = await prisma.stockJournal.groupBy({
+		// Get top restocked products (products with most positive stock movements in this period)
+		// This includes IN, ADJUSTMENT (positive), TRANSFER (positive), and INITIAL movements
+		const positiveMovements = await prisma.stockJournal.groupBy({
 			by: ['productId'],
 			where: {
 				...whereConditions,
-				type: 'IN',
+				quantity: { gt: 0 }, // All positive quantity movements
 			},
 			_sum: {
 				quantity: true,
@@ -547,7 +545,7 @@ export class ReportService {
 			take: 5,
 		});
 
-		const topRestockedIds = inMovements.map((m) => m.productId);
+		const topRestockedIds = positiveMovements.map((m) => m.productId);
 		const topRestockedDetails = await prisma.product.findMany({
 			where: { id: { in: topRestockedIds } },
 			select: {
@@ -556,7 +554,7 @@ export class ReportService {
 			},
 		});
 
-		const topRestockedProducts = inMovements.map((movement) => {
+		const topRestockedProducts = positiveMovements.map((movement) => {
 			const product = topRestockedDetails.find(
 				(p) => p.id === movement.productId
 			);

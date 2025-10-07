@@ -30,6 +30,7 @@ export class CategoryController {
 	/**
 	 * GET /admin/categories
 	 * Get all categories for admin (including inactive)
+	 * Query params: search, isActive
 	 */
 	static async getCategoriesForAdmin(
 		req: AuthenticatedRequest,
@@ -37,7 +38,16 @@ export class CategoryController {
 		next: NextFunction
 	): Promise<void> {
 		try {
-			const categories = await CategoryService.getAllCategoriesForAdmin();
+			const { search, isActive } = req.query;
+
+			const filters = {
+				search: search as string | undefined,
+				isActive:
+					isActive === 'true' ? true : isActive === 'false' ? false : undefined,
+			};
+
+			const categories =
+				await CategoryService.getAllCategoriesForAdmin(filters);
 
 			res.status(200).json({
 				status: 'success',
