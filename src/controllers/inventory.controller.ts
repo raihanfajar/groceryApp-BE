@@ -330,4 +330,62 @@ export class InventoryController {
 			});
 		}
 	);
+
+	/**
+	 * GET /admin/inventory/category-distribution
+	 * Get product distribution by category
+	 */
+	static getCategoryDistribution = catchAsync(
+		async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+			const { storeId } = req.query;
+
+			// For store admins, use their assigned store
+			let targetStoreId: string | undefined;
+			if (!req.user!.isSuper) {
+				if (!req.user!.storeId) {
+					throw new ApiError(403, 'Store admin must be assigned to a store');
+				}
+				targetStoreId = req.user!.storeId;
+			} else {
+				targetStoreId = storeId as string | undefined;
+			}
+
+			const distribution =
+				await InventoryService.getCategoryDistribution(targetStoreId);
+
+			res.status(200).json({
+				status: 'success',
+				data: distribution,
+			});
+		}
+	);
+
+	/**
+	 * GET /admin/inventory/stock-value
+	 * Get stock value by category
+	 */
+	static getStockValueByCategory = catchAsync(
+		async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+			const { storeId } = req.query;
+
+			// For store admins, use their assigned store
+			let targetStoreId: string | undefined;
+			if (!req.user!.isSuper) {
+				if (!req.user!.storeId) {
+					throw new ApiError(403, 'Store admin must be assigned to a store');
+				}
+				targetStoreId = req.user!.storeId;
+			} else {
+				targetStoreId = storeId as string | undefined;
+			}
+
+			const stockValue =
+				await InventoryService.getStockValueByCategory(targetStoreId);
+
+			res.status(200).json({
+				status: 'success',
+				data: stockValue,
+			});
+		}
+	);
 }
