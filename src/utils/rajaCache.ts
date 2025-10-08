@@ -7,10 +7,11 @@ export const rajaCache = {
     async init() {
         if (initDone) return;
         await nodePersist.init({
-            dir: './cache',
+            dir: process.env.NODE_ENV === 'production' ? '/tmp/cache' : './cache',
             ttl: false,
             stringify: JSON.stringify,
             parse: JSON.parse,
+            expiredInterval: 2 * 60 * 1000, // Check expired items every 2 minutes
         });
         initDone = true;
     },
