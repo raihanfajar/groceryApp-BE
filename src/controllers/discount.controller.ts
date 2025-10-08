@@ -357,4 +357,94 @@ export class DiscountController {
 			});
 		}
 	);
+
+	// Marketing Promo endpoints
+	static createMarketingPromo = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const { user } = req;
+			if (!user || !user.isSuper) {
+				throw new ApiError(403, 'Only Super Admin can create marketing promos');
+			}
+
+			const { name, description, displayOrder, startDate, endDate } = req.body;
+
+			// Marketing promos are always global (no storeId) and of type MANUAL
+			const marketingPromo = await DiscountService.createMarketingPromo({
+				name,
+				description,
+				displayOrder: displayOrder ? Number(displayOrder) : null,
+				startDate: new Date(startDate),
+				endDate: new Date(endDate),
+				adminId: user.id,
+				bannerImage: req.file, // Multer file upload
+			});
+
+			res.status(201).json({
+				status: 'success',
+				message: 'Marketing promo created successfully',
+				data: marketingPromo,
+			});
+		}
+	);
+
+	static getMarketingPromos = catchAsync(
+		async (req: Request, res: Response) => {
+			const { activeOnly } = req.query;
+
+			const promos = await DiscountService.getMarketingPromos(
+				activeOnly === 'true'
+			);
+
+			res.json({
+				status: 'success',
+				data: promos,
+			});
+		}
+	);
+
+	static updateMarketingPromo = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const { user } = req;
+			if (!user || !user.isSuper) {
+				throw new ApiError(403, 'Only Super Admin can update marketing promos');
+			}
+
+			const { id } = req.params;
+			const { name, description, displayOrder, startDate, endDate, isActive } =
+				req.body;
+
+			const updatedPromo = await DiscountService.updateMarketingPromo(id, {
+				name,
+				description,
+				displayOrder: displayOrder ? Number(displayOrder) : undefined,
+				startDate: startDate ? new Date(startDate) : undefined,
+				endDate: endDate ? new Date(endDate) : undefined,
+				isActive: isActive !== undefined ? isActive : undefined,
+				bannerImage: req.file,
+			});
+
+			res.json({
+				status: 'success',
+				message: 'Marketing promo updated successfully',
+				data: updatedPromo,
+			});
+		}
+	);
+
+	static deleteMarketingPromo = catchAsync(
+		async (req: AuthenticatedRequest, res: Response) => {
+			const { user } = req;
+			if (!user || !user.isSuper) {
+				throw new ApiError(403, 'Only Super Admin can delete marketing promos');
+			}
+
+			const { id } = req.params;
+			await DiscountService.deleteMarketingPromo(id);
+
+			res.json({
+				status: 'success',
+				message: 'Marketing promo deleted successfully',
+			});
+		}
+	);
 }

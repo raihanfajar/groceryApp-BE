@@ -293,6 +293,10 @@ model Discount {
   updatedAt           DateTime               @updatedAt
   deletedAt           DateTime?
   adminId             String
+  // Marketing/Jumbotron fields
+  isMarketingPromo    Boolean                @default(false)
+  bannerImageUrl      String?
+  displayOrder        Int?
   bogoConfig          BogoDiscount?
   admin               Admin                  @relation("DiscountCreator", fields: [adminId], references: [id])
   store               Store?                 @relation(fields: [storeId], references: [id])
@@ -302,6 +306,7 @@ model Discount {
   @@index([storeId])
   @@index([isActive])
   @@index([startDate, endDate])
+  @@index([isMarketingPromo])
 }
 
 model DiscountProduct {

@@ -881,4 +881,172 @@ export class DiscountService {
 			throw new ApiError(500, 'Failed to get available discounts');
 		}
 	}
+
+	// Marketing Promo methods
+	static async createMarketingPromo(data: {
+		name: string;
+		description?: string;
+		displayOrder: number | null;
+		startDate: Date;
+		endDate: Date;
+		adminId: string;
+		bannerImage?: Express.Multer.File;
+	}) {
+		try {
+			let bannerImageUrl: string | null = null;
+
+			// Upload banner image to Cloudinary if provided
+			if (data.bannerImage) {
+				const { cloudinaryUpload } = await import('../utils/cloudinary');
+				const uploadResult = await cloudinaryUpload(data.bannerImage.buffer);
+				bannerImageUrl = uploadResult.secure_url;
+			}
+
+			// Create marketing promo (using Discount table with special flags)
+			const marketingPromo = await prisma.discount.create({
+				data: {
+					name: data.name,
+					description: data.description || null,
+					type: 'MANUAL', // Marketing promos are MANUAL type
+					valueType: 'PERCENTAGE',
+					value: 0, // No actual discount value for display-only promos
+					isActive: true,
+					startDate: data.startDate,
+					endDate: data.endDate,
+					adminId: data.adminId,
+					storeId: null, // Global for all stores
+					isMarketingPromo: true,
+					bannerImageUrl,
+					displayOrder: data.displayOrder,
+				},
+			});
+
+			return marketingPromo;
+		} catch (error) {
+			throw new ApiError(500, 'Failed to create marketing promo');
+		}
+	}
+
+	static async getMarketingPromos(activeOnly: boolean = false) {
+		try {
+			const now = new Date();
+			const where: Prisma.DiscountWhereInput = {
+				isMarketingPromo: true,
+				deletedAt: null,
+			};
+
+			if (activeOnly) {
+				where.isActive = true;
+				where.startDate = { lte: now };
+				where.endDate = { gte: now };
+			}
+
+			const promos = await prisma.discount.findMany({
+				where,
+				orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
+				select: {
+					id: true,
+					name: true,
+					description: true,
+					bannerImageUrl: true,
+					displayOrder: true,
+					isActive: true,
+					startDate: true,
+					endDate: true,
+					createdAt: true,
+					updatedAt: true,
+					admin: {
+						select: {
+							id: true,
+							name: true,
+						},
+					},
+				},
+			});
+
+			return promos;
+		} catch (error) {
+			throw new ApiError(500, 'Failed to get marketing promos');
+		}
+	}
+
+	static async updateMarketingPromo(
+		id: string,
+		data: {
+			name?: string;
+			description?: string;
+			displayOrder?: number;
+			startDate?: Date;
+			endDate?: Date;
+			isActive?: boolean;
+			bannerImage?: Express.Multer.File;
+		}
+	) {
+		try {
+			// Check if promo exists and is a marketing promo
+			const existingPromo = await prisma.discount.findFirst({
+				where: { id, isMarketingPromo: true, deletedAt: null },
+			});
+
+			if (!existingPromo) {
+				throw new ApiError(404, 'Marketing promo not found');
+			}
+
+			let bannerImageUrl: string | undefined;
+
+			// Upload new banner image if provided
+			if (data.bannerImage) {
+				const { cloudinaryUpload } = await import('../utils/cloudinary');
+				const uploadResult = await cloudinaryUpload(data.bannerImage.buffer);
+				bannerImageUrl = uploadResult.secure_url;
+			}
+
+			// Update promo
+			const updatedPromo = await prisma.discount.update({
+				where: { id },
+				data: {
+					...(data.name && { name: data.name }),
+					...(data.description !== undefined && {
+						description: data.description,
+					}),
+					...(data.displayOrder !== undefined && {
+						displayOrder: data.displayOrder,
+					}),
+					...(data.startDate && { startDate: data.startDate }),
+					...(data.endDate && { endDate: data.endDate }),
+					...(data.isActive !== undefined && { isActive: data.isActive }),
+					...(bannerImageUrl && { bannerImageUrl }),
+				},
+			});
+
+			return updatedPromo;
+		} catch (error) {
+			if (error instanceof ApiError) throw error;
+			throw new ApiError(500, 'Failed to update marketing promo');
+		}
+	}
+
+	static async deleteMarketingPromo(id: string) {
+		try {
+			// Check if promo exists and is a marketing promo
+			const existingPromo = await prisma.discount.findFirst({
+				where: { id, isMarketingPromo: true, deletedAt: null },
+			});
+
+			if (!existingPromo) {
+				throw new ApiError(404, 'Marketing promo not found');
+			}
+
+			// Soft delete
+			await prisma.discount.update({
+				where: { id },
+				data: { deletedAt: new Date() },
+			});
+
+			return true;
+		} catch (error) {
+			if (error instanceof ApiError) throw error;
+			throw new ApiError(500, 'Failed to delete marketing promo');
+		}
+	}
 }
