@@ -45,8 +45,27 @@ if (process.env.ENABLE_CRON_JOBS === "true") {
 }
 
 const PORT = process.env.PORT || 8000;
-app.listen(Number(PORT), "0.0.0.0", () => {
-	console.log(`➜ API running on port ${PORT}`);
+
+console.log('Starting server...');
+console.log('Environment:', process.env.NODE_ENV);
+console.log('Port:', PORT);
+
+const server = app.listen(PORT, () => {
+    console.log(`➜ API running on port ${PORT}`);
+});
+
+// Handle server errors
+server.on('error', (error) => {
+    console.error('Server error:', error);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught exception:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+    console.error('Unhandled rejection:', error);
 });
 
 export default app;
