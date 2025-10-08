@@ -4,10 +4,7 @@
 	"description": "",
 	"main": "dist/api/index.js",
 	"lint-staged": {
-		"src/**/*.ts": [
-			"eslint --fix",
-			"prettier --write"
-		]
+		"src/**/*.ts": "eslint --fix"
 	},
 	"scripts": {
 		"dev": "nodemon",

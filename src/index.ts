@@ -12,7 +12,17 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-// Use main router which includes health check
+// Health check endpoint for Railway
+app.get('/', (req, res) => {
+    res.json({
+        status: 'healthy',
+        message: '🛒 FreshNear API is running!',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
+});
+
+// API routes
 app.use(mainRouter);
 app.use(errorHandler);
 
