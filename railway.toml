@@ -5,14 +5,13 @@ buildCommand = "npm run build"
 [deploy]
 startCommand = "npm start"
 healthcheckPath = "/"
-healthcheckTimeout = 60
-healthcheckInterval = 15
+healthcheckTimeout = 30
+healthcheckInterval = 10
 restartPolicyType = "on_failure"
-PORT = "8000"
 
-[deploy.phases]
-# Give more time for cache initialization
-preStartCommand = "sleep 10"
+[deploy.envs]
+PORT = "8000"
+NODE_ENV = "production"
 
 [deploy.envs]
 NODE_ENV = "production"

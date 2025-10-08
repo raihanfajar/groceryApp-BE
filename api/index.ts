@@ -19,4 +19,21 @@ void rajaCache.init().then(() => {
 app.use(mainRouter);
 app.use(errorHandler);
 
+// Add explicit health check endpoint
+app.get("/", (req, res) => {
+    res.json({
+        status: "healthy",
+        message: "🛒 FreshNear API is running!",
+        timestamp: new Date().toISOString(),
+    });
+});
+
+const PORT = process.env.PORT || 8000;
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`➜ Server running on port ${PORT}`);
+    });
+}
+
 export default app;
