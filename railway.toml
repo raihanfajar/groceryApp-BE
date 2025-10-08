@@ -5,8 +5,10 @@ buildCommand = "npm run build"
 [deploy]
 startCommand = "npm start"
 healthcheckPath = "/"
-healthcheckTimeout = 100
+healthcheckTimeout = 300
+healthcheckInterval = 60
 restartPolicyType = "on_failure"
+PORT = "8000"
 
 [deploy.envs]
 NODE_ENV = "production"
