@@ -190,10 +190,13 @@ export class TransactionService {
 		}
 
 		const transactionResult = await prisma.$transaction(async (tx) => {
+			// First pass: Calculate prices without creating usage history
 			const priceDetails = await this._calculatePricesAndDiscounts(
 				inStockItems,
 				userId,
-				tx
+				tx,
+				undefined,
+				storeId
 			);
 
 			const totalProductPrice = priceDetails.totalPriceAfterDiscount;
@@ -246,6 +249,15 @@ export class TransactionService {
 					codeVoucherDelivery,
 				},
 			});
+
+			// Second pass: Create usage history with transactionId
+			await this._createDiscountUsageHistory(
+				inStockItems,
+				userId,
+				tx,
+				newTransaction.id,
+				storeId
+			);
 
 			if (paymentMethod === 'midtrans') {
 				const startTime = format(new Date(), 'yyyy-MM-dd HH:mm:ss Z');
@@ -363,7 +375,9 @@ export class TransactionService {
 	private async _calculatePricesAndDiscounts(
 		cartProducts: CartProductWithDetails[],
 		userId: string,
-		tx: Prisma.TransactionClient
+		tx: Prisma.TransactionClient,
+		transactionId?: string,
+		storeId?: string
 	): Promise<PriceCalculationResult> {
 		const now = new Date();
 		const storeIds = [...new Set(cartProducts.map((p) => p.storeId))];
@@ -405,6 +419,7 @@ export class TransactionService {
 		for (const item of cartProducts) {
 			const itemPrice = item.product.price;
 			let bestDiscountAmount = 0;
+			let bestDiscountId: string | null = null;
 
 			const candidateDiscounts = potentialDiscounts.filter((d) => {
 				if (d.storeId === null) {
@@ -472,7 +487,13 @@ export class TransactionService {
 
 				if (currentDiscountAmount > bestDiscountAmount) {
 					bestDiscountAmount = currentDiscountAmount;
+					bestDiscountId = discountForProduct.id;
 				}
+			}
+
+			// Track the total discount value per discount ID
+			if (bestDiscountId && bestDiscountAmount > 0) {
+				// Store discount info in product details for later usage history creation
 			}
 
 			const finalItemPrice = itemPrice - bestDiscountAmount;
@@ -488,6 +509,154 @@ export class TransactionService {
 		}
 
 		return { productDetails, totalPriceAfterDiscount };
+	}
+
+	private async _createDiscountUsageHistory(
+		cartProducts: CartProductWithDetails[],
+		userId: string,
+		tx: Prisma.TransactionClient,
+		transactionId: string,
+		storeId: string
+	): Promise<void> {
+		const now = new Date();
+		const storeIds = [storeId];
+		const subTotal = cartProducts.reduce(
+			(sum, p) => sum + p.product.price * p.quantity,
+			0
+		);
+
+		const productQuantityMap = new Map<string, number>();
+		for (const item of cartProducts) {
+			const currentQty = productQuantityMap.get(item.productId) || 0;
+			productQuantityMap.set(item.productId, currentQty + item.quantity);
+		}
+
+		const potentialDiscounts = await tx.discount.findMany({
+			where: {
+				isActive: true,
+				startDate: { lte: now },
+				endDate: { gte: now },
+				OR: [{ storeId: { in: storeIds } }, { storeId: null }],
+			},
+			include: { products: true, bogoConfig: true },
+		});
+
+		const discountIds = potentialDiscounts.map((d) => d.id);
+		const userUsageCounts = await tx.discountUsageHistory.groupBy({
+			by: ['discountId'],
+			where: { userId: userId, discountId: { in: discountIds } },
+			_count: { id: true },
+		});
+		const usageMap = new Map<string, number>();
+		for (const usage of userUsageCounts) {
+			usageMap.set(usage.discountId, usage._count.id);
+		}
+
+		const appliedDiscounts = new Map<string, number>();
+
+		for (const item of cartProducts) {
+			const itemPrice = item.product.price;
+			let bestDiscountAmount = 0;
+			let bestDiscountId: string | null = null;
+
+			const candidateDiscounts = potentialDiscounts.filter((d) => {
+				if (d.storeId === null) {
+					return (
+						d.products.length === 0 ||
+						d.products.some((p) => p.productId === item.productId)
+					);
+				} else if (d.storeId === item.storeId) {
+					return (
+						d.products.length === 0 ||
+						d.products.some((p) => p.productId === item.productId)
+					);
+				}
+				return false;
+			});
+
+			for (const discountForProduct of candidateDiscounts) {
+				const isMinimumPurchaseMet =
+					!discountForProduct.minTransactionValue ||
+					subTotal >= discountForProduct.minTransactionValue;
+				const usageCount = usageMap.get(discountForProduct.id) || 0;
+				const isUsageLimitOk =
+					!discountForProduct.maxUsagePerCustomer ||
+					usageCount < discountForProduct.maxUsagePerCustomer;
+
+				let currentDiscountAmount = 0;
+				if (isMinimumPurchaseMet && isUsageLimitOk) {
+					if (
+						discountForProduct.type === 'BOGO' &&
+						discountForProduct.bogoConfig
+					) {
+						const totalQuantityForProduct =
+							productQuantityMap.get(item.productId) || 0;
+						const { buyQuantity, getQuantity, maxBogoSets } =
+							discountForProduct.bogoConfig;
+						const totalRequiredItems = buyQuantity + getQuantity;
+
+						if (totalQuantityForProduct >= totalRequiredItems) {
+							const maxPossibleSets = Math.floor(
+								totalQuantityForProduct / totalRequiredItems
+							);
+							const actualSets = maxBogoSets
+								? Math.min(maxPossibleSets, maxBogoSets)
+								: maxPossibleSets;
+							const freeItemsCount = actualSets * getQuantity;
+
+							const discountPerUnit =
+								(itemPrice * freeItemsCount) / totalQuantityForProduct;
+							currentDiscountAmount = discountPerUnit * item.quantity;
+						}
+					} else if (discountForProduct.valueType === 'PERCENTAGE') {
+						currentDiscountAmount = Math.floor(
+							itemPrice * (discountForProduct.value / 100)
+						);
+						if (discountForProduct.maxDiscountAmount) {
+							currentDiscountAmount = Math.min(
+								currentDiscountAmount,
+								discountForProduct.maxDiscountAmount
+							);
+						}
+					} else if (discountForProduct.valueType === 'NOMINAL') {
+						currentDiscountAmount = discountForProduct.value;
+					}
+				}
+
+				if (currentDiscountAmount > bestDiscountAmount) {
+					bestDiscountAmount = currentDiscountAmount;
+					bestDiscountId = discountForProduct.id;
+				}
+			}
+
+			if (bestDiscountId && bestDiscountAmount > 0) {
+				const currentTotal = appliedDiscounts.get(bestDiscountId) || 0;
+				appliedDiscounts.set(
+					bestDiscountId,
+					currentTotal + bestDiscountAmount * item.quantity
+				);
+			}
+		}
+
+		// Create discount usage history records for all applied discounts
+		for (const [discountId, totalDiscountValue] of appliedDiscounts) {
+			await tx.discountUsageHistory.create({
+				data: {
+					discountId,
+					userId,
+					transactionId,
+					discountValue: Math.round(totalDiscountValue),
+					orderTotal: subTotal,
+					usedAt: now,
+				},
+			});
+
+			// Increment usage count for the discount
+			await tx.discount.update({
+				where: { id: discountId },
+				data: { currentUsageCount: { increment: 1 } },
+			});
+		}
 	}
 
 	async handleMidtransNotification(notification: MidtransNotificationPayload) {
