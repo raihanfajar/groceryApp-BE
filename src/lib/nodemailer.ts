@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import fs from "fs";
 import Handlebars from "handlebars";
+import path from "path";
 
 export const transporter = nodemailer.createTransport({
 	service: "gmail",
@@ -17,8 +18,9 @@ export const getVerifyUserEmailTemplate = (
 	name: string,
 	verifyUserEmailToken: string
 ) => {
+	const templatePath = path.resolve(__dirname, "../templates/resetPassword.html");
 	const templateHtml = fs.readFileSync(
-		"src/templates/verifyUserEmail.html",
+		templatePath,
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
@@ -36,8 +38,9 @@ export const getTemplateUser = (
 	name: string,
 	resetUserPasswordToken: string
 ) => {
+	const templatePath = path.resolve(__dirname, "../templates/resetPassword.html");
 	const templateHtml = fs.readFileSync(
-		`src/templates/resetPassword.html`,
+		templatePath,
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
