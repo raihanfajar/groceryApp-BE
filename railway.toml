@@ -12,6 +12,4 @@ restartPolicyType = "on_failure"
 [deploy.envs]
 PORT = "8000"
 NODE_ENV = "production"
-
-[deploy.envs]
-NODE_ENV = "production"
+ENABLE_CRON_JOBS = "true"
