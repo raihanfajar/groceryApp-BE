@@ -613,4 +613,120 @@ export class InventoryService {
 			},
 		});
 	}
+
+	/**
+	 * Get category distribution (product count by category)
+	 */
+	static async getCategoryDistribution(storeId?: string) {
+		const whereClause: any = {
+			deletedAt: null,
+			product: {
+				deletedAt: null,
+				isActive: true,
+			},
+		};
+
+		if (storeId) {
+			whereClause.storeId = storeId;
+		}
+
+		const storeProducts = await prisma.storeProduct.findMany({
+			where: whereClause,
+			include: {
+				product: {
+					include: {
+						category: {
+							select: {
+								id: true,
+								name: true,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		// Group by category
+		const categoryMap = new Map<string, { name: string; count: number }>();
+
+		storeProducts.forEach((sp) => {
+			const categoryId = sp.product.category.id;
+			const categoryName = sp.product.category.name;
+
+			if (categoryMap.has(categoryId)) {
+				categoryMap.get(categoryId)!.count += 1;
+			} else {
+				categoryMap.set(categoryId, { name: categoryName, count: 1 });
+			}
+		});
+
+		return Array.from(categoryMap.entries()).map(([id, data]) => ({
+			name: data.name,
+			value: data.count,
+		}));
+	}
+
+	/**
+	 * Get stock value by category
+	 */
+	static async getStockValueByCategory(storeId?: string) {
+		const whereClause: any = {
+			deletedAt: null,
+			product: {
+				deletedAt: null,
+				isActive: true,
+			},
+		};
+
+		if (storeId) {
+			whereClause.storeId = storeId;
+		}
+
+		const storeProducts = await prisma.storeProduct.findMany({
+			where: whereClause,
+			include: {
+				product: {
+					include: {
+						category: {
+							select: {
+								id: true,
+								name: true,
+							},
+						},
+					},
+				},
+			},
+		});
+
+		// Group by category and calculate totals
+		const categoryMap = new Map<
+			string,
+			{ name: string; totalStock: number; totalValue: number }
+		>();
+
+		storeProducts.forEach((sp) => {
+			const categoryId = sp.product.category.id;
+			const categoryName = sp.product.category.name;
+			const stock = sp.stock;
+			const value = stock * Number(sp.product.price);
+
+			if (categoryMap.has(categoryId)) {
+				const existing = categoryMap.get(categoryId)!;
+				existing.totalStock += stock;
+				existing.totalValue += value;
+			} else {
+				categoryMap.set(categoryId, {
+					name: categoryName,
+					totalStock: stock,
+					totalValue: value,
+				});
+			}
+		});
+
+		return Array.from(categoryMap.entries()).map(([id, data]) => ({
+			category: data.name,
+			totalStock: data.totalStock,
+			totalValue: data.totalValue,
+		}));
+	}
 }
