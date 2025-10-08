@@ -943,10 +943,7 @@ export class DiscountService {
 
 			const promos = await prisma.discount.findMany({
 				where,
-				orderBy: [
-					{ displayOrder: 'asc' },
-					{ createdAt: 'desc' },
-				],
+				orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
 				select: {
 					id: true,
 					name: true,
@@ -1009,8 +1006,12 @@ export class DiscountService {
 				where: { id },
 				data: {
 					...(data.name && { name: data.name }),
-					...(data.description !== undefined && { description: data.description }),
-					...(data.displayOrder !== undefined && { displayOrder: data.displayOrder }),
+					...(data.description !== undefined && {
+						description: data.description,
+					}),
+					...(data.displayOrder !== undefined && {
+						displayOrder: data.displayOrder,
+					}),
 					...(data.startDate && { startDate: data.startDate }),
 					...(data.endDate && { endDate: data.endDate }),
 					...(data.isActive !== undefined && { isActive: data.isActive }),

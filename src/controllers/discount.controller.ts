@@ -366,13 +366,7 @@ export class DiscountController {
 				throw new ApiError(403, 'Only Super Admin can create marketing promos');
 			}
 
-			const {
-				name,
-				description,
-				displayOrder,
-				startDate,
-				endDate,
-			} = req.body;
+			const { name, description, displayOrder, startDate, endDate } = req.body;
 
 			// Marketing promos are always global (no storeId) and of type MANUAL
 			const marketingPromo = await DiscountService.createMarketingPromo({
@@ -416,14 +410,8 @@ export class DiscountController {
 			}
 
 			const { id } = req.params;
-			const {
-				name,
-				description,
-				displayOrder,
-				startDate,
-				endDate,
-				isActive,
-			} = req.body;
+			const { name, description, displayOrder, startDate, endDate, isActive } =
+				req.body;
 
 			const updatedPromo = await DiscountService.updateMarketingPromo(id, {
 				name,
