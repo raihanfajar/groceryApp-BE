@@ -21,23 +21,13 @@ void rajaCache.init().then(() => {
 	console.log("✓ Cache initialized");
 });
 
-// // Cron jobs are now handled by Vercel Cron Jobs in production
-// if (process.env.NODE_ENV !== 'production' && process.env.ENABLE_JOBS !== "false") {
-//     try {
-//         expiryTransactionSchedule?.();
-//         console.log("✓ scheduler started (development mode)");
-//     } catch (err) {
-//         console.error("scheduler failed to start:", err);
-//     }
-// }
-
-if (process.env.ENABLE_CRON_JOBS === "true") {
-	try {
-		expiryTransactionSchedule?.();
-		console.log("✓ scheduler started");
-	} catch (err) {
-		console.error("scheduler failed to start:", err);
-	}
+// Always start cron jobs regardless of environment
+try {
+    expiryTransactionSchedule();
+    console.log("✓ Cron jobs scheduler started");
+    console.log("⌚ Running transaction checks every minute");
+} catch (err) {
+    console.error("❌ Scheduler failed to start:", err);
 }
 
 const PORT = process.env.PORT || 8000;
