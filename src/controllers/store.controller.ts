@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addStoreService, getStoreProductsService, updateStoreService } from "../services/store.service";
+import { addStoreService, deleteStoreService, getStoreProductsService, updateStoreService } from "../services/store.service";
 import { catchAsync } from "../utils/catchAsync";
 
 
@@ -19,3 +19,10 @@ export const updateStoreController = catchAsync(async (req: Request, res: Respon
     const result = await updateStoreService(storeId, req.body);
     res.status(200).json({ status: "success", message: "Store updated successfully", data: result });
 });
+
+export const deleteStoreController = catchAsync(async (req: Request, res: Response) => {
+    const { storeId } = req.params;
+    await deleteStoreService(storeId);
+    res.status(200).json({ status: "success", message: "Store deleted successfully" });
+});
+

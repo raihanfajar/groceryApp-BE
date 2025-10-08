@@ -111,7 +111,7 @@ export class AdminService {
 	async getAllStores() {
 		const stores = await prisma.store.findMany({
 			where: { deletedAt: null },
-			orderBy: { createdAt: 'asc' },
+			orderBy: { createdAt: 'desc' },
 		});
 
 		return stores;

@@ -368,7 +368,7 @@ export class TransactionController {
 			const transaction =
 				await this.transactionService.shippingTransaction(transactionId);
 			res.status(200).json({
-				message: 'User transaction canceled successfully',
+				message: 'User transaction shipped successfully',
 				data: { transaction },
 			});
 		}

@@ -1,0 +1,15 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 30
+healthcheckInterval = 10
+restartPolicyType = "on_failure"
+
+[deploy.envs]
+PORT = "8000"
+NODE_ENV = "production"
+ENABLE_CRON_JOBS = "true"
