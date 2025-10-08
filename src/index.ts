@@ -12,10 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-// Health check endpoint for Railway
-app.get("/", (req, res) => {
-	res.status(200).json({ status: "ok", message: "Server is running" });
-});
+// health check
+app.get("/health", (_req, res) => res.json({ ok: true }));
+app.get("/", (_req, res) => res.json({ message: "API is alive" }));
 
 app.use(mainRouter);
 app.use(errorHandler);
