@@ -2,7 +2,7 @@ import { shippingTransaction } from '../../src/jobs/transactionJobs/shippingJobs
 import { confirmingOrderTransaction } from '../../src/jobs/transactionJobs/confirmingOrderJobs';
 
 export const config = {
-    schedule: '0 0 * * *' // runs once per day at midnight UTC
+    schedule: '* * * * *' // runs every minute
 };
 
 export default async function handler() {
