@@ -51,48 +51,48 @@ export const getTemplateUser = (
 	return resultTemplateHtml;
 };
 
-export const getTemplateOrganizer = (
-	resetToken: string,
-	templateFileName: string,
-	userName: string
-) => {
-	const templateHtml = fs.readFileSync(
-		`src/templates/${templateFileName}.html`,
-		"utf-8"
-	);
-	const compiledTemplateHtml = Handlebars.compile(templateHtml);
-	const resultTemplateHtml = compiledTemplateHtml({
-		name: userName,
-		linkUrl: `${process.env.NODE_ENV === 'production'
-			? 'https://freshnear.store/organizer/reset-password'
-			: 'http://localhost:3000/organizer/reset-password'}/${resetToken}`,
-	});
+// export const getTemplateOrganizer = (
+// 	resetToken: string,
+// 	templateFileName: string,
+// 	userName: string
+// ) => {
+// 	const templateHtml = fs.readFileSync(
+// 		`src/templates/${templateFileName}.html`,
+// 		"utf-8"
+// 	);
+// 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
+// 	const resultTemplateHtml = compiledTemplateHtml({
+// 		name: userName,
+// 		linkUrl: `${process.env.NODE_ENV === 'production'
+// 			? 'https://freshnear.store/organizer/reset-password'
+// 			: 'http://localhost:3000/organizer/reset-password'}/${resetToken}`,
+// 	});
 
-	return resultTemplateHtml;
-};
+// 	return resultTemplateHtml;
+// };
 
-export const getTemplateTxNotification = (
-	isApproved: boolean,
-	name: string,
-	transactionId: string,
-	eventName: string,
-	amount: number,
-	createdAt: string
-) => {
-	const templateHtml = fs.readFileSync(
-		`src/templates/txNotificationTemplate.html`,
-		"utf-8"
-	);
-	const compiledTemplateHtml = Handlebars.compile(templateHtml);
-	const resultTemplateHtml = compiledTemplateHtml({
-		isApproved,
-		name,
-		transactionId,
-		eventName,
-		amount,
-		createdAt,
-	});
+// export const getTemplateTxNotification = (
+// 	isApproved: boolean,
+// 	name: string,
+// 	transactionId: string,
+// 	eventName: string,
+// 	amount: number,
+// 	createdAt: string
+// ) => {
+// 	const templateHtml = fs.readFileSync(
+// 		`src/templates/txNotificationTemplate.html`,
+// 		"utf-8"
+// 	);
+// 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
+// 	const resultTemplateHtml = compiledTemplateHtml({
+// 		isApproved,
+// 		name,
+// 		transactionId,
+// 		eventName,
+// 		amount,
+// 		createdAt,
+// 	});
 
-	return resultTemplateHtml;
-};
+// 	return resultTemplateHtml;
+// };
 
