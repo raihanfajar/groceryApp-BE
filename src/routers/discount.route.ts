@@ -2,6 +2,7 @@ import express from 'express';
 import { DiscountController } from '../controllers/discount.controller';
 import { DiscountMiddleware } from '../middlewares/discount.middleware';
 import { verifyToken, verifyAdminRole } from '../middlewares/auth.middleware';
+import { bannerUpload } from '../middlewares/banner.upload';
 
 const discountRouter = express.Router();
 
@@ -11,6 +12,9 @@ discountRouter.get(
 	DiscountMiddleware.validateGetAvailableDiscounts,
 	DiscountController.getAvailableDiscounts
 );
+
+// Public endpoint for getting marketing promos (for homepage jumbotron)
+discountRouter.get('/marketing-promos', DiscountController.getMarketingPromos);
 
 // All other discount routes require authentication
 discountRouter.use(verifyToken, verifyAdminRole);
@@ -57,6 +61,24 @@ discountRouter.get(
 	'/report/usage',
 	DiscountMiddleware.validateQueryParams,
 	DiscountController.getDiscountReport
+);
+
+// Marketing Promo routes (Super Admin only)
+discountRouter.post(
+	'/marketing-promos',
+	bannerUpload.single('bannerImage'),
+	DiscountController.createMarketingPromo
+);
+
+discountRouter.put(
+	'/marketing-promos/:id',
+	bannerUpload.single('bannerImage'),
+	DiscountController.updateMarketingPromo
+);
+
+discountRouter.delete(
+	'/marketing-promos/:id',
+	DiscountController.deleteMarketingPromo
 );
 
 export default discountRouter;
