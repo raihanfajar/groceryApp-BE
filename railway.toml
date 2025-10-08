@@ -5,8 +5,8 @@ buildCommand = "npm run build"
 [deploy]
 startCommand = "npm start"
 healthcheckPath = "/"
-healthcheckTimeout = 180
-healthcheckInterval = 30
+healthcheckTimeout = 60
+healthcheckInterval = 15
 restartPolicyType = "on_failure"
 PORT = "8000"
 
