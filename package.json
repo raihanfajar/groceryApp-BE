@@ -2,17 +2,14 @@
 	"name": "pwd-template-api",
 	"version": "1.0.0",
 	"description": "",
-	"main": "dist/index.js",
+	"main": "dist/api/index.js",
 	"lint-staged": {
-		"src/**/*.ts": [
-			"eslint --fix",
-			"prettier --write"
-		]
+		"src/**/*.ts": "eslint --fix"
 	},
 	"scripts": {
 		"dev": "nodemon",
 		"build": "prisma generate && tsc",
-		"start": "NODE_ENV=production node dist/index.js",
+		"start": "NODE_ENV=production node dist/api/index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"prepare": "husky install",
 		"postinstall": "prisma generate",
