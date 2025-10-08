@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import fs from "fs";
 import Handlebars from "handlebars";
+import path from "path";
 
 export const transporter = nodemailer.createTransport({
 	service: "gmail",
@@ -17,16 +18,17 @@ export const getVerifyUserEmailTemplate = (
 	name: string,
 	verifyUserEmailToken: string
 ) => {
+	const templatePath = path.resolve(__dirname, "../templates/resetPassword.html");
 	const templateHtml = fs.readFileSync(
-		"src/templates/verifyUserEmail.html",
+		templatePath,
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
-		linkUrl: `${process.env.NODE_ENV === 'production' 
-			? 'https://freshnear.store/verify-email'
-			: 'http://localhost:3000/verify-email'}/${verifyUserEmailToken}`,
+		linkUrl: `${process.env.NODE_ENV === 'production'
+			? 'https://freshnear.store/verify-user-email'
+			: 'http://localhost:3000/verify-user-email'}/${verifyUserEmailToken}`,
 	});
 
 	return resultTemplateHtml;
@@ -36,63 +38,64 @@ export const getTemplateUser = (
 	name: string,
 	resetUserPasswordToken: string
 ) => {
+	const templatePath = path.resolve(__dirname, "../templates/resetPassword.html");
 	const templateHtml = fs.readFileSync(
-		`src/templates/resetPassword.html`,
+		templatePath,
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
 		linkUrl: `${process.env.NODE_ENV === 'production'
-			? 'https://freshnear.store/reset-password'
-			: 'http://localhost:3000/reset-password'}/${resetUserPasswordToken}`,
+			? 'https://freshnear.store/reset-password-user'
+			: 'http://localhost:3000/reset-password-user'}/${resetUserPasswordToken}`,
 	});
 
 	return resultTemplateHtml;
 };
 
-export const getTemplateOrganizer = (
-	resetToken: string,
-	templateFileName: string,
-	userName: string
-) => {
-	const templateHtml = fs.readFileSync(
-		`src/templates/${templateFileName}.html`,
-		"utf-8"
-	);
-	const compiledTemplateHtml = Handlebars.compile(templateHtml);
-	const resultTemplateHtml = compiledTemplateHtml({
-		name: userName,
-		linkUrl: `${process.env.NODE_ENV === 'production'
-			? 'https://freshnear.store/organizer/reset-password'
-			: 'http://localhost:3000/organizer/reset-password'}/${resetToken}`,
-	});
+// export const getTemplateOrganizer = (
+// 	resetToken: string,
+// 	templateFileName: string,
+// 	userName: string
+// ) => {
+// 	const templateHtml = fs.readFileSync(
+// 		`src/templates/${templateFileName}.html`,
+// 		"utf-8"
+// 	);
+// 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
+// 	const resultTemplateHtml = compiledTemplateHtml({
+// 		name: userName,
+// 		linkUrl: `${process.env.NODE_ENV === 'production'
+// 			? 'https://freshnear.store/organizer/reset-password'
+// 			: 'http://localhost:3000/organizer/reset-password'}/${resetToken}`,
+// 	});
 
-	return resultTemplateHtml;
-};
+// 	return resultTemplateHtml;
+// };
 
-export const getTemplateTxNotification = (
-	isApproved: boolean,
-	name: string,
-	transactionId: string,
-	eventName: string,
-	amount: number,
-	createdAt: string
-) => {
-	const templateHtml = fs.readFileSync(
-		`src/templates/txNotificationTemplate.html`,
-		"utf-8"
-	);
-	const compiledTemplateHtml = Handlebars.compile(templateHtml);
-	const resultTemplateHtml = compiledTemplateHtml({
-		isApproved,
-		name,
-		transactionId,
-		eventName,
-		amount,
-		createdAt,
-	});
+// export const getTemplateTxNotification = (
+// 	isApproved: boolean,
+// 	name: string,
+// 	transactionId: string,
+// 	eventName: string,
+// 	amount: number,
+// 	createdAt: string
+// ) => {
+// 	const templateHtml = fs.readFileSync(
+// 		`src/templates/txNotificationTemplate.html`,
+// 		"utf-8"
+// 	);
+// 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
+// 	const resultTemplateHtml = compiledTemplateHtml({
+// 		isApproved,
+// 		name,
+// 		transactionId,
+// 		eventName,
+// 		amount,
+// 		createdAt,
+// 	});
 
-	return resultTemplateHtml;
-};
+// 	return resultTemplateHtml;
+// };
 
