@@ -24,9 +24,9 @@ export const getVerifyUserEmailTemplate = (
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
-		linkUrl: `${process.env.NODE_ENV === 'production' 
-			? 'https://freshnear.store/verify-email'
-			: 'http://localhost:3000/verify-email'}/${verifyUserEmailToken}`,
+		linkUrl: `${process.env.NODE_ENV === 'production'
+			? 'https://freshnear.store/verify-user-email'
+			: 'http://localhost:3000/verify-user-email'}/${verifyUserEmailToken}`,
 	});
 
 	return resultTemplateHtml;
@@ -44,8 +44,8 @@ export const getTemplateUser = (
 	const resultTemplateHtml = compiledTemplateHtml({
 		name,
 		linkUrl: `${process.env.NODE_ENV === 'production'
-			? 'https://freshnear.store/reset-password'
-			: 'http://localhost:3000/reset-password'}/${resetUserPasswordToken}`,
+			? 'https://freshnear.store/reset-password-user'
+			: 'http://localhost:3000/reset-password-user'}/${resetUserPasswordToken}`,
 	});
 
 	return resultTemplateHtml;
