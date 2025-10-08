@@ -12,10 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-// health check
-app.get("/health", (_req, res) => res.json({ ok: true }));
-app.get("/", (_req, res) => res.json({ message: "API is alive" }));
-
+// Use main router which includes health check
 app.use(mainRouter);
 app.use(errorHandler);
 
