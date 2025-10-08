@@ -44,5 +44,13 @@ inventoryRouter.put(
 inventoryRouter.get('/journal', InventoryController.getStockJournal);
 inventoryRouter.get('/summary', InventoryController.getInventorySummary);
 inventoryRouter.get('/low-stock', InventoryController.getLowStockAlerts);
+inventoryRouter.get(
+	'/category-distribution',
+	InventoryController.getCategoryDistribution
+);
+inventoryRouter.get(
+	'/stock-value',
+	InventoryController.getStockValueByCategory
+);
 
 export default inventoryRouter;
