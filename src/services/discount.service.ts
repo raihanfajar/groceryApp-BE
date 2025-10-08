@@ -711,9 +711,16 @@ export class DiscountService {
 			const where: Prisma.DiscountUsageHistoryWhereInput = {
 				discount: {
 					deletedAt: null,
-					...(storeId && { storeId }),
 				},
 			};
+
+			// Filter by store: either discount belongs to store OR transaction belongs to store
+			if (storeId) {
+				where.OR = [
+					{ discount: { storeId } }, // Store-specific discounts
+					{ transaction: { storeId } }, // Global discounts used at this store
+				];
+			}
 
 			if (dateFrom || dateTo) {
 				where.usedAt = {};
