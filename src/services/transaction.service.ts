@@ -146,6 +146,7 @@ export class TransactionService {
 		if (!cart) throw new ApiError(404, 'Cart not found');
 		if (!user) throw new ApiError(404, 'User not found');
 		if (!userAddress) throw new ApiError(404, 'User address not found');
+		if (!user.isVerified) throw new ApiError(403, "Please verify your email first");
 
 		const cartProducts = await prisma.cartProduct.findMany({
 			where: { cartId: cart.id },
@@ -341,9 +342,9 @@ export class TransactionService {
 			outOfStockItems,
 			paymentDetails: transactionResult.snapToken
 				? {
-						token: transactionResult.snapToken,
-						redirect_url: transactionResult.snapRedirectUrl,
-					}
+					token: transactionResult.snapToken,
+					redirect_url: transactionResult.snapRedirectUrl,
+				}
 				: null,
 		};
 	}
