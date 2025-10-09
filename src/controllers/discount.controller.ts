@@ -413,13 +413,19 @@ export class DiscountController {
 			const { name, description, displayOrder, startDate, endDate, isActive } =
 				req.body;
 
+			// Convert isActive string to boolean
+			let isActiveBoolean: boolean | undefined;
+			if (isActive !== undefined) {
+				isActiveBoolean = isActive === 'true' || isActive === true;
+			}
+
 			const updatedPromo = await DiscountService.updateMarketingPromo(id, {
 				name,
 				description,
 				displayOrder: displayOrder ? Number(displayOrder) : undefined,
 				startDate: startDate ? new Date(startDate) : undefined,
 				endDate: endDate ? new Date(endDate) : undefined,
-				isActive: isActive !== undefined ? isActive : undefined,
+				isActive: isActiveBoolean,
 				bannerImage: req.file,
 			});
 
