@@ -1,24 +1,31 @@
-import nodemailer from "nodemailer";
 import fs from "fs";
 import Handlebars from "handlebars";
+// import nodemailer from "nodemailer";
+import path from "path"; //!new
 
-export const transporter = nodemailer.createTransport({
-	service: "gmail",
-	auth: {
-		user: process.env.GOOGLE_APP_USER,
-		pass: process.env.GOOGLE_APP_PASSWORD,
-	},
-	tls: {
-		rejectUnauthorized: false,
-	},
-});
+// export const transporter = nodemailer.createTransport({
+// 	service: "gmail",
+// 	auth: {
+// 		user: process.env.GOOGLE_APP_USER,
+// 		pass: process.env.GOOGLE_APP_PASSWORD,
+// 	},
+// 	tls: {
+// 		rejectUnauthorized: false,
+// 	},
+// });
 
 export const getVerifyUserEmailTemplate = (
 	name: string,
 	verifyUserEmailToken: string
 ) => {
+	const templatePath = path.join( //!NEW
+		__dirname,
+		"..",
+		"templates",
+		"verifyUserEmail.html"
+	);
 	const templateHtml = fs.readFileSync(
-		"src/templates/verifyUserEmail.html",
+		templatePath, //!NEW
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
@@ -36,8 +43,14 @@ export const getTemplateUser = (
 	name: string,
 	resetUserPasswordToken: string
 ) => {
+	const templatePath = path.join(
+		__dirname,
+		"..",
+		"templates",
+		"resetPassword.html"
+	);
 	const templateHtml = fs.readFileSync(
-		`src/templates/resetPassword.html`,
+		templatePath,
 		"utf-8"
 	);
 	const compiledTemplateHtml = Handlebars.compile(templateHtml);
