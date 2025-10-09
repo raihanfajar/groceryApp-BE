@@ -1021,6 +1021,7 @@ export class DiscountService {
 
 			return updatedPromo;
 		} catch (error) {
+			console.error('Update marketing promo error:', error);
 			if (error instanceof ApiError) throw error;
 			throw new ApiError(500, 'Failed to update marketing promo');
 		}
