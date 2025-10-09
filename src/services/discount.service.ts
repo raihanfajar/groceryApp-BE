@@ -152,6 +152,7 @@ export class DiscountService {
 			// Check for existing active discounts on the same products
 			const whereConditions = {
 				isActive: true,
+				isMarketingPromo: false, // Exclude marketing promos from conflict check
 				// Check if discount period overlaps
 				AND: [
 					{ startDate: { lte: data.endDate } },
@@ -162,9 +163,7 @@ export class DiscountService {
 						productId: { in: data.productIds },
 					},
 				},
-			};
-
-			// Add store condition based on discount type
+			}; // Add store condition based on discount type
 			let storeCondition = {};
 			if (data.storeId) {
 				// Store-specific discount: check for conflicts with same store and global discounts
@@ -277,14 +276,17 @@ export class DiscountService {
 	) {
 		try {
 			// Verify discount exists and admin has permission
-			const existingDiscount = await prisma.discount.findUnique({
-				where: { id: discountId, deletedAt: null },
+			const existingDiscount = await prisma.discount.findFirst({
+				where: {
+					id: discountId,
+					deletedAt: null,
+					isMarketingPromo: false, // Exclude marketing promos
+				},
 				include: {
 					admin: true,
 					store: true,
 				},
 			});
-
 			if (!existingDiscount) {
 				throw new ApiError(404, 'Discount not found');
 			}
@@ -426,8 +428,12 @@ export class DiscountService {
 	static async deleteDiscount(discountId: string, adminId: string) {
 		try {
 			// Verify discount exists and admin has permission
-			const existingDiscount = await prisma.discount.findUnique({
-				where: { id: discountId, deletedAt: null },
+			const existingDiscount = await prisma.discount.findFirst({
+				where: {
+					id: discountId,
+					deletedAt: null,
+					isMarketingPromo: false, // Exclude marketing promos
+				},
 			});
 
 			if (!existingDiscount) {
@@ -466,6 +472,7 @@ export class DiscountService {
 
 			const where: Prisma.DiscountWhereInput = {
 				deletedAt: null,
+				isMarketingPromo: false, // Exclude marketing promos from discount list
 			};
 
 			// Handle storeId filtering to include global discounts
@@ -545,8 +552,12 @@ export class DiscountService {
 
 	static async getDiscountById(discountId: string) {
 		try {
-			const discount = await prisma.discount.findUnique({
-				where: { id: discountId, deletedAt: null },
+			const discount = await prisma.discount.findFirst({
+				where: {
+					id: discountId,
+					deletedAt: null,
+					isMarketingPromo: false, // Exclude marketing promos
+				},
 				include: {
 					store: {
 						select: { id: true, name: true, city: true, province: true },
@@ -594,8 +605,12 @@ export class DiscountService {
 
 	static async applyDiscount(data: ApplyDiscountDto) {
 		try {
-			const discount = await prisma.discount.findUnique({
-				where: { id: data.discountId, deletedAt: null },
+			const discount = await prisma.discount.findFirst({
+				where: {
+					id: data.discountId,
+					deletedAt: null,
+					isMarketingPromo: false, // Marketing promos cannot be applied as discounts
+				},
 				include: {
 					usageHistory: {
 						where: {
@@ -804,6 +819,7 @@ export class DiscountService {
 					storeId,
 					isActive: true,
 					deletedAt: null,
+					isMarketingPromo: false, // Exclude marketing promos from available discounts
 					startDate: { lte: now },
 					endDate: { gte: now },
 					OR: [
