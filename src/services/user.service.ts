@@ -3,9 +3,14 @@ import { mailing } from "../functions/mailing";
 import { Users } from "../generated/prisma";
 import { comparePassword, hashPassword } from "../lib/bcrypt";
 import { generateToken } from "../lib/jwt";
-import { getTemplateUser, transporter } from "../lib/nodemailer";
+import { getTemplateUser } from "../lib/nodemailer";
 import { ApiError } from "../utils/ApiError";
 import CloudinaryService from "../utils/cloudinary";
+
+import { Resend } from "resend"; //!new
+
+const resend = new Resend(process.env.RESEND_API_KEY); //!new
+const FROM_EMAIL = "FreshNear <no-reply@freshnear.store>"; //!new
 
 export const registerUserService = async (body: Pick<Users, "name" | "email" | "password" | "phoneNumber">) => {
     const { name, email, password, phoneNumber } = body;
@@ -97,8 +102,8 @@ export const forgotPasswordUserService = async (body: Pick<Users, "email">) => {
         const resetPasswordToken = generateToken(payload, process.env.JWT_SECRET!, { expiresIn: "30min" });
 
         const templateHtml = getTemplateUser(existingUser.name, resetPasswordToken);
-        await transporter.sendMail({
-            sender: "FreshNear",
+        await resend.emails.send({
+            from: FROM_EMAIL,
             to: existingUser.email,
             subject: "Please reset your password",
             html: templateHtml
