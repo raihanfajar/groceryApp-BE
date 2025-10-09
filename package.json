@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"dev": "nodemon",
-		"build": "prisma generate && tsc",
+		"build": "prisma generate && tsc && copyfiles -u 1 \"src/templates/**/*\" dist/src/",
 		"start": "NODE_ENV=production node dist/api/index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"prepare": "husky install",
@@ -47,6 +47,7 @@
 		"passport-google-oauth20": "^2.0.0",
 		"pg": "^8.16.3",
 		"reflect-metadata": "^0.2.2",
+		"resend": "^6.1.2",
 		"typescript": "^5.8.3",
 		"uuid": "^11.1.0"
 	},

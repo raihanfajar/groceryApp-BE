@@ -12,8 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
-// Add explicit health check endpoint (before mainRouter)
-app.get("/", (req, res) => {
+// Health check endpoints for Railway (must be before other routes)
+app.get(["/", "/health", "/healthz"], (req, res) => {
 	res.json({
 		status: "healthy",
 		message: "🛒 FreshNear API is running!",
@@ -39,13 +39,6 @@ try {
 // API routes
 app.use(mainRouter);
 app.use(errorHandler);
-app.get("/", (req, res) => {
-	res.json({
-		status: "healthy",
-		message: "🛒 FreshNear API is running!",
-		timestamp: new Date().toISOString(),
-	});
-});
 
 const PORT = process.env.PORT || 8000;
 

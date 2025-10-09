@@ -22,13 +22,23 @@ app.get('/', (req, res) => {
     });
 });
 
+// Health check endpoint for Railway /health as mentioned in docs
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'healthy',
+        message: '🛒 FreshNear API is running!',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
+});
+
 // API routes
 app.use(mainRouter);
 app.use(errorHandler);
 
 // Initialize cache
 void rajaCache.init().then(() => {
-	console.log("✓ Cache initialized");
+    console.log("✓ Cache initialized");
 });
 
 // Always start cron jobs regardless of environment
