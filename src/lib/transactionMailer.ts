@@ -1,29 +1,26 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import fs from "fs";
+import path from "path";
 import Handlebars from "handlebars";
 import { Transaction, Users } from "../generated/prisma";
 
-export const transporter = nodemailer.createTransport({
-	service: "gmail",
-	auth: {
-		user: process.env.GOOGLE_APP_USER,
-		pass: process.env.GOOGLE_APP_PASSWORD,
-	},
-	tls: {
-		rejectUnauthorized: false,
-	},
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const FROM_EMAIL = "FreshNear <no-reply@freshnear.store>";
 
 const getOrderConfirmationTemplate = (
 	user: Users,
 	transaction: Transaction
-) => {
-	const templateHtml = fs.readFileSync(
-		"src/templates/orderConfirmation.html",
-		"utf-8"
+): string => {
+	const templatePath = path.join(
+		__dirname,
+		"..",
+		"templates",
+		"orderConfirmation.html"
 	);
+	const templateHtml = fs.readFileSync(templatePath, "utf-8");
 	const compiledTemplate = Handlebars.compile(templateHtml);
-	const resultHtml = compiledTemplate({
+	return compiledTemplate({
 		name: user.name,
 		orderId: transaction.id,
 		totalPrice: transaction.totalPrice.toLocaleString("id-ID"),
@@ -31,74 +28,93 @@ const getOrderConfirmationTemplate = (
 			dateStyle: "full",
 			timeStyle: "short",
 		}),
-		linkUrl: `${process.env.FRONTEND_TRANSACTION_URL}/${transaction.id}`,
 	});
-	return resultHtml;
+};
+
+const getPaymentConfirmedTemplate = (
+	user: Users,
+	transaction: Transaction
+): string => {
+	const templatePath = path.join(
+		__dirname,
+		"..",
+		"templates",
+		"paymentConfirmed.html"
+	);
+	const templateHtml = fs.readFileSync(templatePath, "utf-8");
+	const compiledTemplate = Handlebars.compile(templateHtml);
+	return compiledTemplate({
+		name: user.name,
+		orderId: transaction.id,
+	});
+};
+
+const getOrderShippedTemplate = (
+	user: Users,
+	transaction: Transaction
+): string => {
+	const templatePath = path.join(
+		__dirname,
+		"..",
+		"templates",
+		"orderShipped.html"
+	);
+	const templateHtml = fs.readFileSync(templatePath, "utf-8");
+	const compiledTemplate = Handlebars.compile(templateHtml);
+	return compiledTemplate({
+		name: user.name,
+		orderId: transaction.id,
+	});
 };
 
 export const sendOrderConfirmationEmail = async (
 	user: Users,
 	transaction: Transaction
-) => {
+): Promise<void> => {
 	const emailHtml = getOrderConfirmationTemplate(user, transaction);
-	await transporter.sendMail({
-		from: "FreshNear <no-reply@freshnear.com>",
-		to: user.email,
-		subject: `Order #${transaction.id} Confirmed`,
-		html: emailHtml,
-	});
-};
-
-const getPaymentConfirmedTemplate = (user: Users, transaction: Transaction) => {
-	const templateHtml = fs.readFileSync(
-		"src/templates/paymentConfirmed.html",
-		"utf-8"
-	);
-	const compiledTemplate = Handlebars.compile(templateHtml);
-	const resultHtml = compiledTemplate({
-		name: user.name,
-		orderId: transaction.id,
-		linkUrl: `${process.env.FRONTEND_TRANSACTION_URL}/${transaction.id}`,
-	});
-	return resultHtml;
+	try {
+		await resend.emails.send({
+			from: FROM_EMAIL,
+			to: user.email,
+			subject: `Order #${transaction.id} Confirmed`,
+			html: emailHtml,
+		});
+	} catch (error) {
+		console.error("Gagal mengirim email konfirmasi pesanan:", error);
+	}
 };
 
 export const sendPaymentConfirmedEmail = async (
 	user: Users,
 	transaction: Transaction
-) => {
+): Promise<void> => {
 	const emailHtml = getPaymentConfirmedTemplate(user, transaction);
-	await transporter.sendMail({
-		from: "FreshNear <no-reply@freshnear.com>",
-		to: user.email,
-		subject: `Payment for order #${transaction.id} Successfull`,
-		html: emailHtml,
-	});
-};
-
-const getOrderShippedTemplate = (user: Users, transaction: Transaction) => {
-	const templateHtml = fs.readFileSync(
-		"src/templates/orderShipped.html",
-		"utf-8"
-	);
-	const compiledTemplate = Handlebars.compile(templateHtml);
-	const resultHtml = compiledTemplate({
-		name: user.name,
-		orderId: transaction.id,
-		linkUrl: `${process.env.FRONTEND_TRANSACTION_URL}/${transaction.id}`,
-	});
-	return resultHtml;
+	try {
+		await resend.emails.send({
+			from: FROM_EMAIL,
+			to: user.email,
+			subject: `Payment for order #${transaction.id} Successful`,
+			html: emailHtml,
+		});
+	} catch (error) {
+		console.error("Gagal mengirim email konfirmasi pembayaran:", error);
+	}
 };
 
 export const sendOrderShippedEmail = async (
 	user: Users,
 	transaction: Transaction
-) => {
+): Promise<void> => {
 	const emailHtml = getOrderShippedTemplate(user, transaction);
-	await transporter.sendMail({
-		from: "FreshNear <no-reply@freshnear.com>",
-		to: user.email,
-		subject: `Order #${transaction.id} Has been shipped`,
-		html: emailHtml,
-	});
+	try {
+		await resend.emails.send({
+			from: FROM_EMAIL,
+			to: user.email,
+			subject: `Order #${transaction.id} Has Been Shipped`,
+			html: emailHtml,
+		});
+	} catch (error) {
+		console.error("Gagal mengirim email pesanan dikirim:", error);
+	}
 };
+
