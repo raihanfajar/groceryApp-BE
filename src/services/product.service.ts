@@ -37,6 +37,7 @@ export interface ProductFilters {
 	minPrice?: number;
 	maxPrice?: number;
 	isActive?: boolean;
+	sortBy?: 'stock-asc' | 'stock-desc' | 'createdAt-desc';
 }
 
 export interface ProductWithStock extends Product {
@@ -98,9 +99,8 @@ export class ProductService {
 			minPrice,
 			maxPrice,
 			isActive = true,
+			sortBy,
 		} = filters;
-
-		const skip = (page - 1) * limit;
 
 		// Resolve category slug to categoryId if provided
 		let resolvedCategoryId = categoryId;
@@ -140,82 +140,167 @@ export class ProductService {
 		// Get total count
 		const total = await prisma.product.count({ where: whereClause });
 
-		// Get products with related data
-		const products = await prisma.product.findMany({
-			where: whereClause,
-			include: {
-				category: {
-					select: {
-						id: true,
-						name: true,
-					},
-				},
-				storeStock: {
-					where: {
-						deletedAt: null,
-					},
-					include: {
-						store: {
-							select: {
-								id: true,
-								name: true,
-							},
+		// Determine if we need stock-based sorting
+		const needsStockSort = sortBy === 'stock-asc' || sortBy === 'stock-desc';
+
+		// If stock sorting is needed, fetch all matching products, sort, then paginate
+		// Otherwise, use database pagination
+		let products: any[];
+		let skip = (page - 1) * limit;
+
+		if (needsStockSort) {
+			// Fetch all products for stock-based sorting
+			products = await prisma.product.findMany({
+				where: whereClause,
+				include: {
+					category: {
+						select: {
+							id: true,
+							name: true,
 						},
 					},
-				},
-				discountProducts: {
-					where: {
-						discount: {
-							isActive: true,
+					storeStock: {
+						where: {
 							deletedAt: null,
-							startDate: {
-								lte: new Date(),
-							},
-							endDate: {
-								gte: new Date(),
+							...(storeId && { storeId }),
+						},
+						include: {
+							store: {
+								select: {
+									id: true,
+									name: true,
+								},
 							},
 						},
 					},
-					include: {
-						discount: {
-							select: {
-								id: true,
-								name: true,
-								type: true,
-								valueType: true,
-								value: true,
-								maxDiscountAmount: true,
+					discountProducts: {
+						where: {
+							discount: {
+								isActive: true,
+								deletedAt: null,
+								startDate: {
+									lte: new Date(),
+								},
+								endDate: {
+									gte: new Date(),
+								},
 							},
 						},
+						include: {
+							discount: {
+								select: {
+									id: true,
+									name: true,
+									type: true,
+									valueType: true,
+									value: true,
+									maxDiscountAmount: true,
+								},
+							},
+						},
+						take: 1,
 					},
-					take: 1, // Only get the first active discount
 				},
-			},
-			orderBy: {
-				createdAt: 'desc',
-			},
-			skip,
-			take: limit,
-		});
+			});
+		} else {
+			// Use database pagination for non-stock sorting
+			products = await prisma.product.findMany({
+				where: whereClause,
+				include: {
+					category: {
+						select: {
+							id: true,
+							name: true,
+						},
+					},
+					storeStock: {
+						where: {
+							deletedAt: null,
+						},
+						include: {
+							store: {
+								select: {
+									id: true,
+									name: true,
+								},
+							},
+						},
+					},
+					discountProducts: {
+						where: {
+							discount: {
+								isActive: true,
+								deletedAt: null,
+								startDate: {
+									lte: new Date(),
+								},
+								endDate: {
+									gte: new Date(),
+								},
+							},
+						},
+						include: {
+							discount: {
+								select: {
+									id: true,
+									name: true,
+									type: true,
+									valueType: true,
+									value: true,
+									maxDiscountAmount: true,
+								},
+							},
+						},
+						take: 1,
+					},
+				},
+				orderBy: {
+					createdAt: 'desc',
+				},
+				skip,
+				take: limit,
+			});
+		}
 
 		// Calculate total stock and extract discount for each product
 		const productsWithStock: ProductWithStock[] = products.map((product) => {
 			const activeDiscount = product.discountProducts?.[0]?.discount;
 			const { discountProducts, ...productWithoutJunction } = product;
 
-			return {
-				...productWithoutJunction,
-				totalStock:
-					product.storeStock?.reduce(
+			// Calculate stock based on storeId filter
+			const totalStock = storeId
+				? product.storeStock?.find((s: any) => s.storeId === storeId)?.stock ||
+					0
+				: product.storeStock?.reduce(
 						(total: number, stock: any) => total + stock.stock,
 						0
-					) || 0,
+					) || 0;
+
+			return {
+				...productWithoutJunction,
+				totalStock,
 				discount: activeDiscount || null,
 			};
 		});
 
+		// Apply stock-based sorting if needed
+		let sortedProducts = productsWithStock;
+		if (needsStockSort) {
+			sortedProducts = [...productsWithStock].sort((a, b) => {
+				if (sortBy === 'stock-asc') {
+					return a.totalStock - b.totalStock;
+				} else if (sortBy === 'stock-desc') {
+					return b.totalStock - a.totalStock;
+				}
+				return 0;
+			});
+
+			// Apply pagination after sorting
+			sortedProducts = sortedProducts.slice(skip, skip + limit);
+		}
+
 		return {
-			products: productsWithStock,
+			products: sortedProducts,
 			pagination: {
 				page,
 				limit,

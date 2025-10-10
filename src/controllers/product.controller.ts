@@ -122,6 +122,7 @@ export class ProductController {
 				minPrice,
 				maxPrice,
 				isActive,
+				sortBy,
 				page = 1,
 				limit = 20,
 			} = req.query;
@@ -132,6 +133,7 @@ export class ProductController {
 				minPrice: minPrice ? parseInt(minPrice as string) : undefined,
 				maxPrice: maxPrice ? parseInt(maxPrice as string) : undefined,
 				isActive: isActive !== undefined ? isActive === 'true' : undefined,
+				sortBy: sortBy as 'stock-asc' | 'stock-desc' | undefined,
 			};
 
 			// Store admins can only see products from their store
