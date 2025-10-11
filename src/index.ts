@@ -8,7 +8,11 @@ import { rajaCache } from "./utils/rajaCache";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", "https://freshnear.store"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: "*"
+}));
 app.use(express.json());
 app.use(passport.initialize());
 
