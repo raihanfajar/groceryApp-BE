@@ -9,9 +9,10 @@ import { expiryTransactionSchedule } from "../src/jobs/cronJobs";
 const app = express();
 
 app.use(cors({
-	origin: ["https://freshnear.store"],
+	origin: ["https://www.freshnear.store", "https://freshnear.store", "http://localhost:3000"],
 	methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-	allowedHeaders: "*"
+	credentials: true,
+	allowedHeaders: ["Content-Type", "Authorization", "x-access-token", "*"]
 }));
 app.use(express.json());
 app.use(passport.initialize());
