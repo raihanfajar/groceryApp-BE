@@ -1,5 +1,5 @@
 import express from "express";
-import { changePasswordUserController, forgotPasswordUserController, googleAuthCallbackUserController, googleAuthUserController, loginUserController, registerUserController, resendVerificationController, resetPasswordUserController, sessionLoginUserController, updateUserProfileInfoController, uploadAvatarController, verifyUserEmailController } from "../controllers/user.controller";
+import { changePasswordUserController, forgotPasswordUserController, getCartInfoController, googleAuthCallbackUserController, googleAuthUserController, loginUserController, registerUserController, resendVerificationController, resetPasswordUserController, sessionLoginUserController, updateUserProfileInfoController, uploadAvatarController, verifyUserEmailController } from "../controllers/user.controller";
 import { mainVerifyToken } from "../middlewares/jwt.middleware";
 import { checkLoginUserRequest, checkRegisterUserRequest } from "../middlewares/user.middleware";
 import passport from "../config/passport";
@@ -17,6 +17,7 @@ userRouter.patch("/change-password", mainVerifyToken, changePasswordUserControll
 userRouter.get("/session-login", mainVerifyToken, sessionLoginUserController);
 userRouter.patch("/update-user-profile-info", mainVerifyToken, updateUserProfileInfoController);
 userRouter.patch("/avatar", mainVerifyToken, uploadAvatar, uploadAvatarController); //! UPLOAD AVATAR ROUTE
+userRouter.get("/get-cart-info", mainVerifyToken, getCartInfoController); //! GET CART INFO ROUTE
 
 userRouter.get(
     "/google-auth",

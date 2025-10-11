@@ -230,6 +230,17 @@ export const uploadAvatarService = async (
     return url;
 };
 
+export const getCartInfoService = async (userId: string) => {
+    const userCartInfo = await prisma.cart.findFirst({
+        where: { userId },
+        include: {
+            items: true,
+        },
+    });
+
+    return userCartInfo;
+}
+
 export const googleAuthUserService = () => {
     // !still consulting with the genius ChatGPT
 }

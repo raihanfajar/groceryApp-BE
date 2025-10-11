@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MainAuthenticatedRequest } from "../middlewares/jwt.middleware";
-import { changePasswordUserService, forgotPasswordUserService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, uploadAvatarService, verifyUserEmailService } from "../services/user.service";
+import { changePasswordUserService, forgotPasswordUserService, getCartInfoService, googleAuthCallbackUserService, loginUserService, registerUserService, resendVerificationService, resetPasswordUserService, sessionLoginUserService, updateUserProfileInfoService, uploadAvatarService, verifyUserEmailService } from "../services/user.service";
 import { catchAsync } from "../utils/catchAsync";
 
 export const registerUserController = catchAsync(async (req: Request, res: Response) => {
@@ -56,6 +56,12 @@ export const uploadAvatarController = catchAsync(async (req: MainAuthenticatedRe
     const newUrl = await uploadAvatarService(req.payload!.userId, req.file!);
     res.status(200).json({ status: "success", message: "Avatar uploaded successfully", data: newUrl });
 })
+
+// !GET CART INFO HERE BRO
+export const getCartInfoController = catchAsync(async (req: MainAuthenticatedRequest, res: Response) => {
+    const result = await getCartInfoService(req.payload!.userId);
+    res.status(200).json({ status: "success", message: "User cart info fetched successfullt", data: result });
+});
 
 export const googleAuthUserController = catchAsync(async (_req, _res) => {
     // i suppose this is no need yea? because masuk kesini aja nggak
